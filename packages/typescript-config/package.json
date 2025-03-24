@@ -1,0 +1,25 @@
+{
+  "name": "@codefast/typescript-config",
+  "version": "0.2.34",
+  "bugs": {
+    "url": "https://github.com/codefastlabs/codefast/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codefastlabs/codefast.git",
+    "directory": "packages/typescript-config"
+  },
+  "license": "MIT",
+  "author": "Vuong Phan <mr.thevuong@gmail.com>",
+  "sideEffects": false,
+  "files": [
+    "base.json",
+    "library.json",
+    "nextjs.json",
+    "react.json",
+    "CHANGELOG.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

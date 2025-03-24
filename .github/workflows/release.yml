@@ -1,0 +1,39 @@
+name: Release Packages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.changeset/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  SKIP_INSTALL_SIMPLE_GIT_HOOKS: true
+
+jobs:
+  release:
+    name: Release Packages to NPM Registry
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Build Environment
+        uses: ./.github/setup
+
+      - name: Version or Publish Changed Packages
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: pnpm run changeset:version
+          publish: pnpm run changeset:publish
+          title: 'chore(release): version packages'
+          commit: 'chore(release): version packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

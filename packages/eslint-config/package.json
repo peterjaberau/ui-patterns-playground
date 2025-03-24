@@ -1,0 +1,94 @@
+{
+  "name": "@codefast/eslint-config",
+  "version": "0.2.34",
+  "bugs": {
+    "url": "https://github.com/codefastlabs/codefast/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codefastlabs/codefast.git",
+    "directory": "packages/eslint-config"
+  },
+  "license": "MIT",
+  "author": "Vuong Phan <mr.thevuong@gmail.com>",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./library": {
+      "import": {
+        "types": "./dist/library.d.ts",
+        "default": "./dist/library.js"
+      },
+      "require": {
+        "types": "./dist/library.d.cts",
+        "default": "./dist/library.cjs"
+      }
+    },
+    "./next": {
+      "import": {
+        "types": "./dist/next.d.ts",
+        "default": "./dist/next.js"
+      },
+      "require": {
+        "types": "./dist/next.d.cts",
+        "default": "./dist/next.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "source": "./src/index.ts",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf node_modules dist",
+    "lint": "TIMING=1 eslint --max-warnings 0",
+    "lint:inspect": "npx @eslint/config-inspector@latest"
+  },
+  "dependencies": {
+    "@codefast/style-guide": "workspace:*",
+    "globals": "^16.0.0"
+  },
+  "devDependencies": {
+    "@codefast/typescript-config": "workspace:*",
+    "@types/node": "^22.13.11",
+    "eslint": "^9.23.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2"
+  },
+  "peerDependencies": {
+    "eslint": ">=9"
+  },
+  "peerDependenciesMeta": {
+    "eslint": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
