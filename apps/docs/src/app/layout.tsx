@@ -11,6 +11,8 @@ import { fontVariables } from '@/lib/fonts';
 import { META_THEME_COLORS, siteConfig } from '@/lib/site';
 import '@/app/globals.css';
 
+import { EuiThemeProviderCustom } from '@/components/eui/theme-provider';
+
 export const metadata: Metadata = {
   description: siteConfig.description,
   icons: {
@@ -68,10 +70,12 @@ export default async function RootLayout({
       lang="en"
     >
       <body>
+        {/* <EuiThemeProviderCustom> */}
         <ThemeProvider disableTransitionOnChange enableColorScheme enableSystem attribute="class" defaultTheme="system">
           <ActiveThemeProvider initialTheme={activeThemeValue}>{children}</ActiveThemeProvider>
           <Toaster />
         </ThemeProvider>
+        {/* </EuiThemeProviderCustom> */}
         <Script
           dangerouslySetInnerHTML={{
             __html: `try{"dark"!==localStorage.theme&&("theme"in localStorage&&"system"!==localStorage.theme||!window.matchMedia("(prefers-color-scheme: dark)").matches)||document.querySelector('meta[name="theme-color"]').setAttribute("content","${META_THEME_COLORS.dark}")}catch(e){}`,
