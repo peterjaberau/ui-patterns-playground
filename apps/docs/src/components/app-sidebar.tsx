@@ -26,14 +26,6 @@ const data: {
 } = {
   navMain: [
     {
-      title: 'Eui',
-      path: '/eui',
-      groups: registryBlockGroups.map((group) => ({
-        ...group,
-        components: group.components?.sort((a, b) => a.title.localeCompare(b.title)),
-      })),
-    },
-    {
       title: 'Components',
       path: '/components',
       groups: registryComponentGroups.map((group) => ({

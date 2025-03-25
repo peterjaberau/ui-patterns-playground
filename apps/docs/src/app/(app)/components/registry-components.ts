@@ -3,6 +3,18 @@ import dynamic from 'next/dynamic';
 import type { Registry, RegistryGroup } from '@/types/registry';
 
 export const registryComponents: Record<string, Registry> = {
+  'eui-button': {
+    component: dynamic(() => import('@/components/demos/eui/eui-button-demo').then((mod) => mod.EuiButtonDemo)),
+    description: 'button description',
+    slug: 'eui-button',
+    title: 'EuiButton',
+  },
+  'eui-panel': {
+    component: dynamic(() => import('@/components/demos/eui/eui-panel-demo').then((mod) => mod.EuiPanelDemo)),
+    description: 'panel description',
+    slug: 'eui-panel',
+    title: 'EuiPanel',
+  },
   accordion: {
     component: dynamic(() => import('@/components/demos/accordion-demo').then((mod) => mod.AccordionDemo)),
     description: 'Accordion',
@@ -351,6 +363,11 @@ export const registryComponentGroups: RegistryGroup[] = [
   {
     name: 'All Components',
     slug: '',
+  },
+  {
+    description: 'Eui Components',
+    name: 'Eui',
+    components: [registryComponents['eui-button'], registryComponents['eui-panel']],
   },
   {
     components: [
