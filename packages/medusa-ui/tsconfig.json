@@ -1,0 +1,19 @@
+{
+  "extends": "@codefast/typescript-config/react.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "paths": {
+      "@/*": ["./src/*", "./plugins/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/providers/*": ["./src/providers/*"],
+      "@/hooks/*": ["./src/hooks/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/types": ["./src/types"],
+      "@/blocks/*": ["./src/blocks/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+
+  "exclude": ["storybook-static", "node_modules", "dist"]
+}
