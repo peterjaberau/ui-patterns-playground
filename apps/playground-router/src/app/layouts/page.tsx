@@ -1,10 +1,11 @@
 import { ExternalLink } from '@/ui/external-link';
+import React from 'react';
+import { GlobalPage } from '@/ui/global-page';
+import { GlobalPageSection } from '@/ui/global-page-section';
 
 export default function Page() {
   return (
     <div className="prose prose-sm prose-invert max-w-none">
-      <h1 className="text-xl font-bold">Layouts</h1>
-
       <ul>
         <li>
           A layout is UI that is shared between multiple pages. On navigation, layouts preserve state, remain

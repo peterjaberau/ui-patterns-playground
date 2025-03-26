@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rm -rf .next && next build",
     "clean": "rm -rf node_modules .next",
-    "dev": "rm -rf .next && next dev --turbopack",
+    "dev": "rm -rf .next && next dev -p 4050 --turbopack",
     "lint": "TIMING=1 next lint",
     "lint:inspect": "npx @eslint/config-inspector@latest",
     "start": "next start"
