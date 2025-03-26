@@ -1,5 +1,6 @@
 import { getCategories, getCategory } from '@/app/api/categories/getCategories';
 import { ClickCounter } from '@/ui/click-counter';
+import { GlobalLayoutSection } from '@/ui/global-layout-section';
 import { TabGroup } from '@/ui/tab-group';
 
 export default async function Layout(props: { children: React.ReactNode; params: Promise<{ categorySlug: string }> }) {
@@ -11,26 +12,21 @@ export default async function Layout(props: { children: React.ReactNode; params:
   const categories = await getCategories({ parent: params.categorySlug });
 
   return (
-    <div className="space-y-9">
-      <div className="flex justify-between">
-        <TabGroup
-          path={`/route-groups/${category.slug}`}
-          items={[
-            {
-              text: 'All',
-            },
-            ...categories.map((x) => ({
-              text: x.name,
-              slug: x.slug,
-            })),
-          ]}
-        />
-
-        <div className="self-start">
-          <ClickCounter />
-        </div>
-      </div>
-      <div>{children}</div>
-    </div>
+    <GlobalLayoutSection>
+      <TabGroup
+        path={`/route-groups/${category.slug}`}
+        items={[
+          {
+            text: 'All',
+          },
+          ...categories.map((x) => ({
+            text: x.name,
+            slug: x.slug,
+          })),
+        ]}
+        action={<ClickCounter />}
+      />
+      {children}
+    </GlobalLayoutSection>
   );
 }

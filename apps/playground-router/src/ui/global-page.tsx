@@ -4,6 +4,7 @@ import { GlobalPageHeader, GlobalPageHeaderProps } from '@/ui/global-page-header
 
 interface GlobalPageProps {
   [key: string]: any;
+
   children?: React.ReactNode;
   header?: GlobalPageHeaderProps;
 }
@@ -13,7 +14,7 @@ export const GlobalPage = (props: GlobalPageProps) => {
   const { pageTitle, ...headerRest }: any = header || {};
   return (
     <>
-      {header && <GlobalPageHeader pageTitle={header?.pageTitle || 'Untitled page'} {...headerRest} />}
+      {header && <GlobalPageHeader paddingSize="xs" pageTitle={header?.pageTitle || 'Untitled page'} {...headerRest} />}
       {children}
     </>
   );

@@ -26,13 +26,13 @@ interface GlobalPageSectionProps {
   [key: string]: any;
 }
 
-export const GlobalPageSection = (props: GlobalPageSectionProps) => {
+export const GlobalLayoutSection = (props: GlobalPageSectionProps) => {
   const { children, title, footer, paddingSize, restrictWidth, ...restProps }: any = props;
 
   return (
     <>
       <EuiPageTemplate.Section paddingSize="s" restrictWidth={restrictWidth}>
-        <EuiSplitPanel.Outer hasShadow={true} hasBorder={false} color="plain" {...restProps}>
+        <EuiSplitPanel.Outer color="subdued" hasShadow={false} hasBorder={true} {...restProps}>
           {title && (
             <EuiSplitPanel.Inner grow={false}>
               <EuiText>{title}</EuiText>

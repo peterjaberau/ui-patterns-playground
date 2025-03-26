@@ -1,5 +1,5 @@
 'use client';
-import { EuiTab } from '@elastic/eui';
+import { EuiTab, EuiFlexItem } from '@elastic/eui';
 
 import type { Item } from '@/ui/tab-group';
 import clsx from 'clsx';
@@ -13,8 +13,10 @@ export const Tab = ({ path, item }: { path: string; item: Item }) => {
   const isActive = pathname === href;
 
   return (
-    <Link href={href}>
-      <EuiTab>{item.text}</EuiTab>
-    </Link>
+    <EuiFlexItem grow={false}>
+      <Link href={href}>
+        <EuiTab isSelected={isActive}>{item.text}</EuiTab>
+      </Link>
+    </EuiFlexItem>
   );
 };

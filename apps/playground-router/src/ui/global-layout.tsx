@@ -20,7 +20,7 @@ interface GlobalLayoutProps {
 }
 
 export const GlobalLayout = (props: GlobalLayoutProps) => {
-  const { children, header, ...rest }: any = props;
+  const { children, restrictWidth, header, ...rest }: any = props;
   const { pageTitle, ...headerRest }: any = header || {};
 
   return (

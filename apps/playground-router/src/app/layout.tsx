@@ -34,7 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <RootMachineProvider>
           <EuiThemeProviderCustom>
             <GlobalNavTopHeader collapsibleNav={<GlobalNav />} headerBreadcrumb={<GlobalBreadcrumbs />} />
-            <GlobalLayout restrictWidth={false}>{children}</GlobalLayout>
+            <GlobalLayout>{children}</GlobalLayout>
           </EuiThemeProviderCustom>
         </RootMachineProvider>
       </body>
