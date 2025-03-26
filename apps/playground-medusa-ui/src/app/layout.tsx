@@ -1,12 +1,11 @@
 import '../styles/globals.css';
-import { GlobalBreadcrumbs } from '@/ui/global-breadcrumbs';
-import { GlobalLayout } from '@/ui/global-layout';
+import { AddressBar } from '@/ui/address-bar';
+import Byline from '@/ui/byline';
 import { GlobalNav } from '@/ui/global-nav';
-import { GlobalNavTopHeader } from '@/ui/global-nav-topheader';
+import { BellAlertDone, Link, SidebarLeft } from '@medusajs/icons';
 import { Metadata } from 'next';
-
-import { EuiThemeProviderCustom } from '@/components/eui/theme-provider';
-import { RootMachineProvider } from '@/providers/root-machine-provider';
+import { Container, Header } from '@/ui/byline';
+import { clx, IconButton } from '@medusajs/ui';
 
 export const metadata: Metadata = {
   title: {
@@ -29,14 +28,55 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-mode="light">
+    <html lang="en" className="[data-mode:light]">
       <body>
-        <RootMachineProvider>
-          <EuiThemeProviderCustom>
-            <GlobalNavTopHeader collapsibleNav={<GlobalNav />} headerBreadcrumb={<GlobalBreadcrumbs />} />
-            <GlobalLayout>{children}</GlobalLayout>
-          </EuiThemeProviderCustom>
-        </RootMachineProvider>
+        <div className="relative flex h-screen flex-col items-start overflow-hidden lg:flex-row">
+          {/* navigation bar */}
+          <div className="fixed inset-x-0 top-0 z-50 h-1"></div>
+
+          <div>
+            {/* desktop sidebar container */}
+            <GlobalNav />
+          </div>
+          <div className="flex h-screen w-full flex-col overflow-auto">
+            {/* top bar */}
+            <div className="grid w-full grid-cols-2 border-b p-3">
+              <div className="flex items-center gap-x-1.5">
+                {/* Toggle sidebar */}
+                <div>
+                  <IconButton className="hidden lg:flex" variant="transparent" size="small">
+                    <SidebarLeft className="text-ui-fg-muted" />
+                  </IconButton>
+                  <IconButton className="hidden max-lg:flex" variant="transparent" size="small">
+                    <SidebarLeft className="text-ui-fg-muted" />
+                  </IconButton>
+                </div>
+
+                <ol className={clx('text-ui-fg-muted txt-compact-small-plus flex select-none items-center')}>
+                  <AddressBar />
+                </ol>
+              </div>
+              <div className="flex items-center justify-end gap-x-3">
+                <IconButton variant="transparent" size="small" className="text-ui-fg-muted hover:text-ui-fg-subtle">
+                  <BellAlertDone />
+                </IconButton>
+              </div>
+            </div>
+
+            <main className="flex h-full w-full flex-col items-center overflow-y-auto transition-opacity delay-200 duration-200">
+              {/*   Gutter */}
+              <div className="flex w-full max-w-[1600px] flex-col gap-y-2 p-3">
+                {/*   Outlet */}
+                <Container>{children}</Container>
+                <Byline
+                  data={{
+                    name: 'John',
+                  }}
+                />
+              </div>
+            </main>
+          </div>
+        </div>
       </body>
     </html>
   );

@@ -3,7 +3,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   experimental: {
-    optimizePackageImports: ['@codefast/ui', '@elastic/eui', '@medusajs/ui', '@medusajs/ui-preset', '@medusajs/icons'],
+    optimizePackageImports: ['@codefast/ui', '@elastic/eui', '@medusajs/ui', '@medusajs/icons'],
   },
   images: {
     remotePatterns: [
