@@ -1,5 +1,14 @@
+'use client';
 import { Boundary } from '@/ui/boundary';
 import { ExternalLink } from '@/ui/external-link';
+import {
+  useRouter,
+  usePathname,
+  useParams,
+  useSearchParams,
+  useSelectedLayoutSegment,
+  useSelectedLayoutSegments,
+} from 'next/navigation';
 
 export default function Page() {
   return (
