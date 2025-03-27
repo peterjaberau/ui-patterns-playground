@@ -1,5 +1,15 @@
+import { Badge } from '@medusajs/ui';
 import clsx from 'clsx';
 import React from 'react';
+
+const colorMap = {
+  default: 'grey',
+  pink: 'purple',
+  blue: 'blue',
+  violet: 'green',
+  cyan: 'red',
+  orange: 'orange',
+};
 
 const Label = ({
   children,
@@ -11,19 +21,14 @@ const Label = ({
   color?: 'default' | 'pink' | 'blue' | 'violet' | 'cyan' | 'orange';
 }) => {
   return (
-    <div
-      className={clsx('rounded-full px-1.5 shadow-[0_0_1px_3px_black]', {
-        'bg-gray-800 text-gray-300': color === 'default',
-        'bg-vercel-pink text-white': color === 'pink',
-        'bg-vercel-blue text-white': color === 'blue',
-        'bg-vercel-cyan text-white': color === 'cyan',
-        'bg-vercel-violet text-violet-100': color === 'violet',
-        'bg-vercel-orange text-white': color === 'orange',
-        'animate-[highlight_1s_ease-in-out_1]': animateRerendering,
-      })}
+    <Badge
+      color={colorMap[color]}
+      style={{ marginTop: '-25px' }}
+      className={clsx('mt-2', { 'animate-[highlight_1s_ease-in-out_1]': animateRerendering })}
+      size="2xsmall"
     >
       {children}
-    </div>
+    </Badge>
   );
 };
 export const Boundary = ({
@@ -50,26 +55,18 @@ export const Boundary = ({
         'border-vercel-cyan': color === 'cyan',
         'border-vercel-violet': color === 'violet',
         'border-vercel-orange': color === 'orange',
-        'animate-[rerender_1s_ease-in-out_1] text-vercel-pink':
-          animateRerendering,
+        'text-vercel-pink animate-[rerender_1s_ease-in-out_1]': animateRerendering,
       })}
     >
       <div
-        className={clsx(
-          'absolute -top-2.5 flex gap-x-1 text-[9px] uppercase leading-4 tracking-widest',
-          {
-            'left-3 lg:left-5': size === 'small',
-            'left-4 lg:left-9': size === 'default',
-          },
-        )}
+        className={clsx('absolute -top-2.5 flex gap-x-1 text-[9px] uppercase leading-4 tracking-widest', {
+          'left-3 lg:left-5': size === 'small',
+          'left-4 lg:left-9': size === 'default',
+        })}
       >
         {labels.map((label) => {
           return (
-            <Label
-              key={label}
-              color={color}
-              animateRerendering={animateRerendering}
-            >
+            <Label key={label} color={color} animateRerendering={animateRerendering}>
               {label}
             </Label>
           );

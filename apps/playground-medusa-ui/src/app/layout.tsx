@@ -65,15 +65,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
             <main className="flex h-full w-full flex-col items-center overflow-y-auto transition-opacity delay-200 duration-200">
               {/*   Gutter */}
-              <div className="flex w-full max-w-[1600px] flex-col gap-y-2 p-3">
+              <Container className="flex w-3/4 max-w-[1600px] flex-col gap-y-2 p-3">
                 {/*   Outlet */}
-                <Container>{children}</Container>
-                <Byline
-                  data={{
-                    name: 'John',
-                  }}
-                />
-              </div>
+                {children}
+              </Container>
             </main>
           </div>
         </div>
