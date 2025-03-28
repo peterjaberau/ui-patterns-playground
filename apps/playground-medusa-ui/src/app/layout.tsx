@@ -10,7 +10,6 @@ import { BellAlertDone, Link, SidebarLeft } from '@medusajs/icons';
 import { Metadata } from 'next';
 import { Container, Header } from '@/ui/byline';
 import { clx, IconButton } from '@medusajs/ui';
-import { ClientLayout } from './client-layout';
 export const metadata: Metadata = {
   title: {
     default: 'Next.js App Router',
