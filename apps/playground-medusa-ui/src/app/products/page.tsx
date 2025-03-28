@@ -1,14 +1,9 @@
-import { Heading } from '@medusajs/ui';
+import { ProductList } from '@/routes/products/product-list/product-list';
 
-export default function Page() {
+export default async function Page() {
   return (
-    <div className="prose prose-sm prose-invert max-w-none p-3">
-      <Heading className="text-xl font-bold">Products Page</Heading>
-
-      <ul>
-        <li>column1</li>
-        <li>column2</li>
-      </ul>
-    </div>
+    <>
+      <ProductList />
+    </>
   );
 }

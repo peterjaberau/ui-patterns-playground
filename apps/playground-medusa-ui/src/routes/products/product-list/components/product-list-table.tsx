@@ -119,13 +119,13 @@ export const ProductListTable = () => {
         <Heading level="h2">Products</Heading>
         <div className="flex items-center justify-center gap-x-2">
           <Button size="small" variant="secondary" asChild>
-            <Link href="#">Export</Link>
+            <Link href="/products/id-1">Export</Link>
           </Button>
           <Button size="small" variant="secondary" asChild>
-            <Link href="#">Import</Link>
+            <Link href="/products/id-2">Import</Link>
           </Button>
           <Button size="small" variant="secondary" asChild>
-            <Link href="#">Create</Link>
+            <Link href="/products/id-3">Create</Link>
           </Button>
         </div>
       </div>
