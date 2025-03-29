@@ -1,11 +1,16 @@
 'use client';
+import { ItemContent } from '@/app/gridstack/components/common/ItemContent';
+import { Header } from '@/components/common/header';
+import { Button, Container } from '@medusajs/ui';
+import { GridStackExampleContainerProps } from '../../components/common/types';
 import { GridStackOptions } from 'gridstack';
 import { useState } from 'react';
 import { defaultGridOptions } from '../../default-grid-options';
 import { GridStackItem, GridStackProvider, GridStackRender, useGridStackContext } from '@/ui/gridstack';
 import { newId } from '../../utils';
 
-export function Simple() {
+export function Simple(props: GridStackExampleContainerProps) {
+  const { title, subtitle, id, ...rest } = props;
   const [uncontrolledInitialOptions] = useState<GridStackOptions>(() => ({
     ...defaultGridOptions,
     children: [
@@ -16,17 +21,19 @@ export function Simple() {
 
   return (
     <GridStackProvider initialOptions={uncontrolledInitialOptions}>
-      <Toolbar />
-
-      <GridStackRender>
-        <GridStackItem id="001-item1">
-          <div style={{ color: 'yellow' }}>hello</div>
-        </GridStackItem>
-
-        <GridStackItem id="001-item2">
-          <div style={{ color: 'blue' }}>grid</div>
-        </GridStackItem>
-      </GridStackRender>
+      <Container className="p-0" {...rest}>
+        <Header id={id} title={title} subtitle={subtitle}>
+          <Toolbar />
+        </Header>
+        <GridStackRender>
+          <GridStackItem id="001-item1">
+            <ItemContent>grid</ItemContent>
+          </GridStackItem>
+          <GridStackItem id="001-item2">
+            <ItemContent>grid</ItemContent>
+          </GridStackItem>
+        </GridStackRender>
+      </Container>
     </GridStackProvider>
   );
 }
@@ -40,23 +47,14 @@ export function Toolbar() {
   }
 
   return (
-    <div
-      style={{
-        border: '1px solid gray',
-        padding: '10px',
-        marginBottom: '10px',
-        display: 'flex',
-        flexDirection: 'row',
-        gap: '10px',
+    <Button
+      size="small"
+      variant="secondary"
+      onClick={() => {
+        handleAddText(2, 2);
       }}
     >
-      <button
-        onClick={() => {
-          handleAddText(2, 2);
-        }}
-      >
-        Add Text (2x2)
-      </button>
-    </div>
+      Add Text (2x2)
+    </Button>
   );
 }

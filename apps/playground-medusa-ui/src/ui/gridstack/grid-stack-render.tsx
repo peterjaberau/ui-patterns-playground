@@ -1,4 +1,5 @@
 'use client';
+import { Container } from '@medusajs/ui';
 import { ComponentProps, PropsWithChildren, useCallback, useLayoutEffect, useRef } from 'react';
 import { useGridStackContext } from './grid-stack-context';
 import { GridStack, GridStackOptions } from 'gridstack';

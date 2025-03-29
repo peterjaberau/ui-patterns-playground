@@ -1,11 +1,17 @@
 'use client';
+import { GridStackItem } from '@/ui/gridstack';
 import { GridStackOptions } from 'gridstack';
 import { useState } from 'react';
 import { defaultGridOptions } from '../../default-grid-options';
-import { GridStackItem } from '@/ui/gridstack';
 import { GridStackContainer } from '@/ui/gridstack/grid-stack-container';
+import { ItemContent } from '@/app/gridstack/components/common/ItemContent';
+import { Header } from '@/components/common/header';
+import { Container } from '@medusajs/ui';
+import { GridStackExampleContainerProps } from '../../components/common/types';
 
-export function Simple0() {
+export function Simple0(props: GridStackExampleContainerProps) {
+  const { title, subtitle, id, ...rest } = props;
+
   const [uncontrolledInitialOptions] = useState<GridStackOptions>(() => ({
     ...defaultGridOptions,
     children: [
@@ -15,14 +21,16 @@ export function Simple0() {
   }));
 
   return (
-    <GridStackContainer initialOptions={uncontrolledInitialOptions}>
-      <GridStackItem id="000-item1">
-        <div style={{ color: 'yellow' }}>hello</div>
-      </GridStackItem>
-
-      <GridStackItem id="000-item2">
-        <div style={{ color: 'blue' }}>grid</div>
-      </GridStackItem>
-    </GridStackContainer>
+    <Container className="p-0" {...rest}>
+      <Header id={id} title={title} subtitle={subtitle} />
+      <GridStackContainer initialOptions={uncontrolledInitialOptions}>
+        <GridStackItem id="000-item1">
+          <ItemContent>grid</ItemContent>
+        </GridStackItem>
+        <GridStackItem id="000-item2">
+          <ItemContent>grid</ItemContent>
+        </GridStackItem>
+      </GridStackContainer>
+    </Container>
   );
 }

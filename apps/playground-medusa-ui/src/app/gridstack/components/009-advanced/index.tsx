@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-
 import {
   GridStackDragInItem,
   GridStackItem,
@@ -15,6 +14,9 @@ import { ComplexCardEditableWrapper } from './components/complex-card';
 import { ComponentInfoMapProvider, useComponentInfoMap } from './components/component-info-map';
 import { newId } from '../../utils';
 import { Counter } from './components/counter';
+import { ItemContent } from '@/app/gridstack/components/common/ItemContent';
+import { Header } from '@/components/common/header';
+import { Button, Container } from '@medusajs/ui';
 
 export function Advanced() {
   // Data about layout by gridstack option
@@ -216,28 +218,34 @@ export function Toolbar() {
         gap: '10px',
       }}
     >
-      <button
+      <Button
+        size="small"
+        variant="secondary"
         onClick={() => {
           handleAddText(2, 2);
         }}
       >
         Add Text (2x2)
-      </button>
+      </Button>
 
-      <button
+      <Button
+        size="small"
+        variant="secondary"
         onClick={() => {
           handleAddSubGrid();
         }}
       >
         Add Sub Grid (4x5)
-      </button>
-      <button
+      </Button>
+      <Button
+        size="small"
+        variant="secondary"
         onClick={() => {
           handleAddComplexCard();
         }}
       >
         Append Complex Card (4x4)
-      </button>
+      </Button>
 
       {/* TODO add to the component info map */}
       <GridStackDragInItem widget={{ h: 2, w: 2 }}>

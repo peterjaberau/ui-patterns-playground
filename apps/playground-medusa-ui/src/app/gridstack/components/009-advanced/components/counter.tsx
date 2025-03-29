@@ -1,4 +1,5 @@
 'use client';
+import { Button } from '@medusajs/ui';
 import { useState } from 'react';
 
 type CounterProps = {
@@ -9,8 +10,8 @@ export function Counter(props: CounterProps) {
   const [count, setCount] = useState(0);
 
   return (
-    <button onClick={() => setCount(count + 1)}>
+    <Button size="small" variant="primary" onClick={() => setCount(count + 1)}>
       {props.label} {count}
-    </button>
+    </Button>
   );
 }

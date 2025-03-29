@@ -4,8 +4,12 @@ import { useState } from 'react';
 import { defaultGridOptions } from '../../default-grid-options';
 import { GridStackItem, GridStackProvider, GridStackRender, useGridStackContext } from '@/ui/gridstack';
 import { newId } from '../../utils';
+import { ItemContent } from '@/app/gridstack/components/common/ItemContent';
+import { Header } from '@/components/common/header';
+import { Button, Container } from '@medusajs/ui';
+import { GridStackExampleContainerProps } from '../../components/common/types';
 
-export function Nested() {
+export function Nested(props: GridStackExampleContainerProps) {
   const [uncontrolledInitialOptions] = useState<GridStackOptions>(() => ({
     ...defaultGridOptions,
     children: [
@@ -37,28 +41,30 @@ export function Nested() {
       },
     ],
   }));
+  const { title, subtitle, id, ...rest } = props;
 
   return (
     <GridStackProvider initialOptions={uncontrolledInitialOptions}>
-      <Toolbar />
+      <Container className="p-0" {...rest}>
+        <Header id={id} title={title} subtitle={subtitle}>
+          <Toolbar />
+        </Header>
 
-      <GridStackRender>
-        <GridStackItem id="002-item1">
-          <div style={{ color: 'yellow' }}>hello</div>
-        </GridStackItem>
-
-        <GridStackItem id="002-item2">
-          <div style={{ color: 'blue' }}>grid</div>
-        </GridStackItem>
-
-        <GridStackItem id="002-item3">
-          <div style={{ color: 'brown' }}>nested one</div>
-        </GridStackItem>
-
-        <GridStackItem id="002-item4">
-          <div style={{ color: 'purple' }}>nested two</div>
-        </GridStackItem>
-      </GridStackRender>
+        <GridStackRender>
+          <GridStackItem id="002-item1">
+            <ItemContent>grid</ItemContent>
+          </GridStackItem>
+          <GridStackItem id="002-item2">
+            <ItemContent>grid</ItemContent>
+          </GridStackItem>
+          <GridStackItem id="002-item3">
+            <ItemContent>nested one</ItemContent>
+          </GridStackItem>
+          <GridStackItem id="002-item4">
+            <ItemContent>nested two</ItemContent>
+          </GridStackItem>
+        </GridStackRender>
+      </Container>
     </GridStackProvider>
   );
 }
@@ -102,30 +108,25 @@ export function Toolbar() {
   }
 
   return (
-    <div
-      style={{
-        border: '1px solid gray',
-        padding: '10px',
-        marginBottom: '10px',
-        display: 'flex',
-        flexDirection: 'row',
-        gap: '10px',
-      }}
-    >
-      <button
+    <div className="flex flex-row items-center justify-start gap-x-4">
+      <Button
+        size="small"
+        variant="secondary"
         onClick={() => {
           handleAddText(2, 2);
         }}
       >
         Add Text (2x2)
-      </button>
-      <button
+      </Button>
+      <Button
+        size="small"
+        variant="secondary"
         onClick={() => {
           handleAddSubGrid();
         }}
       >
         Add Sub Grid (4x5)
-      </button>
+      </Button>
     </div>
   );
 }
