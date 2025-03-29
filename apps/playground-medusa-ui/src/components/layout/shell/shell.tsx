@@ -78,11 +78,11 @@ const Gutter = ({ children }: PropsWithChildren) => {
 const breadcrumbRegistry: Record<string, (match: { pathname: string }) => string | React.ReactNode> = {};
 
 const Breadcrumbs = () => {
-  const pathname = usePathname();
+  const pathname: any = usePathname();
   const segments = pathname.split('/').filter(Boolean);
 
   // Simulating `matches` dynamically, similar to `useMatches()`
-  const matches = segments.map((_, index) => {
+  const matches = segments.map((_: any, index: any) => {
     const path = `/${segments.slice(0, index + 1).join('/')}`;
 
     return {
@@ -94,8 +94,8 @@ const Breadcrumbs = () => {
   });
 
   const crumbs = matches
-    .filter((match) => match.handle?.breadcrumb) // Only keep routes with a breadcrumb function
-    .map((match) => {
+    .filter((match: any) => match.handle?.breadcrumb) // Only keep routes with a breadcrumb function
+    .map((match: any) => {
       let label: string | React.ReactNode | undefined;
 
       try {

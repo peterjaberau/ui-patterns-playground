@@ -8,14 +8,28 @@ import { Badge, Container, Heading, Text } from '@medusajs/ui';
 import { JsonViewSection } from '@/components/common/json-view-section';
 import { data } from '@/components/__mocks__';
 import { BoltSolid } from '@medusajs/icons';
+import Link from 'next/link';
 
 export default function Page() {
+  let photos = Array.from({ length: 6 }, (_, i) => i + 1);
+
   return (
     <div className="space-y-8">
       <h1 className="text-xl font-medium text-gray-300">Examples</h1>
 
       <div className="space-y-10 text-white">
         <div className="grid grid-cols-1 gap-5 text-black lg:grid-cols-1">
+          <Container>
+            <Heading level="h2">nextgram</Heading>
+            <section className="cards-container">
+              {photos.map((id) => (
+                <Link className="card" key={id} href={`/photos/${id}`} passHref>
+                  {id}
+                </Link>
+              ))}
+            </section>
+          </Container>
+
           <Container>
             <Heading level="h2">SectionRow</Heading>
             <SectionRow title={data.SectionRow.title} value={data.SectionRow.value} />

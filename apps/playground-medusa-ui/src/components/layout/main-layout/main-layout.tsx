@@ -45,11 +45,40 @@ const useCoreRoutes = (): Omit<INavItem, 'pathname'>[] => {
         },
         {
           label: 'Parallel Routes',
-          to: '/Render multiple pages in the same layout',
+          to: '/parallel-routes',
         },
       ],
     },
-
+    {
+      icon: <ShoppingCart />,
+      label: 'Modals & Interceptions',
+      to: '/quotes',
+      items: [
+        {
+          label: 'Quotes',
+          to: '/quotes',
+        },
+        {
+          label: 'Guard',
+          to: '/guard',
+        },
+        {
+          label: 'Nextgram',
+          to: '/nextgram',
+        },
+      ],
+    },
+    {
+      icon: <ShoppingCart />,
+      label: 'Resizable Grid',
+      to: '/gridstack',
+      items: [
+        {
+          label: 'Gridstack',
+          to: '/gridstack',
+        },
+      ],
+    },
     {
       icon: <ShoppingCart />,
       label: 'Loading',
@@ -417,7 +446,7 @@ const UtilitySection = () => {
 
   return (
     <div className="flex flex-col gap-y-0.5 py-3">
-      <NavItem label={'Settings'} to="/settings" from={pathname} icon={<CogSixTooth />} />
+      <NavItem label={'Settings'} to="/settings" icon={<CogSixTooth />} />
     </div>
   );
 };

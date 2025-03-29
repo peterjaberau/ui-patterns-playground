@@ -125,7 +125,7 @@ export const ProductListTable = () => {
             <Link href="/products/id-2">Import</Link>
           </Button>
           <Button size="small" variant="secondary" asChild>
-            <Link href="/products/id-3">Create</Link>
+            <Link href="/products/drawer">Create</Link>
           </Button>
         </div>
       </div>
