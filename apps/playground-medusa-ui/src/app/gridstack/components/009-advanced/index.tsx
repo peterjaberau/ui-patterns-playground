@@ -76,7 +76,7 @@ export function Advanced() {
       serializableProps: { label: 'Click me' },
     },
     '009-item5': {
-      component: 'ComplexCard',
+      component: 'ComplexCardTitle',
       serializableProps: { title: 'Complex Card', color: 'red' },
     },
   }));
@@ -85,7 +85,6 @@ export function Advanced() {
     <ComponentInfoMapProvider initialComponentInfoMap={initialComponentInfoMap}>
       <GridStackProvider initialOptions={uncontrolledInitialOptions}>
         <Toolbar />
-
         <GridStackRender>
           <DynamicGridStackItems />
         </GridStackRender>
@@ -108,7 +107,7 @@ function DynamicGridStackItems() {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const props = componentInfo.serializableProps as any;
 
-        if (componentInfo.component === 'ComplexCard') {
+        if (componentInfo.component === 'ComplexCardTitle') {
           return (
             <GridStackItem key={widgetId} id={widgetId}>
               <ComplexCardEditableWrapper
@@ -202,7 +201,7 @@ export function Toolbar() {
     addWidget({ id: widgetId, w: 4, h: 4 }); // No position
 
     addComponentInfo(widgetId, {
-      component: 'ComplexCard',
+      component: 'ComplexCardTitle',
       serializableProps: { title: 'Complex Card', color: 'red' },
     });
   }

@@ -25,7 +25,7 @@ export type HeadingProps = {
 };
 
 export interface HeaderProps {
-  title: string;
+  title: string | React.ReactNode;
   subtitle?: string;
   actions?: {
     type: 'button';

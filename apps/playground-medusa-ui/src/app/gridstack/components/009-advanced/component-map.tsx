@@ -1,12 +1,12 @@
-import { ComponentProps } from "react";
-import { ComplexCard } from "./components/complex-card";
-import { Counter } from "./components/counter";
-import { Text } from "./components/text";
+import { ComponentProps } from 'react';
+import { ComplexCardTitle } from './components/complex-card';
+import { Counter } from './components/counter';
+import { Text } from './components/text';
 
 export const COMPONENT_MAP = {
   Text,
   Counter,
-  ComplexCard,
+  ComplexCardTitle,
   // ... more components here
 };
 
