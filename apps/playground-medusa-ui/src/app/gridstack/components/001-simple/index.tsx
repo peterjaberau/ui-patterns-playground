@@ -1,5 +1,6 @@
 'use client';
 import { ItemContent } from '@/app/gridstack/components/common/ItemContent';
+import { ItemWrapper } from '@/app/gridstack/components/common/ItemWrapper';
 import { Header } from '@/components/common/header';
 import { Button, Container } from '@medusajs/ui';
 import { GridStackExampleContainerProps } from '../../components/common/types';
@@ -26,10 +27,10 @@ export function Simple(props: GridStackExampleContainerProps) {
           <Toolbar />
         </Header>
         <GridStackRender>
-          <GridStackItem id="001-item1">
+          <GridStackItem wrapper={<ItemWrapper />} id="001-item1">
             <ItemContent>grid</ItemContent>
           </GridStackItem>
-          <GridStackItem id="001-item2">
+          <GridStackItem wrapper={<ItemWrapper />} id="001-item2">
             <ItemContent>grid</ItemContent>
           </GridStackItem>
         </GridStackRender>

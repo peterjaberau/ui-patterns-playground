@@ -8,6 +8,7 @@ import { ItemContent } from '@/app/gridstack/components/common/ItemContent';
 import { Header } from '@/components/common/header';
 import { Container } from '@medusajs/ui';
 import { GridStackExampleContainerProps } from '../../components/common/types';
+import { ItemWrapper } from '@/app/gridstack/components/common/ItemWrapper';
 
 export function Simple0(props: GridStackExampleContainerProps) {
   const { title, subtitle, id, ...rest } = props;
@@ -24,11 +25,11 @@ export function Simple0(props: GridStackExampleContainerProps) {
     <Container className="p-0" {...rest}>
       <Header id={id} title={title} subtitle={subtitle} />
       <GridStackContainer initialOptions={uncontrolledInitialOptions}>
-        <GridStackItem id="000-item1">
-          <ItemContent>grid</ItemContent>
+        <GridStackItem wrapper={<ItemWrapper />} id="000-item1">
+          grid
         </GridStackItem>
-        <GridStackItem id="000-item2">
-          <ItemContent>grid</ItemContent>
+        <GridStackItem wrapper={<ItemWrapper />} id="000-item2">
+          grid
         </GridStackItem>
       </GridStackContainer>
     </Container>

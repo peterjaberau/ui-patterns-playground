@@ -1,4 +1,5 @@
 'use client';
+import { ItemWrapper } from '@/app/gridstack/components/common/ItemWrapper';
 import { GridStackOptions } from 'gridstack';
 import { useState } from 'react';
 import { defaultGridOptions } from '../../default-grid-options';
@@ -51,16 +52,16 @@ export function Nested(props: GridStackExampleContainerProps) {
         </Header>
 
         <GridStackRender>
-          <GridStackItem id="002-item1">
+          <GridStackItem wrapper={<ItemWrapper />} id="002-item1">
             <ItemContent>grid</ItemContent>
           </GridStackItem>
-          <GridStackItem id="002-item2">
+          <GridStackItem wrapper={<ItemWrapper />} id="002-item2">
             <ItemContent>grid</ItemContent>
           </GridStackItem>
-          <GridStackItem id="002-item3">
+          <GridStackItem wrapper={<ItemWrapper />} id="002-item3">
             <ItemContent>nested one</ItemContent>
           </GridStackItem>
-          <GridStackItem id="002-item4">
+          <GridStackItem wrapper={<ItemWrapper />} id="002-item4">
             <ItemContent>nested two</ItemContent>
           </GridStackItem>
         </GridStackRender>

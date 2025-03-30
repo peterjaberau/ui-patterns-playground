@@ -1,5 +1,5 @@
 'use client';
-import { PropsWithChildren, useCallback } from 'react';
+import { cloneElement, isValidElement, PropsWithChildren, ReactElement, useCallback } from 'react';
 import { useGridStackRenderContext } from './grid-stack-render-context';
 import { createPortal } from 'react-dom';
 import { GridStackItemContext } from './grid-stack-item-context';
@@ -8,6 +8,7 @@ import { GridItemHTMLElement, GridStackWidget } from 'gridstack';
 
 export type GridStackItemProps = PropsWithChildren<{
   id: string;
+  wrapper?: React.ReactNode | ReactElement<any>;
 }>;
 
 export function GridStackItem(props: GridStackItemProps) {
@@ -94,7 +95,7 @@ export function GridStackItem(props: GridStackItemProps) {
         setPosition,
       }}
     >
-      {props.children}
+      {isValidElement(props.wrapper) ? cloneElement(props.wrapper, {}, props.children) : props.children}
     </GridStackItemContext.Provider>,
     widgetContainer,
   );

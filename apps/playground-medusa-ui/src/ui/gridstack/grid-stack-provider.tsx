@@ -1,4 +1,5 @@
 'use client';
+import { Container } from '@medusajs/ui';
 import type { GridStack, GridStackElement, GridStackOptions, GridStackWidget } from 'gridstack';
 import { type PropsWithChildren, useCallback, useState } from 'react';
 import { GridStackContext } from './grid-stack-context';
