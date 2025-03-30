@@ -1,5 +1,6 @@
 import { Avatar, Text } from '@medusajs/ui';
 import Link from 'next/link';
+import { useUser } from '@/mock-api';
 
 type UserLinkProps = {
   id: string;
@@ -25,4 +26,14 @@ export const UserLink = ({ id, first_name, last_name, email, type = 'user' }: Us
       </Text>
     </Link>
   );
+};
+
+export const By = ({ id }: { id: string }) => {
+  const { user } = useUser(id); // todo: extend to support customers
+
+  if (!user) {
+    return null;
+  }
+
+  return <UserLink {...user} />;
 };
