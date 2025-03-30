@@ -1,3 +1,4 @@
+'use client';
 import { DropdownMenu, IconButton, clx } from '@medusajs/ui';
 
 import { EllipsisHorizontal } from '@medusajs/icons';
@@ -10,6 +11,7 @@ export type Action = {
   icon: ReactNode;
   label: string;
   disabled?: boolean;
+  key?: string;
   /**
    * Optional tooltip to display when a disabled action is hovered.
    */

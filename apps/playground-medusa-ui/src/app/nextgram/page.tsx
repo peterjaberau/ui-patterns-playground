@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <section className="cards-container">
       {photos.map((id) => (
-        <Link className="card" key={id} href={`/nextgram/photos/${id}`} passHref>
+        <Link className="card" key={id} href={`/nextgram/photos/${id}`} passHref onClick={(e) => e.stopPropagation()}>
           {id}
         </Link>
       ))}

@@ -60,7 +60,7 @@ export const CustomerGroupSection = ({ customer }: CustomerGroupSectionProps) =>
     data: customer_groups ?? [],
     columns,
     count,
-    getRowId: (row) => row.id,
+    getRowId: (row: any) => row.id,
     enablePagination: true,
     enableRowSelection: true,
     pageSize: PAGE_SIZE,
@@ -126,7 +126,7 @@ export const CustomerGroupSection = ({ customer }: CustomerGroupSectionProps) =>
         isLoading={isLoading}
         count={count}
         prefix={PREFIX}
-        navigateTo={(row) => `/customer-groups/${row.id}`}
+        navigateTo={(row: any) => `/customer-groups/${row.id}`}
         filters={filters}
         search
         pagination

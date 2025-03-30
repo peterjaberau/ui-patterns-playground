@@ -1,5 +1,16 @@
+import './global.css';
 import React from 'react';
 
-export default async function Layout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+export const metadata = {
+  title: 'Page Detail',
+  description: 'A sample Next.js app showing dynamic routing with modals as a route.',
+};
+
+export default async function Layout(props: { children: React.ReactNode; modal: React.ReactNode }) {
+  return (
+    <>
+      {props.children}
+      {props.modal}
+    </>
+  );
 }

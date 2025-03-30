@@ -52,6 +52,7 @@ const Root = <TData,>({
     }
 
     showMetadata = false;
+    hasOutlet = false;
   }
 
   const childrenArray = Children.toArray(children);
@@ -87,7 +88,6 @@ const Root = <TData,>({
           )}
         </div>
       </div>
-      {children}
     </div>
   );
 };

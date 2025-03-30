@@ -1,8 +1,10 @@
 import { PencilSquare, Trash } from '@medusajs/icons';
+import { Button } from '@medusajs/ui';
 import { HttpTypes } from '@medusajs/types';
 import { Container, Heading, StatusBadge, Text, toast, usePrompt } from '@medusajs/ui';
 import { useRouter } from 'next/navigation';
 import { ActionMenu } from '@/components/common/action-menu';
+import Link from 'next/link';
 
 type CustomerGeneralSectionProps = {
   customer: HttpTypes.AdminCustomer | any;
@@ -42,6 +44,21 @@ export const CustomerGeneralSection = ({ customer }: CustomerGeneralSectionProps
         <Heading>{customer.email}</Heading>
         <div className="flex items-center gap-x-2">
           <StatusBadge color={statusColor}>{statusText}</StatusBadge>
+          <Link href={`/page-detail/open/${customer.id}?mode=modal`}>
+            <Button size="small" variant="secondary">
+              Edit as modal
+            </Button>
+          </Link>
+          <Link href={`/page-detail/open/${customer.id}?mode=drawer`}>
+            <Button size="small" variant="secondary">
+              Edit as drawer
+            </Button>
+          </Link>
+          <Link href={`/page-detail/open/${customer.id}`}>
+            <Button size="small" variant="secondary">
+              Edit as drafult
+            </Button>
+          </Link>
           <ActionMenu
             groups={[
               {
@@ -49,7 +66,7 @@ export const CustomerGeneralSection = ({ customer }: CustomerGeneralSectionProps
                   {
                     label: 'Edit',
                     icon: <PencilSquare />,
-                    to: 'edit',
+                    to: `/page-detail/open/${customer.id}`,
                   },
                 ],
               },
