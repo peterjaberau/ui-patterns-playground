@@ -1,21 +1,23 @@
-import { ActionMenu } from '@/components/common/action-menu';
-import { PencilSquare, Trash } from '@medusajs/icons';
 import { Button } from '@medusajs/ui';
-import { Container, Heading, Text } from '@medusajs/ui';
-import { useSelector } from '@xstate/react';
-import Link from 'next/link';
-
+import { Container, Heading } from '@medusajs/ui';
+import { dataResources } from '../machine/data';
 import { useActorRootSelector, useActorRootRef } from '../machine/context';
 
 export const ActorViewerCatalog = () => {
   const spawnForm = useActorRootSelector((snapshot) => snapshot.context.spawnActor);
   const { send } = useActorRootRef();
 
-  const handleSpawnActor = ({ resourceType }: any) => {
+  const handleSpawnActor = (pluginName: any) => {
+    const plugin = dataResources.find((resource) => resource.name === pluginName);
+    const { name, previewSchema, variants, schema }: any = plugin;
+
     send({
       type: 'act-ins.spawn',
       payload: {
-        resourceType,
+        name,
+        previewSchema,
+        variants,
+        schema,
       },
     });
   };
@@ -27,19 +29,11 @@ export const ActorViewerCatalog = () => {
           <Heading>{'Viewer Catalog'}</Heading>
         </div>
         <div className="inline-flex flex-wrap justify-center gap-4 p-4">
-          <Button size="small" variant="primary" onClick={() => handleSpawnActor({ resourceType: 'Button' })}>
-            Spawn Button
-          </Button>
-          <Button size="small" variant="primary" onClick={() => handleSpawnActor({ resourceType: 'Badge' })}>
-            Spawn Badge
-          </Button>
-          <Button size="small" variant="primary" onClick={() => handleSpawnActor({ resourceType: 'Container' })}>
-            Spawn Container
-          </Button>
-
-          <Button size="small" variant="primary" onClick={() => handleSpawnActor({ resourceType: 'Alert' })}>
-            Spawn Alert
-          </Button>
+          {dataResources.map((resource) => (
+            <Button key={resource.name} size="small" variant="primary" onClick={() => handleSpawnActor(resource.name)}>
+              Spawn {resource.plugin.panelTitle}
+            </Button>
+          ))}
         </div>
       </Container>
     </>

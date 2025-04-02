@@ -8,6 +8,7 @@ import {
   ActorDesignSchemaRef,
   ActorEditorChildren,
   ActorEditorEventHandler,
+  // ActorEditorFlow,
   ActorEditorMetadata,
   ActorEditorRules,
   ActorInstance,
@@ -56,6 +57,10 @@ export const Actors = () => {
               <div className="col-span-1 flex w-full min-w-0 flex-col gap-y-3">
                 <ActorConfigAppearance />
               </div>
+
+              {/* <div className="col-span-4 flex w-full min-w-0 flex-col gap-y-3"> */}
+              {/*   <ActorEditorFlow /> */}
+              {/* </div> */}
 
               <div className="col-span-1 flex w-full min-w-0 flex-col gap-y-3">
                 <ActorViewerState />

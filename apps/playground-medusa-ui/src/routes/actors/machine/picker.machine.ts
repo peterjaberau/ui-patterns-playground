@@ -6,18 +6,14 @@ export const pickerMachine = setup({
   types: {
     input: {} as any,
     context: {} as {
-      component: {
-        resourceType: string;
-        props: any;
-        children: any;
-      };
+      component: any;
       filters: any;
       selectedItems: Map<string, any>;
       currentQuery: any;
       currentResources: any[];
       currentPageInfo: any;
       [k: string]: any;
-    },
+    } as any,
     events: {} as {
       type:
         | 'library.query.editQuery'
@@ -103,12 +99,9 @@ export const pickerMachine = setup({
 }).createMachine({
   id: 'resourcePicker',
   initial: 'Closed',
-  context: ({ input }: any) => ({
-    ...input,
+  context: ({ input }: any): any => ({
     component: {
-      resourceType: input.resourceType,
-      props: input.resourceSettings,
-      children: undefined,
+      ...input,
     },
     filters: undefined,
     selectedItems: new Map(),
@@ -240,7 +233,7 @@ export const pickerMachine = setup({
                 'library.item.select': {
                   actions: assign(({ event, context }) => {
                     const itemId = event.payload.itemId;
-                    const item = context.currentResources.find((item) => item.id === itemId);
+                    const item = context.currentResources.find((item: any) => item.id === itemId);
 
                     if (!item) {
                       throw new Error(`item ${itemId} not found in currentResources`);

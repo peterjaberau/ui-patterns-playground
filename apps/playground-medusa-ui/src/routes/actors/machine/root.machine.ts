@@ -1,4 +1,5 @@
 import { getRandomString, rootPartialInput } from './helpers';
+import { dataResources } from './data';
 import { pickerMachine } from './picker.machine';
 import { ActorRefFrom, assertEvent, assign, enqueueActions, fromPromise, sendParent, setup, stopChild } from 'xstate';
 import { create } from 'mutative';
@@ -104,8 +105,7 @@ export const rootMachine = setup({
       const { spawnForm } = context;
       const actorRef = spawn(pickerMachine, {
         input: {
-          resourceType: event.payload.resourceType,
-          resourceSettings: {},
+          ...(event.payload as any),
         } as any,
         id: systemId,
       });
