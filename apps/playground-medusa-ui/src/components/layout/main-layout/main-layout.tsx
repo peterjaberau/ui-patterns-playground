@@ -51,6 +51,16 @@ const useCoreRoutes = (): Omit<INavItem, 'pathname'>[] => {
     },
     {
       icon: <ShoppingCart />,
+      label: 'Actors',
+      to: '/actors',
+    },
+    {
+      icon: <ShoppingCart />,
+      label: 'Actor Picker',
+      to: '/actor-picker',
+    },
+    {
+      icon: <ShoppingCart />,
       label: 'Modals & Interceptions',
       to: '/quotes',
       items: [

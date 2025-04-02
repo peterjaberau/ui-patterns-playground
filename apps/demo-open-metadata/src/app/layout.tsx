@@ -5,7 +5,6 @@ import { GlobalNav } from '@/ui/global-nav';
 import { GlobalNavTopHeader } from '@/ui/global-nav-topheader';
 import { Metadata } from 'next';
 
-import { EuiThemeProviderCustom } from '@/components/eui/theme-provider';
 import { RootMachineProvider } from '@/providers/root-machine-provider';
 
 export const metadata: Metadata = {
