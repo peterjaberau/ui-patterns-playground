@@ -1,12 +1,12 @@
 import { Space } from 'antd';
 import classNames from 'classnames';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { shallow } from 'zustand/shallow';
 import SourceHandle from '../../components/CustomNode/sourceHandle';
 import TextEllipsis from '../../components/TextEllipsis';
 import { useStore } from '../../hooks/useStore';
 import { uuid } from '../../utils';
-import './index.less';
+import 'src/nodes/node-switch/index.css';
 
 export default memo((props: any) => {
   const {
@@ -27,26 +27,21 @@ export default memo((props: any) => {
       nodes: state.nodes,
       edges: state.edges,
     }),
-    shallow
+    shallow,
   );
 
   const renderTitle = (item, index) => {
     const defTitle = item?.title || `Condition${index}`;
-    const title = switchExtra?.titleKey
-      ? item[switchExtra?.titleKey]
-      : defTitle;
+    const title = switchExtra?.titleKey ? item[switchExtra?.titleKey] : defTitle;
     return (
       <div className="item-header">
         <div className="item-title">{title}</div>
         <SourceHandle
           position={position}
-          isConnectable={
-            (edges || [])?.filter(flow => flow?.sourceHandle === item?._id)
-              ?.length === 0
-          }
+          isConnectable={(edges || [])?.filter((flow) => flow?.sourceHandle === item?._id)?.length === 0}
           selected={selected}
           isHovered={isHovered}
-          handleAddNode={data => {
+          handleAddNode={(data) => {
             handleAddNode(data, item?._id);
           }}
           id={item?._id}
@@ -57,17 +52,19 @@ export default memo((props: any) => {
   };
 
   const renderContent = (item, index) => {
-    const value = switchExtra?.valueKey
-      ? item[switchExtra?.valueKey]
-      : item?.value;
+    const value = switchExtra?.valueKey ? item[switchExtra?.valueKey] : item?.value;
 
     return (
       <div className="item-content">
         {CustomNodeWidget ? (
           <CustomNodeWidget data={item} index={index} />
         ) : (
-            <div>
-              {value && <div className='item-content-in'><TextEllipsis text={value} rows={5} type="paragraph" /></div>}
+          <div>
+            {value && (
+              <div className="item-content-in">
+                <TextEllipsis text={value} rows={5} type="paragraph" />
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -112,13 +109,10 @@ export default memo((props: any) => {
             <div className="item-title">Default</div>
             <SourceHandle
               position={position}
-              isConnectable={
-                (edges || [])?.filter(flow => flow?.sourceHandle === 'id_else')
-                  ?.length === 0
-              }
+              isConnectable={(edges || [])?.filter((flow) => flow?.sourceHandle === 'id_else')?.length === 0}
               selected={selected}
               isHovered={isHovered}
-              handleAddNode={data => {
+              handleAddNode={(data) => {
                 handleAddNode(data, 'id_else');
               }}
               className="item-handle"

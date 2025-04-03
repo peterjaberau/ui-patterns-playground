@@ -2,27 +2,19 @@ import React from 'react';
 import { Card } from 'antd';
 import BoxPanel from '../components/PanelView';
 
-import './index.less';
+import 'src/widgets/boxcard/index.css';
 
 const BoxCard = ({ children, title, description }) => {
   if (!title) {
-    return (
-      <BoxPanel>
-        {children}
-      </BoxPanel>
-    )
+    return <BoxPanel>{children}</BoxPanel>;
   }
   return (
     <Card
-      className='fr-obj-card'
+      className="fr-obj-card"
       title={
         <>
           {title}
-          {description && (
-            <span className='fr-header-desc '>
-              {description}
-            </span>
-          )}
+          {description && <span className="fr-header-desc">{description}</span>}
         </>
       }
       // hoverable={true}
@@ -30,6 +22,6 @@ const BoxCard = ({ children, title, description }) => {
       {children}
     </Card>
   );
-}
+};
 
 export default BoxCard;

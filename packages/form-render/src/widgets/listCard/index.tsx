@@ -4,7 +4,7 @@ import { PlusOutlined, CloseOutlined, ArrowUpOutlined, ArrowDownOutlined, CopyOu
 import classnames from 'classnames';
 import FButton from '../components/FButton';
 import { cloneDeep } from 'lodash-es';
-import './index.less';
+import 'src/widgets/listCard/index.css';
 
 const getOperateFixed = (schema: any) => {
   let fixed = true;
@@ -41,7 +41,7 @@ const CardList = (props: any) => {
     renderCore,
     hasBackground,
     operateBtnType,
-    
+
     addBtnProps,
     delConfirmProps,
     copyBtnProps,
@@ -57,7 +57,7 @@ const CardList = (props: any) => {
     addItem,
     copyItem,
     moveItem,
-    removeItem
+    removeItem,
   } = props;
 
   const handleCopy = (name: number) => {
@@ -75,14 +75,16 @@ const CardList = (props: any) => {
             newSchema.items.title += ` ${name + 1}`;
           }
           return (
-            <div key={key} className='fr-list-item'>
+            <div key={key} className="fr-list-item">
               <div style={{ width: 0, flex: 1 }}>
                 {renderCore({ schema: newSchema, parentPath: [name], rootPath: [...rootPath, name] })}
               </div>
               <Space
-                className={classnames('fr-list-item-operate', { 'fr-list-item-operate-fixed': getOperateFixed(schema) })}
+                className={classnames('fr-list-item-operate', {
+                  'fr-list-item-operate-fixed': getOperateFixed(schema),
+                })}
                 style={getOperateStyle(schema)}
-                split={operateBtnType !== 'icon' && <Divider type='vertical' />}
+                split={operateBtnType !== 'icon' && <Divider type="vertical" />}
               >
                 {!hideMove && (
                   <>
@@ -101,29 +103,17 @@ const CardList = (props: any) => {
                   </>
                 )}
                 {!hideDelete && (
-                  <Popconfirm
-                    onConfirm={() => removeItem(name)}
-                    {...delConfirmProps}
-                  >
-                    <FButton
-                      icon={<CloseOutlined />}
-                      {...deleteBtnProps}
-                    />
+                  <Popconfirm onConfirm={() => removeItem(name)} {...delConfirmProps}>
+                    <FButton icon={<CloseOutlined />} {...deleteBtnProps} />
                   </Popconfirm>
                 )}
-                {!hideCopy && (
-                  <FButton
-                    onClick={() => handleCopy(name)}
-                    icon={<CopyOutlined />}
-                    {...copyBtnProps}
-                  />
-                )}
+                {!hideCopy && <FButton onClick={() => handleCopy(name)} icon={<CopyOutlined />} {...copyBtnProps} />}
               </Space>
             </div>
           );
         })}
         {!hideAdd && (
-          <div className='fr-list-add-btn'>
+          <div className="fr-list-add-btn">
             <Button
               {...addBtnProps}
               onClick={() => addItem()}
@@ -135,6 +125,6 @@ const CardList = (props: any) => {
       </div>
     </>
   );
-}
+};
 
 export default CardList;

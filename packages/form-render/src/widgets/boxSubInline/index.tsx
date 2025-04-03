@@ -1,15 +1,26 @@
 import React from 'react';
 import { Form } from 'antd';
 import classnames from 'classnames';
-import './index.less';
+import 'src/widgets/boxSubInline/index.css';
 import _ from 'lodash';
 
 const BoxSubInline = (props: any) => {
-  const { children, title, hasBackground = true, description, tooltip, fieldCol, labelCol, labelWidth, displayType, ...rest } = props;
+  const {
+    children,
+    title,
+    hasBackground = true,
+    description,
+    tooltip,
+    fieldCol,
+    labelCol,
+    labelWidth,
+    displayType,
+    ...rest
+  } = props;
 
   let _tooltip: any = null;
   let _labelCol: any = { span: 3 };
-  let _fieldCol = { flex: 1 }
+  let _fieldCol = { flex: 1 };
 
   if (description) {
     _tooltip = { title: description };
@@ -19,7 +30,7 @@ const BoxSubInline = (props: any) => {
   }
 
   if (labelWidth) {
-    _labelCol = { flex : labelWidth + 'px' };
+    _labelCol = { flex: labelWidth + 'px' };
   }
 
   if (labelCol) {
@@ -35,7 +46,7 @@ const BoxSubInline = (props: any) => {
       {...rest}
       className={classnames('fr-obj-subinline', {
         'fr-obj-subinline-label-hidden': !title,
-        'fr-obj-subinline-background': hasBackground
+        'fr-obj-subinline-background': hasBackground,
       })}
       label={title || 'notitle'}
       labelCol={_labelCol}
@@ -45,6 +56,6 @@ const BoxSubInline = (props: any) => {
       {children}
     </Form.Item>
   );
-}
+};
 
 export default BoxSubInline;

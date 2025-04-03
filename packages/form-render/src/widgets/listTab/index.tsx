@@ -3,7 +3,7 @@ import { Popconfirm, Tabs, ConfigProvider } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import type { FormListFieldData } from 'antd';
 import { translation } from '../utils';
-import './index.less';
+import 'src/widgets/listTab/index.css';
 
 interface ListTabProps {
   fields: FormListFieldData[];
@@ -12,16 +12,15 @@ interface ListTabProps {
   renderCore: any;
   rootPath: any;
   [key: string]: any;
-};
+}
 
 const TabPaneContent = (props: any) => {
   const { renderCore, name, schema, rootPath } = props;
 
-  return useMemo(() => (
-   <div style={{ flex: 1 }}>
-      {renderCore({ schema, parentPath: [name], rootPath: [...rootPath, name] })}
-    </div>
-  ), [JSON.stringify(props)]);
+  return useMemo(
+    () => <div style={{ flex: 1 }}>{renderCore({ schema, parentPath: [name], rootPath: [...rootPath, name] })}</div>,
+    [JSON.stringify(props)],
+  );
 };
 
 const TabList: React.FC<ListTabProps> = (props) => {
@@ -57,7 +56,7 @@ const TabList: React.FC<ListTabProps> = (props) => {
   const handleDelete = (targetKey: number) => {
     removeItem(targetKey);
     setActiveKey(`${targetKey > 1 ? targetKey - 1 : 0}`);
-  }
+  };
 
   const handleEdit = (_: any, action: any) => {
     if (action === 'add') {
@@ -71,19 +70,18 @@ const TabList: React.FC<ListTabProps> = (props) => {
 
   const renderClose = (name: number) => {
     return !readOnly && !hideDelete ? (
-      <Popconfirm
-        onConfirm={() => handleDelete(name)}
-        {...delConfirmProps}
-      >
+      <Popconfirm onConfirm={() => handleDelete(name)} {...delConfirmProps}>
         <CloseOutlined />
       </Popconfirm>
-    ) : <></>
+    ) : (
+      <></>
+    );
   };
 
   return (
     <Tabs
-      className='fr-tab-list'
-      type='editable-card'
+      className="fr-tab-list"
+      type="editable-card"
       {...retProps}
       onChange={setActiveKey}
       activeKey={`${activeKey}`}
@@ -92,24 +90,19 @@ const TabList: React.FC<ListTabProps> = (props) => {
     >
       {fields.map(({ key, name }) => {
         return (
-          <Tabs.TabPane 
+          <Tabs.TabPane
             key={key}
-            className='fr-list-item'
+            className="fr-list-item"
             {...tabItemProps}
             tab={getTabPaneName(name)}
             closeIcon={renderClose(name)}
           >
-            <TabPaneContent 
-              name={name} 
-              rootPath={rootPath} 
-              schema={schema} 
-              renderCore={renderCore} 
-            />
+            <TabPaneContent name={name} rootPath={rootPath} schema={schema} renderCore={renderCore} />
           </Tabs.TabPane>
-        )
+        );
       })}
     </Tabs>
   );
-}
+};
 
 export default TabList;

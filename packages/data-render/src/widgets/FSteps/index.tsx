@@ -3,7 +3,7 @@ import { Steps } from 'antd';
 import { get } from 'lodash-es';
 import { combineClass } from '../utils/common';
 
-import './index.less';
+import 'src/widgets/FSteps/index.css';
 
 const { Step } = Steps;
 
@@ -22,12 +22,7 @@ const FSteps = (props: any) => {
   } = props;
 
   return (
-    <Steps
-      {...otherProps}
-      size={size}
-      className={combineClass('dr-steps', className)}
-      style={style}
-    >
+    <Steps {...otherProps} size={size} className={combineClass('dr-steps', className)} style={style}>
       {data.map((item: any, index: number) => (
         <Step
           key={index}

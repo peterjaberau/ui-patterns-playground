@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AutoComplete, InputNumber } from 'antd';
 import _ from 'lodash';
 
 const FAutoComplete: React.FC<any> = (props) => {
-  const {
-    value,
-    onChange,
-    placeholder,
-    optionList,
-    width = '100%',
-    disabled,
-  } = props;
+  const { value, onChange, placeholder, optionList, width = '100%', disabled } = props;
   const [options, setOptions] = useState<{ value: string }[]>(optionList);
 
   useEffect(() => {
@@ -59,7 +52,7 @@ const FAutoComplete: React.FC<any> = (props) => {
     //   return (
     //     <Checkbox
     //       checked={value}
-    //       onChange={(e) => onChange(e.target.checked)}
+    //       onChange={(e: any) => onChange(e.target.checked)}
     //       style={{ width }}
     //       disabled={disabled}
     //     />

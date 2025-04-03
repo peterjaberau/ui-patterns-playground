@@ -2,15 +2,15 @@
   "name": "@codefast/ui",
   "version": "0.2.34",
   "bugs": {
-    "url": "https://github.com/codefastlabs/codefast/issues"
+    "url": ""
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/codefastlabs/codefast.git",
+    "url": "",
     "directory": "packages/ui"
   },
   "license": "MIT",
-  "author": "Vuong Phan <mr.thevuong@gmail.com>",
+  "author": "",
   "sideEffects": false,
   "type": "module",
   "exports": {

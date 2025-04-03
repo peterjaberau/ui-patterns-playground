@@ -2,7 +2,7 @@ import React, { FC, useMemo, useRef, useEffect } from 'react';
 import classnames from 'classnames';
 import { useSet } from '../../utils/hooks';
 
-import './index.less';
+import 'src/widgets/components/TextEllipsis/index.css';
 interface IProps {
   data: string;
   height: number;
@@ -111,10 +111,7 @@ const TextEllipsis: FC<IProps> = (props) => {
     }
     return (
       <div className="text-ellipsis-box" style={{ height: isEllipsis ? height : 'auto' }}>
-        <div
-          ref={conRef}
-          className={classnames('text-ellipsis-view', { 'text-ellipsis-hidden': hidden })}
-        >
+        <div ref={conRef} className={classnames('text-ellipsis-view', { 'text-ellipsis-hidden': hidden })}>
           {isEllipsis ? (
             <>
               {leftSlot && <span>{leftSlot}</span>}

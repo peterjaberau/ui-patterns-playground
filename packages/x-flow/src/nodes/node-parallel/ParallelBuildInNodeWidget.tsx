@@ -1,12 +1,12 @@
 import { Space } from 'antd';
 import classNames from 'classnames';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { shallow } from 'zustand/shallow';
 import SourceHandle from '../../components/CustomNode/sourceHandle';
 import TextEllipsis from '../../components/TextEllipsis';
 import { useStore } from '../../hooks/useStore';
 import { uuid } from '../../utils';
-import './index.less';
+import 'src/nodes/node-parallel/index.css';
 
 export default memo((props: any) => {
   const {
@@ -32,14 +32,12 @@ export default memo((props: any) => {
       addEdges: state.addEdges,
       onEdgesChange: state.onEdgesChange,
     }),
-    shallow
+    shallow,
   );
 
   const renderTitle = (item, index) => {
     const defTitle = item?.title || `事件${index}`;
-    const title = parallelExtra?.titleKey
-      ? item[parallelExtra?.titleKey]
-      : defTitle;
+    const title = parallelExtra?.titleKey ? item[parallelExtra?.titleKey] : defTitle;
     return (
       <div className="item-header">
         <div className="item-title">
@@ -54,13 +52,10 @@ export default memo((props: any) => {
         </div>
         <SourceHandle
           position={position}
-          isConnectable={
-            (edges || [])?.filter(flow => flow?.sourceHandle === item?._id)
-              ?.length === 0
-          }
+          isConnectable={(edges || [])?.filter((flow) => flow?.sourceHandle === item?._id)?.length === 0}
           selected={selected}
           isHovered={isHovered}
-          handleAddNode={data => {
+          handleAddNode={(data) => {
             handleAddNode(data, item?._id);
           }}
           id={item?._id}
@@ -71,9 +66,7 @@ export default memo((props: any) => {
   };
 
   const renderContent = (item, index) => {
-    const value = parallelExtra?.valueKey
-      ? item[parallelExtra?.valueKey]
-      : item?.value;
+    const value = parallelExtra?.valueKey ? item[parallelExtra?.valueKey] : item?.value;
     return (
       <div className="item-content">
         {CustomNodeWidget ? (
@@ -99,28 +92,26 @@ export default memo((props: any) => {
       })}
       size={5}
     >
-      {(data?.list || [{ _id: `id_${uuid()}` }, { _id: `id_${uuid()}` }])?.map(
-        (item, index) => (
-          <div
-            className={classNames('node-parallel-widget-item', {
-              'node-parallel-bottom-item': isSwitchBottom,
-            })}
-            key={index}
-          >
-            {isSwitchBottom ? (
-              <>
-                {renderContent(item, index)}
-                {renderTitle(item, index)}
-              </>
-            ) : (
-              <>
-                {renderTitle(item, index)}
-                {renderContent(item, index)}
-              </>
-            )}
-          </div>
-        )
-      )}
+      {(data?.list || [{ _id: `id_${uuid()}` }, { _id: `id_${uuid()}` }])?.map((item, index) => (
+        <div
+          className={classNames('node-parallel-widget-item', {
+            'node-parallel-bottom-item': isSwitchBottom,
+          })}
+          key={index}
+        >
+          {isSwitchBottom ? (
+            <>
+              {renderContent(item, index)}
+              {renderTitle(item, index)}
+            </>
+          ) : (
+            <>
+              {renderTitle(item, index)}
+              {renderContent(item, index)}
+            </>
+          )}
+        </div>
+      ))}
     </Space>
   );
 });

@@ -2,19 +2,10 @@ import React, { useState } from 'react';
 import { Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { combineClass } from '../utils/common';
-import './index.less';
+import 'src/widgets/FButtonFold/index.css';
 
 const FButtonFold = (props: any) => {
-  const {
-    data,
-    content,
-    addons,
-    className,
-    method,
-    childSchema,
-    expandRender,
-    ...otherProps
-  } = props;
+  const { data, content, addons, className, method, childSchema, expandRender, ...otherProps } = props;
 
   const [isExpand, setExpand] = useState(false);
 
@@ -35,20 +26,13 @@ const FButtonFold = (props: any) => {
 
   return (
     <>
-      <Button
-        className={combineClass('dr-button-fold', className)}
-        type="link"
-        {...otherProps}
-        onClick={handleClick}
-      >
+      <Button className={combineClass('dr-button-fold', className)} type="link" {...otherProps} onClick={handleClick}>
         {content}
         <DownOutlined rotate={isExpand ? 180 : 0} />
       </Button>
       {isExpand && (
         <div style={{ width: '100%' }}>
-          {expandRender
-            ? expandContent
-            : addons.renderer({ schema: childSchema, data, addons })}
+          {expandRender ? expandContent : addons.renderer({ schema: childSchema, data, addons })}
         </div>
       )}
     </>

@@ -1,6 +1,6 @@
 import { useReactFlow, useViewport } from '@xyflow/react';
 import { useEventListener } from 'ahooks';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { shallow } from 'zustand/shallow';
 import { useStore } from '../../hooks/useStore';
 import CustomNode from '../CustomNode';
@@ -20,11 +20,11 @@ const CandidateNode = () => {
       onNodesChange: s.onNodesChange,
       onEdgesChange: s.onEdgesChange,
     }),
-    shallow
+    shallow,
   );
   const { addNodes } = useFlow();
 
-  useEventListener('click', ev => {
+  useEventListener('click', (ev) => {
     if (!candidateNode) {
       return;
     }
@@ -44,7 +44,7 @@ const CandidateNode = () => {
       position: { x, y },
     };
     addNodes(newNodes);
-    setIsAddingNode(false)
+    setIsAddingNode(false);
     setCandidateNode(null);
   });
 
@@ -63,10 +63,7 @@ const CandidateNode = () => {
         zIndex: 10000,
       }}
     >
-      <CustomNode
-        {...(candidateNode as any)}
-        type={candidateNode?.data?._nodeType}
-      />
+      <CustomNode {...(candidateNode as any)} type={candidateNode?.data?._nodeType} />
     </div>
   );
 };

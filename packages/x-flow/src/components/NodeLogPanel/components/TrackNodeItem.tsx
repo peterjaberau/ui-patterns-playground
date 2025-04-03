@@ -1,5 +1,5 @@
 import { Badge, Collapse, Empty } from 'antd';
-import React, { memo, useContext, useMemo } from 'react';
+import { memo, useContext, useMemo } from 'react';
 import { ConfigContext } from '../../../models/context';
 import { transformNodeStatus } from '../../../utils';
 import createIconFont from '../../../utils/createIconFont';
@@ -16,11 +16,9 @@ interface ITrackNodeItemProps {
 }
 
 export default memo((props: ITrackNodeItemProps) => {
-  const { nodeType, nodeStatus, node, logTrackList, onTrackCollapseChange } =
-    props;
+  const { nodeType, nodeStatus, node, logTrackList, onTrackCollapseChange } = props;
 
-  const { settingMap, iconFontUrl, globalConfig, widgets }: any =
-    useContext(ConfigContext);
+  const { settingMap, iconFontUrl, globalConfig, widgets }: any = useContext(ConfigContext);
   const Icon = useMemo(() => createIconFont(iconFontUrl), [iconFontUrl]);
   const nodeSetting = settingMap[nodeType] || {};
   const { iconSvg } = nodeSetting;
@@ -35,7 +33,7 @@ export default memo((props: ITrackNodeItemProps) => {
     <div className="log-track-node">
       <Collapse
         className="log-track-collapse"
-        onChange={arr => {
+        onChange={(arr) => {
           if (node) {
             const { _nodeType, _status, ...rest } = node?.data;
             onTrackCollapseChange({
@@ -56,14 +54,7 @@ export default memo((props: ITrackNodeItemProps) => {
                   background: nodeSetting?.icon?.bgColor || '#F79009',
                 }}
               >
-                {iconSvg ? (
-                  iconSvg
-                ) : (
-                  <Icon
-                    style={{ fontSize: 14, color: '#fff' }}
-                    type={nodeSetting?.icon?.type}
-                  />
-                )}
+                {iconSvg ? iconSvg : <Icon style={{ fontSize: 14, color: '#fff' }} type={nodeSetting?.icon?.type} />}
               </span>
 
               <TextEllipsis
@@ -75,15 +66,7 @@ export default memo((props: ITrackNodeItemProps) => {
           key={node?.id}
           className="log-track-collapse-panel"
           extra={
-            statusData ? (
-              <Badge
-                color={statusData?.color}
-                text={statusData?.name}
-                className="track-extra-badge"
-              />
-            ) : (
-              ''
-            )
+            statusData ? <Badge color={statusData?.color} text={statusData?.name} className="track-extra-badge" /> : ''
           }
         >
           {logTrackList?.length ? (
@@ -91,11 +74,7 @@ export default memo((props: ITrackNodeItemProps) => {
               <CodePanel codeData={item} key={index} isShowFullScreen={false} />
             ))
           ) : (
-            <Empty
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description="暂无日志信息"
-              style={{ fontSize: '12px' }}
-            />
+            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无日志信息" style={{ fontSize: '12px' }} />
           )}
         </Panel>
       </Collapse>

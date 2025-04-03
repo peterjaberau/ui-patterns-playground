@@ -1,14 +1,8 @@
+// @ts-ignore
 import FormRender, { Schema, useForm } from 'form-render';
 import produce from 'immer';
 import { debounce, isFunction } from 'lodash';
-import React, {
-  FC,
-  forwardRef,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from 'react';
+import { FC, forwardRef, useContext, useEffect, useImperativeHandle, useState } from 'react';
 import { shallow } from 'zustand/shallow';
 import { useStore } from '../../hooks/useStore';
 import { ConfigContext } from '../../models/context';
@@ -23,10 +17,10 @@ interface INodeEditorProps {
 }
 
 const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
-  const { data, onChange, nodeType, id } = props;
+  const { data, nodeType, id } = props;
   const form = useForm();
   // // 1. Get node configuration information
-  const { settingMap, widgets, readOnly } = useContext(ConfigContext);
+  const { settingMap, widgets, readOnly }: any = useContext(ConfigContext);
   const nodeSetting = settingMap[nodeType] || {};
   const [customVal, setCustomVal] = useState(data);
   const CustomSettingWidget = widgets[`${nodeType}NodeSettingWidget`]; // Built-in setting component
@@ -37,16 +31,13 @@ const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
   useImperativeHandle(ref, () => ({
     validateForm: async () => {
       let result = true;
-      if (
-        nodeSetting?.settingSchema ||
-        (isFunction(getSettingSchema) && Object.keys(asyncSchema).length > 0)
-      ) {
+      if (nodeSetting?.settingSchema || (isFunction(getSettingSchema) && Object.keys(asyncSchema).length > 0)) {
         result = await form
           .validateFields()
           .then(() => {
             return true;
           })
-          .catch(err => {
+          .catch((err: any) => {
             return false;
           });
       }
@@ -55,13 +46,7 @@ const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
   }));
 
   async function getSchema() {
-    const shema = await getSettingSchema(
-      id,
-      nodeType,
-      nodeSetting,
-      data,
-      form
-    ).catch(() => ({}));
+    const shema = await getSettingSchema(id, nodeType, nodeSetting, data, form).catch(() => ({}));
     setAsyncSchema(shema);
   }
   useEffect(() => {
@@ -75,7 +60,7 @@ const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
       nodes: state.nodes,
       setNodes: state.setNodes,
     }),
-    shallow
+    shallow,
   );
 
   useEffect(() => {
@@ -92,7 +77,7 @@ const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
   }, [safeJsonStringify(data), id]);
 
   const handleNodeValueChange = debounce((data: any) => {
-    const newNodes = produce(nodes, draft => {
+    const newNodes = produce(nodes, (draft: any) => {
       let node = null;
       // Reverse query ID, because there are multiple elements with the same ID
       for (let i = draft?.length - 1; i >= 0; i--) {
@@ -103,10 +88,7 @@ const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
       }
       if (node) {
         // Update the node data
-        if (
-          node?.data?._nodeType === 'Switch' ||
-          node?.data?._nodeType === 'Parallel'
-        ) {
+        if (node?.data?._nodeType === 'Switch' || node?.data?._nodeType === 'Parallel') {
           data['list'] = (data?.list || [])?.map((item, index) => {
             if (item?._id) {
               return item;
@@ -140,7 +122,7 @@ const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
       <NodeWidget
         {...nodeSetting?.settingWidgetProps}
         value={customVal}
-        onChange={values => {
+        onChange={(values) => {
           setCustomVal(values);
           handleNodeValueChange({ ...values });
         }}
@@ -162,25 +144,15 @@ const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
         }}
       />
     );
-  } else if (
-    isFunction(getSettingSchema) &&
-    Object.keys(asyncSchema).length > 0
-  ) {
+  } else if (isFunction(getSettingSchema) && Object.keys(asyncSchema).length > 0) {
     return (
-      <FormRender
-        schema={asyncSchema}
-        form={form}
-        widgets={widgets}
-        watch={watch}
-        size={'small'}
-        readOnly={readOnly}
-      />
+      <FormRender schema={asyncSchema} form={form} widgets={widgets} watch={watch} size={'small'} readOnly={readOnly} />
     );
   } else if (CustomSettingWidget) {
     // Built-in nodes
     return (
       <CustomSettingWidget
-        onChange={val => {
+        onChange={(val) => {
           handleNodeValueChange({ ...val });
         }}
         value={data}

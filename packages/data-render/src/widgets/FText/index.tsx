@@ -4,7 +4,7 @@ import { transformData, combineClass, transDataKeyToData } from '../utils/common
 import createIconFont from '../utils/createIconFont';
 import { renderText } from '../components/TextView';
 import InnerHtml from '../components/InnerHtml';
-import './index.less';
+import 'src/widgets/FText/index.css';
 
 interface IProps {
   className: string;
@@ -108,7 +108,7 @@ const FText = (props: IProps) => {
         </span>
       )}
       {value}
-      { rightText && (
+      {rightText && (
         <span className="content-right-text" style={rightTextStyle}>
           {rightText}
         </span>

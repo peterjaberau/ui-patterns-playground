@@ -1,6 +1,6 @@
 import { Button, Tooltip } from 'antd';
 import type { MouseEvent } from 'react';
-import React, { memo, useContext } from 'react';
+import { memo, useContext } from 'react';
 import IconView from '../../components/IconView';
 import NodeSelectPopover from '../../components/NodesPopover';
 import { useStore, useStoreApi } from '../../hooks/useStore';
@@ -8,17 +8,17 @@ import { ConfigContext } from '../../models/context';
 import { useEventEmitterContextContext } from '../../models/event-emitter';
 
 import { useFullscreen } from 'ahooks';
-import './index.less';
+import 'src/operator/Control/index.css';
 
 const Control = (props: any) => {
   const { addNode, xflowRef } = props;
   const [isFullscreen, { toggleFullscreen }] = useFullscreen(xflowRef);
-  const { globalConfig, readOnly } = useContext(ConfigContext);
+  const { globalConfig, readOnly }: any = useContext(ConfigContext);
 
   const hideAddNode = globalConfig?.controls?.hideAddNode ?? false;
   const hideAnnotate = globalConfig?.controls?.hideAnnotate ?? false;
 
-  const { setIsAddingNode, panOnDrag } = useStore(s => ({
+  const { setIsAddingNode, panOnDrag } = useStore((s) => ({
     setIsAddingNode: s.setIsAddingNode,
     panOnDrag: s.panOnDrag,
   }));
@@ -32,7 +32,7 @@ const Control = (props: any) => {
 
   const { eventEmitter } = useEventEmitterContextContext();
 
-  const handleInteractionModeChange = panOnDrag => {
+  const handleInteractionModeChange = (panOnDrag) => {
     storeApi.setState({ panOnDrag });
   };
 
@@ -40,42 +40,21 @@ const Control = (props: any) => {
     <div className="fai-reactflow-control">
       {!hideAddNode && !readOnly && (
         <NodeSelectPopover addNode={addNode}>
-          <Tooltip
-            title="Add Node"
-            getPopupContainer={() =>
-              document.getElementById('xflow-container') as HTMLElement
-            }
-          >
-            <Button
-              type="text"
-              icon={<IconView type="icon-add-circle" className="icon" />}
-            />
+          <Tooltip title="Add Node" getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}>
+            <Button type="text" icon={<IconView type="icon-add-circle" className="icon" />} />
           </Tooltip>
         </NodeSelectPopover>
       )}
       {!hideAnnotate && !readOnly && (
         <Tooltip
           title="Add Comment"
-          getPopupContainer={() =>
-            document.getElementById('xflow-container') as HTMLElement
-          }
+          getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
         >
-          <Button
-            type="text"
-            icon={
-              <IconView type="icon-sticky-note-add-line" className="icon" />
-            }
-            onClick={addNote}
-          />
+          <Button type="text" icon={<IconView type="icon-sticky-note-add-line" className="icon" />} onClick={addNote} />
         </Tooltip>
       )}
       {!(hideAddNode && hideAnnotate) && !readOnly && <div className="separator"></div>}
-      <Tooltip
-        title="Pointer Mode"
-        getPopupContainer={() =>
-          document.getElementById('xflow-container') as HTMLElement
-        }
-      >
+      <Tooltip title="Pointer Mode" getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}>
         <Button
           type="text"
           icon={
@@ -92,12 +71,7 @@ const Control = (props: any) => {
           style={{ backgroundColor: !panOnDrag ? 'rgb(239,244,255)' : '' }}
         />
       </Tooltip>
-      <Tooltip
-        title="Hand Mode"
-        getPopupContainer={() =>
-          document.getElementById('xflow-container') as HTMLElement
-        }
-      >
+      <Tooltip title="Hand Mode" getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}>
         <Button
           type="text"
           icon={
@@ -119,9 +93,7 @@ const Control = (props: any) => {
       <div className="separator"></div>
       <Tooltip
         title="Organize the canvas"
-        getPopupContainer={() =>
-          document.getElementById('xflow-container') as HTMLElement
-        }
+        getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
       >
         <Button
           type="text"
@@ -133,9 +105,7 @@ const Control = (props: any) => {
       </Tooltip>
       <Tooltip
         title="Canvas Full Screen"
-        getPopupContainer={() =>
-          document.getElementById('xflow-container') as HTMLElement
-        }
+        getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
       >
         <Button
           type="text"

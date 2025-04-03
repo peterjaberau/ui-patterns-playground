@@ -5,32 +5,18 @@ import { Dropdown, Menu, message } from 'antd';
 import { ItemType } from 'antd/es/menu/interface';
 import classNames from 'classnames';
 import { isFunction } from 'lodash';
-import React, { memo, useCallback, useContext, useMemo, useState } from 'react';
+import { memo, useCallback, useContext, useMemo, useState } from 'react';
 import { shallow } from 'zustand/shallow';
 import { useStore } from '../../hooks/useStore';
 import { ConfigContext } from '../../models/context';
-import {
-  capitalize,
-  isTruthy,
-  transformNodeStatus,
-  uuid,
-  uuid4,
-} from '../../utils';
-import './index.less';
+import { capitalize, isTruthy, transformNodeStatus, uuid, uuid4 } from '../../utils';
+import 'src/components/CustomNode/index.css';
 import SourceHandle from './sourceHandle';
 import { useFlow } from '../../hooks/useFlow';
 
 export default memo((props: any) => {
-  const { id, type, data, layout, isConnectable, selected, onClick, status } =
-    props;
-  const {
-    widgets,
-    settingMap,
-    globalConfig,
-    onMenuItemClick,
-    antdVersion,
-    readOnly,
-  } = useContext(ConfigContext);
+  const { id, type, data, layout, isConnectable, selected, onClick, status } = props;
+  const { widgets, settingMap, globalConfig, onMenuItemClick, antdVersion, readOnly }: any = useContext(ConfigContext);
   const deletable = globalConfig?.edge?.deletable ?? true;
   const disabledCopy = settingMap[type]?.disabledCopy ?? false;
   const disabledDelete = settingMap[type]?.disabledDelete ?? false;
@@ -38,21 +24,19 @@ export default memo((props: any) => {
   // const isConnectableStart = globalConfig?.handle?.isConnectableStart ?? true;
   // const isConnectableEnd = globalConfig?.handle?.isConnectableEnd ?? true;
 
-  const NodeWidget =
-    widgets[`${capitalize(type)}Node`] || widgets['CommonNode'];
+  const NodeWidget = widgets[`${capitalize(type)}Node`] || widgets['CommonNode'];
   const [isHovered, setIsHovered] = useState(false);
   const reactflow = useReactFlow();
-  const { addEdges, mousePosition } =
-    useStore(
-      (state: any) => ({
-        nodes: state.nodes,
-        edges: state.edges,
-        mousePosition: state.mousePosition,
-        addEdges: state.addEdges,
-        onEdgesChange: state.onEdgesChange,
-      }),
-      shallow
-    );
+  const { addEdges, mousePosition } = useStore(
+    (state: any) => ({
+      nodes: state.nodes,
+      edges: state.edges,
+      mousePosition: state.mousePosition,
+      addEdges: state.addEdges,
+      onEdgesChange: state.onEdgesChange,
+    }),
+    shallow,
+  );
   const { addNodes, pasteNode, copyNode, deleteNode } = useFlow();
   const isNote = type === 'Note';
   const isEnd = type === 'End';
@@ -104,14 +88,14 @@ export default memo((props: any) => {
     (data?: { sourceHandle: string }) => {
       pasteNode(id, data);
     },
-    [pasteNode, id]
+    [pasteNode, id],
   );
 
   const handleDeleteNode = useCallback(() => {
     deleteNode(id);
   }, [deleteNode, id]);
 
-  const defaultAction = (e, sourceHandle) => {
+  const defaultAction = (e: any, sourceHandle: any) => {
     if (e.key === 'copy') {
       handleCopyNode();
     } else if (e.key === 'paste') {
@@ -129,7 +113,7 @@ export default memo((props: any) => {
     }
   };
 
-  const itemClick = e => {
+  const itemClick = (e: any) => {
     if (!e.key) {
       return;
     }
@@ -154,21 +138,20 @@ export default memo((props: any) => {
     if (type === 'Switch') {
       let list = [];
       if (Array.isArray(data.list)) {
-        const len = data.list.length;
-        list = data.list.map((r, i) => {
+        list = data.list.map((r: any, i: any) => {
           if (i === 0) {
             return {
               label: `Paste to the ${i + 1}th exit`,
               key: 'paste-' + i,
               index: i,
-              id:id,
+              id: id,
               sourcehandle: r._id,
             };
           } else {
             return {
               label: `Paste to the ${i + 1}th exit`,
               key: 'paste-' + i,
-              id:id,
+              id: id,
               index: i,
               sourcehandle: r._id,
             };
@@ -178,14 +161,14 @@ export default memo((props: any) => {
       const defaultElse = switchExtra?.hideElse
         ? []
         : [
-          {
-            label: `Paste to the ${list.length + 1}th exit`,
-            key: 'paste-' + (list.length + 1),
-            id:id,
-            index: list.length + 1,
-            sourcehandle: 'id_else',
-          },
-        ];
+            {
+              label: `Paste to the ${list.length + 1}th exit`,
+              key: 'paste-' + (list.length + 1),
+              id: id,
+              index: list.length + 1,
+              sourcehandle: 'id_else',
+            },
+          ];
       return [...list, ...defaultElse];
     }
     return [
@@ -197,21 +180,23 @@ export default memo((props: any) => {
   }, [type, data, isEnd]);
 
   // Node status processing
-  const statusObj = transformNodeStatus(globalConfig?.nodeView?.status || []);
-  const nodeBorderColor = statusObj[status]?.color;
+  const statusObj: any = transformNodeStatus(globalConfig?.nodeView?.status || []);
+  const nodeBorderColor: any = statusObj[status]?.color;
 
   const menu = (
     <Menu onClick={itemClick}>
       <Menu.Item key={'copy'} disabled={disabledCopy}>
         copy
       </Menu.Item>
-      {!isEnd ? menuItem.map((r: any) => {
-        return (
-          <Menu.Item {...r} key={r.key}>
-            {r.label}
-          </Menu.Item>
-        );
-      }) : null}
+      {!isEnd
+        ? menuItem.map((r: any) => {
+            return (
+              <Menu.Item {...r} key={r.key}>
+                {r.label}
+              </Menu.Item>
+            );
+          })
+        : null}
       <Menu.Item key={'delete'} danger={true} disabled={disabledDelete}>
         delete
       </Menu.Item>
@@ -273,9 +258,7 @@ export default memo((props: any) => {
           //trigger={['click', 'contextMenu']}
         >
           <div className="xflow-node-actions-container">
-            <MoreOutlined
-              style={{ transform: 'rotateZ(90deg)', fontSize: '20px' }}
-            ></MoreOutlined>
+            <MoreOutlined style={{ transform: 'rotateZ(90deg)', fontSize: '20px' }}></MoreOutlined>
           </div>
         </Dropdown>
       )}

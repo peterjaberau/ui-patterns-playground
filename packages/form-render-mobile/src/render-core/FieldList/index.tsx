@@ -5,7 +5,7 @@ import { useStore } from 'zustand';
 import { FRContext, ConfigContext } from '../../models/context';
 import { parseAllExpression } from 'form-render/es/models/expression';
 import { isFunction } from '../../utils';
-import './index.less';
+import 'src/render-core/FieldList/index.css';
 
 const UpperContext = createContext(() => {});
 const getParamValue = (formCtx: any, upperCtx: any, schema: any) => (valueKey: string) => {
@@ -26,12 +26,12 @@ export default (props: any) => {
   const { items, ...otherSchema } = _schema;
   const schema = {
     items,
-    ...parseAllExpression(otherSchema, formData, _rootPath, formSchema)
+    ...parseAllExpression(otherSchema, formData, _rootPath, formSchema),
   };
 
   const defaultValue = schema.default ?? (schema.defaultValue || [{}]);
   const { onAdd, onRemove } = schema.props || {};
-  
+
   const handleAdd = (add: any, data?: any) => {
     let addFunc = onAdd;
     if (typeof onAdd === 'string') {
@@ -62,29 +62,35 @@ export default (props: any) => {
   const getValueFromKey = getParamValue(formCtx, upperCtx, schema);
 
   const readOnly = getValueFromKey('readOnly');
-  
+
   if (schema.hidden) {
     return null;
   }
 
-  const preRootPath = [...(_rootPath  || [])].splice(0, _rootPath.length - 1);
+  const preRootPath = [...(_rootPath || [])].splice(0, _rootPath.length - 1);
   const rootPath = [...preRootPath, ...path];
-  
+
   return (
     <Grid.Item className="frm-list">
       <Form.Array
         name={path}
         initialValue={defaultValue}
-        renderAdd={!readOnly ? () => (
-          <span>
-            <AddCircleOutline /> 添加
-          </span>
-        ) : undefined}
+        renderAdd={
+          !readOnly
+            ? () => (
+                <span>
+                  <AddCircleOutline /> 添加
+                </span>
+              )
+            : undefined
+        }
         onAdd={({ add }) => handleAdd(add)}
         renderHeader={({ index }, { remove }) => (
           <>
             {schema.title && (
-               <span>{schema.title} {index + 1}</span>
+              <span>
+                {schema.title} {index + 1}
+              </span>
             )}
             {!readOnly && (
               <a onClick={() => handleRemove(remove, index)} style={{ float: 'right' }}>
@@ -94,10 +100,12 @@ export default (props: any) => {
           </>
         )}
       >
-        {fields => fields.map(({ index }) => {
-          return renderCore({ schema, parentPath: [index], rootPath: [...rootPath, index] })
-        })}
+        {(fields) =>
+          fields.map(({ index }) => {
+            return renderCore({ schema, parentPath: [index], rootPath: [...rootPath, index] });
+          })
+        }
       </Form.Array>
     </Grid.Item>
   );
-}
+};

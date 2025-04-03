@@ -1,8 +1,8 @@
-import { NodeMouseHandler,Handle } from '@xyflow/react';
-import { Schema,useForm } from 'form-render';
-import React, { ReactNode ,ComponentProps} from 'react';
+import { NodeMouseHandler, Handle } from '@xyflow/react';
+import { Schema, useForm } from 'form-render';
+import { ReactNode, ComponentProps } from 'react';
 
-type HandleProps = ComponentProps<typeof Handle>
+type HandleProps = ComponentProps<typeof Handle>;
 
 export interface TNodeItem {
   title: string; // node title
@@ -22,19 +22,27 @@ export interface TNodeItem {
     width?: string | number; //Configure panel width
     hideDesc?: boolean; //Configure panel description
   };
-  getSettingSchema?: (nodeId: string, nodeType: string, nodeItem:TNodeItem,nodeData:any,form: ReturnType<typeof useForm>) => Promise<Schema>;
-  switchExtra: { // Conditional node extra attribute configuration
+  getSettingSchema?: (
+    nodeId: string,
+    nodeType: string,
+    nodeItem: TNodeItem,
+    nodeData: any,
+    form: ReturnType<typeof useForm>,
+  ) => Promise<Schema>;
+  switchExtra: {
+    // Conditional node extra attribute configuration
     hideElse: boolean;
     valueKey: string;
     titleKey: string;
   };
-  parallelExtra: { // Additional configuration for parallel nodes
+  parallelExtra: {
+    // Additional configuration for parallel nodes
     valueKey: string;
     titleKey: string;
   };
   disabledCopy?: boolean;
   disabledDelete?: boolean;
-  onTesting: (node,nodes) => void; // Single point debugging method
+  onTesting: (node, nodes) => void; // Single point debugging method
 }
 
 export interface TNodeGroup {
@@ -54,7 +62,7 @@ export interface TNodePanel {
   //Configure panel property settings
   width?: string | number; //Configure panel width
   hideDesc?: boolean; //Configure panel description
-  onClose?:(activeNodeId:string)=>void
+  onClose?: (activeNodeId: string) => void;
 }
 
 export interface TNodeSelector {
@@ -96,15 +104,15 @@ export interface TEdge {
   deletable?: boolean; // Is it allowed to delete the edges initialized by the line without being affected by this item?
 }
 
-export interface TControl{
-  hideAddNode?:boolean
-  hideAnnotate?:boolean
+export interface TControl {
+  hideAddNode?: boolean;
+  hideAnnotate?: boolean;
 }
 
-export interface THandle{
+export interface THandle {
   // isConnectableStart?:boolean
   // isConnectableEnd?:boolean
-  isValidConnection?:HandleProps['isValidConnection']
+  isValidConnection?: HandleProps['isValidConnection'];
 }
 export interface FlowProps {
   initialValues?: {
@@ -126,15 +134,15 @@ export interface FlowProps {
     nodePanel?: TNodePanel;
     nodeView?: TNodeView;
     edge?: TEdge;
-    controls?:TControl
-    handle?:THandle
-    deleteKeyCode?:string | string[] | null
+    controls?: TControl;
+    handle?: THandle;
+    deleteKeyCode?: string | string[] | null;
   };
   logPanel?: TLogPanel; // Log panel configuration
-  readOnly?:boolean //Read-only mode
+  readOnly?: boolean; //Read-only mode
   onNodeClick?: NodeMouseHandler;
   onMenuItemClick?: (itemInfo: ItemInfo, defaultAction: () => void) => void;
-  clickAddNode?:(type:string,nodeItem:TNodeItem,addNode:(initData?:Record<string,any>)=>void)=>void
+  clickAddNode?: (type: string, nodeItem: TNodeItem, addNode: (initData?: Record<string, any>) => void) => void;
 }
 interface ItemInfo {
   key: 'copy' | 'paste' | 'delete' | string;

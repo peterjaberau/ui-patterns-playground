@@ -1,6 +1,6 @@
 import { EventEmitterContextProvider } from './models/event-emitter';
 import { ConfigProvider } from 'antd';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { FlowProviderWrapper } from './components/FlowProvider';
 import { ConfigContext } from './models/context';
 import { TNodeGroup, TNodeItem } from './types';
@@ -13,10 +13,7 @@ interface ProviderProps<T> {
   [key: string]: any;
 }
 
-export default function withProvider<T>(
-  Element: any,
-  defaultWidgets?: any
-): React.ComponentType<T> {
+export default function withProvider<T>(Element: any, defaultWidgets?: any): React.ComponentType<T> {
   return (props: ProviderProps<T>) => {
     const {
       configProvider,
@@ -30,7 +27,7 @@ export default function withProvider<T>(
       globalConfig,
       logPanel,
       onMenuItemClick,
-      antdVersion ='V5',
+      antdVersion = 'V5',
       readOnly,
       clickAddNode,
       onTesting,
@@ -73,16 +70,8 @@ export default function withProvider<T>(
       <ConfigProvider {...configProvider}>
         <ConfigContext.Provider value={configContext}>
           <EventEmitterContextProvider>
-            <FlowProviderWrapper
-              nodes={initialValues?.nodes}
-              edges={initialValues?.edges}
-              layout={layout}
-            >
-              <Element
-                {...restProps}
-                initialValues={initialValues}
-                settings={settings}
-              />
+            <FlowProviderWrapper nodes={initialValues?.nodes} edges={initialValues?.edges} layout={layout}>
+              <Element {...restProps} initialValues={initialValues} settings={settings} />
             </FlowProviderWrapper>
           </EventEmitterContextProvider>
         </ConfigContext.Provider>

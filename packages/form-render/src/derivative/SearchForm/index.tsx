@@ -29,21 +29,21 @@ import {
   Html,
   PercentSlider,
 } from '../../widgets';
-import './index.less';
+import 'src/derivative/SearchForm/index.css';
 import { SearchProps } from '../../type';
 
 const getIsColumn = (isColumn: boolean, obj: object, column: number) => {
   let count = 0;
-  Object.keys(obj || {}).forEach(key => {
+  Object.keys(obj || {}).forEach((key) => {
     const item = obj[key];
     if (item.visible === undefined) {
       count += 1;
     }
   });
-  return isColumn && (count % column !== 0);
+  return isColumn && count % column !== 0;
 };
 
-const SearchForm: <RecordType extends object = any>(props: SearchProps<RecordType>) => React.ReactElement = props => {
+const SearchForm: <RecordType extends object = any>(props: SearchProps<RecordType>) => React.ReactElement = (props) => {
   if (props.hidden) {
     return null;
   }
@@ -86,7 +86,7 @@ const SearchForm: <RecordType extends object = any>(props: SearchProps<RecordTyp
   const [state, setState] = useSetState({
     hasCollapse: false, // 是否有折叠
     isExpand: !defaultCollapsed, // 折叠展开状态
-    column: schema.column || _column // 一行几列
+    column: schema.column || _column, // 一行几列
   });
   const { hasCollapse, isExpand, column } = state;
 
@@ -117,7 +117,7 @@ const SearchForm: <RecordType extends object = any>(props: SearchProps<RecordTyp
     if (!collapsed) {
       return;
     }
-    if ((!isColumn && fieldNum > (column * 2 - 1)) || (isColumn && fieldNum > (column -1))) {
+    if ((!isColumn && fieldNum > column * 2 - 1) || (isColumn && fieldNum > column - 1)) {
       setState({ hasCollapse: true });
     }
     handleContainerResize();
@@ -128,7 +128,7 @@ const SearchForm: <RecordType extends object = any>(props: SearchProps<RecordTyp
       return;
     }
 
-    if ((!isColumn && fieldNum > (column * 2 - 1)) || (isColumn && fieldNum > (column -1))) {
+    if ((!isColumn && fieldNum > column * 2 - 1) || (isColumn && fieldNum > column - 1)) {
       setState({ hasCollapse: true });
     } else {
       setState({ hasCollapse: true });
@@ -167,19 +167,25 @@ const SearchForm: <RecordType extends object = any>(props: SearchProps<RecordTyp
     if (!layoutAuto) {
       return;
     }
-    const resizeObserver = new ResizeObserver(debounce(() => {
-      const { clientWidth } = containerRef?.current || {};
-      for (let i = _column; i > 0; i--) {
-        const item = clientWidth / i;
-        if (item >= (layoutAuto?.fieldMinWidth || 340)) {
-          setState({ column: i });
-          break;
-        }
-        if (i === 1) {
-          setState({ column: 1 });
-        }
-      }
-    }, 300, { leading: true }));
+    const resizeObserver = new ResizeObserver(
+      debounce(
+        () => {
+          const { clientWidth } = containerRef?.current || {};
+          for (let i = _column; i > 0; i--) {
+            const item = clientWidth / i;
+            if (item >= (layoutAuto?.fieldMinWidth || 340)) {
+              setState({ column: i });
+              break;
+            }
+            if (i === 1) {
+              setState({ column: 1 });
+            }
+          }
+        },
+        300,
+        { leading: true },
+      ),
+    );
 
     resizeObserver.observe(containerRef.current);
     () => {
@@ -207,37 +213,39 @@ const SearchForm: <RecordType extends object = any>(props: SearchProps<RecordTyp
 
   return (
     <div
-      className={classnames('fr-search', {[className]: !!className, 'fr-column-search': isColumn })}
+      className={classnames('fr-search', { [className]: !!className, 'fr-column-search': isColumn })}
       style={style}
       ref={containerRef}
       onKeyDown={!closeReturnSearch ? handleKeyDown : undefined}
     >
       <FormRender
-        displayType='row'
+        displayType="row"
         {...restProps}
         schema={{
           ...schema,
           properties,
-          column
+          column,
         }}
         onFinish={handleFinish}
         onFinishFailed={handleFinishFailed}
         form={form}
-        operateExtra={operateShow && (
-          <Col
-            className={classnames('search-action-col', {
-              'search-action-column': getIsColumn(isColumn, properties, column)
-            })}
-            style={{ minWidth: (1 / column) * 100 + '%' }}
-          >
-            <ActionView
-              {...actionProps}
-              retainBtn={retainBtn}
-              mode={mode}
-              setExpand={(value: boolean) => setState({ isExpand: value })}
-            />
-          </Col>
-        )}
+        operateExtra={
+          operateShow && (
+            <Col
+              className={classnames('search-action-col', {
+                'search-action-column': getIsColumn(isColumn, properties, column),
+              })}
+              style={{ minWidth: (1 / column) * 100 + '%' }}
+            >
+              <ActionView
+                {...actionProps}
+                retainBtn={retainBtn}
+                mode={mode}
+                setExpand={(value: boolean) => setState({ isExpand: value })}
+              />
+            </Col>
+          )
+        }
       />
     </div>
   );

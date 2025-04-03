@@ -6,7 +6,7 @@ import { useSet } from '../../utils/hooks';
 import { getRequestParams } from '../../utils/common';
 import BaseTable from '../BaseTable';
 
-import './index.less';
+import 'src/widgets/components/RequestTable/index.css';
 
 /**
  *
@@ -86,13 +86,7 @@ const RequestTable = (props: any) => {
   }
 
   return (
-    <BaseTable
-      {...tableProps}
-      data={dataSource}
-      pagination={pagination}
-      onChange={getTableList}
-      loading={loading}
-    />
+    <BaseTable {...tableProps} data={dataSource} pagination={pagination} onChange={getTableList} loading={loading} />
   );
 };
 

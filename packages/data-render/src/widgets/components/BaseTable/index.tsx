@@ -3,7 +3,7 @@ import { Table } from 'antd';
 import { isArray, combineClass } from '../../utils/common';
 import { getColumns, getDataSource, combineDataSource } from './basic';
 
-import './index.less';
+import 'src/widgets/components/BaseTable/index.css';
 
 /**
  *

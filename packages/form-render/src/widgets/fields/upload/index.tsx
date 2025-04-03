@@ -5,7 +5,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { get } from 'lodash-es';
 import { translation } from '../../utils';
 
-import './index.less';
+import 'src/widgets/fields/upload/index.css';
 
 interface Props {
   action: any;
@@ -16,14 +16,7 @@ interface Props {
   schema: any;
 }
 
-const FrUpload = ({
-  action,
-  value,
-  onChange,
-  uploadProps,
-  buttonProps,
-  schema,
-}: Props) => {
+const FrUpload = ({ action, value, onChange, uploadProps, buttonProps, schema }: Props) => {
   const configCtx = useContext(ConfigProvider.ConfigContext);
   const t = translation(configCtx);
 
@@ -35,9 +28,7 @@ const FrUpload = ({
       if (info.file.status === 'done') {
         message.success(`${info.file.name} ${t('upload_success')}`);
         const path = get(schema, 'props.path', '');
-        const url = path
-          ? get(info.file.response, path)
-          : info.file.response.url;
+        const url = path ? get(info.file.response, path) : info.file.response.url;
         onChange(url);
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} ${t('upload_fail')}`);
@@ -60,22 +51,17 @@ const FrUpload = ({
   };
 
   return (
-    <div className='fr-upload-mod'>
-      <Upload {...props} className='fr-upload-file'>
+    <div className="fr-upload-mod">
+      <Upload {...props} className="fr-upload-file">
         <Button {...btnProps} />
       </Upload>
       {value && (
-        <a
-          href={value}
-          target='_blank'
-          rel='noopener noreferrer'
-          className='fr-upload-preview'
-        >
+        <a href={value} target="_blank" rel="noopener noreferrer" className="fr-upload-preview">
           {t('uploaded_address')}
         </a>
       )}
     </div>
   );
-}
+};
 
 export default FrUpload;

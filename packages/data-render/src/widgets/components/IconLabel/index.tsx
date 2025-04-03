@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import createIconFont from '../../utils/createIconFont';
 
-import './index.less';
+import 'src/widgets/components/IconLabel/index.css';
 
 const IconLabel = (props: any) => {
   const {
@@ -24,10 +24,7 @@ const IconLabel = (props: any) => {
   const IconView = <Icon type={type} style={{ fontSize, color, ...iconStyle }} onClick={onClick} />;
 
   return (
-    <span
-      className={classnames('custom-icon-label-view', { [className]: className })}
-      style={style}
-    >
+    <span className={classnames('custom-icon-label-view', { [className]: className })} style={style}>
       {direct === 'left' && IconView}
       <span className="content" style={contentStyle}>
         {data}

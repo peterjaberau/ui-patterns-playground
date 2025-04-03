@@ -1,9 +1,9 @@
 import { Popover } from 'antd';
 import classNames from 'classnames';
-import React, { memo, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import createIconFont from '../../utils/createIconFont';
 import TextEllipsis from '../TextEllipsis';
-import './index.less';
+import 'src/components/NodeContainer/index.css';
 import TitleMenuTooltip from './TitleMenuTooltip';
 
 export default memo((props: any) => {
@@ -20,16 +20,12 @@ export default memo((props: any) => {
     iconSvg,
     hideTitleTips,
     isSwitchBottom,
-    nodeSettingTitle,
+    // nodeSettingTitle,
   } = props;
   const IconBox = useMemo(() => createIconFont(iconFontUrl), [iconFontUrl]);
 
   const renderDesc = () => (
-    <>
-      {!hideDesc && !!desc && (
-        <TextEllipsis text={desc} rows={2} type="paragraph" className='node-desc' />
-      )}
-    </>
+    <>{!hideDesc && !!desc && <TextEllipsis text={desc} rows={2} type="paragraph" className="node-desc" />}</>
   );
 
   const renderDescAndNodeWidget = () => {
@@ -65,9 +61,7 @@ export default memo((props: any) => {
             content={<TitleMenuTooltip {...props} />}
             placement="bottomLeft"
             trigger="hover"
-            getPopupContainer={() =>
-              document.getElementById('xflow-container') as HTMLElement
-            }
+            getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
             overlayInnerStyle={{ padding: '12px 16px' }}
           >
             <span className="icon-box" style={{ background: icon?.bgColor }}>

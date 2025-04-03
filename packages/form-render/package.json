@@ -11,72 +11,90 @@
     "Json Schema",
     "Ant Design"
   ],
-  "homepage": "https://xrender.fun/form-render",
   "bugs": {
-    "url": "https://github.com/alibaba/x-render/issues"
+    "url": ""
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:alibaba/form-render.git"
+    "url": "",
+    "directory": "packages/ui"
   },
   "license": "MIT",
-  "contributors": [
-    {
-      "name": "Tw93",
-      "email": "tw93@qq.com"
+  "author": "",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
-    {
-      "name": "lhbxs",
-      "email": "596850703@qq.com"
-    }
-  ],
-  "main": "lib/index.js",
-  "module": "es/index.js",
+    "./styles.css": "./dist/index.css"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "source": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "files": [
-    "es",
-    "lib",
-    "package.json"
+    "dist"
   ],
   "scripts": {
-    "beta": "npm publish --tag beta",
-    "build": "father-build",
-    "next": "npm publish --tag next",
-    "prepare": "npm run build",
-    "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
-    "postpublish": "git push --tags",
-    "test:ui": "vitest --ui"
-  },
-  "lint-staged": {
-    "*.{js,jsx,less,md,json}": [
-      "prettier --write"
-    ],
-    "*.ts?(x)": [
-      "prettier --parser=typescript --write"
-    ]
+    "build": "tsup",
+    "clean": "rm -rf node_modules dist",
+    "dev": "tsup --watch",
+    "lint": "TIMING=1 eslint --max-warnings 0",
+    "lint:inspect": "npx @eslint/config-inspector@latest"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.0.2",
+    "@ant-design/icons": "^6.0.0",
     "ahooks": "^3.7.5",
     "async-validator": "^3.5.1",
     "classnames": "^2.3.1",
+    "clsx": "^2.1.1",
     "color": "^3.1.2",
     "dayjs": "^1.11.7",
     "lodash-es": "^4.17.21",
     "rc-color-picker": "^1.2.6",
+    "rc-picker": "^4.11.3",
+    "tailwind-merge": "^3.0.2",
+    "tailwind-variants": "^1.0.0",
     "virtualizedtableforantd4": "^1.1.2",
     "zustand": "^4.1.5"
   },
   "devDependencies": {
+    "@codefast/eslint-config": "workspace:*",
+    "@codefast/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "^4.0.15",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^22.13.11",
     "deep-equal": "^2.0.3",
-    "rollup-plugin-copy": "^3.4.0"
+    "eslint": "^9.23.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.15",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2"
   },
   "peerDependencies": {
-    "antd": "4.x || 5.x",
-    "react": ">=16.9.0",
-    "react-dom": ">=16.9.0"
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "antd": "5.x",
+    "react": ">=18",
+    "react-dom": ">=18"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "@types/react-dom": {
+      "optional": true
+    }
   },
-  "sideEffect": false
+  "publishConfig": {
+    "access": "public"
+  }
 }

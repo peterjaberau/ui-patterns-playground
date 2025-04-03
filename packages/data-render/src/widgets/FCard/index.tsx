@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'antd';
 import { combineClass, isReactNodeSchema } from '../utils/common';
-import './index.less';
+import 'src/widgets/FCard/index.css';
 
 export default (props: any) => {
   const { data, childSchema, className, style, title, extra, addons, ...otherProps } = props;
@@ -16,7 +16,7 @@ export default (props: any) => {
   if (isReactNodeSchema(extra)) {
     cardExtra = addons.renderer({ schema: extra, data, addons });
   }
-  
+
   return (
     <Card
       className={combineClass('dr-card', className)}
@@ -28,4 +28,4 @@ export default (props: any) => {
       {addons.renderer({ schema: childSchema, data, addons })}
     </Card>
   );
-}
+};

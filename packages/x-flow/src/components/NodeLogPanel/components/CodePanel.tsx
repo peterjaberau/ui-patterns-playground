@@ -1,15 +1,10 @@
-import {
-  ArrowsAltOutlined,
-  CheckOutlined,
-  CopyOutlined,
-  ShrinkOutlined,
-} from '@ant-design/icons';
+import { ArrowsAltOutlined, CheckOutlined, CopyOutlined, ShrinkOutlined } from '@ant-design/icons';
 import { json } from '@codemirror/lang-json';
 import { EditorView } from '@codemirror/view';
 import CodeMirror from '@uiw/react-codemirror';
 import classNames from 'classnames';
 import { isString } from 'lodash';
-import React, { memo, useState } from 'react';
+import { memo, useState } from 'react';
 import TextEllipsis from '../../TextEllipsis';
 
 export default memo((props: any) => {
@@ -27,7 +22,7 @@ export default memo((props: any) => {
           setIsCopy(false);
         }, 1000);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Failed to copy: ', err);
       });
   };
@@ -40,10 +35,7 @@ export default memo((props: any) => {
     >
       <div className="log-code-title">
         {isRenderTitle ? (
-          <TextEllipsis
-            text={codeData?.title}
-            className="log-code-title-text"
-          />
+          <TextEllipsis text={codeData?.title} className="log-code-title-text" />
         ) : (
           <>{codeData?.title}</>
         )}

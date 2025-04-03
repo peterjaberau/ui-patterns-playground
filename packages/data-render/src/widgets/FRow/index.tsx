@@ -3,7 +3,7 @@ import { Row, Col } from 'antd';
 
 import { combineClass } from '../utils/common';
 
-import './index.less';
+import 'src/widgets/FRow/index.css';
 
 const FRow = (props: any) => {
   const { items, data, hasBackground, className, addons, ...options } = props;

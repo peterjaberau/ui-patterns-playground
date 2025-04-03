@@ -1,5 +1,5 @@
 import { ReactFlowProvider } from '@xyflow/react';
-import React, { memo, ReactNode, useContext, useEffect, useState } from 'react';
+import { memo, ReactNode, useContext, useEffect, useState } from 'react';
 
 import { useStore } from '../../hooks/useStore';
 import StoreContext, { Provider } from '../../models/context';
@@ -11,31 +11,24 @@ export const FlowProvider = memo<{
   initialEdges?: any[];
   children: ReactNode;
   layout?: 'LR' | 'TB';
-}>(
-  ({
-    initialNodes: nodes = [],
-    initialEdges: edges = [],
-    children,
-    layout = 'LR',
-  }) => {
-    const [store] = useState(() =>
-      createStore({
-        nodes,
-        edges,
-        layout,
-      })
-    );
+}>(({ initialNodes: nodes = [], initialEdges: edges = [], children, layout = 'LR' }) => {
+  const [store] = useState(() =>
+    createStore({
+      nodes,
+      edges,
+      layout,
+    }),
+  );
 
-    return (
-      <ReactFlowProvider>
-        <Provider value={store}>{children}</Provider>
-      </ReactFlowProvider>
-    );
-  }
-);
+  return (
+    <ReactFlowProvider>
+      <Provider value={store}>{children}</Provider>
+    </ReactFlowProvider>
+  );
+});
 
-const InitialProvider = ({ nodes, edges, layout, children }) => {
-  const { setNodes, setEdges, setLayout } = useStore(s => ({
+const InitialProvider = ({ nodes, edges, layout, children }: any) => {
+  const { setNodes, setEdges, setLayout } = useStore((s) => ({
     setNodes: s.setNodes,
     setEdges: s.setEdges,
     setLayout: s.setLayout,
@@ -73,11 +66,7 @@ export const FlowProviderWrapper = ({
   }
 
   return (
-    <FlowProvider
-      initialNodes={transformNodes(nodes)}
-      initialEdges={edges}
-      layout={layout}
-    >
+    <FlowProvider initialNodes={transformNodes(nodes)} initialEdges={edges} layout={layout}>
       {children}
     </FlowProvider>
   );

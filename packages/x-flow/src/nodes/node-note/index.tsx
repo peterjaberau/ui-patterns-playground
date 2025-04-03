@@ -1,28 +1,26 @@
 import BraftEditor from 'braft-editor';
 import 'braft-editor/dist/index.css';
 import { debounce } from 'lodash';
-import React, { memo, useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 import { shallow } from 'zustand/shallow';
 import { useStore } from '../../hooks/useStore';
-import './index.less';
+import 'src/nodes/node-note/index.css';
 
 export default memo((props: any) => {
   const { onClick, type, data, id } = props;
   const { nodes, setNodes } = useStore(
-    s => ({
+    (s) => ({
       nodes: s.nodes,
       setNodes: s.setNodes,
     }),
-    shallow
+    shallow,
   );
 
   const editorRef = useRef(null);
-  const [editorState, setEditorState] = useState(
-    BraftEditor.createEditorState(data?.value)
-  );
+  const [editorState, setEditorState] = useState(BraftEditor.createEditorState(data?.value));
 
   // Triggered when the editor content changes
-  const handleEditorChange = newEditorState => {
+  const handleEditorChange = (newEditorState) => {
     setEditorState(newEditorState);
     handleNodeValueChange({ value: newEditorState.toHTML() });
   };
@@ -43,8 +41,8 @@ export default memo((props: any) => {
   return (
     <div
       className="node-note-wrap"
-      onMouseDown={e => e.stopPropagation()}
-      onClick={e => e.stopPropagation()}
+      onMouseDown={(e: any) => e.stopPropagation()}
+      onClick={(e: any) => e.stopPropagation()}
     >
       <BraftEditor
         ref={editorRef}

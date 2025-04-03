@@ -1,6 +1,6 @@
 import { Tooltip, TooltipProps } from 'antd';
-import React, { FC, memo, useEffect, useState } from 'react';
-import './index.less';
+import { FC, memo, useEffect, useState } from 'react';
+import 'src/components/TextEllipsis/index.css';
 
 interface ITextEllipsisProps {
   text: string;
@@ -10,14 +10,7 @@ interface ITextEllipsisProps {
   type?: 'text' | 'paragraph';
   rows?: number;
 }
-const TextEllipsis: FC<ITextEllipsisProps> = ({
-                                                text,
-                                                style,
-                                                toolTipProps,
-                                                type = 'text',
-                                                rows = 1,
-                                                className,
-                                              }) => {
+const TextEllipsis: FC<ITextEllipsisProps> = ({ text, style, toolTipProps, type = 'text', rows = 1, className }) => {
   const typographyRef = React.useRef<HTMLElement>(null);
   const [isEllipse, setIsEllipse] = useState(false);
 
@@ -37,11 +30,7 @@ const TextEllipsis: FC<ITextEllipsisProps> = ({
         {text}
       </span>
     ) : (
-      <span
-        ref={typographyRef}
-        className={`text-ellipsis ${className}`}
-        style={style}
-      >
+      <span ref={typographyRef} className={`text-ellipsis ${className}`} style={style}>
         {text}
       </span>
     );
@@ -49,8 +38,7 @@ const TextEllipsis: FC<ITextEllipsisProps> = ({
   useEffect(() => {
     if (text) {
       if (type === 'paragraph') {
-        const { offsetHeight, scrollHeight, clientHeight } =
-          typographyRef.current;
+        const { offsetHeight, scrollHeight, clientHeight } = typographyRef.current;
         setIsEllipse(scrollHeight > clientHeight);
       } else {
         const isEllipse = isEleEllipsis(typographyRef?.current);
@@ -81,9 +69,7 @@ const TextEllipsis: FC<ITextEllipsisProps> = ({
     return (
       <Tooltip
         title={text}
-        getPopupContainer={() =>
-          document.getElementById('xflow-container') as HTMLElement
-        }
+        getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
         color="#ffff"
         overlayInnerStyle={{
           color: '#354052',

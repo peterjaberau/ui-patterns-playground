@@ -1,9 +1,9 @@
 import { Empty, Spin, Tabs } from 'antd';
-import React, { FC, useContext } from 'react';
+import { FC, useContext } from 'react';
 import { ConfigContext } from '../../models/context';
 import DetailPanel from './components/DetailPanel';
 import TrackPanel from './components/TrackPanel';
-import './index.less';
+import 'src/components/NodeLogPanel/index.css';
 import { isArray } from 'lodash';
 
 interface INodeEditorProps {
@@ -12,17 +12,19 @@ interface INodeEditorProps {
   nodeType: string;
   id: string;
   node: any;
-  onTrackCollapseChange: (data:any) => void; // Tracking panel click collapse method
+  onTrackCollapseChange: (data: any) => void; // Tracking panel click collapse method
 }
 
 const NodeLogPanel: FC<INodeEditorProps> = (props: any) => {
-  const { data, onChange, nodeType, id, node ,onTrackCollapseChange } = props;
+  const { data, onChange, nodeType, id, node, onTrackCollapseChange } = props;
   const { widgets, globalConfig, logPanel } = useContext(ConfigContext);
   const {
     nodeView: { status = [] },
   } = globalConfig;
   const CustomWidget = widgets[logPanel?.logWidget]; // Built-in setting component
-  const logData = isArray(logPanel?.logList) ? (logPanel?.logList || [])?.find(item => item?.nodeId === id) : logPanel?.logList;
+  const logData = isArray(logPanel?.logList)
+    ? (logPanel?.logList || [])?.find((item) => item?.nodeId === id)
+    : logPanel?.logList;
 
   if (logPanel?.logWidget && CustomWidget) {
     return <CustomWidget logList={logPanel?.logList} node={node} />;
@@ -33,10 +35,7 @@ const NodeLogPanel: FC<INodeEditorProps> = (props: any) => {
           <Tabs size="small" className="log-header-tab">
             <Tabs.TabPane tab="Details" key="detail">
               {logData ? (
-                <DetailPanel
-                  currentStatus={node?._status}
-                  detailData={logData}
-                />
+                <DetailPanel currentStatus={node?._status} detailData={logData} />
               ) : (
                 <Empty
                   image={Empty.PRESENTED_IMAGE_SIMPLE}

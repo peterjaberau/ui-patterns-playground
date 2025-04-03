@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from 'antd';
 import { combineClass } from '../utils/common';
-import './index.less';
+import 'src/widgets/FTitle/index.css';
 
 const { Title } = Typography;
 

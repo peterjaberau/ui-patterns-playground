@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from 'antd';
 import { combineClass } from '../utils/common';
-import './index.less';
+import 'src/widgets/FImage/index.css';
 
 /**
  *
@@ -16,12 +16,6 @@ export default (props: any) => {
   }
 
   return (
-    <Image
-      className={combineClass('dv-image', className)}
-      style={style}
-      src={src}
-      preview={preview}
-      {...imageProps}
-    />
+    <Image className={combineClass('dv-image', className)} style={style} src={src} preview={preview} {...imageProps} />
   );
-}
+};

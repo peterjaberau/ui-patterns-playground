@@ -1,42 +1,20 @@
 {
+  "extends": "@codefast/typescript-config/react.json",
   "compilerOptions": {
-    "target": "ES2015",
-    "module": "ES2015",
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "jsx": "react",
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "baseUrl": "./",
-    "skipLibCheck": true,
-    // "strict": true,
+    "baseUrl": ".",
+    "outDir": "dist",
     "declaration": true,
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@@/*": [
-        "src/.umi/*"
-      ],
-      "form-render": [
-        "packages/form-render/src/*"
-      ],
-    },
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "noImplicitAny": false,
-    "resolveJsonModule": true
+      "@/*": ["./src/*"],
+      "form-render": ["packages/form-render/src/*"]
+    }
   },
-  "exclude": [
-    "node_modules",
-    "lib",
-    "es",
-    "dist",
-    "typings",
-    "**/__test__",
-    "test",
-    "tests",
-    "docs",
-    "**/*.js"
-  ]
+  "noImplicitAny": false,
+  "allowJs": true,
+  "allowSyntheticDefaultImports": true,
+  "resolveJsonModule": true,
+  "moduleResolution": "node",
+  "skipLibCheck": true,
+  "include": ["**/*.ts", "**/*.tsx", "typing.d.ts"],
+  "exclude": ["node_modules", "dist"]
 }

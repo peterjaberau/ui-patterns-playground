@@ -2,7 +2,7 @@ import React from 'react';
 import { combineClass } from '../utils/common';
 import FText from '../FText';
 
-import './index.less';
+import 'src/widgets/FLabel/index.css';
 
 const FLabel = (props: any) => {
   const { colon = true, label, className, style, labelStyle, contentStyle, ...otherProps } = props;

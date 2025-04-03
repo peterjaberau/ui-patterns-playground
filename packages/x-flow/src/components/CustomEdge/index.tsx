@@ -1,31 +1,16 @@
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
-import {
-  BezierEdge,
-  EdgeLabelRenderer,
-  getBezierPath,
-  useReactFlow,
-} from '@xyflow/react';
-import React, { memo, useContext, useState } from 'react';
+import { BezierEdge, EdgeLabelRenderer, getBezierPath, useReactFlow } from '@xyflow/react';
+import { memo, useContext, useState } from 'react';
 import { shallow } from 'zustand/shallow';
 import { useFlow } from '../../hooks/useFlow';
 import { useStore } from '../../hooks/useStore';
 import { ConfigContext } from '../../models/context';
 import { uuid, uuid4 } from '../../utils';
 import NodeSelectPopover from '../NodesPopover';
-import './index.less';
+import 'src/components/CustomEdge/index.css';
 
 export default memo((edge: any) => {
-  const {
-    id,
-    selected,
-    sourceX,
-    sourceY,
-    targetX,
-    targetY,
-    source,
-    target,
-    sourceHandleId,
-  } = edge;
+  const { id, sourceX, sourceY, targetX, targetY, source, target, sourceHandleId } = edge;
 
   const reactflow = useReactFlow();
   const [isHovered, setIsHovered] = useState(false);
@@ -36,23 +21,22 @@ export default memo((edge: any) => {
     targetY,
   });
 
-  const { globalConfig, settingMap, readOnly } = useContext(ConfigContext);
+  const { globalConfig, settingMap, readOnly }: any = useContext(ConfigContext);
   const hideEdgeAddBtn = globalConfig?.edge?.hideEdgeAddBtn ?? false;
   const hideEdgeDelBtn = globalConfig?.edge?.hideEdgeDelBtn ?? false;
   const deletable = globalConfig?.edge?.deletable ?? true;
 
-  const { nodes, edges, addEdges, mousePosition, onEdgesChange, layout } =
-    useStore(
-      (state: any) => ({
-        layout: state.layout,
-        nodes: state.nodes,
-        edges: state.edges,
-        mousePosition: state.mousePosition,
-        addEdges: state.addEdges,
-        onEdgesChange: state.onEdgesChange,
-      }),
-      shallow
-    );
+  const { addEdges, mousePosition, onEdgesChange, layout }: any = useStore(
+    (state: any) => ({
+      layout: state.layout,
+      nodes: state.nodes,
+      edges: state.edges,
+      mousePosition: state.mousePosition,
+      addEdges: state.addEdges,
+      onEdgesChange: state.onEdgesChange,
+    }),
+    shallow,
+  );
   const { addNodes } = useFlow();
 
   const handleAddNode = (data: any) => {
@@ -108,10 +92,7 @@ export default memo((edge: any) => {
   }
 
   return (
-    <g
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <g onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <BezierEdge
         {...edge}
         {...edgeExtra}
@@ -140,10 +121,7 @@ export default memo((edge: any) => {
                     </div>
                   )}
                   {!hideEdgeAddBtn && !readOnly && (
-                    <NodeSelectPopover
-                      placement="right"
-                      addNode={handleAddNode}
-                    >
+                    <NodeSelectPopover placement="right" addNode={handleAddNode}>
                       <div className="line-icon-box">
                         <PlusOutlined style={{ color: '#fff', fontSize: 10 }} />
                       </div>

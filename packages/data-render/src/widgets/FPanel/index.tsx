@@ -2,7 +2,7 @@ import React from 'react';
 import { combineClass } from '../utils/common';
 import FTitle from '../FTitle';
 
-import './index.less';
+import 'src/widgets/FPanel/index.css';
 
 const FPanel = (props: any) => {
   const {
@@ -17,13 +17,11 @@ const FPanel = (props: any) => {
     childSchema,
     render,
   } = props;
-  
+
   return (
     <div className={combineClass('dr-panel', className)} style={style}>
       {title && <FTitle data={title} showIcon={titleShowIcon} style={titleStyle} />}
-      {render
-        ? addons.getMethod(render)(data, props)
-        : addons.renderer({ schema: childSchema, data, addons })}
+      {render ? addons.getMethod(render)(data, props) : addons.renderer({ schema: childSchema, data, addons })}
     </div>
   );
 };

@@ -5,13 +5,13 @@ export const Tools = () => {
   return (
     <Space className="tools">
       <Button size="small" className="tools-btn">
-        预览
+        Preview
       </Button>
       <Button size="small" className="tools-btn">
-        保存
+        Save
       </Button>
       <Button type="primary" size="small" className="tools-btn">
-        立即发布
+        Publish now
       </Button>
     </Space>
   );

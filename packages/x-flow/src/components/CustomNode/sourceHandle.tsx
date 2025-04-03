@@ -1,26 +1,17 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Handle } from '@xyflow/react';
 import { Tooltip } from 'antd';
-import React, { memo, useContext, useMemo, useRef, useState } from 'react';
+import { memo, useContext, useMemo, useRef, useState } from 'react';
 import NodeSelectPopover from '../NodesPopover';
 import { ConfigContext } from '../../models/context';
 
-
 export default memo((props: any) => {
-  const {
-    position,
-    isConnectable,
-    selected,
-    isHovered,
-    handleAddNode,
-    switchTitle,
-    ...rest
-  } = props;
+  const { position, isConnectable, selected, isHovered, handleAddNode, switchTitle, ...rest } = props;
   const [isShowTooltip, setIsShowTooltip] = useState(false);
   const [openNodeSelectPopover, setOpenNodeSelectPopover] = useState(false);
   const popoverRef = useRef(null);
-  const { antdVersion,globalConfig } = useContext(ConfigContext);
-  const handleProps = globalConfig?.handle || {}
+  const { antdVersion, globalConfig }: any = useContext(ConfigContext);
+  const handleProps = globalConfig?.handle || {};
 
   const toolTipVersionProps = useMemo(() => {
     if (antdVersion === 'V5') {
@@ -41,8 +32,9 @@ export default memo((props: any) => {
       isConnectable={isConnectable}
       onMouseEnter={() => setIsShowTooltip(true)}
       onMouseLeave={() => setIsShowTooltip(false)}
-      onClick={e => {
+      onClick={(e: any) => {
         e.stopPropagation();
+        // @ts-ignore
         popoverRef?.current?.changeOpen(true);
         setIsShowTooltip(false);
         setOpenNodeSelectPopover(true);
@@ -50,36 +42,34 @@ export default memo((props: any) => {
       {...handleProps}
       {...rest}
     >
-      {(selected || isHovered || openNodeSelectPopover ) && (
+      {(selected || isHovered || openNodeSelectPopover) && (
         <>
-          {switchTitle && (
-            <div className="xflow-node-switch-title">{switchTitle}</div>
-          )}
-          {isConnectable && <div className="xflow-node-add-box">
-            <NodeSelectPopover
-              placement="right"
-              addNode={handleAddNode}
-              ref={popoverRef}
-              onNodeSelectPopoverChange={val => setOpenNodeSelectPopover(val)}
-            >
-              <Tooltip
-                title="Click to add a node"
-                arrow={false}
-                overlayInnerStyle={{
-                  background: '#fff',
-                  color: '#354052',
-                  fontSize: '12px',
-                }}
-                color='#fff'
-                {...toolTipVersionProps}
-                getPopupContainer={() =>
-                  document.getElementById('xflow-container') as HTMLElement
-                }
+          {switchTitle && <div className="xflow-node-switch-title">{switchTitle}</div>}
+          {isConnectable && (
+            <div className="xflow-node-add-box">
+              <NodeSelectPopover
+                placement="right"
+                addNode={handleAddNode}
+                ref={popoverRef}
+                onNodeSelectPopoverChange={(val: any) => setOpenNodeSelectPopover(val)}
               >
-                <PlusOutlined style={{ color: '#fff', fontSize: 10 }} />
-              </Tooltip>
-            </NodeSelectPopover>
-          </div>}
+                <Tooltip
+                  title="Click to add a node"
+                  arrow={false}
+                  overlayInnerStyle={{
+                    background: '#fff',
+                    color: '#354052',
+                    fontSize: '12px',
+                  }}
+                  color="#fff"
+                  {...toolTipVersionProps}
+                  getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
+                >
+                  <PlusOutlined style={{ color: '#fff', fontSize: 10 }} />
+                </Tooltip>
+              </NodeSelectPopover>
+            </div>
+          )}
         </>
       )}
     </Handle>

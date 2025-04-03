@@ -1,5 +1,5 @@
 import { Empty } from 'antd';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { shallow } from 'zustand/shallow';
 import { useStore } from '../../../hooks/useStore';
 import { isTruthy } from '../../../utils';
@@ -13,14 +13,12 @@ export default memo((props: any) => {
       nodes: state.nodes,
       setNodes: state.setNodes,
     }),
-    shallow
+    shallow,
   );
 
-  const statusNode = (nodes || [])?.filter(item =>
-    isTruthy(item?.data?._status)
-  );
-  const trackList = (statusNode || [])?.map(node => {
-    const logTrackList = logList?.find(item => item?.nodeId == node?.id);
+  const statusNode = (nodes || [])?.filter((item) => isTruthy(item?.data?._status));
+  const trackList = (statusNode || [])?.map((node) => {
+    const logTrackList = logList?.find((item) => item?.nodeId == node?.id);
     return { ...node, logTrackList: logTrackList?.codePanel || [] };
   });
 
@@ -38,11 +36,7 @@ export default memo((props: any) => {
           />
         ))
       ) : (
-        <Empty
-          image={Empty.PRESENTED_IMAGE_SIMPLE}
-          description="No stateful nodes yet"
-          style={{ fontSize: '12px' }}
-        />
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="No stateful nodes yet" style={{ fontSize: '12px' }} />
       )}
     </div>
   );

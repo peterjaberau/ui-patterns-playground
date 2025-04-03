@@ -1,10 +1,10 @@
-import React, { memo, useContext } from 'react';
+import { memo, useContext } from 'react';
 import NodeContainer from '../../components/NodeContainer';
 import { ConfigContext } from '../../models/context';
 
 export default memo((props: any) => {
   const { onClick, type, data } = props;
-  const { settingMap, widgets, iconFontUrl,globalConfig } = useContext(ConfigContext);
+  const { settingMap, widgets, iconFontUrl, globalConfig } = useContext(ConfigContext);
   const nodeSetting = settingMap[type] || {};
   const NodeWidget = widgets[nodeSetting?.nodeWidget] || undefined;
   const nodeDescription = nodeSetting?.description || '';

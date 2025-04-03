@@ -11,7 +11,7 @@ import SearchView from './SearchView';
 import ToolbarView from './ToolbarView';
 import TableView from './TableView';
 
-import './index.less';
+import 'src/core/index.css';
 
 type ISearchParams = {
   current?: number;
@@ -20,10 +20,11 @@ type ISearchParams = {
   sorter?: any;
 };
 
-const RenderCore: React.FC<TableRenderProps & { tableRef: any }> = props => {
+const RenderCore: React.FC<TableRenderProps & { tableRef: any }> = (props) => {
   const {
     search: searchProps,
-    debug, className,
+    debug,
+    className,
     style,
     title,
     toolbarRender,
@@ -55,7 +56,7 @@ const RenderCore: React.FC<TableRenderProps & { tableRef: any }> = props => {
     const initState = {
       tableSize: size,
       inited: true,
-      pagination
+      pagination,
     };
 
     if (typeof tableProps?.pagination === 'object') {
@@ -83,7 +84,7 @@ const RenderCore: React.FC<TableRenderProps & { tableRef: any }> = props => {
 
   useUpdateEffect(() => {
     refresh();
-  }, [currentTab])
+  }, [currentTab]);
 
   useImperativeHandle(tableRef, () => ({
     doSearch,
@@ -92,7 +93,7 @@ const RenderCore: React.FC<TableRenderProps & { tableRef: any }> = props => {
     form,
     getState: () => ({
       ...getState(),
-      search: form.getValues(true)
+      search: form.getValues(true),
     }),
     setState,
   }));
@@ -123,7 +124,7 @@ const RenderCore: React.FC<TableRenderProps & { tableRef: any }> = props => {
       };
 
       Promise.resolve(_api(_params, sorter, { tab: _tab }))
-        .then(res => {
+        .then((res) => {
           // TODO: Check whether res is normalized here
           const { rows, data, total, pageSize, ...extraData } = res;
 
@@ -140,7 +141,7 @@ const RenderCore: React.FC<TableRenderProps & { tableRef: any }> = props => {
 
           searchProps?.afterSearch?.({ data, total, pageSize, ...extraData });
         })
-        .catch(err => {
+        .catch((err) => {
           setState({ loading: false });
         });
     };
@@ -171,7 +172,7 @@ const RenderCore: React.FC<TableRenderProps & { tableRef: any }> = props => {
         tab: _tab,
         pageSize: pagination.pageSize,
       },
-      _search
+      _search,
     );
   };
 
@@ -180,16 +181,12 @@ const RenderCore: React.FC<TableRenderProps & { tableRef: any }> = props => {
       setState({ tab });
       // refresh({ tab });
     } else {
-      console.error('changeTab\'s input must be a number or a string');
+      console.error("changeTab's input must be a number or a string");
     }
   };
 
   const tableNode = (
-    <div
-      ref={rootRef}
-      className={`tr-table-wrapper ${className}`}
-      style={style}
-    >
+    <div ref={rootRef} className={`tr-table-wrapper ${className}`} style={style}>
       <ToolbarView
         request={api}
         doSearch={doSearch}
@@ -204,10 +201,7 @@ const RenderCore: React.FC<TableRenderProps & { tableRef: any }> = props => {
         setState={setState}
         getState={getState}
       />
-      <TableView
-        {...tableProps}
-        doSearch={doSearch}
-      />
+      <TableView {...tableProps} doSearch={doSearch} />
     </div>
   );
 
@@ -221,18 +215,10 @@ const RenderCore: React.FC<TableRenderProps & { tableRef: any }> = props => {
 
   return (
     <div>
-      <SearchView
-        {...searchProps}
-        form={form}
-        refresh={refresh}
-        getState={getState}
-        hidden={hiddenSearch}
-      />
-      <ErrorBoundary>
-        {renderTable()}
-      </ErrorBoundary>
+      <SearchView {...searchProps} form={form} refresh={refresh} getState={getState} hidden={hiddenSearch} />
+      <ErrorBoundary>{renderTable()}</ErrorBoundary>
     </div>
   );
-}
+};
 
 export default RenderCore;

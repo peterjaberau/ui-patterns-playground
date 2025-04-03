@@ -4,7 +4,7 @@
 import React from 'react';
 import { InputNumber, Slider } from 'antd';
 import withFieldWrap from '../../utils/withFieldWrap';
-import './index.less';
+import 'src/widgets/fields/slider/index.css';
 interface SliderWithNumberProps {
   schema: {
     max?: number;
@@ -28,7 +28,7 @@ const SliderWithNumber: React.FC<SliderWithNumberProps> = ({
   ...rest
 }) => {
   const { max, min, step } = schema;
-  
+
   let setting = {};
   if (max || max === 0) {
     setting = { max };
@@ -43,7 +43,7 @@ const SliderWithNumber: React.FC<SliderWithNumberProps> = ({
   }
 
   return (
-    <div className='fr-slider' style={style}>
+    <div className="fr-slider" style={style}>
       <Slider
         style={{ flexGrow: 1, marginRight: hideInput ? 0 : 12 }}
         {...setting}
@@ -52,17 +52,10 @@ const SliderWithNumber: React.FC<SliderWithNumberProps> = ({
         {...rest}
       />
       {hideInput ? null : (
-        <InputNumber
-          {...setting}
-          {...inputProps}
-          style={{ width: '90px' }}
-          value={value}
-          onChange={onChange}
-        />
+        <InputNumber {...setting} {...inputProps} style={{ width: '90px' }} value={value} onChange={onChange} />
       )}
     </div>
   );
-}
+};
 
 export default withFieldWrap(SliderWithNumber, ['addons', 'dependValues']);
-

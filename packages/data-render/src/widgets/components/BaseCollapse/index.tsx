@@ -2,7 +2,7 @@ import React, { useState, FC } from 'react';
 import { Collapse } from 'antd';
 import { combineClass } from '../../utils/common';
 import { DownOutlined } from '@ant-design/icons';
-import './index.less';
+import 'src/widgets/components/BaseCollapse/index.css';
 
 const { Panel } = Collapse;
 interface IProps {
@@ -24,16 +24,16 @@ const BaseCollapse: FC<IProps> = (props) => {
 
   const collapseHeader = (
     <>
-      {title && <div className='collapse-title'>{title}</div>}
+      {title && <div className="collapse-title">{title}</div>}
       {header && header}
     </>
   );
 
   const renderExpandIcon = ({ isActive }: any): JSX.Element => {
     return (
-      <div className='expand-icon-box'>
+      <div className="expand-icon-box">
         <DownOutlined rotate={isActive ? 180 : 0} />
-        <span className='expand-icon-desc'>{isActive ? 'Collapse' : 'Expand'}</span>
+        <span className="expand-icon-desc">{isActive ? 'Collapse' : 'Expand'}</span>
       </div>
     );
   };
@@ -47,7 +47,7 @@ const BaseCollapse: FC<IProps> = (props) => {
       expandIcon={renderExpandIcon}
       onChange={() => setActiveKey(activeKey ? '' : 'single')}
     >
-      <Panel key='single' header={collapseHeader}>
+      <Panel key="single" header={collapseHeader}>
         {children}
       </Panel>
     </Collapse>

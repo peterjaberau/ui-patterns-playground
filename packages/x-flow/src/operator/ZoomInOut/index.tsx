@@ -1,10 +1,10 @@
 import { useReactFlow, useViewport } from '@xyflow/react';
 import { Button, Popover, Tooltip } from 'antd';
 import type { FC } from 'react';
-import React, { Fragment, memo } from 'react';
+import { Fragment, memo } from 'react';
 import IconView from '../../components/IconView';
 import { getKeyboardKeyNameBySystem } from '../../utils';
-import './index.less';
+import 'src/operator/ZoomInOut/index.css';
 import ShortcutsName from './shortcuts-name';
 
 enum ZoomType {
@@ -51,29 +51,19 @@ const ZOOM_IN_OUT_OPTIONS = [
 
 const ZoomSelect = ({ handleZoom }: any) => {
   return (
-    <div className='fai-reactflow-zoom-select'>
+    <div className="fai-reactflow-zoom-select">
       {ZOOM_IN_OUT_OPTIONS.map((options, i) => (
         <Fragment key={i}>
-          {i !== 0 && <div className='parting-line' />}
-          <div className='p-1'>
-            {options.map(option => (
-              <div
-                className='zoom-item'
-                key={option.key}
-                onClick={() => handleZoom(option.key)}
-              >
+          {i !== 0 && <div className="parting-line" />}
+          <div className="p-1">
+            {options.map((option) => (
+              <div className="zoom-item" key={option.key} onClick={() => handleZoom(option.key)}>
                 {option.text}
                 {option.key === ZoomType.zoomToFit && (
-                  <ShortcutsName
-                    keys={[`${getKeyboardKeyNameBySystem('ctrl')}`, '1']}
-                  />
+                  <ShortcutsName keys={[`${getKeyboardKeyNameBySystem('ctrl')}`, '1']} />
                 )}
-                {option.key === ZoomType.zoomTo50 && (
-                  <ShortcutsName keys={['shift', '5']} />
-                )}
-                {option.key === ZoomType.zoomTo100 && (
-                  <ShortcutsName keys={['shift', '1']} />
-                )}
+                {option.key === ZoomType.zoomTo50 && <ShortcutsName keys={['shift', '5']} />}
+                {option.key === ZoomType.zoomTo100 && <ShortcutsName keys={['shift', '1']} />}
               </div>
             ))}
           </div>
@@ -103,12 +93,12 @@ const ZoomInOut: FC = () => {
   };
 
   return (
-    <div className='fai-reactflow-zoominout'>
-      <Tooltip title='zoomOut' getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}>
+    <div className="fai-reactflow-zoominout">
+      <Tooltip title="zoomOut" getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}>
         <Button
-          type='text'
-          icon={<IconView type='icon-zoom-out-line' className='icon' />}
-          onClick={e => {
+          type="text"
+          icon={<IconView type="icon-zoom-out-line" className="icon" />}
+          onClick={(e: any) => {
             e.stopPropagation();
             zoomOut();
           }}
@@ -123,19 +113,15 @@ const ZoomInOut: FC = () => {
           width: '32px',
         }}
       >
-        <Popover
-          content={<ZoomSelect handleZoom={handleZoom} />}
-          zIndex={1000}
-          trigger='click'
-        >
+        <Popover content={<ZoomSelect handleZoom={handleZoom} />} zIndex={1000} trigger="click">
           {parseFloat(`${zoom * 100}`).toFixed(0)}%
         </Popover>
       </div>
-      <Tooltip title='zoomIn' getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}>
+      <Tooltip title="zoomIn" getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}>
         <Button
-          type='text'
-          icon={<IconView type='icon-zoom-in-line' className='icon' />}
-          onClick={e => {
+          type="text"
+          icon={<IconView type="icon-zoom-in-line" className="icon" />}
+          onClick={(e: any) => {
             e.stopPropagation();
             zoomIn();
           }}

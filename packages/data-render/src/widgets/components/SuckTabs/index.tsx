@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import { throttle } from 'lodash-es';
 
-import './index.less';
+import 'src/widgets/components/SuckTabs/index.css';
 
 let activeIndx = 0; // Current tab index
 let lockScroll = false; // Do not make scroll judgment
@@ -36,10 +36,8 @@ const SuckTabs: FC<any> = (props) => {
   }, []);
 
   const getScrollParams = () => {
-    let scrollContainerHeight =
-      document.documentElement?.clientHeight || document.body?.clientHeight;
-    let scrollTop =
-      document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+    let scrollContainerHeight = document.documentElement?.clientHeight || document.body?.clientHeight;
+    let scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
 
     if (props.scrollContainer) {
       scrollContainerHeight = scrollContainer?.clientHeight;
@@ -69,8 +67,7 @@ const SuckTabs: FC<any> = (props) => {
     }
 
     // Length from the bottom
-    const distance =
-      Math.ceil((scrollContainer.scrollHeight - scrollContainerHeight - scrollTop) / 10) || 1;
+    const distance = Math.ceil((scrollContainer.scrollHeight - scrollContainerHeight - scrollTop) / 10) || 1;
 
     // Check the location tab
     for (let i = tabs.length - 1; i > -1; i--) {
@@ -134,11 +131,7 @@ const SuckTabs: FC<any> = (props) => {
   };
 
   return (
-    <div
-      className={classnames('dv-suck-nav', { [className]: className })}
-      ref={containerRef}
-      style={style}
-    >
+    <div className={classnames('dv-suck-nav', { [className]: className })} ref={containerRef} style={style}>
       <div className="seat-view" ref={seatRef} />
       <div className="tabs-view" ref={tabRef}>
         {tabs.map((tab: ITabItem, index: number) => (

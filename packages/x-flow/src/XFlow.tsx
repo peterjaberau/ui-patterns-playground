@@ -1,23 +1,10 @@
-import {
-  Background,
-  BackgroundVariant,
-  MarkerType,
-  ReactFlow,
-  useReactFlow,
-} from '@xyflow/react';
+import { Background, BackgroundVariant, MarkerType, ReactFlow, useReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { useEventListener, useMemoizedFn } from 'ahooks';
-import produce, { setAutoFreeze } from 'immer';
+import { produce, setAutoFreeze } from 'immer';
 import { debounce, isFunction } from 'lodash';
 import type { FC } from 'react';
-import React, {
-  memo,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import CandidateNode from './components/CandidateNode';
 import CustomEdge from './components/CustomEdge';
 import PanelContainer from './components/PanelContainer';
@@ -37,7 +24,7 @@ import { shallow } from 'zustand/shallow';
 import NodeEditor from './components/NodeEditor';
 import NodeLogPanel from './components/NodeLogPanel';
 import { useTemporalStore } from './hooks/useTemporalStore';
-import './index.less';
+import 'src/index.css';
 import { ConfigContext } from './models/context';
 
 const CustomNode = memo(CustomNodeComponent);
@@ -48,7 +35,7 @@ const edgeTypes = { buttonedge: memo(CustomEdge) };
  * XFlow Entry
  *
  */
-const XFlow: FC<FlowProps> = memo(props => {
+const XFlow: FC<FlowProps> = memo((props) => {
   const workflowContainerRef = useRef<HTMLDivElement>(null);
   const storeApi = useStoreApi();
   const { zoomTo } = useReactFlow();
@@ -66,7 +53,7 @@ const XFlow: FC<FlowProps> = memo(props => {
     isAddingNode,
     setMousePosition,
   } = useStore(
-    s => ({
+    (s) => ({
       nodes: s.nodes,
       edges: s.edges,
       setNodes: s.setNodes,
@@ -80,15 +67,15 @@ const XFlow: FC<FlowProps> = memo(props => {
       onEdgesChange: s.onEdgesChange,
       onConnect: s.onConnect,
     }),
-    shallow
+    shallow,
   );
   const { record } = useTemporalStore();
   const [activeNode, setActiveNode] = useState<any>(null);
-  const { settingMap, globalConfig, readOnly } = useContext(ConfigContext);
+  const { settingMap, globalConfig, readOnly }: any = useContext(ConfigContext);
   const [openPanel, setOpenPanel] = useState<boolean>(true);
   const [openLogPanel, setOpenLogPanel] = useState<boolean>(true);
   const { onNodeClick } = props;
-  const nodeEditorRef = useRef(null);
+  const nodeEditorRef = useRef(null) as any;
 
   useEffect(() => {
     zoomTo(0.8);
@@ -99,21 +86,16 @@ const XFlow: FC<FlowProps> = memo(props => {
   }, []);
 
   useEventListener('keydown', (e: any) => {
-    if ((e.key === 'd' || e.key === 'D') && (e.ctrlKey || e.metaKey))
-      e.preventDefault();
-    if ((e.key === 'z' || e.key === 'Z') && (e.ctrlKey || e.metaKey))
-      e.preventDefault();
-    if ((e.key === 'y' || e.key === 'Y') && (e.ctrlKey || e.metaKey))
-      e.preventDefault();
-    if ((e.key === 's' || e.key === 'S') && (e.ctrlKey || e.metaKey))
-      e.preventDefault();
+    if ((e.key === 'd' || e.key === 'D') && (e.ctrlKey || e.metaKey)) e.preventDefault();
+    if ((e.key === 'z' || e.key === 'Z') && (e.ctrlKey || e.metaKey)) e.preventDefault();
+    if ((e.key === 'y' || e.key === 'Y') && (e.ctrlKey || e.metaKey)) e.preventDefault();
+    if ((e.key === 's' || e.key === 'S') && (e.ctrlKey || e.metaKey)) e.preventDefault();
   });
 
   useEventListener(
     'mousemove',
-    e => {
-      const containerClientRect =
-        workflowContainerRef.current?.getBoundingClientRect();
+    (e: any) => {
+      const containerClientRect = workflowContainerRef.current?.getBoundingClientRect();
       if (containerClientRect) {
         setMousePosition({
           pageX: e.clientX,
@@ -126,18 +108,14 @@ const XFlow: FC<FlowProps> = memo(props => {
     {
       target: workflowContainerRef.current,
       enable: isAddingNode,
-    }
+    } as any,
   );
 
   const { eventEmitter } = useEventEmitterContextContext();
   eventEmitter?.useSubscription((v: any) => {
     // Arrange the canvas
     if (v.type === 'auto-layout-nodes') {
-      const newNodes: any = autoLayoutNodes(
-        storeApi.getState().nodes,
-        edges,
-        layout
-      );
+      const newNodes: any = autoLayoutNodes(storeApi.getState().nodes, edges, layout);
       setNodes(newNodes, false);
     }
 
@@ -188,8 +166,8 @@ const XFlow: FC<FlowProps> = memo(props => {
 
   // edge move in/out effect
   const getUpdateEdgeConfig = useMemoizedFn((edge: any, color: string) => {
-    const newEdges = produce(edges, draft => {
-      const currEdge: any = draft.find(e => e.id === edge.id);
+    const newEdges = produce(edges, (draft: any) => {
+      const currEdge: any = draft.find((e: any) => e.id === edge.id);
       currEdge.style = {
         ...edge.style,
         stroke: color,
@@ -199,11 +177,11 @@ const XFlow: FC<FlowProps> = memo(props => {
         color,
       };
     });
-    setEdges(newEdges);
+    setEdges(newEdges as any);
   });
 
   const handleNodeValueChange = debounce((data: any) => {
-    for (let node of nodes) {
+    for (let node of nodes as any) {
       if (node.id === data.id) {
         node.data = {
           ...node?.data,
@@ -212,7 +190,7 @@ const XFlow: FC<FlowProps> = memo(props => {
         break;
       }
     }
-    setNodes([...nodes], false);
+    setNodes([...(nodes as any)], false);
   }, 200);
 
   const nodeTypes = useMemo(() => {
@@ -228,7 +206,8 @@ const XFlow: FC<FlowProps> = memo(props => {
             type={_nodeType}
             layout={layout}
             status={_status}
-            onClick={async e => {
+            //@ts-ignore
+            onClick={async (e: any) => {
               if (nodeEditorRef?.current?.validateForm) {
                 const result = await nodeEditorRef?.current?.validateForm();
                 if (!result) {
@@ -259,7 +238,6 @@ const XFlow: FC<FlowProps> = memo(props => {
         onChange={handleNodeValueChange}
         nodeType={activeNode?._nodeType}
         id={activeNode?.id}
-
       />
     );
   }, [activeNode?.id]);
@@ -272,7 +250,7 @@ const XFlow: FC<FlowProps> = memo(props => {
         nodeType={activeNode?._nodeType}
         id={activeNode?.id}
         node={activeNode}
-        onTrackCollapseChange={data => {
+        onTrackCollapseChange={(data) => {
           if (data) {
             setActiveNode(data);
             setOpenPanel(true);
@@ -285,8 +263,9 @@ const XFlow: FC<FlowProps> = memo(props => {
   const deletable = globalConfig?.edge?.deletable ?? true;
   const panelonClose = globalConfig?.nodePanel?.onClose;
 
-  const getNodesJ = nodes => {
-    const result = nodes.map(item => {
+  // @ts-ignore
+  const getNodesJ = (nodes: any) => {
+    const result = nodes.map((item: any) => {
       const { data, ...rest } = item;
       const { _nodeType, ...restData } = data;
       return {
@@ -324,8 +303,8 @@ const XFlow: FC<FlowProps> = memo(props => {
           return true;
         }}
         onConnect={onConnect}
-        onNodesChange={changes => {
-          changes.forEach(change => {
+        onNodesChange={(changes) => {
+          changes.forEach((change) => {
             if (change.type === 'remove') {
               record(() => {
                 onNodesChange([change]);
@@ -335,8 +314,8 @@ const XFlow: FC<FlowProps> = memo(props => {
             }
           });
         }}
-        onEdgesChange={changes => {
-          changes.forEach(change => {
+        onEdgesChange={(changes) => {
+          changes.forEach((change) => {
             if (change.type === 'remove') {
               record(() => {
                 onEdgesChange([change]);
@@ -362,12 +341,7 @@ const XFlow: FC<FlowProps> = memo(props => {
       >
         <CandidateNode />
         <Operator addNode={handleAddNode} xflowRef={workflowContainerRef} />
-        <Background
-          gap={[16, 16]}
-          size={0.6}
-          color="black"
-          variant={BackgroundVariant.Dots}
-        />
+        <Background gap={[16, 16]} size={0.6} color="black" variant={BackgroundVariant.Dots} />
         {activeNode && openPanel && (
           <PanelContainer
             id={activeNode?.id}

@@ -4,7 +4,7 @@ import RenderCore from './renderer';
 import { getRequestParams } from '../utils/common';
 import { parseExpression } from '../models/expression';
 import { DataVProps } from '../type';
-import './index.less';
+import 'src/core/index.css';
 
 const defaultConfig = {
   showLevel: 0,
@@ -66,9 +66,9 @@ export default (props: DataVProps) => {
     if (!_key) {
       return currentData;
     }
-    const key = ['data:', 'source:', 'parent:', '{{'].some(item => _key.includes(item)) ? _key : `$d.${_key}`;
+    const key = ['data:', 'source:', 'parent:', '{{'].some((item) => _key.includes(item)) ? _key : `$d.${_key}`;
     return parseExpression(key, { currentData, sourceData: data }) ?? defaultValue;
-  }
+  };
 
   const renderer = ({ data, schema, addons }: any) => {
     return <RenderCore schema={schema} data={data} addons={addons} />;
@@ -86,7 +86,7 @@ export default (props: DataVProps) => {
         getRequestConfig,
         getRequestPrams,
         getConfig,
-        getDataFromKey
+        getDataFromKey,
       }}
     />
   );

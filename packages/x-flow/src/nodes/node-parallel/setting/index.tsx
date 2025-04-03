@@ -1,17 +1,17 @@
 import FormRender, { Schema, useForm } from 'form-render';
-import React, { memo, useEffect } from 'react';
-import '../index.less';
+import { memo, useEffect } from 'react';
+import 'src/nodes/node-parallel/index.css';
 import { safeJsonStringify } from '../../../utils';
 
 interface INodeSwitchSettingPorps {
   onChange: (val: any) => void;
   value: any;
-  readOnly:boolean
+  readOnly: boolean;
 }
 
 const schema: Schema = {
   type: 'object',
-  displayType:'row',
+  displayType: 'row',
   properties: {
     list: {
       type: 'array',
@@ -27,17 +27,17 @@ const schema: Schema = {
             title: 'Title',
             type: 'string',
             props: {
-              allowClear:true
+              allowClear: true,
             },
-            span:6
+            span: 6,
           },
           value: {
             title: 'Event',
             type: 'string',
             props: {
-              allowClear: true
+              allowClear: true,
             },
-            span: 6
+            span: 6,
           },
         },
       },

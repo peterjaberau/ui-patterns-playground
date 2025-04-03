@@ -17,11 +17,11 @@ import {
   yymmdd,
   msToTime,
   getSessionItem,
-  setSessionItem
+  setSessionItem,
 } from 'form-render/es/models/formCoreUtils';
 import RenderCore from '../render-core';
 
-import './index.less';
+import 'src/form-core/index.css';
 
 const FormCore = (props: any) => {
   const store: any = useContext(FRContext);
@@ -74,13 +74,13 @@ const FormCore = (props: any) => {
       displayType,
       labelCol,
       fieldCol,
-      maxWidth
+      maxWidth,
     };
     setContext(context);
   }, [column, labelCol, fieldCol, displayType, labelWidth, maxWidth, readOnly]);
 
   const initial = async () => {
-    onMount && await onMount();
+    onMount && (await onMount());
     onMountLogger();
     setTimeout(() => {
       const values = form.getValues();
@@ -90,7 +90,7 @@ const FormCore = (props: any) => {
 
   const onMountLogger = () => {
     const start = new Date().getTime();
-    if (isFunction(logOnMount)|| isFunction(logOnSubmit)) {
+    if (isFunction(logOnMount) || isFunction(logOnSubmit)) {
       setSessionItem('FORM_MOUNT_TIME', start);
       setSessionItem('FORM_START', start);
     }
@@ -117,7 +117,7 @@ const FormCore = (props: any) => {
     if (!isFunction(logOnSubmit)) {
       return;
     }
-   
+
     const start = getSessionItem('FORM_START');
     const mount = getSessionItem('FORM_MOUNT_TIME');
 
@@ -196,6 +196,6 @@ const FormCore = (props: any) => {
       </Grid>
     </Form>
   );
-}
+};
 
 export default FormCore;

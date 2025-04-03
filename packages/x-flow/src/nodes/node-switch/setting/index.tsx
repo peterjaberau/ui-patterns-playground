@@ -1,12 +1,12 @@
 import FormRender, { Schema, useForm } from 'form-render';
-import React, { memo, useEffect } from 'react';
-import '../index.less';
+import { memo, useEffect } from 'react';
+import 'src/nodes/node-switch/index.css';
 import { safeJsonStringify } from '../../../utils';
 
 interface INodeSwitchSettingPorps {
   onChange: (val: any) => void;
   value: any;
-  readOnly:boolean
+  readOnly: boolean;
 }
 
 const schema: Schema = {

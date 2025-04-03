@@ -3,7 +3,7 @@ import { Input } from 'antd';
 import ColorPicker from 'rc-color-picker';
 import alphaHexMap from './alphahexMap';
 import 'rc-color-picker/assets/index.css';
-import './index.less';
+import 'src/widgets/fields/color/index.css';
 
 // Exp: '#ffffffA6' => algha: 65
 const getAlphaFromHex = (hex = '#ffffff') => {
@@ -20,7 +20,7 @@ const getAlphaFromHex = (hex = '#ffffff') => {
 
 const Color = (props: any) => {
   const { className, schema, disabled, disabledAlpha, readOnly, value, onChange, style } = props;
-  
+
   const onPickerChange = (ev: any) => {
     if (disabled || readOnly) {
       return;
@@ -34,15 +34,14 @@ const Color = (props: any) => {
     onChange(ev.target.value);
   };
 
-
   return (
-    <div className='fr-color-picker' style={style}>
-      {(disabled || readOnly)? (
-        <span className='rc-color-picker-trigger' style={{ backgroundColor: value || '#ffffff' }} />
-      ): (
+    <div className="fr-color-picker" style={style}>
+      {disabled || readOnly ? (
+        <span className="rc-color-picker-trigger" style={{ backgroundColor: value || '#ffffff' }} />
+      ) : (
         <ColorPicker
           type={schema?.format}
-          animation='slide-up'
+          animation="slide-up"
           color={(value && value.slice(0, 7)) || '#ffffff'}
           alpha={getAlphaFromHex(value)}
           enableAlpha={!disabledAlpha}
@@ -53,18 +52,10 @@ const Color = (props: any) => {
       {readOnly ? (
         <span>{value || '#ffffff'}</span>
       ) : (
-        <Input
-          className={className}
-          placeholder='#ffffff'
-          disabled={disabled}
-          value={value}
-          onChange={onInputChange}
-        />
+        <Input className={className} placeholder="#ffffff" disabled={disabled} value={value} onChange={onInputChange} />
       )}
     </div>
   );
-}
+};
 
 export default Color;
-
-

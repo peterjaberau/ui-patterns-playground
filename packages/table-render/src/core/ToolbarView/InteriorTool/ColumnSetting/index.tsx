@@ -8,21 +8,21 @@ import { getColumnKey, translation } from '../../../../utils';
 import { ToolbarActionConfig } from '@/types';
 import Item from './item';
 import { cancelFixed, fixItem, Setting } from './utils';
-import clx from 'classnames'
-import './index.less';
+import clx from 'classnames';
+import 'src/core/ToolbarView/InteriorTool/ColumnSetting/index.css';
 
 const prefix = 'tr-toolbar-column-setting';
 
 const ColumnSetting: React.FC<Pick<ToolbarActionConfig, 'columnsSettingValue' | 'onColumnsSettingChange'>> = ({
-                                                                                                                columnsSettingValue,
-                                                                                                                onColumnsSettingChange
-                                                                                                              }) => {
+  columnsSettingValue,
+  onColumnsSettingChange,
+}) => {
   const configCtx = useContext(ConfigProvider.ConfigContext);
   const t = translation(configCtx);
 
-  const columns = useTableStore(store => store.columns);
+  const columns = useTableStore((store) => store.columns);
   const columnsSetting = useTableStore((store) => store.columnsSetting);
-  const setColumnsSetting = useTableStore(store => store.setColumnsSetting);
+  const setColumnsSetting = useTableStore((store) => store.setColumnsSetting);
 
   const [open, setOpen] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -41,77 +41,70 @@ const ColumnSetting: React.FC<Pick<ToolbarActionConfig, 'columnsSettingValue' | 
       inited.current = true;
       return;
     }
-  }, [open, columns, columnsSetting])
+  }, [open, columns, columnsSetting]);
 
   const init = () => {
     const initSetting = columns.map((i, index) => ({
       key: getColumnKey(i, index),
       hidden: false,
-    }))
+    }));
     handleChange(initSetting);
-  }
+  };
 
   const findIndex = (key: any) => {
-    return columnsSetting.findIndex(i => i.key === key)
-  }
+    return columnsSetting.findIndex((i) => i.key === key);
+  };
 
   const handleChange = (setting: Setting) => {
     setColumnsSetting(setting);
     onColumnsSettingChange?.(setting);
-  }
+  };
 
   const getItems = (setting: Setting) => {
     if (!setting) return [];
-    return setting.map(i => ({
+    return setting.map((i) => ({
       className: clx(`${prefix}-item`, {
         [`${prefix}-item-fixed`]: i.fixed,
       }),
       key: i.key,
-      label: (
-        <Item
-          {...i}
-          onFixItem={onFixItem}
-          onUnfixItem={onUnfixItem}
-          columnKey={String(i.key)}
-        />
-      ),
-    }))
-  }
+      label: <Item {...i} onFixItem={onFixItem} onUnfixItem={onUnfixItem} columnKey={String(i.key)} />,
+    }));
+  };
 
   const onReset = () => {
     init();
-  }
+  };
 
   /**Fix a column*/
   const onFixItem = (key: string) => {
     const fixedSetting = fixItem(columnsSetting, key);
     const finalSetting = cancelFixed(fixedSetting);
     handleChange(finalSetting);
-  }
+  };
 
   /** Unpin a column */
   const onUnfixItem = (key: string) => {
-    const canceledSetting = columnsSetting.map(i => ({
+    const canceledSetting = columnsSetting.map((i) => ({
       ...i,
       fixed: i.key === key ? undefined : i.fixed,
-    }))
+    }));
     const finalSetting = cancelFixed(canceledSetting);
     handleChange(finalSetting);
-  }
+  };
 
   /** Show and hide columns */
   const onColumnsCheckChange = (val: string[]) => {
-    const finalSetting = columnsSetting.map(i => ({
+    const finalSetting = columnsSetting.map((i) => ({
       ...i,
-      hidden: !val.includes(String(i.key))
-    }))
+      hidden: !val.includes(String(i.key)),
+    }));
     handleChange(finalSetting);
-  }
+  };
 
   /** Move a column */
   const onDragEnd = (activeId: any, overId: any) => {
     const newSetting = arrayMove(columnsSetting, findIndex(activeId), findIndex(overId));
-    const activeItem = newSetting.find(i => i.key === activeId);
+    const activeItem = newSetting.find((i) => i.key === activeId);
 
     if (activeItem.fixed) {
       const fixedSetting = fixItem(newSetting, activeId);
@@ -121,12 +114,12 @@ const ColumnSetting: React.FC<Pick<ToolbarActionConfig, 'columnsSettingValue' | 
       const finalSetting = cancelFixed(newSetting);
       handleChange(finalSetting);
     }
-  }
+  };
 
   const items = useMemo(() => getItems(columnsSetting), [columnsSetting]);
-  const activeItem = useMemo(() => columnsSetting.find(i => i.key === activeId), [columnsSetting, activeId]);
-  const keyList = useMemo(() => columnsSetting.map(i => i.key), [columnsSetting]);
-  const value = useMemo(() => columnsSetting.filter(i => !i.hidden).map(i => i.key), [columnsSetting]);
+  const activeItem = useMemo(() => columnsSetting.find((i) => i.key === activeId), [columnsSetting, activeId]);
+  const keyList = useMemo(() => columnsSetting.map((i) => i.key), [columnsSetting]);
+  const value = useMemo(() => columnsSetting.filter((i) => !i.hidden).map((i) => i.key), [columnsSetting]);
 
   return (
     <Dropdown
@@ -144,15 +137,10 @@ const ColumnSetting: React.FC<Pick<ToolbarActionConfig, 'columnsSettingValue' | 
                 style={{
                   fontSize: 16,
                   color: '#999',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
                 }}
               />
-              <Button
-                icon={<UndoOutlined />}
-                type="primary"
-                size="small"
-                onClick={onReset}
-              >
+              <Button icon={<UndoOutlined />} type="primary" size="small" onClick={onReset}>
                 {t('reset')}
               </Button>
             </div>
@@ -160,7 +148,7 @@ const ColumnSetting: React.FC<Pick<ToolbarActionConfig, 'columnsSettingValue' | 
             <DndContext
               onDragEnd={({ over, active }) => {
                 if (over) {
-                  onDragEnd(active.id, over.id)
+                  onDragEnd(active.id, over.id);
                 }
               }}
               onDragStart={({ active }) => {
@@ -173,18 +161,13 @@ const ColumnSetting: React.FC<Pick<ToolbarActionConfig, 'columnsSettingValue' | 
                 </Checkbox.Group>
                 <DragOverlay>
                   {activeId && (
-                    <Item
-                      {...activeItem}
-                      isOverlay
-                      isChecked={value.includes(activeId)}
-                      columnKey={activeId}
-                    />
+                    <Item {...activeItem} isOverlay isChecked={value.includes(activeId)} columnKey={activeId} />
                   )}
                 </DragOverlay>
               </SortableContext>
             </DndContext>
           </div>
-        )
+        );
       }}
     >
       <Tooltip title={t('column_setting')}>
@@ -192,6 +175,6 @@ const ColumnSetting: React.FC<Pick<ToolbarActionConfig, 'columnsSettingValue' | 
       </Tooltip>
     </Dropdown>
   );
-}
+};
 
 export default ColumnSetting;

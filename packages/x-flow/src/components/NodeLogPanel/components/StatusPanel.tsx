@@ -1,11 +1,11 @@
 import { Badge, Divider, Space } from 'antd';
 import classNames from 'classnames';
 import { isString } from 'lodash';
-import React, { memo, useContext } from 'react';
+import { memo, useContext } from 'react';
 import { ConfigContext } from '../../../models/context';
 import { getTransparentColor, transformNodeStatus } from '../../../utils';
 import TextEllipsis from '../../TextEllipsis';
-import '../index.less';
+import 'src/components/NodeLogPanel/index.css';
 
 const StatusItem = ({ title, content, isBadge, color, colorLabel }) => {
   return (
@@ -13,11 +13,7 @@ const StatusItem = ({ title, content, isBadge, color, colorLabel }) => {
       <Space style={{ width: '100%' }} direction="vertical" size={2}>
         <TextEllipsis text={title} className="log-status-item-title" />
         {isBadge ? (
-          <Badge
-            color={color}
-            text={content || colorLabel}
-            className="log-status-item-badge"
-          />
+          <Badge color={color} text={content || colorLabel} className="log-status-item-badge" />
         ) : (
           <TextEllipsis text={content} className="log-status-item-content" />
         )}
@@ -64,18 +60,11 @@ export default memo((props: any) => {
           />
         ))}
       </div>
-      {renderData?.status?.length && renderData?.extra && (
-        <Divider style={{ margin: '6px 0' }} />
-      )}
+      {renderData?.status?.length && renderData?.extra && <Divider style={{ margin: '6px 0' }} />}
       {renderData?.extra && (
         <div className="log-status-panel-extra">
           {isString(renderData?.extra) ? (
-            <TextEllipsis
-              text={renderData?.extra}
-              className="log-status-panel-extra-text"
-              type="paragraph"
-              rows={3}
-            />
+            <TextEllipsis text={renderData?.extra} className="log-status-panel-extra-text" type="paragraph" rows={3} />
           ) : (
             <>{renderData?.extra}</>
           )}

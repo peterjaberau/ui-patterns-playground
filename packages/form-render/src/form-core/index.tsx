@@ -12,20 +12,13 @@ import filterValuesUndefined from '../models/filterValuesUndefined';
 import { getFormItemLayout } from '../models/layout';
 import { translation, isFunction } from '../utils';
 
-import {
-  valuesWatch,
-  immediateWatch,
-  yymmdd,
-  msToTime,
-  getSessionItem,
-  setSessionItem
-} from '../models/formCoreUtils';
+import { valuesWatch, immediateWatch, yymmdd, msToTime, getSessionItem, setSessionItem } from '../models/formCoreUtils';
 
 import { FRProps } from '../type';
 import RenderCore from '../render-core';
-import './index.less';
+import 'src/form-core/index.css';
 
-const FormCore:FC<FRProps> = (props) => {
+const FormCore: FC<FRProps> = (props) => {
   const store: any = useContext(FRContext);
   const schema = useStore(store, (state: any) => state.schema);
   const flattenSchema = useStore(store, (state: any) => state.flattenSchema);
@@ -86,13 +79,13 @@ const FormCore:FC<FRProps> = (props) => {
       labelCol,
       fieldCol,
       maxWidth,
-      validateTrigger
+      validateTrigger,
     };
     setContext(context);
   }, [column, labelCol, fieldCol, displayType, labelWidth, maxWidth, readOnly, disabled, validateTrigger]);
 
   const initial = async () => {
-    onMount && await onMount();
+    onMount && (await onMount());
     onMountLogger();
     setTimeout(() => {
       const values = form.getValues();
@@ -102,7 +95,7 @@ const FormCore:FC<FRProps> = (props) => {
 
   const onMountLogger = () => {
     const start = new Date().getTime();
-    if (isFunction(logOnMount)|| isFunction(logOnSubmit)) {
+    if (isFunction(logOnMount) || isFunction(logOnSubmit)) {
       setSessionItem('FORM_MOUNT_TIME', start);
       setSessionItem('FORM_START', start);
     }
@@ -199,22 +192,22 @@ const FormCore:FC<FRProps> = (props) => {
   const actionBtns = [];
   if (!footer?.reset?.hide) {
     actionBtns.push(
-      <Button key='reset' {...footer?.reset} onClick={() => form.resetFields()}>
+      <Button key="reset" {...footer?.reset} onClick={() => form.resetFields()}>
         {footer?.reset?.text || t('reset')}
-      </Button>
+      </Button>,
     );
   }
   if (!footer?.submit?.hide) {
     actionBtns.push(
-      <Button key='submit' type='primary' onClick={form.submit} {...footer?.submit}>
+      <Button key="submit" type="primary" onClick={form.submit} {...footer?.submit}>
         {footer?.submit?.text || t('submit')}
-      </Button>
+      </Button>,
     );
   }
 
   return (
     <Form
-      className={classNames('fr-form', { [className]: !!className } )}
+      className={classNames('fr-form', { [className]: !!className })}
       labelWrap={true}
       {...formProps}
       disabled={disabled}
@@ -231,21 +224,17 @@ const FormCore:FC<FRProps> = (props) => {
         <Row gutter={displayType === 'row' ? 16 : 24}>
           <Col span={24 / column}>
             <Form.Item
-              label={ displayType !== 'column' ?  'hideLabel' : null}
+              label={displayType !== 'column' ? 'hideLabel' : null}
               labelCol={operlabelCol}
-              className='fr-hide-label'
+              className="fr-hide-label"
             >
-              {isFunction(footer) ? (
-                <Space>{footer(actionBtns)}</Space>
-              ) : (
-                <Space>{actionBtns}</Space>
-              )}
+              {isFunction(footer) ? <Space>{footer(actionBtns)}</Space> : <Space>{actionBtns}</Space>}
             </Form.Item>
           </Col>
         </Row>
       )}
     </Form>
   );
-}
+};
 
 export default FormCore;

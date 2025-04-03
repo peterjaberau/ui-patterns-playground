@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react';
+import { memo, useContext } from 'react';
 import NodeContainer from '../../components/NodeContainer';
 import { ConfigContext } from '../../models/context';
 
@@ -10,7 +10,6 @@ export default memo((props: any) => {
   const nodeDescription = nodeSetting?.description || '';
   const hideDesc = nodeSetting?.nodePanel?.hideDesc ?? globalConfig?.nodePanel?.hideDesc ?? false;
   const hideTitleTips = globalConfig?.nodeView?.hideTitleTips ?? false;
-
 
   return (
     <NodeContainer
@@ -29,7 +28,7 @@ export default memo((props: any) => {
       description={nodeDescription} // Node description that does not allow users to change
       iconSvg={nodeSetting?.iconSvg}
       hideTitleTips={hideTitleTips}
-      nodeSettingTitle={nodeSetting.title||'End'}
+      nodeSettingTitle={nodeSetting.title || 'End'}
     />
   );
 });

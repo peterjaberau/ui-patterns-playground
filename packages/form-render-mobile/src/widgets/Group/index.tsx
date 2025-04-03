@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.less';
+import 'src/widgets/Group/index.css';
 
 const prefix = 'frm-widget-group';
 
@@ -11,5 +11,5 @@ export default (props: any) => {
       <div className={`${prefix}-title`}>{title}</div>
       {children}
     </div>
-  )
-}
+  );
+};

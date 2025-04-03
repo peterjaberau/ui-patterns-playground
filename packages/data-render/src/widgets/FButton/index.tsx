@@ -4,7 +4,7 @@ import type { ButtonProps, ModalProps, PopconfirmProps } from 'antd';
 import createIconFont from '../utils/createIconFont';
 import { combineClass, isThenable } from '../utils/common';
 import { debounce as debounceFunc } from 'lodash-es';
-import './index.less';
+import 'src/widgets/FButton/index.css';
 const OriginModal: any = Modal;
 
 interface FButtonProps extends ButtonProps {
@@ -17,9 +17,9 @@ interface FButtonProps extends ButtonProps {
   method?:
     | string
     | {
-    [key: string]: any;
-    name: string;
-  };
+        [key: string]: any;
+        name: string;
+      };
   /** Pop-up window configuration*/
   modal?: ModalProps & { type?: string; request?: any };
   /** Request configuration */
@@ -87,18 +87,10 @@ const FButton: React.FC<FButtonProps> = (props) => {
 
   // Open the popup window
   const openModal = (modalData?: any) => {
-    const {
-      type = 'info',
-      children,
-      width = '640px',
-      centered = true,
-      okText = 'Close',
-      ...modalProps
-    } = modal || {};
+    const { type = 'info', children, width = '640px', centered = true, okText = 'Close', ...modalProps } = modal || {};
     let contentWidth = width;
     if (width === '100%') {
-      contentWidth =
-        (document.documentElement.clientWidth || document.body.clientWidth || 675) - 80;
+      contentWidth = (document.documentElement.clientWidth || document.body.clientWidth || 675) - 80;
     }
 
     OriginModal[type]({
@@ -115,8 +107,7 @@ const FButton: React.FC<FButtonProps> = (props) => {
   // Open the iframe
   const openIframe = () => {
     const windowW = (document.documentElement.clientWidth || document.body.clientWidth || 675) - 80;
-    const windowH =
-      (document.documentElement.clientHeight || document.body.clientHeight || 715) * 0.8;
+    const windowH = (document.documentElement.clientHeight || document.body.clientHeight || 715) * 0.8;
     Modal.info({
       icon: null,
       width: windowW,
@@ -126,10 +117,7 @@ const FButton: React.FC<FButtonProps> = (props) => {
     });
   };
 
-  const apply = async (
-    func: (...params: any) => any | ((...params: any) => Promise<any>),
-    ...arg: any
-  ) => {
+  const apply = async (func: (...params: any) => any | ((...params: any) => Promise<any>), ...arg: any) => {
     // popConfirm automatically handles the Promise method, so you don't have to handle it yourself
     if (popConfirm) {
       return await func(...arg);

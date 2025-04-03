@@ -1,31 +1,18 @@
 import { Position } from '@xyflow/react';
 import classNames from 'classnames';
-import React, { memo, useContext } from 'react';
+import { memo, useContext } from 'react';
 import NodeContainer from '../../components/NodeContainer';
 import { ConfigContext } from '../../models/context';
 import SwitchBuildInNodeWidget from './SwitchBuildInNodeWidget';
-import './index.less';
+import 'src/nodes/node-switch/index.css';
 
 export default memo((props: any) => {
-  const {
-    onClick,
-    type,
-    data,
-    position,
-    isConnectable,
-    selected,
-    isHovered,
-    handleAddNode,
-  } = props;
-  const { settingMap, widgets, iconFontUrl, globalConfig } =
-    useContext(ConfigContext);
+  const { onClick, type, data, position, isConnectable, selected, isHovered, handleAddNode } = props;
+  const { settingMap, widgets, iconFontUrl, globalConfig } = useContext(ConfigContext);
   const nodeSetting = settingMap[type] || {};
   const NodeWidget = widgets[nodeSetting?.nodeWidget] || undefined;
   const nodeDescription = nodeSetting?.description || '';
-  const hideDesc =
-    nodeSetting?.nodePanel?.hideDesc ??
-    globalConfig?.nodePanel?.hideDesc ??
-    false;
+  const hideDesc = nodeSetting?.nodePanel?.hideDesc ?? globalConfig?.nodePanel?.hideDesc ?? false;
   const hideTitleTips = globalConfig?.nodeView?.hideTitleTips ?? false;
   const isSwitchBottom = position === Position.Bottom;
 

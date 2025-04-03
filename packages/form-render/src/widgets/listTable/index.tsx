@@ -1,13 +1,20 @@
 import React from 'react';
 import { Table, Form, Space, Popconfirm, Button, Divider, Tooltip } from 'antd';
 import type { FormListFieldData, TableColumnsType } from 'antd';
-import { ArrowDownOutlined, ArrowUpOutlined, PlusOutlined, CloseOutlined, CopyOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import {
+  ArrowDownOutlined,
+  ArrowUpOutlined,
+  PlusOutlined,
+  CloseOutlined,
+  CopyOutlined,
+  InfoCircleOutlined,
+} from '@ant-design/icons';
 import classnames from 'classnames';
 import TableCell from './tableCell';
 import FButton from '../components/FButton';
 import sortProperties from '../../models/sortProperties';
 
-import './index.less';
+import 'src/widgets/listTable/index.css';
 
 interface ListTableProps {
   fields: FormListFieldData[];
@@ -20,7 +27,7 @@ interface ListTableProps {
    */
   hideEmptyTable?: boolean;
   [key: string]: any;
-};
+}
 
 const getTooltip = (tooltip: any) => {
   if (!tooltip) {
@@ -88,58 +95,60 @@ const TableList: React.FC<ListTableProps> = (props) => {
     copyItem(value, name);
   };
 
-  const columns: any = sortProperties(Object.entries(itemSchema)).map(([dataIndex, item]) => {
-    const { required, title, width, tooltip, columnHidden } = item;
-    if (columnHidden) {
-      return null;
-    }
-
-    const tooltipProps = getTooltip(tooltip);
-    return {
-      dataIndex,
-      width,
-      title: (
-        <>
-          {required && <span style={{ color: 'red', marginRight: '3px' }}>*</span>}
-          <span>{title}</span>
-          {tooltipProps && (
-            <Tooltip placement='top' {...tooltipProps}>
-              <InfoCircleOutlined style={{ marginLeft: 6 }} />
-            </Tooltip>
-          )}
-        </>
-      ),
-      render: (_, field) => {
-        const fieldSchema = {
-          type: 'object',
-          properties: {
-            [dataIndex]: {
-              ...itemSchema[dataIndex],
-              fieldCol: 24,
-            }
-          }
-        };
-
-        if (!islidatePopover) {
-          return (
-            <div className='fr-table-cell-content'>
-              {renderCore({ parentPath: [field.name], rootPath: [...rootPath, field.name], schema: fieldSchema })}
-            </div>
-          )
-        }
-
-        return (
-          <TableCell
-            renderCore={renderCore}
-            schema={fieldSchema}
-            parentPath={[field.name]}
-            rootPath={[...rootPath, field.name]}
-            dataIndex={dataIndex}
-          />
-        );
+  const columns: any = sortProperties(Object.entries(itemSchema))
+    .map(([dataIndex, item]) => {
+      const { required, title, width, tooltip, columnHidden } = item;
+      if (columnHidden) {
+        return null;
       }
-    };
-  }).filter(item => item);
+
+      const tooltipProps = getTooltip(tooltip);
+      return {
+        dataIndex,
+        width,
+        title: (
+          <>
+            {required && <span style={{ color: 'red', marginRight: '3px' }}>*</span>}
+            <span>{title}</span>
+            {tooltipProps && (
+              <Tooltip placement="top" {...tooltipProps}>
+                <InfoCircleOutlined style={{ marginLeft: 6 }} />
+              </Tooltip>
+            )}
+          </>
+        ),
+        render: (_, field) => {
+          const fieldSchema = {
+            type: 'object',
+            properties: {
+              [dataIndex]: {
+                ...itemSchema[dataIndex],
+                fieldCol: 24,
+              },
+            },
+          };
+
+          if (!islidatePopover) {
+            return (
+              <div className="fr-table-cell-content">
+                {renderCore({ parentPath: [field.name], rootPath: [...rootPath, field.name], schema: fieldSchema })}
+              </div>
+            );
+          }
+
+          return (
+            <TableCell
+              renderCore={renderCore}
+              schema={fieldSchema}
+              parentPath={[field.name]}
+              rootPath={[...rootPath, field.name]}
+              dataIndex={dataIndex}
+            />
+          );
+        },
+      };
+    })
+    .filter((item) => item);
 
   if (!readOnly && !hideOperate) {
     columns.push({
@@ -149,7 +158,7 @@ const TableList: React.FC<ListTableProps> = (props) => {
       ...otherActionColumnProps,
       render: (_, field) => (
         <Form.Item>
-          <Space className='fr-list-item-operate' split={operateBtnType !== 'icon' && <Divider type='vertical' />}>
+          <Space className="fr-list-item-operate" split={operateBtnType !== 'icon' && <Divider type="vertical" />}>
             {!hideMove && (
               <>
                 <FButton
@@ -167,27 +176,14 @@ const TableList: React.FC<ListTableProps> = (props) => {
               </>
             )}
             {!hideDelete && (
-              <Popconfirm
-                onConfirm={() => removeItem(field.name)}
-                {...delConfirmProps}
-              >
-                <FButton
-                  icon={<CloseOutlined />}
-                  btnType={operateBtnType}
-                  {...deleteBtnProps}
-                />
+              <Popconfirm onConfirm={() => removeItem(field.name)} {...delConfirmProps}>
+                <FButton icon={<CloseOutlined />} btnType={operateBtnType} {...deleteBtnProps} />
               </Popconfirm>
             )}
-            {!hideCopy && (
-              <FButton
-                onClick={() => handleCopy(field.name)}
-                icon={<CopyOutlined />}
-                {...copyBtnProps}
-              />
-            )}
+            {!hideCopy && <FButton onClick={() => handleCopy(field.name)} icon={<CopyOutlined />} {...copyBtnProps} />}
           </Space>
         </Form.Item>
-      )
+      ),
     });
   }
 
@@ -197,7 +193,7 @@ const TableList: React.FC<ListTableProps> = (props) => {
     <div className={classnames('fr-table-list', { 'fr-table-list-no-popover': !islidatePopover })}>
       {showTable && (
         <Table
-          size='middle'
+          size="middle"
           scroll={{ x: 'max-content' }}
           style={{ marginBottom: '12px' }}
           {...retProps}
@@ -207,14 +203,10 @@ const TableList: React.FC<ListTableProps> = (props) => {
         />
       )}
       {(!schema.max || fields.length < schema.max) && !hideAdd && (
-        <Button
-          icon={<PlusOutlined />}
-          onClick={() => addItem()}
-          {...addBtnProps}
-        />
+        <Button icon={<PlusOutlined />} onClick={() => addItem()} {...addBtnProps} />
       )}
     </div>
   );
-}
+};
 
 export default TableList;
