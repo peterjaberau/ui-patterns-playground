@@ -5,7 +5,7 @@ import { useStore } from 'zustand';
 import { FRContext, ConfigContext } from '../../models/context';
 import { parseAllExpression } from 'form-render/es/models/expression';
 import { isFunction } from '../../utils';
-import 'src/render-core/FieldList/index.css';
+import './index.css';
 
 const UpperContext = createContext(() => {});
 const getParamValue = (formCtx: any, upperCtx: any, schema: any) => (valueKey: string) => {

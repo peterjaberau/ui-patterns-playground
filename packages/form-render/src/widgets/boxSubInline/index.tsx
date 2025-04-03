@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'antd';
 import classnames from 'classnames';
-import 'src/widgets/boxSubInline/index.css';
+import './index.css';
 import _ from 'lodash';
 
 const BoxSubInline = (props: any) => {

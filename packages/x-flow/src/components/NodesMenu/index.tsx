@@ -5,7 +5,7 @@ import { ConfigContext } from '../../models/context';
 import { useSet } from '../../utils/hooks';
 import createIconFont from '../../utils/createIconFont';
 import { TNodeMenu } from '../../types';
-import 'src/components/NodesMenu/index.css';
+import './index.css';
 
 // Retrieve node
 const searchNodeList = (query: string, list: any[]) => {

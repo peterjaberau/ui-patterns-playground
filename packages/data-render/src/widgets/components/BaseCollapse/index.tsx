@@ -2,7 +2,7 @@ import React, { useState, FC } from 'react';
 import { Collapse } from 'antd';
 import { combineClass } from '../../utils/common';
 import { DownOutlined } from '@ant-design/icons';
-import 'src/widgets/components/BaseCollapse/index.css';
+import './index.css';
 
 const { Panel } = Collapse;
 interface IProps {

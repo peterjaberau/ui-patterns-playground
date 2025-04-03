@@ -1,6 +1,6 @@
 import FormRender, { Schema, useForm } from 'form-render';
 import { memo, useEffect } from 'react';
-import 'src/nodes/node-parallel/index.css';
+import '../index.css';
 import { safeJsonStringify } from '../../../utils';
 
 interface INodeSwitchSettingPorps {

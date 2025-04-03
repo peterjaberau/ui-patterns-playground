@@ -6,7 +6,7 @@ import { useSet } from '../../utils/hooks';
 import { getRequestParams } from '../../utils/common';
 import BaseTable from '../BaseTable';
 
-import 'src/widgets/components/RequestTable/index.css';
+import './index.css';
 
 /**
  *

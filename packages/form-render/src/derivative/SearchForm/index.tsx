@@ -29,7 +29,7 @@ import {
   Html,
   PercentSlider,
 } from '../../widgets';
-import 'src/derivative/SearchForm/index.css';
+import './index.css';
 import { SearchProps } from '../../type';
 
 const getIsColumn = (isColumn: boolean, obj: object, column: number) => {

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { memo, useMemo } from 'react';
 import createIconFont from '../../utils/createIconFont';
 import TextEllipsis from '../TextEllipsis';
-import 'src/components/NodeContainer/index.css';
+import './index.css';
 import TitleMenuTooltip from './TitleMenuTooltip';
 
 export default memo((props: any) => {

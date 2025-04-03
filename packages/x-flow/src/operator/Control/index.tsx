@@ -8,7 +8,7 @@ import { ConfigContext } from '../../models/context';
 import { useEventEmitterContextContext } from '../../models/event-emitter';
 
 import { useFullscreen } from 'ahooks';
-import 'src/operator/Control/index.css';
+import './index.css';
 
 const Control = (props: any) => {
   const { addNode, xflowRef } = props;

@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import { throttle } from 'lodash-es';
 
-import 'src/widgets/components/SuckTabs/index.css';
+import './index.css';
 
 let activeIndx = 0; // Current tab index
 let lockScroll = false; // Do not make scroll judgment

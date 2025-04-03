@@ -12,7 +12,7 @@ import type { FormListFieldData, FormListOperation, TableColumnsType } from 'ant
 import sortProperties from '../../models/sortProperties';
 import FormDrawer from './drawerForm';
 import FButton from '../components/FButton';
-import 'src/widgets/listDrawer/index.css';
+import './index.css';
 
 interface Props {
   schema: any;

@@ -6,7 +6,7 @@ import { _get, isFunction, isArray } from '../../utils';
 import InteriorTool from './InteriorTool';
 
 import TitleView from './TitleView';
-import 'src/core/ToolbarView/index.css';
+import './index.css';
 
 const ToolbarView = (props) => {
   const {

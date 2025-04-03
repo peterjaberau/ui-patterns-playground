@@ -4,7 +4,7 @@ import { memo, useContext } from 'react';
 import NodeContainer from '../../components/NodeContainer';
 import { ConfigContext } from '../../models/context';
 import SwitchBuildInNodeWidget from './SwitchBuildInNodeWidget';
-import 'src/nodes/node-switch/index.css';
+import './index.css';
 
 export default memo((props: any) => {
   const { onClick, type, data, position, isConnectable, selected, isHovered, handleAddNode } = props;

@@ -3,7 +3,7 @@ import { Input } from 'antd';
 import ColorPicker from 'rc-color-picker';
 import alphaHexMap from './alphahexMap';
 import 'rc-color-picker/assets/index.css';
-import 'src/widgets/fields/color/index.css';
+import './index.css';
 
 // Exp: '#ffffffA6' => algha: 65
 const getAlphaFromHex = (hex = '#ffffff') => {

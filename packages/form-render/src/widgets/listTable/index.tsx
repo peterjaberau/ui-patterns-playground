@@ -14,7 +14,7 @@ import TableCell from './tableCell';
 import FButton from '../components/FButton';
 import sortProperties from '../../models/sortProperties';
 
-import 'src/widgets/listTable/index.css';
+import './index.css';
 
 interface ListTableProps {
   fields: FormListFieldData[];

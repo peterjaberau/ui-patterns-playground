@@ -5,7 +5,7 @@ import { Container, Heading, Text } from '@medusajs/ui';
 import { useSelector } from '@xstate/react';
 import Link from 'next/link';
 
-import XFlow from '@xrenders/xflow';
+import XFlow from '@ui-patterns/x-flow';
 import { settings } from './flow/setting';
 import { nodes, edges } from './flow/const';
 import React from 'react';

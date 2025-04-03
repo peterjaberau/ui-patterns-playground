@@ -2,7 +2,7 @@ import React from 'react';
 import FieldItem from './FieldItem';
 import FieldList from './FieldList';
 import sortProperties from '../models/sortProperties';
-import 'src/render-core/index.css';
+import './index.css';
 
 interface RenderCoreProps {
   schema: any;

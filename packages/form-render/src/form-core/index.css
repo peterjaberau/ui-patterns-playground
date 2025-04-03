@@ -1,5 +1,3 @@
-@ant-prefix: ant;
-
 .fr-hide-label > .ant-form-item-row > .ant-form-item-label {
   visibility: hidden;
 }

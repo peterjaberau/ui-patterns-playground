@@ -6,7 +6,7 @@ import SourceHandle from '../../components/CustomNode/sourceHandle';
 import TextEllipsis from '../../components/TextEllipsis';
 import { useStore } from '../../hooks/useStore';
 import { uuid } from '../../utils';
-import 'src/nodes/node-parallel/index.css';
+import './index.css';
 
 export default memo((props: any) => {
   const {

@@ -4,7 +4,7 @@ import { FRContext } from '../../models/context';
 import { useStore } from 'zustand';
 import cx from 'classnames';
 
-import 'src/widgets/Card/index.css';
+import './index.css';
 
 const prefix = 'frm-widget-card';
 

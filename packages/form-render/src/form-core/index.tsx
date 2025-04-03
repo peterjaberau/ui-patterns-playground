@@ -16,7 +16,7 @@ import { valuesWatch, immediateWatch, yymmdd, msToTime, getSessionItem, setSessi
 
 import { FRProps } from '../type';
 import RenderCore from '../render-core';
-import 'src/form-core/index.css';
+import './index.css';
 
 const FormCore: FC<FRProps> = (props) => {
   const store: any = useContext(FRContext);

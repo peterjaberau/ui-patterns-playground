@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import 'src/widgets/voidTitle/index.css';
+import './index.css';
 
 export default ({ schema }) => {
   return (

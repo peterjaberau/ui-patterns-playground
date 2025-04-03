@@ -4,7 +4,7 @@ import { transformData, combineClass, transDataKeyToData } from '../utils/common
 import createIconFont from '../utils/createIconFont';
 import { renderText } from '../components/TextView';
 import InnerHtml from '../components/InnerHtml';
-import 'src/widgets/FText/index.css';
+import './index.css';
 
 interface IProps {
   className: string;

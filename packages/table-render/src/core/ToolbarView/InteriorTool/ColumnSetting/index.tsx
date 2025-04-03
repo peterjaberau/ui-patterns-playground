@@ -9,7 +9,7 @@ import { ToolbarActionConfig } from '@/types';
 import Item from './item';
 import { cancelFixed, fixItem, Setting } from './utils';
 import clx from 'classnames';
-import 'src/core/ToolbarView/InteriorTool/ColumnSetting/index.css';
+import './index.css';
 
 const prefix = 'tr-toolbar-column-setting';
 

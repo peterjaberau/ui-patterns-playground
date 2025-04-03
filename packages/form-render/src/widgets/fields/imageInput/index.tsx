@@ -3,7 +3,7 @@ import { PictureOutlined } from '@ant-design/icons';
 import { Input, Popover, ConfigProvider } from 'antd';
 import { translation } from '../../utils';
 import withFieldWrap from '../../utils/withFieldWrap';
-import 'src/widgets/fields/imageInput/index.css';
+import './index.css';
 
 const DEFAULT_IMG = 'https://img.alicdn.com/tfs/TB14tSiKhTpK1RjSZFKXXa2wXXa-354-330.png';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import HeaderTitle from '../components/HeaderTitle';
 import PanelView from '../components/PanelView';
-import 'src/widgets/boxLineTitle/index.css';
+import './index.css';
 
 const FLineTitle = ({ children, title, description }) => {
   if (!title) {

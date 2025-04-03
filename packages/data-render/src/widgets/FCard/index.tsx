@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'antd';
 import { combineClass, isReactNodeSchema } from '../utils/common';
-import 'src/widgets/FCard/index.css';
+import './index.css';
 
 export default (props: any) => {
   const { data, childSchema, className, style, title, extra, addons, ...otherProps } = props;

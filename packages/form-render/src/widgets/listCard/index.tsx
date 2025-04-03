@@ -4,7 +4,7 @@ import { PlusOutlined, CloseOutlined, ArrowUpOutlined, ArrowDownOutlined, CopyOu
 import classnames from 'classnames';
 import FButton from '../components/FButton';
 import { cloneDeep } from 'lodash-es';
-import 'src/widgets/listCard/index.css';
+import './index.css';
 
 const getOperateFixed = (schema: any) => {
   let fixed = true;

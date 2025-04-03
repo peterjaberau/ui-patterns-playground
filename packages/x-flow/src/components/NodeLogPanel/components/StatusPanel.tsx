@@ -5,7 +5,7 @@ import { memo, useContext } from 'react';
 import { ConfigContext } from '../../../models/context';
 import { getTransparentColor, transformNodeStatus } from '../../../utils';
 import TextEllipsis from '../../TextEllipsis';
-import 'src/components/NodeLogPanel/index.css';
+import '../index.css';
 
 const StatusItem = ({ title, content, isBadge, color, colorLabel }) => {
   return (

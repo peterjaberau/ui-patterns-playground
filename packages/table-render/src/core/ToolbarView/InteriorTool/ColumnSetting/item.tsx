@@ -5,7 +5,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useTableStore } from '../../../store';
 import clx from 'classnames';
-import 'src/core/ToolbarView/InteriorTool/ColumnSetting/index.css';
+import './index.css';
 import { getColumnKey } from '../../../../utils';
 import { getStatus, Setting } from './utils';
 

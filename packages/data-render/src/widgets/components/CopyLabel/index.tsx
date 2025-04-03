@@ -2,7 +2,7 @@ import React from 'react';
 
 import IconLabel from '../IconLabel';
 import { clipboardCopy } from '../../utils/common';
-import 'src/widgets/components/CopyLabel/index.css';
+import './index.css';
 
 const CopyLabel = (props: any) => {
   const { onClick, style, data, fontSize = 22, color = '#1677FF' } = props;

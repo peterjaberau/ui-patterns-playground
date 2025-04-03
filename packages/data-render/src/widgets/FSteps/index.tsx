@@ -3,7 +3,7 @@ import { Steps } from 'antd';
 import { get } from 'lodash-es';
 import { combineClass } from '../utils/common';
 
-import 'src/widgets/FSteps/index.css';
+import './index.css';
 
 const { Step } = Steps;
 

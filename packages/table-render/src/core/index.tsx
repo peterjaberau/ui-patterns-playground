@@ -11,7 +11,7 @@ import SearchView from './SearchView';
 import ToolbarView from './ToolbarView';
 import TableView from './TableView';
 
-import 'src/core/index.css';
+import './index.css';
 
 type ISearchParams = {
   current?: number;

@@ -10,3 +10,10 @@ declare module 'form-render' {
   const FormRender: FC<any>;
   export default FormRender;
 }
+
+declare module 'rc-color-picker' {
+  import { FC } from 'react';
+
+  const ColorPicker: FC<any>;
+  export default ColorPicker;
+}

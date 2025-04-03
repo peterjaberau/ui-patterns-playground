@@ -15,7 +15,7 @@ import { useVT } from 'virtualizedtableforantd4';
 import FButton from '../components/FButton';
 import sortProperties from '../../models/sortProperties';
 
-import 'src/widgets/listVirtual/index.css';
+import './index.css';
 
 interface ListVirtualProps {
   fields: FormListFieldData[];

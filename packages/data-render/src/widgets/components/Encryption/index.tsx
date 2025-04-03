@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import createIconFont from '../../utils/createIconFont';
 import { renderString } from '../../utils/common';
 import CopyLabel from '../CopyLabel';
-import 'src/widgets/components/Encryption/index.css';
+import './index.css';
 
 interface IIcon {
   text: string;

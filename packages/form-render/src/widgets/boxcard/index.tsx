@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from 'antd';
 import BoxPanel from '../components/PanelView';
 
-import 'src/widgets/boxcard/index.css';
+import './index.css';
 
 const BoxCard = ({ children, title, description }) => {
   if (!title) {

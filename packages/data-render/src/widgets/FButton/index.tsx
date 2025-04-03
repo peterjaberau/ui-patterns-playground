@@ -4,7 +4,7 @@ import type { ButtonProps, ModalProps, PopconfirmProps } from 'antd';
 import createIconFont from '../utils/createIconFont';
 import { combineClass, isThenable } from '../utils/common';
 import { debounce as debounceFunc } from 'lodash-es';
-import 'src/widgets/FButton/index.css';
+import './index.css';
 const OriginModal: any = Modal;
 
 interface FButtonProps extends ButtonProps {

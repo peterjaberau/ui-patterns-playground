@@ -2,7 +2,7 @@ import React from 'react';
 import { combineClass } from '../utils/common';
 import FTitle from '../FTitle';
 
-import 'src/widgets/FPanel/index.css';
+import './index.css';
 
 const FPanel = (props: any) => {
   const {

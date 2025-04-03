@@ -4,7 +4,7 @@ import { PlusOutlined, CloseOutlined, ArrowUpOutlined, ArrowDownOutlined, CopyOu
 import classnames from 'classnames';
 import FButton from '../components/FButton';
 
-import 'src/widgets/listSimple/index.css';
+import './index.css';
 
 const getHasBackground = (fields: any[], hasBackground: boolean) => {
   let result = hasBackground;

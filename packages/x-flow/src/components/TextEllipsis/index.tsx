@@ -1,6 +1,6 @@
 import { Tooltip, TooltipProps } from 'antd';
 import { FC, memo, useEffect, useState } from 'react';
-import 'src/components/TextEllipsis/index.css';
+import './index.css';
 
 interface ITextEllipsisProps {
   text: string;

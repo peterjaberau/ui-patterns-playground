@@ -1,7 +1,7 @@
 import { memo, useContext } from 'react';
 import { Button, Tooltip } from 'antd';
 import IconView from '../../components/IconView';
-import 'src/operator/UndoRedo/index.css';
+import './index.css';
 import { ConfigContext } from '../../models/context';
 
 export type UndoRedoProps = {

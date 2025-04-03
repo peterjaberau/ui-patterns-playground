@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { Fragment, memo } from 'react';
 import IconView from '../../components/IconView';
 import { getKeyboardKeyNameBySystem } from '../../utils';
-import 'src/operator/ZoomInOut/index.css';
+import './index.css';
 import ShortcutsName from './shortcuts-name';
 
 enum ZoomType {

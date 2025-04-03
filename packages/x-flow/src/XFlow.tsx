@@ -24,7 +24,7 @@ import { shallow } from 'zustand/shallow';
 import NodeEditor from './components/NodeEditor';
 import NodeLogPanel from './components/NodeLogPanel';
 import { useTemporalStore } from './hooks/useTemporalStore';
-import 'src/index.css';
+import './index.css';
 import { ConfigContext } from './models/context';
 
 const CustomNode = memo(CustomNodeComponent);

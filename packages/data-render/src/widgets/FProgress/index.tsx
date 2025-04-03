@@ -1,7 +1,7 @@
 import React from 'react';
 import { combineClass } from '../utils/common';
 import FTitle from '../FTitle';
-import 'src/widgets/FProgress/index.css';
+import './index.css';
 
 const FTimeline = (props: any) => {
   const { data, title, className } = props;

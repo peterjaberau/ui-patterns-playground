@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from 'antd';
 import { combineClass } from '../utils/common';
-import 'src/widgets/FImage/index.css';
+import './index.css';
 
 /**
  *

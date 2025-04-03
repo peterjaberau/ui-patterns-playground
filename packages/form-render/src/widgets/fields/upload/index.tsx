@@ -5,7 +5,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { get } from 'lodash-es';
 import { translation } from '../../utils';
 
-import 'src/widgets/fields/upload/index.css';
+import './index.css';
 
 interface Props {
   action: any;

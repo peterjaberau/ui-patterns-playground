@@ -10,7 +10,7 @@ import { shallow } from 'zustand/shallow';
 import { useStore } from '../../hooks/useStore';
 import { ConfigContext } from '../../models/context';
 import { capitalize, isTruthy, transformNodeStatus, uuid, uuid4 } from '../../utils';
-import 'src/components/CustomNode/index.css';
+import './index.css';
 import SourceHandle from './sourceHandle';
 import { useFlow } from '../../hooks/useFlow';
 

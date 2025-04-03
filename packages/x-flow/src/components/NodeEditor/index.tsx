@@ -1,6 +1,7 @@
 // @ts-ignore
 import FormRender, { Schema, useForm } from 'form-render';
-import produce from 'immer';
+import * as Immer from 'immer';
+const { produce } = Immer;
 import { debounce, isFunction } from 'lodash';
 import { FC, forwardRef, useContext, useEffect, useImperativeHandle, useState } from 'react';
 import { shallow } from 'zustand/shallow';

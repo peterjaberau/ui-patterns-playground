@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import createIconFont from '../../utils/createIconFont';
 
-import 'src/widgets/components/IconLabel/index.css';
+import './index.css';
 
 const IconLabel = (props: any) => {
   const {

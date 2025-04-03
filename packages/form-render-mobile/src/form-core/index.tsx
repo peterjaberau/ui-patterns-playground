@@ -21,7 +21,7 @@ import {
 } from 'form-render/es/models/formCoreUtils';
 import RenderCore from '../render-core';
 
-import 'src/form-core/index.css';
+import './index.css';
 
 const FormCore = (props: any) => {
   const store: any = useContext(FRContext);

@@ -3,7 +3,7 @@ import { FC, useContext } from 'react';
 import { ConfigContext } from '../../models/context';
 import DetailPanel from './components/DetailPanel';
 import TrackPanel from './components/TrackPanel';
-import 'src/components/NodeLogPanel/index.css';
+import './index.css';
 import { isArray } from 'lodash';
 
 interface INodeEditorProps {

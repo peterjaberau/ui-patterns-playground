@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { combineClass } from '../utils/common';
-import 'src/widgets/FButtonFold/index.css';
+import './index.css';
 
 const FButtonFold = (props: any) => {
   const { data, content, addons, className, method, childSchema, expandRender, ...otherProps } = props;

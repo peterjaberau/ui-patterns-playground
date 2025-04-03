@@ -4,7 +4,7 @@ import RenderCore from './renderer';
 import { getRequestParams } from '../utils/common';
 import { parseExpression } from '../models/expression';
 import { DataVProps } from '../type';
-import 'src/core/index.css';
+import './index.css';
 
 const defaultConfig = {
   showLevel: 0,

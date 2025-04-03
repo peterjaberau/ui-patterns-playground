@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tooltip } from 'antd';
 import { combineClass } from '../utils/common';
-import 'src/widgets/FTooltip/index.css';
+import './index.css';
 
 const FTooltip = (props: any) => {
   const { data, childSchema, className, style, title, tooltip, addons, ...otherProps } = props;

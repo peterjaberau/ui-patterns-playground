@@ -1,12 +1,12 @@
 import { Drawer, Popover } from 'antd';
 import classNames from 'classnames';
 import { isNumber } from 'lodash';
-import { FC, useContext, useMemo } from 'react';
+import React, { FC, useContext, useMemo } from 'react';
 import { ConfigContext } from '../../models/context';
 import createIconFont from '../../utils/createIconFont';
 import IconView from '../IconView';
 import TitleMenuTooltip from '../NodeContainer/TitleMenuTooltip';
-import 'src/components/PanelStatusLogContainer/index.css';
+import './index.css';
 
 interface IPanelProps {
   nodeType: string;

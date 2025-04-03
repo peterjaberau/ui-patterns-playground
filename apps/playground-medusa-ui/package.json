@@ -2,7 +2,6 @@
   "name": "@app/playground-medusa-ui",
   "version": "0.0.1",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "rm -rf .next && next build",
     "clean": "rm -rf node_modules .next",
@@ -39,8 +38,8 @@
     "@tanstack/react-query": "5.64.2",
     "@tanstack/react-table": "^8.21.2",
     "@tanstack/react-virtual": "^3.8.3",
+    "@ui-patterns/x-flow": "workspace:*",
     "@uiw/react-json-view": "^2.0.0-alpha.30",
-    "@xrenders/xflow": "^1.0.3",
     "@xstate/graph": "^3.0.2",
     "@xstate/react": "^5.0.3",
     "@xstate/store": "^3.4.1",

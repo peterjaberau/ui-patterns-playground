@@ -1,5 +1,5 @@
 import React from 'react';
-import 'src/widgets/components/HeaderTitle/index.css';
+import './index.css';
 
 const HeaderTitle = (props: any) => {
   const { title, description } = props;

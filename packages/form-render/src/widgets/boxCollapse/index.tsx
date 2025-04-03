@@ -1,7 +1,7 @@
 import React, { useState, FC } from 'react';
 import { Collapse } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import 'src/widgets/boxCollapse/index.css';
+import './index.css';
 import BoxPanel from '../components/PanelView';
 
 const { Panel } = Collapse;

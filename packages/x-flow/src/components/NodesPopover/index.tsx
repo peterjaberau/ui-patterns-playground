@@ -6,7 +6,7 @@ import { useStore } from '../../hooks/useStore';
 import { ConfigContext } from '../../models/context';
 import { uuid } from '../../utils';
 import NodesMenu from '../NodesMenu';
-import 'src/components/NodesPopover/index.css';
+import './index.css';
 
 export default forwardRef((props: any, popoverRef) => {
   const { addNode, children, onNodeSelectPopoverChange } = props;

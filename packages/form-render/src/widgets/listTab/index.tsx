@@ -3,7 +3,7 @@ import { Popconfirm, Tabs, ConfigProvider } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import type { FormListFieldData } from 'antd';
 import { translation } from '../utils';
-import 'src/widgets/listTab/index.css';
+import './index.css';
 
 interface ListTabProps {
   fields: FormListFieldData[];

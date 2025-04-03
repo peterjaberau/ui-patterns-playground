@@ -4,7 +4,7 @@ import ZoomInOut from './ZoomInOut';
 import UndoRedo from './UndoRedo';
 import Control from './Control';
 
-import 'src/operator/index.css';
+import './index.css';
 import { useTemporalStore } from '../hooks/useTemporalStore';
 
 export type OperatorProps = {

@@ -7,7 +7,7 @@ import { useStore } from '../../hooks/useStore';
 import { ConfigContext } from '../../models/context';
 import { uuid, uuid4 } from '../../utils';
 import NodeSelectPopover from '../NodesPopover';
-import 'src/components/CustomEdge/index.css';
+import './index.css';
 
 export default memo((edge: any) => {
   const { id, sourceX, sourceY, targetX, targetY, source, target, sourceHandleId } = edge;

@@ -1,5 +1,5 @@
 import React from 'react';
-import 'src/widgets/Group/index.css';
+import './index.css';
 
 const prefix = 'frm-widget-group';
 

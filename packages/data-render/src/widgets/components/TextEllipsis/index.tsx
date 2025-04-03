@@ -2,7 +2,7 @@ import React, { FC, useMemo, useRef, useEffect } from 'react';
 import classnames from 'classnames';
 import { useSet } from '../../utils/hooks';
 
-import 'src/widgets/components/TextEllipsis/index.css';
+import './index.css';
 interface IProps {
   data: string;
   height: number;

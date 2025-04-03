@@ -4,7 +4,7 @@
 import React from 'react';
 import { InputNumber, Slider } from 'antd';
 import withFieldWrap from '../../utils/withFieldWrap';
-import 'src/widgets/fields/slider/index.css';
+import './index.css';
 interface SliderWithNumberProps {
   schema: {
     max?: number;

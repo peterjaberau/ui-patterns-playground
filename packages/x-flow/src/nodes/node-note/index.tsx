@@ -4,7 +4,7 @@ import { debounce } from 'lodash';
 import { memo, useRef, useState } from 'react';
 import { shallow } from 'zustand/shallow';
 import { useStore } from '../../hooks/useStore';
-import 'src/nodes/node-note/index.css';
+import './index.css';
 
 export default memo((props: any) => {
   const { onClick, type, data, id } = props;

@@ -1,7 +1,7 @@
 import { Divider, Drawer, Input, Space } from 'antd';
-import produce from 'immer';
+
 import { debounce, isNumber } from 'lodash';
-import { FC, useContext, useEffect, useMemo, useState } from 'react';
+import React, { FC, useContext, useEffect, useMemo, useState } from 'react';
 import { shallow } from 'zustand/shallow';
 import { useStore } from '../../hooks/useStore';
 import { ConfigContext } from '../../models/context';
@@ -9,7 +9,10 @@ import { isTruthy, safeJsonStringify } from '../../utils';
 import createIconFont from '../../utils/createIconFont';
 import IconView from '../IconView';
 import TextEllipsis from '../TextEllipsis';
-import 'src/components/PanelContainer/index.css';
+import './index.css';
+
+import * as Immer from 'immer';
+const { produce } = Immer;
 
 interface IPanelProps {
   disabled?: boolean; // Disable? --- to do: confirm the location
