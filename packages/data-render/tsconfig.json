@@ -4,7 +4,9 @@
     "baseUrl": ".",
     "outDir": "dist",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "form-render": ["./dist/*"],
+      "@xrenders/data-render": ["./dist/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

@@ -86,7 +86,7 @@ const filterHiddenMenu = (list: any) => {
  */
 const NodesMenu = (props: TNodeMenu, ref: Ref<HTMLDivElement>) => {
   const { items, showSearch, onClick } = props;
-  const { iconFontUrl } = useContext(ConfigContext);
+  const { iconFontUrl }: any = useContext(ConfigContext);
 
   const [state, setState] = useSet({
     menuList: [...items],
@@ -134,4 +134,4 @@ const NodesMenu = (props: TNodeMenu, ref: Ref<HTMLDivElement>) => {
   );
 };
 
-export default forwardRef(NodesMenu);
+export default forwardRef(NodesMenu as any);

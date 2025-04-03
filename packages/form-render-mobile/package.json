@@ -51,6 +51,7 @@
     "lint:inspect": "npx @eslint/config-inspector@latest"
   },
   "dependencies": {
+    "@rc-component/color-picker": "^3.0.1",
     "ahooks": "3.7.5",
     "antd-mobile-icons": "^0.3.0",
     "async-validator": "^3.5.1",
@@ -60,7 +61,6 @@
     "dayjs": "^1.11.7",
     "form-render": "workspace:*",
     "lodash-es": "^4.17.21",
-    "rc-color-picker": "^1.2.6",
     "tailwind-merge": "^3.0.2",
     "tailwind-variants": "^1.0.0",
     "virtualizedtableforantd4": "^1.1.2",

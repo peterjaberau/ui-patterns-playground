@@ -1,8 +1,8 @@
 'use client';
 import { Popover } from 'antd';
 import classNames from 'classnames';
-import { memo, useMemo } from 'react';
-import createIconFont from '../../utils/createIconFont';
+import { memo } from 'react';
+// import createIconFont from '../../utils/createIconFont';
 import TextEllipsis from '../TextEllipsis';
 import './index.css';
 import TitleMenuTooltip from './TitleMenuTooltip';
@@ -17,13 +17,13 @@ export default memo((props: any) => {
     desc,
     hideDesc,
     NodeWidget,
-    iconFontUrl,
+    // iconFontUrl,
     iconSvg,
     hideTitleTips,
     isSwitchBottom,
     // nodeSettingTitle,
   } = props;
-  const IconBox = useMemo(() => createIconFont(iconFontUrl), [iconFontUrl]);
+  // const IconBox = useMemo(() => createIconFont(iconFontUrl), [iconFontUrl]);
 
   const renderDesc = () => (
     <>{!hideDesc && !!desc && <TextEllipsis text={desc} rows={2} type="paragraph" className="node-desc" />}</>
@@ -58,20 +58,22 @@ export default memo((props: any) => {
       <div className="node-title">
         {!hideTitleTips ? (
           <Popover
-            overlayClassName="nodes-popover"
+            className="nodes-popover"
             content={<TitleMenuTooltip {...props} />}
             placement="bottomLeft"
             trigger="hover"
             getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
-            overlayInnerStyle={{ padding: '12px 16px' }}
+            style={{ padding: '12px 16px' }}
           >
             <span className="icon-box" style={{ background: icon?.bgColor }}>
-              {iconSvg ? iconSvg : <IconBox {...icon} />}
+              {/* {iconSvg ? iconSvg : <IconBox {...icon} />} */}
+              {iconSvg ? iconSvg : <div style={{ width: '20px', height: '20px' }}>I</div>}
             </span>
           </Popover>
         ) : (
           <span className="icon-box" style={{ background: icon?.bgColor }}>
-            {iconSvg ? iconSvg : <IconBox {...icon} />}
+            {/* {iconSvg ? iconSvg : <IconBox {...icon} />} */}
+            {iconSvg ? iconSvg : <div style={{ width: '20px', height: '20px' }}>I</div>}
           </span>
         )}
         <TextEllipsis text={title} style={{ width: 188, marginLeft: '8px' }} />

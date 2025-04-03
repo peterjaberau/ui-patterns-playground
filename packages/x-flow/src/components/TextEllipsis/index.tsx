@@ -1,6 +1,6 @@
 'use client';
 import { Tooltip, TooltipProps } from 'antd';
-import { FC, memo, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 import './index.css';
 
 interface ITextEllipsisProps {
@@ -12,7 +12,7 @@ interface ITextEllipsisProps {
   rows?: number;
 }
 const TextEllipsis: FC<ITextEllipsisProps> = ({ text, style, toolTipProps, type = 'text', rows = 1, className }) => {
-  const typographyRef = React.useRef<HTMLElement>(null);
+  const typographyRef: any = React.useRef<HTMLElement>(null);
   const [isEllipse, setIsEllipse] = useState(false);
 
   const component =
@@ -39,7 +39,8 @@ const TextEllipsis: FC<ITextEllipsisProps> = ({ text, style, toolTipProps, type 
   useEffect(() => {
     if (text) {
       if (type === 'paragraph') {
-        const { offsetHeight, scrollHeight, clientHeight } = typographyRef.current;
+        // const { offsetHeight, scrollHeight, clientHeight }: any = typographyRef.current;
+        const { scrollHeight, clientHeight }: any = typographyRef.current;
         setIsEllipse(scrollHeight > clientHeight);
       } else {
         const isEllipse = isEleEllipsis(typographyRef?.current);

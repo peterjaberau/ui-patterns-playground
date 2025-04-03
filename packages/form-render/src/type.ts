@@ -22,30 +22,20 @@ export type ActionProps = {
     text?: string;
     hide?: boolean;
     [key: string]: any;
-  },
+  };
   reset: {
     text?: string;
     hide?: boolean;
     [key: string]: any;
-  }
-}
+  };
+};
 
 export interface SchemaBase {
   type?: SchemaType;
   title?: string;
   description?: string;
   descType?: 'text' | 'icon';
-  format?:
-    | 'image'
-    | 'textarea'
-    | 'color'
-    | 'email'
-    | 'url'
-    | 'dateTime'
-    | 'date'
-    | 'time'
-    | 'upload'
-    | (string & {});
+  format?: 'image' | 'textarea' | 'color' | 'email' | 'url' | 'dateTime' | 'date' | 'time' | 'upload' | (string & {});
   default?: any;
   /** Is it required? Supports expressions in the form of `'{{ formData.xxx === "" }}'`*/
   required?: boolean | string;
@@ -82,11 +72,11 @@ export interface SchemaBase {
   /**Extended fields*/
   'add-widget'?: string;
   labelCol?: number | ColProps;
-  fieldCol?: number | ColProps
-  tooltip?: string | TooltipProps
+  fieldCol?: number | ColProps;
+  tooltip?: string | TooltipProps;
   cellSpan?: number;
   span?: number;
-  validateTrigger?: string | string[]
+  validateTrigger?: string | string[];
   [key: string]: any;
 }
 
@@ -156,7 +146,7 @@ export interface FormInstance {
   /*
    * Submit the form
    */
-  submit: () => void,
+  submit: () => void;
   /**
    * Dynamically set Schema based on path
    */
@@ -271,15 +261,11 @@ export interface FormInstance {
 export type WatchProperties = {
   [path: string]:
     | {
-    handler: (value: any) => void;
-    immediate?: boolean;
-  }
+        handler: (value: any) => void;
+        immediate?: boolean;
+      }
     | ((value: any) => void);
 };
-
-interface ExtendedColProps extends ColProps {
-  // Additional attributes can be placed here
-}
 
 export interface FRProps extends Omit<AntdFormProps, 'form'> {
   /**
@@ -393,7 +379,7 @@ export interface FRProps extends Omit<AntdFormProps, 'form'> {
       value: any;
       dataIndex: number[] | unknown;
     },
-    formData: any
+    formData: any,
   ) => void;
   /**
    * Whether to remove hidden data. By default, it is not removed.
@@ -409,7 +395,7 @@ export interface FRProps extends Omit<AntdFormProps, 'form'> {
   methods?: Record<string, Function>;
   operateExtra?: React.ReactNode;
   maxWidth?: number | string;
-  footer?: boolean | ((dom: React.JSX.Element[]) => React.ReactNode) | Partial<ActionProps> ;
+  footer?: boolean | ((dom: React.JSX.Element[]) => React.ReactNode) | Partial<ActionProps>;
 }
 
 export interface SearchProps<RecordType> extends Omit<FRProps, 'form'> {
@@ -423,11 +409,7 @@ export interface SearchProps<RecordType> extends Omit<FRProps, 'form'> {
   hidden?: boolean;
   searchOnMount?: boolean | unknown;
   searchWithError?: boolean;
-  searchBtnRender?: (
-    submit: Function,
-    clearSearch: Function,
-    other: any
-  ) => React.ReactNode[];
+  searchBtnRender?: (submit: Function, clearSearch: Function, other: any) => React.ReactNode[];
   searchText?: string;
   resetText?: string;
   onSearch?: (search: any) => any;
@@ -435,30 +417,30 @@ export interface SearchProps<RecordType> extends Omit<FRProps, 'form'> {
   onReset?: (form: any) => void;
   widgets?: any;
   form?: any;
-  [key:string]: any
+  [key: string]: any;
 }
 
 /** Custom component props */
 export type WidgetProps = {
-  value: any,
-  onChange: (value: any) => void,
-  schema: Schema,
-  style: React.CSSProperties,
-  id: string,
-  addons: WidgetAddonsType,
-  disabled?: boolean,
-  readOnly?: boolean,
-  [other: string]: any,
-}
+  value: any;
+  onChange: (value: any) => void;
+  schema: Schema;
+  style: React.CSSProperties;
+  id: string;
+  addons: WidgetAddonsType;
+  disabled?: boolean;
+  readOnly?: boolean;
+  [other: string]: any;
+};
 
 /** Custom component addons */
 export type WidgetAddonsType = FormInstance & {
-  globalProps: Record<string, any>,
-  dependValues: any[],
-  dataIndex: string[],
-  dataPath: string,
-  schemaPath: string,
-}
+  globalProps: Record<string, any>;
+  dependValues: any[];
+  dataIndex: string[];
+  dataPath: string;
+  schemaPath: string;
+};
 
 declare const FR: React.FC<FRProps>;
 
@@ -469,7 +451,7 @@ export type ConnectedForm<T> = T & {
 };
 
 export declare function connectForm<T extends {} = any>(
-  component: React.ComponentType<ConnectedForm<T>>
+  component: React.ComponentType<ConnectedForm<T>>,
 ): React.ComponentType<T>;
 
 export default FR;

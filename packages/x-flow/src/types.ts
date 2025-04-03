@@ -1,5 +1,5 @@
 import { NodeMouseHandler, Handle } from '@xyflow/react';
-import { Schema, useForm } from 'form-render';
+import { useForm } from 'form-render';
 import { ReactNode, ComponentProps } from 'react';
 
 type HandleProps = ComponentProps<typeof Handle>;
@@ -13,7 +13,7 @@ export interface TNodeItem {
     type: string;
     bgColor: string;
   };
-  settingSchema?: Schema; // Node configuration schema (pop-up window) string is a custom component
+  settingSchema?: any; // Node configuration schema (pop-up window) string is a custom component
   settingWidget?: string; // Custom component
   settingWidgetProps?: object; // Custom component parameters
   hideDesc?: boolean; // Hide business description
@@ -28,7 +28,7 @@ export interface TNodeItem {
     nodeItem: TNodeItem,
     nodeData: any,
     form: ReturnType<typeof useForm>,
-  ) => Promise<Schema>;
+  ) => Promise<any>;
   switchExtra: {
     // Conditional node extra attribute configuration
     hideElse: boolean;
@@ -42,7 +42,7 @@ export interface TNodeItem {
   };
   disabledCopy?: boolean;
   disabledDelete?: boolean;
-  onTesting: (node, nodes) => void; // Single point debugging method
+  onTesting: (node: any, nodes: any) => void; // Single point debugging method
 }
 
 export interface TNodeGroup {
@@ -54,7 +54,7 @@ export interface TNodeGroup {
 export interface TNodeMenu {
   ref: React.RefObject<any>; // optional ref attribute
   showSearch: boolean; // Whether the configuration is searchable
-  items: (TNodeGroup | TNodeItem)[];
+  items: (TNodeGroup | TNodeItem | any)[];
   onClick: ({}: { type: string }) => void;
 }
 

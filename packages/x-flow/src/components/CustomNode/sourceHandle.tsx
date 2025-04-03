@@ -57,7 +57,7 @@ export default memo((props: any) => {
                 <Tooltip
                   title="Click to add a node"
                   arrow={false}
-                  overlayInnerStyle={{
+                  style={{
                     background: '#fff',
                     color: '#354052',
                     fontSize: '12px',

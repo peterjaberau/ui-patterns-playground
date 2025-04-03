@@ -1,7 +1,9 @@
+'use client';
+
 import React, { useContext } from 'react';
 import { Button, Space, ConfigProvider } from 'antd';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
-import { translation } from '../../utils'
+import { translation } from '../../utils';
 
 const ActionView = (props: any) => {
   const {
@@ -37,11 +39,12 @@ const ActionView = (props: any) => {
     setExpand(!isExpand);
   };
 
-  const searchBtnArr = typeof searchBtnRender === 'function' ? searchBtnRender(form.submit, handleReset, { loading }) : [];
+  const searchBtnArr =
+    typeof searchBtnRender === 'function' ? searchBtnRender(form.submit, handleReset, { loading }) : [];
 
   if (searchBtnRender) {
     return (
-      <div className='flex justify-end w-100'>
+      <div className="w-100 flex justify-end">
         {Array.isArray(searchBtnArr) &&
           searchBtnArr.map((ui, idx) => {
             return (
@@ -54,16 +57,19 @@ const ActionView = (props: any) => {
     );
   }
 
-  const submitShow = (mode === 'simple' && (typeof retainBtn === 'boolean' || retainBtn?.includes('submit')) || mode !== 'simple');
-  const resetShow = (mode === 'simple' && (typeof retainBtn === 'boolean' || retainBtn?.includes('reset')) || mode !== 'simple');
+  const submitShow =
+    (mode === 'simple' && (typeof retainBtn === 'boolean' || retainBtn?.includes('submit'))) || mode !== 'simple';
+  const resetShow =
+    (mode === 'simple' && (typeof retainBtn === 'boolean' || retainBtn?.includes('reset'))) || mode !== 'simple';
 
   return (
-    <div
-      className={`flex justify-end w-100 ${className || ''}`}
-      style={style}
-    >
+    <div className={`w-100 flex justify-end ${className || ''}`} style={style}>
       <Space>
-        {submitShow && <Button loading={loading} type='primary' onClick={form.submit}>{searchText}</Button>}
+        {submitShow && (
+          <Button loading={loading} type="primary" onClick={form.submit}>
+            {searchText}
+          </Button>
+        )}
         {resetShow && <Button onClick={handleReset}>{resetText}</Button>}
         {hasCollapse && (
           <a onClick={handleCollapse} style={{ cursor: 'pointer' }}>
@@ -83,6 +89,6 @@ const ActionView = (props: any) => {
       </Space>
     </div>
   );
-}
+};
 
 export default ActionView;

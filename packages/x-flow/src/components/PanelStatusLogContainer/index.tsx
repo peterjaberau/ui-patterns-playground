@@ -20,9 +20,11 @@ interface IPanelProps {
 const PanelStatusLogContainer: FC<IPanelProps> = (props: IPanelProps) => {
   const { onClose, children, nodeType } = props;
   // 1. Get node configuration information
-  const { settingMap, iconFontUrl, globalConfig, logPanel, widgets, antdVersion }: any = useContext(ConfigContext);
+  // const { settingMap, iconFontUrl, globalConfig, logPanel, widgets, antdVersion }: any = useContext(ConfigContext);
+  const { settingMap, iconFontUrl, logPanel, widgets, antdVersion }: any = useContext(ConfigContext);
   const nodeSetting = settingMap[nodeType] || {};
-  const { nodePanel, iconSvg } = nodeSetting;
+  // const { nodePanel, iconSvg }: any = nodeSetting;
+  const { iconSvg }: any = nodeSetting;
 
   const Icon = useMemo(() => createIconFont(iconFontUrl), [iconFontUrl]);
   const CustomWidget = widgets[logPanel?.logWidget]; // Built-in setting component
@@ -65,12 +67,12 @@ const PanelStatusLogContainer: FC<IPanelProps> = (props: IPanelProps) => {
           <div className="title-box">
             <div style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
               <Popover
-                overlayClassName="nodes-popover"
+                className="nodes-popover"
                 content={<TitleMenuTooltip {...nodeSetting} iconFontUrl={iconFontUrl} />}
                 placement="bottom"
                 trigger="hover"
                 getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
-                overlayInnerStyle={{ padding: '12px 16px' }}
+                style={{ padding: '12px 16px' }}
               >
                 <span
                   className="icon-box"

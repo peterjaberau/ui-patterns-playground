@@ -1,4 +1,5 @@
 'use client';
+
 import { SectionRow } from '@/components/common/section';
 import {
   ActorConfigAppearance,

@@ -1,3 +1,4 @@
+'use client';
 export const nodes = [
   {
     id: 'y01s4993gdvyknzf',
@@ -14,7 +15,7 @@ export const nodes = [
     dragging: false,
     data: {
       _isCandidate: false,
-      title: '开始',
+      title: 'Start',
       string: 'hello',
       string2: 'test',
       string3: '16',
@@ -39,17 +40,17 @@ export const nodes = [
     dragging: false,
     data: {
       _isCandidate: false,
-      title: '条件分支',
+      title: 'Conditional branch',
       list: [
         {
           _id: 'yjrqixxjwfdn47of',
-          name: '条件一',
-          type: '类型一',
+          name: 'Condition 1',
+          type: 'Type 1',
           value: 'a==12',
         },
         {
-          name: '条件二',
-          type: '类型一',
+          name: 'Condition 2',
+          type: 'Type 1',
           value: 'a!=12',
           _id: 'id_wmu3t8gkanwg271a',
         },
@@ -71,7 +72,7 @@ export const nodes = [
     dragging: false,
     data: {
       _isCandidate: false,
-      title: '知识检索_ncjg',
+      title: 'Knowledge Retrieval_ncjg',
       properties: [
         {
           name: 'name1',
@@ -94,12 +95,12 @@ export const nodes = [
     selected: false,
     data: {
       _isCandidate: false,
-      title: '问题分类器_ysa6',
-      desc: '问题分类描述',
+      title: 'Question Classifier_ysa6',
+      desc: 'Problem classification description',
       properties: [
         {
-          name: '问题1',
-          value: '值1',
+          name: 'Question 1',
+          value: 'value 1',
         },
       ],
     },
@@ -119,23 +120,23 @@ export const nodes = [
     dragging: false,
     data: {
       _isCandidate: false,
-      title: '并行事件_49pn',
+      title: 'Parallel Events_49pn',
       properties: [
         {
-          name: '属性',
+          name: 'Property',
           value: 'value',
         },
       ],
       list: [
         {
           _id: 'id_7m3vitc4qy476axa',
-          name: '事件1',
-          value: '描述1',
+          name: 'Event 1',
+          value: 'Description 1',
         },
         {
           _id: 'id_m26wo9298g3imnes',
-          name: '事件2',
-          value: '描述2',
+          name: 'Event 2',
+          value: 'Description 2',
         },
       ],
     },
@@ -154,7 +155,7 @@ export const nodes = [
     selected: false,
     data: {
       _isCandidate: false,
-      title: '代码执行_flcv',
+      title: 'Code execution_flcv',
       properties: [
         {
           name: 'name',
@@ -177,7 +178,7 @@ export const nodes = [
     selected: false,
     data: {
       _isCandidate: false,
-      title: 'HTTP请求_pmkf',
+      title: 'HTTP request_pmkf',
       properties: [
         {
           name: 'name',
@@ -201,8 +202,8 @@ export const nodes = [
     dragging: false,
     data: {
       _isCandidate: false,
-      title: '结束_af4u',
-      nodeDesc: '流程结束',
+      title: 'End_af4u',
+      nodeDesc: 'Process ends',
     },
   },
 ];

@@ -1,3 +1,5 @@
+'use client';
+
 import { ActionMenu } from '@/components/common/action-menu';
 import { PencilSquare, Trash } from '@medusajs/icons';
 import { Button } from '@medusajs/ui';
@@ -19,13 +21,13 @@ export const ActorEditorFlow = () => {
 
   return (
     <>
-      <Container className="h-[400px] divide-y p-0">
+      <Container className="h-[800px] divide-y p-0">
         <div className="flex items-center justify-between px-6 py-4">
           <Heading>{'Flow Editor'}</Heading>
         </div>
 
         <div className="flex justify-center p-4">
-          <div style={{ height: '600px', position: 'relative' }}>
+          <div style={{ height: '800px', width: '100%', position: 'relative' }}>
             <Header data={{}} />
             <XFlow
               initialValues={{ nodes, edges }}

@@ -1,13 +1,14 @@
-import React from 'react';
+'use client';
+
 import { Input } from 'antd';
-import ColorPicker from 'rc-color-picker';
+import ColorPicker from '@rc-component/color-picker';
 import alphaHexMap from './alphahexMap';
-import 'rc-color-picker/assets/index.css';
+// import '@rc-component/color-picker/assets/index.css';
 import './index.css';
 
 // Exp: '#ffffffA6' => algha: 65
 const getAlphaFromHex = (hex = '#ffffff') => {
-  const alphaHex = hex.slice(7);
+  const alphaHex: any = hex.slice(7);
   let alpha = 100;
 
   for (const key in alphaHexMap) {
@@ -40,6 +41,7 @@ const Color = (props: any) => {
         <span className="rc-color-picker-trigger" style={{ backgroundColor: value || '#ffffff' }} />
       ) : (
         <ColorPicker
+          // @ts-ignore
           type={schema?.format}
           animation="slide-up"
           color={(value && value.slice(0, 7)) || '#ffffff'}

@@ -1,3 +1,4 @@
+'use client';
 export const settingSchema = {
   properties: {
     type: 'array',
@@ -11,7 +12,7 @@ export const settingSchema = {
       type: 'object',
       properties: {
         name: {
-          title: '名称',
+          title: 'Name',
           type: 'string',
           props: {
             allowClear: true,
@@ -34,13 +35,13 @@ export const settingSchema = {
 };
 
 export const activitySchema = {
-  title: '工具',
+  title: 'Tools',
   type: '_group',
   items: [
     {
-      title: '知识检索',
+      title: 'Knowledge Retrieval',
       type: 'serviceTask',
-      description: '允许你从知识库中查询与用户问题相关的文本内容',
+      description: 'Allows you to query the knowledge base for text content related to user questions',
       icon: {
         type: 'icon-knowledge',
         bgColor: '#fa541c',
@@ -58,9 +59,9 @@ export const activitySchema = {
       },
     },
     {
-      title: '问题分类器',
+      title: 'Question Classifier',
       type: 'receiveTask',
-      description: '定义问题的分类条件',
+      description: 'Define the classification conditions of the problem',
       icon: {
         type: 'icon-prompt',
         bgColor: '#875BF7',
@@ -78,9 +79,9 @@ export const activitySchema = {
       },
     },
     {
-      title: '代码执行',
+      title: 'Code Execution',
       type: 'userTask', // exclusiveGateway
-      description: '执行一段代码实现自定义逻辑',
+      description: 'Execute a piece of code to implement custom logic',
       icon: {
         type: 'icon-code',
         bgColor: 'pink',
@@ -98,9 +99,9 @@ export const activitySchema = {
       },
     },
     {
-      title: 'HTTP请求',
+      title: 'HTTP Request',
       type: 'callActivity',
-      description: '允许通过 HTTP 协议发送服务器请求',
+      description: 'Allow server requests to be sent via HTTP protocol',
       icon: {
         type: 'icon-http',
         bgColor: '#2E90FA',
@@ -122,13 +123,13 @@ export const activitySchema = {
 
 export const settings = [
   {
-    title: '事件',
+    title: 'Event',
     type: '_group',
     items: [
       {
-        title: '开始',
+        title: 'Start',
         type: 'startEvent',
-        description: '流程开始的节点，一个流程只允许有一个开始节点',
+        description: 'The node where the process starts. A process is only allowed to have one start node',
         icon: {
           type: 'icon-start',
           bgColor: '#17B26A',
@@ -139,8 +140,8 @@ export const settings = [
           className: 'settingSchemaStyle',
           properties: {
             string: {
-              title: '字符串',
-              description: '带清空x按钮',
+              title: 'string',
+              description: 'With clear x button',
               type: 'string',
               default: 'hello world',
               props: {
@@ -148,39 +149,39 @@ export const settings = [
               },
             },
             string2: {
-              title: '复杂校验',
-              description: 'pattern和message的用法',
+              title: 'Complex verification',
+              description: 'Usage of pattern and message',
               type: 'string',
               rules: [
                 {
                   pattern: '^[A-Za-z0-9]+$',
-                  message: '请输入数字或英文字母',
+                  message: 'Please enter numbers or English letters',
                 },
               ],
-              placeholder: '请输入数字或英文',
+              placeholder: 'Please enter a number or English',
             },
             string3: {
-              title: '长度控制',
-              description: '长度在5-15个字之间',
+              title: 'Length Control',
+              description: 'Length is between 5-15 characters',
               type: 'string',
               minLength: 5,
               maxLength: 15,
             },
             string4: {
-              title: '前置/后置标签',
+              title: 'pre/post tags',
               type: 'string',
               props: {
-                addonBefore: '长度',
+                addonBefore: 'length',
                 addonAfter: 'px',
               },
             },
             string5: {
-              title: '前后缀',
+              title: 'prefix and suffix',
               type: 'string',
               rules: [
                 {
                   pattern: '^[0-9]+$',
-                  message: '请输入数字',
+                  message: 'Please enter a number',
                 },
               ],
               props: {
@@ -189,14 +190,14 @@ export const settings = [
               },
             },
             string6: {
-              title: '置灰的输入框',
+              title: 'Grayed input box',
               type: 'string',
               disabled: true,
               default: 'hello world',
             },
             string7: {
-              title: '文本框',
-              description: '固定高度',
+              title: 'Text box',
+              description: 'Fixed height',
               type: 'string',
               format: 'textarea',
               props: {
@@ -208,9 +209,9 @@ export const settings = [
         },
       },
       {
-        title: '结束',
+        title: 'End',
         type: 'endEvent',
-        description: '表示流程结束节点，可以有多个结束节点',
+        description: 'Indicates the end node of the process, there can be multiple end nodes',
         icon: {
           type: 'icon-end',
           bgColor: '#F79009',
@@ -221,10 +222,10 @@ export const settings = [
           className: 'settingSchemaStyle',
           properties: {
             nodeDesc: {
-              title: '结束描述',
+              title: 'End description',
               type: 'string',
               format: 'textarea',
-              placeholder: '根据内容缩放',
+              placeholder: 'Scale according to content',
               props: {
                 autoSize: {
                   minRows: 3,
@@ -239,13 +240,13 @@ export const settings = [
     ],
   },
   {
-    title: '逻辑',
+    title: 'Logic',
     type: '_group',
     items: [
       {
-        title: '条件分支',
+        title: 'Conditional branch',
         type: 'Switch',
-        description: '允许你根据 if/else 条件将 workflow 拆分成两个分支',
+        description: 'Allows you to split the workflow into two branches based on if/else conditions',
         icon: {
           type: 'icon-fenzhi',
           bgColor: '#6172F3',
@@ -263,7 +264,7 @@ export const settings = [
           className: 'settingSchemaStyle',
           properties: {
             list: {
-              // title: '高级属性',
+              // title: 'Advanced properties',
               type: 'array',
               widget: 'simpleList',
               props: {
@@ -275,7 +276,7 @@ export const settings = [
                 type: 'object',
                 properties: {
                   name: {
-                    title: '条件名称', // 条件描述
+                    title: 'Condition name', // Condition description
                     type: 'string',
                     props: {
                       allowClear: true,
@@ -284,19 +285,19 @@ export const settings = [
                     readOnlyWidget: 'ReadOnlyPanel',
                   },
                   type: {
-                    title: '条件类型',
+                    title: 'Conditional Type',
                     type: 'string',
                     widget: 'select',
                     props: {
                       allowClear: true,
                     },
-                    enum: ['类型一'],
-                    enumNames: ['类型一'],
+                    enum: ['Type 1'],
+                    enumNames: ['Type 1'],
                     className: 'child-title',
                     readOnlyWidget: 'ReadOnlyPanel',
                   },
                   value: {
-                    title: '条件语句',
+                    title: 'Conditional Statements',
                     type: 'string',
                     props: {
                       allowClear: true,
@@ -312,9 +313,9 @@ export const settings = [
         nodeWidget: 'showSwitchNode',
       },
       {
-        title: '并行事件',
+        title: 'Parallel Events',
         type: 'Parallel',
-        description: '支持多个分支同时执行',
+        description: 'Support multiple branches to execute simultaneously',
         icon: {
           type: 'icon-parallel',
           bgColor: '#06aed4',
@@ -343,7 +344,7 @@ export const settings = [
                 type: 'object',
                 properties: {
                   name: {
-                    title: '属性名称',
+                    title: 'attribute name',
                     type: 'string',
                     props: {
                       allowClear: true,
@@ -364,7 +365,7 @@ export const settings = [
               },
             },
             list: {
-              title: '并行事件',
+              title: 'Parallel Events',
               type: 'array',
               widget: 'simpleList',
               props: {
@@ -376,7 +377,7 @@ export const settings = [
                 type: 'object',
                 properties: {
                   name: {
-                    title: '事件名称',
+                    title: 'Event name',
                     type: 'string',
                     props: {
                       allowClear: true,
@@ -385,7 +386,7 @@ export const settings = [
                     readOnlyWidget: 'ReadOnlyPanel',
                   },
                   value: {
-                    title: '事件描述',
+                    title: 'Event description',
                     type: 'string',
                     props: {
                       allowClear: true,

@@ -6,7 +6,7 @@
     "declaration": true,
     "paths": {
       "@/*": ["./src/*"],
-      "form-render": ["packages/form-render/src/*"]
+      "form-render": ["./dist/*"]
     }
   },
   "noImplicitAny": false,
@@ -17,6 +17,6 @@
   "skipLibCheck": true,
 
   "types": ["typing.d.ts"],
-  "include": ["**/*.ts", "**/*.tsx", "typing.d.ts"],
+  "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist"]
 }

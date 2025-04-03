@@ -1109,6 +1109,9 @@ importers:
       '@ant-design/icons':
         specifier: ^6.0.0
         version: 6.0.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@rc-component/color-picker':
+        specifier: ^3.0.1
+        version: 3.0.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@types/react':
         specifier: '*'
         version: 19.1.0
@@ -1139,9 +1142,6 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
-      rc-color-picker:
-        specifier: ^1.2.6
-        version: 1.2.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react:
         specifier: '>=18'
         version: 19.1.0
@@ -1225,6 +1225,9 @@ importers:
       '@ant-design/icons':
         specifier: ^6.0.0
         version: 6.0.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@rc-component/color-picker':
+        specifier: ^3.0.1
+        version: 3.0.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@types/react':
         specifier: '*'
         version: 19.1.0
@@ -1255,9 +1258,6 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
-      rc-color-picker:
-        specifier: ^1.2.6
-        version: 1.2.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       rc-field-form:
         specifier: ^2.7.0
         version: 2.7.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1319,6 +1319,9 @@ importers:
 
   packages/form-render-mobile:
     dependencies:
+      '@rc-component/color-picker':
+        specifier: ^3.0.1
+        version: 3.0.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@types/react':
         specifier: '*'
         version: 19.1.0
@@ -1358,9 +1361,6 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
-      rc-color-picker:
-        specifier: ^1.2.6
-        version: 1.2.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react:
         specifier: '>=18'
         version: 19.1.0
@@ -4627,6 +4627,12 @@ packages:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
 
+  '@rc-component/color-picker@3.0.1':
+    resolution: {integrity: sha512-QjMEgBHAnqLyio/OWK2Mqyx4nWcixMUHUE3Rs6dPytirJlfdFg45XWDMi8lQqHQKmWRE8CbrI2D5RKgvMkKJdQ==}
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+
   '@rc-component/context@1.4.0':
     resolution: {integrity: sha512-kFcNxg9oLRMoL3qki0OMxK+7g5mypjgaaJp/pkOis/6rVxma9nJBF/8kCIuTYHUQNr0ii7MxqE33wirPZLJQ2w==}
     peerDependencies:
@@ -6188,9 +6194,6 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
-  add-dom-event-listener@1.1.0:
-    resolution: {integrity: sha512-WCxx1ixHT0GQU9hb0KI/mhgRQhnU+U3GvwY6ZvVjYq8rsihIGoaIOUbY0yMPBxLH5MDtr0kz3fisWGNcbWW7Jw==}
-
   agent-base@6.0.2:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
     engines: {node: '>= 6.0.0'}
@@ -6461,9 +6464,6 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     peerDependencies:
       '@babel/core': ^7.0.0
-
-  babel-runtime@6.26.0:
-    resolution: {integrity: sha512-ITKNuq2wKlW1fJg9sSW52eepoYgZBggvOAHC0u/CYu/qxQ9EVzThCgR69BnSXLHjy2f7SY5zaQ4yt7H9ZVxY2g==}
 
   bail@1.0.5:
     resolution: {integrity: sha512-xFbRxM1tahm08yHBP16MMjVUAvDaBMD38zsM9EMAUN61omwLmKlOpB/Zku5QkjZ8TZ4vn53pj+t518cH0S03RQ==}
@@ -6805,12 +6805,6 @@ packages:
   compare-func@2.0.0:
     resolution: {integrity: sha512-zHig5N+tPWARooBnb0Zx1MFcdfpyJrfTJ3Y5L+IFvUm8rM74hHz66z0gw0x4tijh5CorKkKUCnW82R2vmpeCRA==}
 
-  component-classes@1.2.6:
-    resolution: {integrity: sha512-hPFGULxdwugu1QWW3SvVOCUHLzO34+a2J6Wqy0c5ASQkfi9/8nZcBB0ZohaEbXOQlCflMAEMmEWk7u7BVs4koA==}
-
-  component-indexof@0.0.3:
-    resolution: {integrity: sha512-puDQKvx/64HZXb4hBwIcvQLaLgux8o1CbWl39s41hrIIZDl1lJiD5jc22gj3RBeGK0ovxALDYpIbyjqDUUl0rw==}
-
   compute-scroll-into-view@3.1.1:
     resolution: {integrity: sha512-VRhuHOLoKYOy4UbilLbUzbYg93XLjv2PncJC50EuTWPA3gaja1UjBsUP/D/9/juV3vQFr6XBEzn9KCAHdUvOHw==}
 
@@ -6865,10 +6859,6 @@ packages:
     resolution: {integrity: sha512-ZiPp9pZlgxpWRu0M+YWbm6+aQ84XEfH1JRXvfOc/fILWI0VKhLC2LX13X1NYq4fULzLMq7Hfh43CSo2/aIaUPA==}
     deprecated: core-js@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js.
 
-  core-js@2.6.12:
-    resolution: {integrity: sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==}
-    deprecated: core-js@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js.
-
   cose-base@1.0.3:
     resolution: {integrity: sha512-s9whTXInMSgAp/NVXVNuVxVKzGH2qck3aQlVHxDCdAEPgtMKwc4Wq6/QKhgdEdgbLSi9rBTAcPoRa6JpiG4ksg==}
 
@@ -6898,9 +6888,6 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     hasBin: true
 
-  create-react-class@15.7.0:
-    resolution: {integrity: sha512-QZv4sFWG9S5RUvkTYWbflxeZX+JG7Cz0Tn33rQBJ+WFQTqTfUTjMjiv9tnfXazjsO5r0KhPs+AqCjyrQX6h2ng==}
-
   create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
 
@@ -6910,9 +6897,6 @@ packages:
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
-
-  css-animation@1.6.1:
-    resolution: {integrity: sha512-/48+/BaEaHRY6kNQ2OIPzKf9A6g8WjZYjhiNDNuIVbsm5tXCGIAsHDjB4Xu1C4vXJtUWZo26O68OQkDpNBaPog==}
 
   css-box-model@1.2.1:
     resolution: {integrity: sha512-a7Vr4Q/kd/aw96bnJG332W9V9LkJO69JRcaCYDUqjp6/z0w6VcZjgAcTbgFxEPfBgdnAwlh3iwu+hLopa+flJw==}
@@ -7285,9 +7269,6 @@ packages:
 
   dom-accessibility-api@0.6.3:
     resolution: {integrity: sha512-7ZgogeTnjuHbo+ct10G9Ffp0mif17idi0IyWNVA/wcwcm7NPOD/WEHVP3n7n3MhXqxoIYm8d6MuZohYWIZ4T3w==}
-
-  dom-align@1.12.4:
-    resolution: {integrity: sha512-R8LUSEay/68zE5c8/3BDxiTEvgb4xZTF0RKmAHfiEVN3klfIpXfi2/QCoiWPccVQ0J/ZGdz9OjzL4uJEP/MRAw==}
 
   dom-helpers@5.2.1:
     resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
@@ -9799,9 +9780,6 @@ packages:
   pend@1.2.0:
     resolution: {integrity: sha512-F3asv42UuXchdzt+xXqfW1OGlVBe+mxa2mqI0pg5yAHZPvFmY3Y6drSf/GQ1A86WgWEN9Kzh/WrgKa6iGcHXLg==}
 
-  performance-now@2.1.0:
-    resolution: {integrity: sha512-7EAHlyLHI56VEIdK57uwHdHKIaAGbnXPiw0yWbarQZOKaKpvUIgW0jWRVLiatnM+XXlSwsanIBH/hzGMJulMow==}
-
   picocolors@1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
 
@@ -10079,21 +10057,9 @@ packages:
   raf-schd@4.0.3:
     resolution: {integrity: sha512-tQkJl2GRWh83ui2DiPTJz9wEiMN20syf+5oKfB03yYP7ioZcJwsIK8FjrtLwH1m7C7e+Tt2yYBlrOpdT+dyeIQ==}
 
-  raf@3.4.1:
-    resolution: {integrity: sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==}
-
   raw-body@2.4.1:
     resolution: {integrity: sha512-9WmIKF6mkvA0SLmA2Knm9+qj89e+j1zqgyn8aXGd7+nAduPoqgI9lO57SAZNn/Byzo5P7JhXTyg9PzaJbH73bA==}
     engines: {node: '>= 0.8'}
-
-  rc-align@2.4.5:
-    resolution: {integrity: sha512-nv9wYUYdfyfK+qskThf4BQUSIadeI/dCsfaMZfNEoxm9HwOIioQ+LyqmMK6jWHAZQgOzMLaqawhuBXlF63vgjw==}
-
-  rc-animate@2.11.1:
-    resolution: {integrity: sha512-1NyuCGFJG/0Y+9RKh5y/i/AalUCA51opyyS/jO2seELpgymZm2u9QV3xwODwEuzkmeQ1BDPxMLmYLcTJedPlkQ==}
-    peerDependencies:
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
 
   rc-cascader@3.33.1:
     resolution: {integrity: sha512-Kyl4EJ7ZfCBuidmZVieegcbFw0RcU5bHHSbtEdmuLYd0fYHCAiYKZ6zon7fWAVyC6rWWOOib0XKdTSf7ElC9rg==}
@@ -10112,12 +10078,6 @@ packages:
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
-
-  rc-color-picker@1.2.6:
-    resolution: {integrity: sha512-AaC9Pg7qCHSy5M4eVbqDIaNb2FC4SEw82GOHB2C4R/+vF2FVa/r5XA+Igg5+zLPmAvBLhz9tL4MAfkRA8yWNJw==}
-    peerDependencies:
-      react: 16.x
-      react-dom: 16.x
 
   rc-dialog@9.6.0:
     resolution: {integrity: sha512-ApoVi9Z8PaCQg6FsUzS8yvBEQy0ZL2PkuvAgrmohPkN3okps5WZ5WQWPc1RNuiOKaAYv8B97ACdsFU5LizzCqg==}
@@ -10323,17 +10283,11 @@ packages:
       react: '*'
       react-dom: '*'
 
-  rc-trigger@1.11.5:
-    resolution: {integrity: sha512-MBuUPw1nFzA4K7jQOwb7uvFaZFjXGd00EofUYiZ+l/fgKVq8wnLC0lkv36kwqM7vfKyftRo2sh7cWVpdPuNnnw==}
-
   rc-upload@4.8.1:
     resolution: {integrity: sha512-toEAhwl4hjLAI1u8/CgKWt30BR06ulPa4iGQSMvSXoHzO88gPCslxqV/mnn4gJU7PDoltGIC9Eh+wkeudqgHyw==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
-
-  rc-util@4.21.1:
-    resolution: {integrity: sha512-Z+vlkSQVc1l8O2UjR3WQ+XdWlhj5q9BMQNLk2iOBch75CqPfrJyGtcWMcnhRlNuDu0Ndtt4kLVO8JI8BrABobg==}
 
   rc-util@5.44.4:
     resolution: {integrity: sha512-resueRJzmHG9Q6rI/DfK6Kdv9/Lfls05vzMs1Sk3M2P+3cJa+MakaZyWY8IPfehVuhPJFKrIY1IK4GqbiaiY5w==}
@@ -10455,9 +10409,6 @@ packages:
     engines: {node: '>=10'}
     peerDependencies:
       react: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
-  react-lifecycles-compat@3.0.4:
-    resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
 
   react-markdown@9.1.0:
     resolution: {integrity: sha512-xaijuJB0kzGiUdG7nc2MOMDUDBWPyGAjZtUrow9XxUeua8IqeP+VlIfAZ3bphpcLTnSZXz6z9jcVC/TCwbfgdw==}
@@ -10626,9 +10577,6 @@ packages:
 
   refractor@3.6.0:
     resolution: {integrity: sha512-MY9W41IOWxxk31o+YvFCNyNzdkc9M20NoZK5vq6jkv4I/uh2zkWcfudj0Q1fovjUQJrNewS9NMzeTtqPf+n5EA==}
-
-  regenerator-runtime@0.11.1:
-    resolution: {integrity: sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg==}
 
   regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
@@ -14977,6 +14925,14 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
+  '@rc-component/color-picker@3.0.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@ant-design/fast-color': 3.0.0
+      '@rc-component/util': 1.2.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      classnames: 2.5.1
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+
   '@rc-component/context@1.4.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@babel/runtime': 7.27.0
@@ -17059,10 +17015,6 @@ snapshots:
 
   acorn@8.14.1: {}
 
-  add-dom-event-listener@1.1.0:
-    dependencies:
-      object-assign: 4.1.1
-
   agent-base@6.0.2:
     dependencies:
       debug: 4.4.0
@@ -17469,11 +17421,6 @@ snapshots:
       babel-plugin-jest-hoist: 29.6.3
       babel-preset-current-node-syntax: 1.1.0(@babel/core@7.26.10)
 
-  babel-runtime@6.26.0:
-    dependencies:
-      core-js: 2.6.12
-      regenerator-runtime: 0.11.1
-
   bail@1.0.5: {}
 
   bail@2.0.2: {}
@@ -17803,12 +17750,6 @@ snapshots:
       array-ify: 1.0.0
       dot-prop: 5.3.0
 
-  component-classes@1.2.6:
-    dependencies:
-      component-indexof: 0.0.3
-
-  component-indexof@0.0.3: {}
-
   compute-scroll-into-view@3.1.1: {}
 
   concat-map@0.0.1: {}
@@ -17854,8 +17795,6 @@ snapshots:
 
   core-js@1.2.7: {}
 
-  core-js@2.6.12: {}
-
   cose-base@1.0.3:
     dependencies:
       layout-base: 1.0.2
@@ -17899,11 +17838,6 @@ snapshots:
       - supports-color
       - ts-node
 
-  create-react-class@15.7.0:
-    dependencies:
-      loose-envify: 1.4.0
-      object-assign: 4.1.1
-
   create-require@1.1.1: {}
 
   crelt@1.0.6: {}
@@ -17913,11 +17847,6 @@ snapshots:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
-
-  css-animation@1.6.1:
-    dependencies:
-      babel-runtime: 6.26.0
-      component-classes: 1.2.6
 
   css-box-model@1.2.1:
     dependencies:
@@ -18286,8 +18215,6 @@ snapshots:
   dom-accessibility-api@0.5.16: {}
 
   dom-accessibility-api@0.6.3: {}
-
-  dom-align@1.12.4: {}
 
   dom-helpers@5.2.1:
     dependencies:
@@ -21378,8 +21305,6 @@ snapshots:
 
   pend@1.2.0: {}
 
-  performance-now@2.1.0: {}
-
   picocolors@1.0.0: {}
 
   picocolors@1.1.1: {}
@@ -21615,35 +21540,12 @@ snapshots:
 
   raf-schd@4.0.3: {}
 
-  raf@3.4.1:
-    dependencies:
-      performance-now: 2.1.0
-
   raw-body@2.4.1:
     dependencies:
       bytes: 3.1.0
       http-errors: 1.7.3
       iconv-lite: 0.4.24
       unpipe: 1.0.0
-
-  rc-align@2.4.5:
-    dependencies:
-      babel-runtime: 6.26.0
-      dom-align: 1.12.4
-      prop-types: 15.8.1
-      rc-util: 4.21.1
-
-  rc-animate@2.11.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
-    dependencies:
-      babel-runtime: 6.26.0
-      classnames: 2.5.1
-      css-animation: 1.6.1
-      prop-types: 15.8.1
-      raf: 3.4.1
-      rc-util: 4.21.1
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-      react-lifecycles-compat: 3.0.4
 
   rc-cascader@3.33.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
@@ -21671,16 +21573,6 @@ snapshots:
       rc-util: 5.44.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
-
-  rc-color-picker@1.2.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
-    dependencies:
-      classnames: 2.5.1
-      prop-types: 15.8.1
-      rc-trigger: 1.11.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      rc-util: 4.21.1
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-      tinycolor2: 1.6.0
 
   rc-dialog@9.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
@@ -21969,18 +21861,6 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  rc-trigger@1.11.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
-    dependencies:
-      babel-runtime: 6.26.0
-      create-react-class: 15.7.0
-      prop-types: 15.8.1
-      rc-align: 2.4.5
-      rc-animate: 2.11.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      rc-util: 4.21.1
-    transitivePeerDependencies:
-      - react
-      - react-dom
-
   rc-upload@4.8.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       '@babel/runtime': 7.27.0
@@ -21988,14 +21868,6 @@ snapshots:
       rc-util: 5.44.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
-
-  rc-util@4.21.1:
-    dependencies:
-      add-dom-event-listener: 1.1.0
-      prop-types: 15.8.1
-      react-is: 16.13.1
-      react-lifecycles-compat: 3.0.4
-      shallowequal: 1.1.0
 
   rc-util@5.44.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
@@ -22161,8 +22033,6 @@ snapshots:
       react: 19.1.0
     optionalDependencies:
       fsevents: 2.3.3
-
-  react-lifecycles-compat@3.0.4: {}
 
   react-markdown@9.1.0(@types/react@19.1.0)(react@19.1.0):
     dependencies:
@@ -22391,8 +22261,6 @@ snapshots:
       hastscript: 6.0.0
       parse-entities: 2.0.0
       prismjs: 1.27.0
-
-  regenerator-runtime@0.11.1: {}
 
   regenerator-runtime@0.14.1: {}
 

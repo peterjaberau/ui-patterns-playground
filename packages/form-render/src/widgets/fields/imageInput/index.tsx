@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+'use client';
+import { useContext } from 'react';
 import { PictureOutlined } from '@ant-design/icons';
 import { Input, Popover, ConfigProvider } from 'antd';
 import { translation } from '../../utils';

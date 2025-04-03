@@ -33,7 +33,7 @@ export default forwardRef((props: any, popoverRef) => {
     }
   }, ref);
 
-  const handCreateNode = useCallback<any>(({ type }) => {
+  const handCreateNode = useCallback<any>(({ type }: any) => {
     if (isFunction(clickAddNode)) {
       clickAddNode(type, settingMap[type], (data = {}) => {
         addNode({ _nodeType: type, ...data });
@@ -78,11 +78,11 @@ export default forwardRef((props: any, popoverRef) => {
 
   return (
     <Popover
-      overlayClassName="nodes-popover"
+      className="nodes-popover"
       getPopupContainer={() => document.getElementById('xflow-container')}
       zIndex={2000}
       arrow={false}
-      overlayInnerStyle={{ padding: '12px 6px' }}
+      style={{ padding: '12px 6px' }}
       {...popoverProps}
       trigger="click"
       {...popoverVersionProps}

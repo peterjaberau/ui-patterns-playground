@@ -15,7 +15,7 @@ interface ProviderProps<T> {
 }
 
 export default function withProvider<T>(Element: any, defaultWidgets?: any): React.ComponentType<T> {
-  return (props: ProviderProps<T>) => {
+  return (props: ProviderProps<any>) => {
     const {
       configProvider,
       widgets,

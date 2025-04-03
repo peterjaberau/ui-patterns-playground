@@ -14,12 +14,14 @@ interface INodeEditorProps {
   id: string;
   node: any;
   onTrackCollapseChange: (data: any) => void; // Tracking panel click collapse method
+  [key: string]: any;
 }
 
 const NodeLogPanel: FC<INodeEditorProps> = (props: any) => {
-  const { data, onChange, nodeType, id, node, onTrackCollapseChange } = props;
+  const { id, node, onTrackCollapseChange }: any = props;
   const { widgets, globalConfig, logPanel } = useContext(ConfigContext);
   const {
+    // @ts-ignore
     nodeView: { status = [] },
   } = globalConfig;
   const CustomWidget = widgets[logPanel?.logWidget]; // Built-in setting component

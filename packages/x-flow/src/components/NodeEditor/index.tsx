@@ -40,6 +40,7 @@ const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
           .then(() => {
             return true;
           })
+          // @ts-ignore
           .catch((err: any) => {
             return false;
           });

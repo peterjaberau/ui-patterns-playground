@@ -132,7 +132,7 @@ const Panel: FC<IPanelProps> = (props: IPanelProps) => {
                     <IconView
                       type="icon-yunhang"
                       onClick={() => {
-                        const n = nodes?.find((item) => item?.id === node?.id) || {};
+                        const n = nodes?.find((item: any) => item?.id === node?.id) || {};
                         onTesting && onTesting(n, nodes);
                       }}
                       style={{ fontSize: 16 }}

@@ -1,3 +1,5 @@
+'use client';
+
 import { Button, Space } from 'antd';
 import React from 'react';
 

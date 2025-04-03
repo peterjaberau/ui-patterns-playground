@@ -10,7 +10,7 @@ export default defineConfig((options) => ({
   sourcemap: true,
   splitting: true,
   silent: true,
-  external: ['rc-color-picker'],
+  external: ['@rc-component/color-picker'],
 
   ...options,
 }));
