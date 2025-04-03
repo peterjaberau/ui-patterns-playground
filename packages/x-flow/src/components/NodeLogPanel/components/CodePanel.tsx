@@ -1,3 +1,4 @@
+'use client';
 import { ArrowsAltOutlined, CheckOutlined, CopyOutlined, ShrinkOutlined } from '@ant-design/icons';
 import { json } from '@codemirror/lang-json';
 import { EditorView } from '@codemirror/view';

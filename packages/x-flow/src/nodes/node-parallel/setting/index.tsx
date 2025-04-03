@@ -1,3 +1,4 @@
+'use client';
 import FormRender, { Schema, useForm } from 'form-render';
 import { memo, useEffect } from 'react';
 import '../index.css';

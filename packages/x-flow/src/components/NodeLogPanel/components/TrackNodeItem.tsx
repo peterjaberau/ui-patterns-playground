@@ -1,3 +1,4 @@
+'use client';
 import { Badge, Collapse, Empty } from 'antd';
 import { memo, useContext, useMemo } from 'react';
 import { ConfigContext } from '../../../models/context';

@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useState } from 'react';
 import { AutoComplete, InputNumber } from 'antd';
 import _ from 'lodash';

@@ -1,3 +1,4 @@
+'use client';
 import { useClickAway } from 'ahooks';
 import { Popover } from 'antd';
 import { isFunction } from 'lodash';

@@ -1,3 +1,4 @@
+'use client';
 import { forwardRef, Ref, useContext, useMemo } from 'react';
 import { Popover, Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';

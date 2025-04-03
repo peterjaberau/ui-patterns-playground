@@ -1,3 +1,4 @@
+'use client';
 import { Badge, Divider, Space } from 'antd';
 import classNames from 'classnames';
 import { isString } from 'lodash';

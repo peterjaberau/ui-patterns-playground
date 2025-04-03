@@ -1,3 +1,4 @@
+'use client';
 import { createFromIconfontCN } from '@ant-design/icons';
 
 /**

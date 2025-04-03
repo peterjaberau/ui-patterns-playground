@@ -1,3 +1,4 @@
+'use client';
 import { Popover } from 'antd';
 import classNames from 'classnames';
 import { memo, useMemo } from 'react';

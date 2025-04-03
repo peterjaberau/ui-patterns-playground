@@ -1,3 +1,4 @@
+'use client';
 import { useReactFlow, useViewport } from '@xyflow/react';
 import { Button, Popover, Tooltip } from 'antd';
 import type { FC } from 'react';

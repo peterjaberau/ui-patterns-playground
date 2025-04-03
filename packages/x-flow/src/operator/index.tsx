@@ -1,3 +1,4 @@
+'use client';
 import { memo } from 'react';
 // import UndoRedo from '../header/undo-redo'
 import ZoomInOut from './ZoomInOut';

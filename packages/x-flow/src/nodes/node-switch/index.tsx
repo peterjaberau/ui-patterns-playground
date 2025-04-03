@@ -1,3 +1,4 @@
+'use client';
 import { Position } from '@xyflow/react';
 import classNames from 'classnames';
 import { memo, useContext } from 'react';

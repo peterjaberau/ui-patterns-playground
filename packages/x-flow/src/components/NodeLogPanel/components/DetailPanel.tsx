@@ -1,3 +1,4 @@
+'use client';
 import { isEmpty, isObject } from 'lodash-es';
 import { memo, useState } from 'react';
 import CodePanel from './CodePanel';

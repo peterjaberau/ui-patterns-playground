@@ -1,3 +1,4 @@
+'use client';
 import { Empty, Spin, Tabs } from 'antd';
 import { FC, useContext } from 'react';
 import { ConfigContext } from '../../models/context';

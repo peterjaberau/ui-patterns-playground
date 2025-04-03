@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { useEventEmitter } from 'ahooks';
 import type { EventEmitter } from 'ahooks/lib/useEventEmitter';
@@ -5,24 +6,18 @@ import { createContext, useContext } from 'use-context-selector';
 
 const EventEmitterContext = createContext<{ eventEmitter: EventEmitter<string> | null }>({
   eventEmitter: null,
-})
+});
 
-export const useEventEmitterContextContext = () => useContext(EventEmitterContext)
+export const useEventEmitterContextContext = () => useContext(EventEmitterContext);
 
 type EventEmitterContextProviderProps = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
-export const EventEmitterContextProvider = ({
-  children,
-}: EventEmitterContextProviderProps) => {
-  const eventEmitter = useEventEmitter<string>()
+export const EventEmitterContextProvider = ({ children }: EventEmitterContextProviderProps) => {
+  const eventEmitter = useEventEmitter<string>();
 
-  return (
-    <EventEmitterContext.Provider value={{ eventEmitter }}>
-      {children}
-    </EventEmitterContext.Provider>
-  )
-}
+  return <EventEmitterContext.Provider value={{ eventEmitter }}>{children}</EventEmitterContext.Provider>;
+};
 
-export default EventEmitterContext
+export default EventEmitterContext;

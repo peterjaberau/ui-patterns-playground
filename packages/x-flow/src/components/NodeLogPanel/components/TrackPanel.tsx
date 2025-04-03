@@ -1,3 +1,4 @@
+'use client';
 import { Empty } from 'antd';
 import { memo } from 'react';
 import { shallow } from 'zustand/shallow';

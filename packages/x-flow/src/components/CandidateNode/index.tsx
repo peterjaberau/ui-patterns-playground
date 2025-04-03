@@ -1,3 +1,4 @@
+'use client';
 import { useReactFlow, useViewport } from '@xyflow/react';
 import { useEventListener } from 'ahooks';
 import { memo } from 'react';

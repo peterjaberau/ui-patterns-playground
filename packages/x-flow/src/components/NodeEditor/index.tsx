@@ -1,3 +1,5 @@
+'use client';
+
 // @ts-ignore
 import FormRender, { Schema, useForm } from 'form-render';
 import * as Immer from 'immer';

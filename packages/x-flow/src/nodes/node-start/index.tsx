@@ -1,3 +1,4 @@
+'use client';
 import { memo, useContext } from 'react';
 import NodeContainer from '../../components/NodeContainer';
 import { ConfigContext } from '../../models/context';

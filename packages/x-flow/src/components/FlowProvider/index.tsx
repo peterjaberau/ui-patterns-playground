@@ -1,3 +1,4 @@
+'use client';
 import { ReactFlowProvider } from '@xyflow/react';
 import { memo, ReactNode, useContext, useEffect, useState } from 'react';
 

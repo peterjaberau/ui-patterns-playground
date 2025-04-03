@@ -1,3 +1,4 @@
+'use client';
 import { memo, useContext } from 'react';
 import { Button, Tooltip } from 'antd';
 import IconView from '../../components/IconView';

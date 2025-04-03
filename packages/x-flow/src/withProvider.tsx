@@ -1,3 +1,4 @@
+'use client';
 import { EventEmitterContextProvider } from './models/event-emitter';
 import { ConfigProvider } from 'antd';
 import { useMemo } from 'react';

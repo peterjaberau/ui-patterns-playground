@@ -1,3 +1,4 @@
+'use client';
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { BezierEdge, EdgeLabelRenderer, getBezierPath, useReactFlow } from '@xyflow/react';
 import { memo, useContext, useState } from 'react';

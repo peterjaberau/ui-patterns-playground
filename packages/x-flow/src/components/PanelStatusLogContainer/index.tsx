@@ -1,3 +1,4 @@
+'use client';
 import { Drawer, Popover } from 'antd';
 import classNames from 'classnames';
 import { isNumber } from 'lodash';

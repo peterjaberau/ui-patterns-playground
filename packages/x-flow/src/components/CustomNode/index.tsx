@@ -1,3 +1,4 @@
+'use client';
 import { MoreOutlined } from '@ant-design/icons';
 import { Handle, Position, useReactFlow } from '@xyflow/react';
 import { Dropdown, Menu, message } from 'antd';

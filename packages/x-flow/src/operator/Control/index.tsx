@@ -1,3 +1,4 @@
+'use client';
 import { Button, Tooltip } from 'antd';
 import type { MouseEvent } from 'react';
 import { memo, useContext } from 'react';

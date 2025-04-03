@@ -1,3 +1,4 @@
+'use client';
 import { PlusOutlined } from '@ant-design/icons';
 import { Handle } from '@xyflow/react';
 import { Tooltip } from 'antd';

@@ -1,3 +1,4 @@
+'use client';
 import { Tooltip, TooltipProps } from 'antd';
 import { FC, memo, useEffect, useState } from 'react';
 import './index.css';

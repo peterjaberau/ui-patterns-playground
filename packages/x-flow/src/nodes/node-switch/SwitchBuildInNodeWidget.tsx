@@ -1,3 +1,4 @@
+'use client';
 import { Space } from 'antd';
 import classNames from 'classnames';
 import { memo } from 'react';
