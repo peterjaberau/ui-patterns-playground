@@ -20,6 +20,10 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@x-flow/*": ["./src/components/x-flow/*"],
+      "@workflow/*": ["./src/components/workflow/*"],
+      "@tools/*": ["./src/components/tools/*"],
+      "@utils/*": ["./src/components/utils/*"],
       "@/scripts/*": ["./scripts/*"]
     }
   },
