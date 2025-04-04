@@ -21,9 +21,11 @@
     "paths": {
       "@/*": ["./src/*"],
       "@x-flow/*": ["./src/components/x-flow/*"],
-      "@workflow/*": ["./src/components/workflow/*"],
-      "@tools/*": ["./src/components/tools/*"],
-      "@utils/*": ["./src/components/utils/*"],
+      "@workflow/*": ["./src/workflow-engine/components/workflow/*"],
+      "@tools/*": ["./src/workflow-engine/components/tools/*"],
+      "@utils/*": ["./src/workflow-engine/utils/*"],
+      "@base/*": ["./src/workflow-engine/components/base/*"],
+      "@workflow-app/*": ["./src/workflow-engine/*"],
       "@/scripts/*": ["./scripts/*"]
     }
   },
