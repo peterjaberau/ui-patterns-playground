@@ -45,7 +45,7 @@ const InitialProvider = ({ nodes, edges, layout, children }: any) => {
   return <>{children}</>;
 };
 
-export const FlowProviderWrapper = ({
+const FlowProviderWrapper = ({
   children,
   nodes,
   edges,
@@ -72,3 +72,5 @@ export const FlowProviderWrapper = ({
     </FlowProvider>
   );
 };
+
+export { FlowProvider, FlowProviderWrapper };

@@ -1,5 +1,5 @@
 import { customAlphabet } from 'nanoid';
-import tinycolor from 'tinycolor2';
+import { tinycolor } from '@ctrl/tinycolor';
 export const uuid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 16);
 export const uuid4 = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 4);
 
@@ -17,45 +17,44 @@ import {
   some,
 } from 'lodash-es';
 
-export const _set = set;
-export const _get = get;
-export const _cloneDeep = cloneDeep;
+const _set = set;
+const _get = get;
+const _cloneDeep = cloneDeep;
 // export const _has = has;
-export { _has };
-export const _merge = merge;
-export const _mergeWith = mergeWith;
-export const _isUndefined = isUndefined;
-export const _omitBy = omitBy;
-export const _some = some;
-export const _isMatch = isMatch;
+const _merge = merge;
+const _mergeWith = mergeWith;
+const _isUndefined = isUndefined;
+const _omitBy = omitBy;
+const _some = some;
+const _isMatch = isMatch;
 
-export const isObject = (data: any) => {
+const isObject = (data: any) => {
   const str = Object.prototype.toString.call(data);
   return str.indexOf('Object') > -1;
 };
 
-export const isArray = (data: any) => {
+const isArray = (data: any) => {
   const str = Object.prototype.toString.call(data);
   return str.indexOf('Array') > -1;
 };
 
-export const isFunction = (data: any) => typeof data === 'function';
+const isFunction = (data: any) => typeof data === 'function';
 
-export function isUrl(string: string) {
+function isUrl(string: string) {
   const protocolRE = /^(?:\w+:)?\/\/(\S+)$/;
   // const domainRE = /^[^\s\.]+\.\S{2,}$/;
   if (typeof string !== 'string') return false;
   return protocolRE.test(string);
 }
 
-export const isNumber = (str: string | number) => !isNaN(Number(str));
+const isNumber = (str: string | number) => !isNaN(Number(str));
 
-export const getArray = (arr, defaultValue = []) => {
+const getArray = (arr, defaultValue = []) => {
   if (Array.isArray(arr)) return arr;
   return defaultValue;
 };
 
-export function getFormat(format) {
+function getFormat(format) {
   let dateFormat;
   switch (format) {
     case 'date':
@@ -91,24 +90,16 @@ export function getFormat(format) {
 }
 
 // TODO: to support case that item is not an object
-export function isObjType(schema: any) {
+function isObjType(schema: any) {
   //return schema?.type === 'object' && schema.properties && !schema.widget;
-  return (
-    schema?.type === 'object' &&
-    schema?.properties &&
-    schema?.widgetType !== 'field'
-  );
+  return schema?.type === 'object' && schema?.properties && schema?.widgetType !== 'field';
 }
 
-export function isListType(schema: any) {
-  return (
-    schema?.type === 'array' &&
-    isObjType(schema?.items) &&
-    schema?.enum === undefined
-  );
+function isListType(schema: any) {
+  return schema?.type === 'array' && isObjType(schema?.items) && schema?.enum === undefined;
 }
 
-export function isCheckBoxType(schema: any, readOnly: boolean) {
+function isCheckBoxType(schema: any, readOnly: boolean) {
   if (readOnly) return false;
   if (schema.widget === 'checkbox') return true;
   if (schema && schema.type === 'boolean') {
@@ -118,13 +109,13 @@ export function isCheckBoxType(schema: any, readOnly: boolean) {
   }
 }
 
-export const translation = (configCtx: any) => (key: string) => {
-  const locale = configCtx?.locale.FormRender;
+const translation = (configCtx: any) => (key: string) => {
+  const locale: any = configCtx?.locale.FormRender;
   return locale[key];
 };
 
-export const hasFuncProperty = (obj: any) => {
-  return _some(obj, value => {
+const hasFuncProperty = (obj: any) => {
+  return _some(obj, (value) => {
     if (isFunction(value)) {
       return true;
     }
@@ -143,11 +134,11 @@ export const hasFuncProperty = (obj: any) => {
  * @param {*} [defaultValue] - If value is null or undefined, returns defaultValue.
  * @returns {*} - Returns the retrieved value, or a default value.
  */
-export const safeGet = (object: any, path: string, defaultValue: any) => {
+const safeGet = (object: any, path: string, defaultValue: any) => {
   return get(object, path, defaultValue) ?? defaultValue;
 };
 
-export const isMac = () => {
+const isMac = () => {
   return navigator.userAgent.toUpperCase().includes('MAC');
 };
 
@@ -156,21 +147,21 @@ const specialKeysNameMap: Record<string, string | undefined> = {
   all: '⌥',
 };
 
-export const getKeyboardKeyNameBySystem = (key: string) => {
+const getKeyboardKeyNameBySystem = (key: string) => {
   if (isMac()) return specialKeysNameMap[key] || key;
 
   return key;
 };
 
-export const capitalize = (string: string) => {
+const capitalize = (string: string) => {
   if (typeof string !== 'string' || string.length === 0) {
     return string;
   }
   return `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
 };
 
-export const transformNodes = (nodes: any[]) => {
-  return nodes?.map(item => {
+const transformNodes = (nodes: any[]) => {
+  return nodes?.map((item) => {
     const { type, data, ...rest } = item;
     if (type === 'custom') {
       return item;
@@ -183,7 +174,7 @@ export const transformNodes = (nodes: any[]) => {
           ...data,
           _nodeType: type,
           ...(data?.list?.length && {
-            list: (data?.list || [])?.map(n => {
+            list: (data?.list || [])?.map((n) => {
               if (n?._id) {
                 return n;
               } else {
@@ -207,15 +198,15 @@ export const transformNodes = (nodes: any[]) => {
   });
 };
 
-export const transformSwitchNodes = (nodes: any[]) => {
-  return (nodes || [])?.map(item => {
+const transformSwitchNodes = (nodes: any[]) => {
+  return (nodes || [])?.map((item) => {
     if (item?.type === 'Switch' || item?.type === 'Parallel') {
       const { list, ...rest } = item?.data;
       return {
         ...item,
         data: {
           ...rest,
-          list: (list || [])?.map(item => {
+          list: (list || [])?.map((item) => {
             if (item?._id) {
               return item;
             } else {
@@ -301,15 +292,13 @@ export const NODE_STATUS = {
 
 export const transformNodeStatus = (statusList = []) => {
   const obj: Record<string, any> = {};
-  statusList?.forEach(
-    (status: { name: string; color: string; value: string }) => {
-      if (isTruthy(status?.value) && status?.color)
-        obj[status.value] = {
-          color: status.color,
-          name: status?.name,
-        };
-    }
-  );
+  statusList?.forEach((status: { name: string; color: string; value: string }) => {
+    if (isTruthy(status?.value) && status?.color)
+      obj[status.value] = {
+        color: status.color,
+        name: status?.name,
+      };
+  });
 
   return {
     ...NODE_STATUS,
@@ -339,3 +328,34 @@ export function isTruthy(value: any) {
   }
   return Boolean(value);
 }
+
+export {
+  isObject,
+  isArray,
+  isFunction,
+  isUrl,
+  isNumber,
+  getArray,
+  getFormat,
+  isObjType,
+  isListType,
+  isCheckBoxType,
+  translation,
+  hasFuncProperty,
+  safeGet,
+  isMac,
+  getKeyboardKeyNameBySystem,
+  capitalize,
+  transformNodes,
+  transformSwitchNodes,
+  _set,
+  _get,
+  _cloneDeep,
+  _has,
+  _merge,
+  _mergeWith,
+  _isUndefined,
+  _omitBy,
+  _some,
+  _isMatch,
+};

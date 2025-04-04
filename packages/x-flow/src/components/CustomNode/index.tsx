@@ -1,4 +1,3 @@
-'use client';
 import { MoreOutlined } from '@ant-design/icons';
 import { Handle, Position, useReactFlow } from '@xyflow/react';
 import { Dropdown, Menu, message } from 'antd';
@@ -6,16 +5,18 @@ import { Dropdown, Menu, message } from 'antd';
 import { ItemType } from 'antd/es/menu/interface';
 import classNames from 'classnames';
 import { isFunction } from 'lodash';
-import { memo, useCallback, useContext, useMemo, useState } from 'react';
+import { memo, useCallback, useContext, useMemo, useState, FunctionComponent } from 'react';
+import { useFlow } from '@/.';
+
 import { shallow } from 'zustand/shallow';
-import { useStore } from '../../hooks/useStore';
+import { useStore } from '@/.';
+import { capitalize, isTruthy, transformNodeStatus, uuid, uuid4 } from '@/.';
+
 import { ConfigContext } from '../../models/context';
-import { capitalize, isTruthy, transformNodeStatus, uuid, uuid4 } from '../../utils';
 import './index.css';
 import SourceHandle from './sourceHandle';
-import { useFlow } from '../../hooks/useFlow';
 
-export default memo((props: any) => {
+const CustomNode: FunctionComponent = (props: any) => {
   const { id, type, data, layout, isConnectable, selected, onClick, status } = props;
   const { widgets, settingMap, globalConfig, onMenuItemClick, antdVersion, readOnly }: any = useContext(ConfigContext);
   const deletable = globalConfig?.edge?.deletable ?? true;
@@ -289,4 +290,6 @@ export default memo((props: any) => {
       )}
     </div>
   );
-});
+};
+
+export default memo(CustomNode);

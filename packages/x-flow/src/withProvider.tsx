@@ -14,7 +14,7 @@ interface ProviderProps<T> {
   [key: string]: any;
 }
 
-export default function withProvider<T>(Element: any, defaultWidgets?: any): React.ComponentType<T> {
+function withProvider<T>(Element: any, defaultWidgets?: any): React.ComponentType<T> {
   return (props: ProviderProps<any>) => {
     const {
       configProvider,
@@ -80,3 +80,5 @@ export default function withProvider<T>(Element: any, defaultWidgets?: any): Rea
     );
   };
 }
+
+export { withProvider };

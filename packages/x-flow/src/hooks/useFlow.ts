@@ -13,7 +13,7 @@ import { message } from 'antd';
 // 1. Try to reuse existing methods of reactflow instead of reinventing the wheel
 // 2. Do not expose new methods and states unless necessary
 
-export const useFlow = () => {
+const useFlow = () => {
   const storeApi = useStoreApi();
   const instance = storeApi.getState();
 
@@ -31,7 +31,7 @@ export const useFlow = () => {
     getNodes: _getNodes,
     getEdges,
     screenToFlowPosition,
-    flowToScreenPosition
+    flowToScreenPosition,
   } = useReactFlow();
 
   const { record } = useTemporalStore();
@@ -40,7 +40,7 @@ export const useFlow = () => {
     const { nodes, ...rest } = _toObject();
     return {
       ...rest,
-      nodes: getNodes(nodes)
+      nodes: getNodes(nodes),
     };
   });
 
@@ -48,7 +48,7 @@ export const useFlow = () => {
     const { nodes, edges } = _toObject();
     return {
       edges,
-      nodes: getNodes(nodes)
+      nodes: getNodes(nodes),
     };
   };
 
@@ -70,8 +70,8 @@ export const useFlow = () => {
       return {
         ...rest,
         data: restData,
-        type: _nodeType
-      }
+        type: _nodeType,
+      };
     });
     return result;
   });
@@ -83,7 +83,7 @@ export const useFlow = () => {
   const addNodes = useMemoizedFn((nodes: FlowNode[]) => {
     record(() => {
       storeApi.getState().addNodes(nodes);
-    })
+    });
   });
 
   const setEdges = useMemoizedFn((edges: Edge[]) => {
@@ -95,9 +95,7 @@ export const useFlow = () => {
   });
 
   const copyNode = useMemoizedFn((nodeId) => {
-    const copyNodes = generateCopyNodes(
-      storeApi.getState().nodes.find((node) => node.id === nodeId),
-    );
+    const copyNodes = generateCopyNodes(storeApi.getState().nodes.find((node) => node.id === nodeId));
     storeApi.setState({
       copyNodes,
     });
@@ -109,17 +107,17 @@ export const useFlow = () => {
         id: uuid(),
         source: nodeId,
         target: storeApi.getState().copyNodes[0].id,
-        ...data
+        ...data,
       };
       record(() => {
         storeApi.getState().addNodes(storeApi.getState().copyNodes, false);
-      })
+      });
       storeApi.getState().addEdges(newEdges);
       storeApi.setState({
         copyNodes: [],
       });
-    }else{
-      message.warning('Please copy the node first!')
+    } else {
+      message.warning('Please copy the node first!');
     }
   });
 
@@ -128,16 +126,20 @@ export const useFlow = () => {
       storeApi.setState({
         edges: storeApi.getState().edges.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
       });
-    })
+    });
     record(() => {
       storeApi.setState({
         nodes: storeApi.getState().nodes.filter((node) => node.id !== nodeId),
       });
-    })
+    });
   });
 
   const runAutoLayout = useMemoizedFn(() => {
-    const newNodes: any = autoLayoutNodes(storeApi.getState().nodes, storeApi.getState().edges, storeApi.getState().layout);
+    const newNodes: any = autoLayoutNodes(
+      storeApi.getState().nodes,
+      storeApi.getState().edges,
+      storeApi.getState().layout,
+    );
     setNodes(newNodes);
   });
 
@@ -166,8 +168,10 @@ export const useFlow = () => {
       runAutoLayout,
       copyNode,
       pasteNode,
-      deleteNode
+      deleteNode,
     }),
-    [instance]
+    [instance],
   );
-}
+};
+
+export { useFlow };

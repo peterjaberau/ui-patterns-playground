@@ -1,6 +1,5 @@
 'use client';
 import { Background, BackgroundVariant, MarkerType, ReactFlow, useReactFlow } from '@xyflow/react';
-import '@xyflow/react/dist/style.css';
 import { useEventListener, useMemoizedFn } from 'ahooks';
 import { produce, setAutoFreeze } from 'immer';
 import { debounce, isFunction } from 'lodash';
@@ -16,8 +15,8 @@ import CustomNodeComponent from './components/CustomNode';
 import { useStore, useStoreApi } from './hooks/useStore';
 
 import Operator from './operator';
-import FlowProps from './types';
-import { isTruthy, uuid, uuid4 } from './utils';
+import { FlowProps } from '.';
+import { isTruthy, uuid, uuid4 } from '.';
 import autoLayoutNodes from './utils/autoLayoutNodes';
 
 import { message } from 'antd';
@@ -388,4 +387,4 @@ const XFlow: FC<FlowProps> = memo((props) => {
   );
 });
 
-export default XFlow;
+export { XFlow };

@@ -1,4 +1,4 @@
-import type { Edge } from "@xyflow/react";
+import type { Edge } from '@xyflow/react';
 import { shallow } from 'zustand/shallow';
 
 import { useStore } from './useStore';
@@ -12,8 +12,10 @@ const nodesSelector = (state: FlowState) => state.edges;
  * @public
  * @returns An array of edges
  */
-export function useEdges<EdgeType extends Edge = Edge>(): Edge[] {
+function useEdges<EdgeType extends Edge = Edge>(): Edge[] {
   const nodes = useStore(nodesSelector, shallow) as EdgeType[];
 
   return nodes;
 }
+
+export { useEdges };

@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   // transpilePackages: ['@xrenders/xflow'],
 
   experimental: {
-    optimizePackageImports: ['@codefast/ui', '@elastic/eui', '@medusajs/ui', '@medusajs/icons', '@ui-patterns/x-flow'],
+    optimizePackageImports: ['@codefast/ui', '@elastic/eui', '@medusajs/ui', '@medusajs/icons'],
   },
 
   // webpack: (config) => {

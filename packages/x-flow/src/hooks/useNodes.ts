@@ -11,8 +11,10 @@ const nodesSelector = (state: FlowState) => state.nodes;
  * @public
  * @returns An array of nodes
  */
-export function useNodes<NodeType extends FlowNode = FlowNode>(): NodeType[] {
+function useNodes<NodeType extends FlowNode = FlowNode>(): NodeType[] {
   const nodes = useStore(nodesSelector, shallow) as NodeType[];
 
   return nodes;
 }
+
+export { useNodes };

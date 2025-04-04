@@ -4,7 +4,7 @@ import { ReactNode, ComponentProps } from 'react';
 
 type HandleProps = ComponentProps<typeof Handle>;
 
-export interface TNodeItem {
+interface TNodeItem {
   title: string; // node title
   type: string; // Node type_group comparison
   description?: string; // Node description
@@ -45,32 +45,32 @@ export interface TNodeItem {
   onTesting: (node: any, nodes: any) => void; // Single point debugging method
 }
 
-export interface TNodeGroup {
+interface TNodeGroup {
   title: string; // node title
   type: '_group';
   items: TNodeItem[];
 }
 
-export interface TNodeMenu {
+interface TNodeMenu {
   ref: React.RefObject<any>; // optional ref attribute
   showSearch: boolean; // Whether the configuration is searchable
   items: (TNodeGroup | TNodeItem | any)[];
   onClick: ({}: { type: string }) => void;
 }
 
-export interface TNodePanel {
+interface TNodePanel {
   //Configure panel property settings
   width?: string | number; //Configure panel width
   hideDesc?: boolean; //Configure panel description
   onClose?: (activeNodeId: string) => void;
 }
 
-export interface TNodeSelector {
+interface TNodeSelector {
   showSearch: boolean; // Whether the configuration is searchable
   items?: (TNodeGroup | TNodeItem)[];
 }
 
-export interface TLogListItem {
+interface TLogListItem {
   // Log data format:
   statusPanel?: {
     status?: Array<{ label: string; value?: string; isBadge?: boolean }>; // isBadge indicates whether the status is displayed in badge form
@@ -80,7 +80,7 @@ export interface TLogListItem {
   nodeId: string; // Node ID
 }
 
-export interface TLogPanel {
+interface TLogPanel {
   // Log panel
   // logData: any; // Data received by the log panel
   logList: Array<TLogListItem>; // All data in the log panel ===》By default, you can get the log data of all nodes on the page
@@ -89,7 +89,7 @@ export interface TLogPanel {
   width?: number; // Log panel width
 }
 
-export interface TNodeView {
+interface TNodeView {
   hideTitleTips?: boolean;
   status?: Array<{
     name: string; // state name
@@ -97,24 +97,24 @@ export interface TNodeView {
   }>;
 }
 
-export interface TEdge {
+interface TEdge {
   // Edge configuration
   hideEdgeAddBtn?: boolean; // Whether to hide the add node button on the line between two nodes
   hideEdgeDelBtn?: boolean; // Whether to hide the delete node button on the line between two nodes
   deletable?: boolean; // Is it allowed to delete the edges initialized by the line without being affected by this item?
 }
 
-export interface TControl {
+interface TControl {
   hideAddNode?: boolean;
   hideAnnotate?: boolean;
 }
 
-export interface THandle {
+interface THandle {
   // isConnectableStart?:boolean
   // isConnectableEnd?:boolean
   isValidConnection?: HandleProps['isValidConnection'];
 }
-export interface FlowProps {
+interface FlowProps {
   initialValues?: {
     nodes: any[];
     edges: any;
@@ -150,4 +150,18 @@ interface ItemInfo {
   sourceHandle?: string;
 }
 
-export default FlowProps;
+export {
+  TNodeItem,
+  TNodeGroup,
+  TNodeMenu,
+  TNodePanel,
+  TNodeSelector,
+  TLogListItem,
+  ItemInfo,
+  TLogPanel,
+  TNodeView,
+  TEdge,
+  TControl,
+  THandle,
+  FlowProps,
+};

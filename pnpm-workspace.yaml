@@ -1,6 +1,12 @@
 packages:
   - apps/*
   - packages/**
+exclude:
+  - packages/x-flow
+  - packages/table-render
+  - packages/form-render-mobile
+  - packages/form-render
+  - packages/data-render
 onlyBuiltDependencies:
   - '@swc/core'
   - core-js-pure

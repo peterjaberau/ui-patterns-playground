@@ -1,13 +1,13 @@
-'use client';
 import { useReactFlow, useViewport } from '@xyflow/react';
 import { useEventListener } from 'ahooks';
 import { memo } from 'react';
 import { shallow } from 'zustand/shallow';
-import { useStore } from '../../hooks/useStore';
+import { useStore } from '@/.';
 import CustomNode from '../CustomNode';
-import { useFlow } from '../../hooks/useFlow';
+import { useFlow } from '@/.';
+import { FunctionComponent } from 'react';
 
-const CandidateNode = () => {
+const CandidateNode: FunctionComponent = (): any => {
   const { zoom } = useViewport();
   const reactflow = useReactFlow();
   const { candidateNode, mousePosition, setIsAddingNode, setCandidateNode } = useStore(

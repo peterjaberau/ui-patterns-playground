@@ -1,13 +1,11 @@
 import StoreContext from '../models/context';
 import { useContext } from 'react';
 
-export const useTemporalStore = () => {
+const useTemporalStore = () => {
   const store = useContext(StoreContext);
 
   if (store === null) {
-    throw new Error(
-      '[XFlow]: Seems like you have not used zustand provider as an ancestor.'
-    );
+    throw new Error('[XFlow]: Seems like you have not used zustand provider as an ancestor.');
   }
   const temporalStore = store.temporal.getState();
   // Disable time machine by default
@@ -22,3 +20,5 @@ export const useTemporalStore = () => {
     },
   };
 };
+
+export { useTemporalStore };

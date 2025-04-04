@@ -4,11 +4,9 @@
     "baseUrl": ".",
     "outDir": "dist",
     "paths": {
-      "@/*": ["./src/*"],
-      "@ui-patterns/x-flow": ["./dist/*"]
+      "@/*": ["./src/*", "./plugins/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist"]
 }
-//"name": "form-render-mobile",
