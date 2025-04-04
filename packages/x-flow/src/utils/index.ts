@@ -1,5 +1,5 @@
 import { customAlphabet } from 'nanoid';
-import { tinycolor } from '@ctrl/tinycolor';
+import tinycolor from 'tinycolor2';
 export const uuid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 16);
 export const uuid4 = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 4);
 
