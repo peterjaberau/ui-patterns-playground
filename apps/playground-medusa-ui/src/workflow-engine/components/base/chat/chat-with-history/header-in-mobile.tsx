@@ -1,0 +1,151 @@
+import { useCallback, useState } from 'react';
+
+import { RiMenuLine } from '@remixicon/react';
+import { useChatWithHistoryContext } from './context';
+import Operation from './header/operation';
+import Sidebar from './sidebar';
+import MobileOperationDropdown from './header/mobile-operation-dropdown';
+import AppIcon from '@base/app-icon';
+import ActionButton from '@base/action-button';
+import { Message3Fill } from '@base/icons/src/public/other';
+import InputsFormContent from '@base/chat/chat-with-history/inputs-form/content';
+import Confirm from '@base/confirm';
+import RenameModal from '@base/chat/chat-with-history/sidebar/rename-modal';
+import type { ConversationItem } from '@workflow-app/models/share';
+
+const HeaderInMobile = () => {
+  const {
+    appData,
+    currentConversationId,
+    currentConversationItem,
+    pinnedConversationList,
+    handleNewConversation,
+    handlePinConversation,
+    handleUnpinConversation,
+    handleDeleteConversation,
+    handleRenameConversation,
+    conversationRenaming,
+  } = useChatWithHistoryContext();
+
+  const isPin = pinnedConversationList.some((item) => item.id === currentConversationId);
+  const [showConfirm, setShowConfirm] = useState<ConversationItem | null>(null);
+  const [showRename, setShowRename] = useState<ConversationItem | null>(null);
+  const handleOperate = useCallback(
+    (type: string) => {
+      if (type === 'pin') handlePinConversation(currentConversationId);
+
+      if (type === 'unpin') handleUnpinConversation(currentConversationId);
+
+      if (type === 'delete') setShowConfirm(currentConversationItem as any);
+
+      if (type === 'rename') setShowRename(currentConversationItem as any);
+    },
+    [currentConversationId, currentConversationItem, handlePinConversation, handleUnpinConversation],
+  );
+  const handleCancelConfirm = useCallback(() => {
+    setShowConfirm(null);
+  }, []);
+  const handleDelete = useCallback(() => {
+    if (showConfirm) handleDeleteConversation(showConfirm.id, { onSuccess: handleCancelConfirm });
+  }, [showConfirm, handleDeleteConversation, handleCancelConfirm]);
+  const handleCancelRename = useCallback(() => {
+    setShowRename(null);
+  }, []);
+  const handleRename = useCallback(
+    (newName: string) => {
+      if (showRename) handleRenameConversation(showRename.id, newName, { onSuccess: handleCancelRename });
+    },
+    [showRename, handleRenameConversation, handleCancelRename],
+  );
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [showChatSettings, setShowChatSettings] = useState(false);
+
+  return (
+    <>
+      <div className="bg-mask-top2bottom-gray-50-to-transparent flex shrink-0 items-center gap-1 px-2 py-3">
+        <ActionButton size="l" className="shrink-0" onClick={() => setShowSidebar(true)}>
+          <RiMenuLine className="h-[18px] w-[18px]" />
+        </ActionButton>
+        <div className="flex grow items-center justify-center">
+          {!currentConversationId && (
+            <>
+              <AppIcon
+                className="mr-2"
+                size="tiny"
+                icon={appData?.site.icon}
+                iconType={appData?.site.icon_type}
+                imageUrl={appData?.site.icon_url}
+                background={appData?.site.icon_background}
+              />
+              <div className="system-md-semibold text-text-secondary truncate">{appData?.site.title}</div>
+            </>
+          )}
+          {currentConversationId && (
+            <Operation
+              title={currentConversationItem?.name || ''}
+              isPinned={!!isPin}
+              togglePin={() => handleOperate(isPin ? 'unpin' : 'pin')}
+              isShowDelete
+              isShowRenameConversation
+              onRenameConversation={() => handleOperate('rename')}
+              onDelete={() => handleOperate('delete')}
+            />
+          )}
+        </div>
+        <MobileOperationDropdown
+          handleResetChat={handleNewConversation}
+          handleViewChatSettings={() => setShowChatSettings(true)}
+        />
+      </div>
+      {showSidebar && (
+        <div className="bg-background-overlay fixed inset-0 z-50 flex p-1" onClick={() => setShowSidebar(false)}>
+          <div
+            className="bg-components-panel-bg flex h-full w-[calc(100vw_-_40px)] rounded-xl shadow-lg backdrop-blur-sm"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Sidebar />
+          </div>
+        </div>
+      )}
+      {showChatSettings && (
+        <div
+          className="bg-background-overlay fixed inset-0 z-50 flex justify-end p-1"
+          onClick={() => setShowChatSettings(false)}
+        >
+          <div
+            className="bg-components-panel-bg flex h-full w-[calc(100vw_-_40px)] flex-col rounded-xl shadow-lg backdrop-blur-sm"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="border-divider-subtle flex items-center gap-3 rounded-t-2xl border-b px-4 py-3">
+              <Message3Fill className="h-6 w-6 shrink-0" />
+              <div className="system-xl-semibold text-text-secondary grow">{'Chat Settings'}</div>
+            </div>
+            <div className="p-4">
+              <InputsFormContent />
+            </div>
+          </div>
+        </div>
+      )}
+      {!!showConfirm && (
+        <Confirm
+          title={'Delete conversation'}
+          content={'Are you sure you want to delete this conversation?'}
+          isShow
+          onCancel={handleCancelConfirm}
+          onConfirm={handleDelete}
+        />
+      )}
+      {showRename && (
+        <RenameModal
+          isShow
+          onClose={handleCancelRename}
+          saveLoading={conversationRenaming}
+          name={showRename?.name || ''}
+          onSave={handleRename}
+        />
+      )}
+    </>
+  );
+};
+
+export default HeaderInMobile;

@@ -1,7 +1,7 @@
 import type { StateCreator } from 'zustand';
 import type { Node } from '@workflow/types';
 import type { VariableAssignerNodeType } from '@workflow/nodes/variable-assigner/types';
-import type { NodeTracing } from '@/types/workflow';
+import type { NodeTracing } from '@workflow-app/types/workflow';
 
 export type NodeSliceShape = {
   showSingleRunPanel: boolean;

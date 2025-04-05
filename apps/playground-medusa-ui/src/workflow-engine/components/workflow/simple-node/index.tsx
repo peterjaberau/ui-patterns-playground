@@ -1,10 +1,9 @@
 import type { FC } from 'react';
 import { memo, useMemo } from 'react';
 import { RiAlertFill, RiCheckboxCircleFill, RiErrorWarningFill, RiLoader2Line } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
 import { NodeTargetHandle } from '@workflow/nodes/_base/components/node-handle';
 import NodeControl from '@workflow/nodes/_base/components/node-control';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import BlockIcon from '@workflow/block-icon';
 import type { NodeProps } from '@workflow/types';
 import { NodeRunningStatus } from '@workflow/types';
@@ -13,7 +12,6 @@ import { useNodesReadOnly } from '@workflow/hooks';
 type SimpleNodeProps = NodeProps;
 
 const SimpleNode: FC<SimpleNodeProps> = ({ id, data }) => {
-  const { t } = useTranslation();
   const { nodesReadOnly } = useNodesReadOnly();
 
   const showSelectedBorder = data.selected || data._isBundled || data._isEntering;
@@ -54,7 +52,7 @@ const SimpleNode: FC<SimpleNodeProps> = ({ id, data }) => {
       >
         {data._inParallelHovering && (
           <div className="top system-2xs-medium-uppercase text-text-tertiary absolute -top-2.5 left-2 z-10">
-            {t('workflow.common.parallelRun')}
+            {'Parallel Run'}
           </div>
         )}
         {!data._isCandidate && (

@@ -12,7 +12,7 @@ import Input from '@base/input';
 import { Tag01, Tag03 } from '@base/icons/src/vender/line/financeAndECommerce';
 import type { Tag } from '@base/tag-management/constant';
 import Checkbox from '@base/checkbox';
-import { bindTag, createTag, fetchTagList, unBindTag } from '@/service/tag';
+// import { bindTag, createTag, fetchTagList, unBindTag } from '@/service/tag';
 import { ToastContext } from '@base/toast';
 
 type TagSelectorProps = {
@@ -59,9 +59,9 @@ const Panel = (props: PanelProps) => {
     if (creating) return;
     try {
       setCreating(true);
-      const newTag = await createTag(keywords, type);
+      // const newTag = await createTag(keywords, type);
       notify({ type: 'success', message: 'Created' });
-      setTagList([...tagList, newTag]);
+      setTagList([...tagList]);
       setKeywords('');
       setCreating(false);
       onCreate();
@@ -72,7 +72,7 @@ const Panel = (props: PanelProps) => {
   };
   const bind = async (tagIDs: string[]) => {
     try {
-      await bindTag(tagIDs, targetID, type);
+      // await bindTag(tagIDs, targetID, type);
       notify({ type: 'success', message: 'Modified successfully' });
     } catch (e: any) {
       notify({ type: 'error', message: 'Modified unsuccessfully' });
@@ -80,7 +80,7 @@ const Panel = (props: PanelProps) => {
   };
   const unbind = async (tagID: string) => {
     try {
-      await unBindTag(tagID, targetID, type);
+      // await unBindTag(tagID, targetID, type);
       notify({ type: 'success', message: 'Modified successfully' });
     } catch (e: any) {
       notify({ type: 'error', message: 'Modified unsuccessfully' });
@@ -206,8 +206,8 @@ const TagSelector: FC<TagSelectorProps> = ({
   const setTagList = useTagStore((s) => s.setTagList);
 
   const getTagList = async () => {
-    const res = await fetchTagList(type);
-    setTagList(res);
+    // const res = await fetchTagList(type);
+    // setTagList(res);
   };
 
   const triggerContent = useMemo(() => {

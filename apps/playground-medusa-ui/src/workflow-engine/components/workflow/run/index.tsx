@@ -2,16 +2,15 @@
 import type { FC } from 'react';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useContext } from 'use-context-selector';
-import { useTranslation } from 'react-i18next';
 import OutputPanel from './output-panel';
 import ResultPanel from './result-panel';
 import TracingPanel from './tracing-panel';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { ToastContext } from '@base/toast';
 import Loading from '@base/loading';
 import { fetchRunDetail, fetchTracingList } from '@/service/log';
-import type { NodeTracing } from '@/types/workflow';
-import type { WorkflowRunDetailResponse } from '@/models/log';
+import type { NodeTracing } from '@workflow-app/types/workflow';
+import type { WorkflowRunDetailResponse } from '@workflow-app/models/log';
 import { useStore as useAppStore } from '@/app/components/app/store';
 export type RunProps = {
   hideResult?: boolean;
@@ -21,10 +20,9 @@ export type RunProps = {
 };
 
 const RunPanel: FC<RunProps> = ({ hideResult, activeTab = 'RESULT', runID, getResultCallback }) => {
-  const { t } = useTranslation();
   const { notify } = useContext(ToastContext);
   const [currentTab, setCurrentTab] = useState<string>(activeTab);
-  const appDetail = useAppStore((state) => state.appDetail);
+  const appDetail = useAppStore((state: any) => state.appDetail);
   const [loading, setLoading] = useState<boolean>(true);
   const [runDetail, setRunDetail] = useState<WorkflowRunDetailResponse>();
   const [list, setList] = useState<NodeTracing[]>([]);
@@ -112,7 +110,7 @@ const RunPanel: FC<RunProps> = ({ hideResult, activeTab = 'RESULT', runID, getRe
             )}
             onClick={() => switchTab('RESULT')}
           >
-            {t('runLog.result')}
+            {'RESULT'}
           </div>
         )}
         <div
@@ -122,7 +120,7 @@ const RunPanel: FC<RunProps> = ({ hideResult, activeTab = 'RESULT', runID, getRe
           )}
           onClick={() => switchTab('DETAIL')}
         >
-          {t('runLog.detail')}
+          {'DETAIL'}
         </div>
         <div
           className={cn(
@@ -131,7 +129,7 @@ const RunPanel: FC<RunProps> = ({ hideResult, activeTab = 'RESULT', runID, getRe
           )}
           onClick={() => switchTab('TRACING')}
         >
-          {t('runLog.tracing')}
+          {'TRACING'}
         </div>
       </div>
       {/* panel detail */}

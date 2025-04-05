@@ -1,5 +1,4 @@
 'use client';
-import { useTranslation } from 'react-i18next';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
@@ -15,7 +14,7 @@ import { RetryLogTrigger } from './retry-log';
 import { IterationLogTrigger } from './iteration-log';
 import { LoopLogTrigger } from './loop-log';
 import { AgentLogTrigger } from './agent-log';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import StatusContainer from '@workflow/run/status-container';
 import CodeEditor from '@workflow/nodes/_base/components/editor/code-editor';
 import { CodeLanguage } from '@workflow/nodes/code/types';
@@ -25,7 +24,7 @@ import type {
   LoopDurationMap,
   LoopVariableMap,
   NodeTracing,
-} from '@/types/workflow';
+} from '@workflow-app/types/workflow';
 import ErrorHandleTip from '@workflow/nodes/_base/components/error-handle/error-handle-tip';
 import { hasRetryNode } from '@workflow/utils';
 
@@ -68,7 +67,6 @@ const NodePanel: FC<Props> = ({
     },
     [hideProcessDetail],
   );
-  const { t } = useTranslation();
 
   const getTime = (time: number) => {
     if (time < 1) return `${(time * 1000).toFixed(3)} ms`;
@@ -93,16 +91,16 @@ const NodePanel: FC<Props> = ({
   const isToolNode = nodeInfo.node_type === BlockEnum.Tool && !!nodeInfo.agentLog?.length;
 
   const inputsTitle = useMemo(() => {
-    let text = t('workflow.common.input');
-    if (nodeInfo.node_type === BlockEnum.Loop) text = t('workflow.nodes.loop.initialLoopVariables');
+    let text = 'Input';
+    if (nodeInfo.node_type === BlockEnum.Loop) text = 'Initial Loop Variables';
     return text.toLocaleUpperCase();
-  }, [nodeInfo.node_type, t]);
-  const processDataTitle = t('workflow.common.processData').toLocaleUpperCase();
+  }, [nodeInfo.node_type]);
+  const processDataTitle = 'PROCESS DATA';
   const outputTitle = useMemo(() => {
-    let text = t('workflow.common.output');
-    if (nodeInfo.node_type === BlockEnum.Loop) text = t('workflow.nodes.loop.finalLoopVariables');
+    let text = 'Output';
+    if (nodeInfo.node_type === BlockEnum.Loop) text = 'Final Loop Variables';
     return text.toLocaleUpperCase();
-  }, [nodeInfo.node_type, t]);
+  }, [nodeInfo.node_type]);
 
   return (
     <div className={cn('px-2 py-1', className)}>
@@ -185,7 +183,8 @@ const NodePanel: FC<Props> = ({
             <div className={cn('mb-1', hideInfo && '!px-2 !py-0.5')}>
               {nodeInfo.status === 'stopped' && (
                 <StatusContainer status="stopped">
-                  {t('workflow.tracing.stopBy', { user: nodeInfo.created_by ? nodeInfo.created_by.name : 'N/A' })}
+                  {`Stop by ${nodeInfo.created_by ? nodeInfo.created_by.name : 'N/A'}`}
+                  {/* {t('workflow.tracing.stopBy', { user: nodeInfo.created_by ? nodeInfo.created_by.name : 'N/A' })} */}
                 </StatusContainer>
               )}
               {nodeInfo.status === 'exception' && (
@@ -196,7 +195,7 @@ const NodePanel: FC<Props> = ({
                     target="_blank"
                     className="text-text-accent"
                   >
-                    {t('workflow.common.learnMore')}
+                    {'Learn More'}
                   </a>
                 </StatusContainer>
               )}

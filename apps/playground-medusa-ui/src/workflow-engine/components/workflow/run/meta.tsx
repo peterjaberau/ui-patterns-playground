@@ -1,7 +1,6 @@
 'use client';
 import type { FC } from 'react';
-import { useTranslation } from 'react-i18next';
-import useTimestamp from '@/hooks/use-timestamp';
+import useTimestamp from '@workflow-app/hooks/use-timestamp';
 
 type Props = {
   status: string;
@@ -14,17 +13,14 @@ type Props = {
 };
 
 const MetaData: FC<Props> = ({ status, executor, startTime, time, tokens, steps = 1, showSteps = true }) => {
-  const { t } = useTranslation();
   const { formatTime } = useTimestamp();
 
   return (
     <div className="relative">
-      <div className="system-xs-medium-uppercase text-text-tertiary h-6 py-1">{t('runLog.meta.title')}</div>
+      <div className="system-xs-medium-uppercase text-text-tertiary h-6 py-1">{'METADATA'}</div>
       <div className="py-1">
         <div className="flex">
-          <div className="system-xs-regular text-text-tertiary w-[104px] shrink-0 truncate px-2 py-1.5">
-            {t('runLog.meta.status')}
-          </div>
+          <div className="system-xs-regular text-text-tertiary w-[104px] shrink-0 truncate px-2 py-1.5">{'Status'}</div>
           <div className="system-xs-regular text-text-secondary grow px-2 py-1.5">
             {status === 'running' && <div className="bg-text-quaternary my-1 h-2 w-16 rounded-sm" />}
             {status === 'succeeded' && <span>SUCCESS</span>}
@@ -36,7 +32,7 @@ const MetaData: FC<Props> = ({ status, executor, startTime, time, tokens, steps 
         </div>
         <div className="flex">
           <div className="system-xs-regular text-text-tertiary w-[104px] shrink-0 truncate px-2 py-1.5">
-            {t('runLog.meta.executor')}
+            {'Executor'}
           </div>
           <div className="system-xs-regular text-text-secondary grow px-2 py-1.5">
             {status === 'running' && <div className="bg-text-quaternary my-1 h-2 w-[88px] rounded-sm" />}
@@ -45,18 +41,18 @@ const MetaData: FC<Props> = ({ status, executor, startTime, time, tokens, steps 
         </div>
         <div className="flex">
           <div className="system-xs-regular text-text-tertiary w-[104px] shrink-0 truncate px-2 py-1.5">
-            {t('runLog.meta.startTime')}
+            {'Start Time'}
           </div>
           <div className="system-xs-regular text-text-secondary grow px-2 py-1.5">
             {status === 'running' && <div className="bg-text-quaternary my-1 h-2 w-[72px] rounded-sm" />}
             {status !== 'running' && (
-              <span>{startTime ? formatTime(startTime, t('appLog.dateTimeFormat') as string) : '-'}</span>
+              <span>{startTime ? formatTime(startTime, 'MM/DD/YYYY hh:mm A' as string) : '-'}</span>
             )}
           </div>
         </div>
         <div className="flex">
           <div className="system-xs-regular text-text-tertiary w-[104px] shrink-0 truncate px-2 py-1.5">
-            {t('runLog.meta.time')}
+            {'Elapsed Time'}
           </div>
           <div className="system-xs-regular text-text-secondary grow px-2 py-1.5">
             {status === 'running' && <div className="bg-text-quaternary my-1 h-2 w-[72px] rounded-sm" />}
@@ -65,7 +61,7 @@ const MetaData: FC<Props> = ({ status, executor, startTime, time, tokens, steps 
         </div>
         <div className="flex">
           <div className="system-xs-regular text-text-tertiary w-[104px] shrink-0 truncate px-2 py-1.5">
-            {t('runLog.meta.tokens')}
+            {'Total Tokens'}
           </div>
           <div className="system-xs-regular text-text-secondary grow px-2 py-1.5">
             {status === 'running' && <div className="bg-text-quaternary my-1 h-2 w-[48px] rounded-sm" />}
@@ -75,7 +71,7 @@ const MetaData: FC<Props> = ({ status, executor, startTime, time, tokens, steps 
         {showSteps && (
           <div className="flex">
             <div className="system-xs-regular text-text-tertiary w-[104px] shrink-0 truncate px-2 py-1.5">
-              {t('runLog.meta.steps')}
+              {'Run Steps'}
             </div>
             <div className="system-xs-regular text-text-secondary grow px-2 py-1.5">
               {status === 'running' && <div className="bg-text-quaternary my-1 h-2 w-[24px] rounded-sm" />}

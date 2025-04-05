@@ -1,6 +1,6 @@
 import type { StateCreator } from 'zustand';
 import type { HistoryWorkflowData } from '@workflow/types';
-import type { VersionHistory } from '@/types/workflow';
+import type { VersionHistory } from '@workflow-app/types/workflow';
 
 export type HistorySliceShape = {
   historyWorkflowData?: HistoryWorkflowData;

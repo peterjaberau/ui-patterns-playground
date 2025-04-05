@@ -1,0 +1,79 @@
+import type { ModelConfig, VisionSettings } from '@workflow-app/types/app';
+import type { IChatItem } from '@base/chat/chat/type';
+import type { NodeTracing } from '@workflow-app/types/workflow';
+import type { WorkflowRunningStatus } from '@workflow/types';
+import type { FileEntity } from '@base/file-uploader/types';
+
+export type { VisionFile } from '@workflow-app/types/app';
+export { TransferMethod } from '@workflow-app/types/app';
+export type { Inputs, PromptVariable } from '@workflow-app/models/debug';
+
+export type UserInputForm = {
+  default: string;
+  label: string;
+  required: boolean;
+  variable: string;
+};
+
+export type UserInputFormTextInput = {
+  'text-input': UserInputForm & {
+    max_length: number;
+  };
+};
+
+export type UserInputFormSelect = {
+  select: UserInputForm & {
+    options: string[];
+  };
+};
+
+export type UserInputFormParagraph = {
+  paragraph: UserInputForm;
+};
+
+export type VisionConfig = VisionSettings;
+
+export type EnableType = {
+  enabled: boolean;
+};
+
+export type ChatConfig = Omit<ModelConfig, 'model'> & {
+  supportAnnotation?: boolean;
+  appId?: string;
+  supportFeedback?: boolean;
+  supportCitationHitInfo?: boolean;
+};
+
+export type WorkflowProcess = {
+  status: WorkflowRunningStatus;
+  tracing: NodeTracing[];
+  expand?: boolean; // for UI
+  resultText?: string;
+  files?: FileEntity[];
+};
+
+export type ChatItem = IChatItem & {
+  isError?: boolean;
+  workflowProcess?: WorkflowProcess;
+  conversationId?: string;
+  allFiles?: FileEntity[];
+};
+
+export type ChatItemInTree = {
+  children?: ChatItemInTree[];
+} & ChatItem;
+
+export type OnSend = {
+  (message: string, files?: FileEntity[]): void;
+  (message: string, files: FileEntity[] | undefined, isRegenerate: boolean, lastAnswer?: ChatItem | null): void;
+};
+
+export type OnRegenerate = (chatItem: ChatItem) => void;
+
+export type Callback = {
+  onSuccess: () => void;
+};
+
+export type Feedback = {
+  rating: 'like' | 'dislike' | null;
+};
