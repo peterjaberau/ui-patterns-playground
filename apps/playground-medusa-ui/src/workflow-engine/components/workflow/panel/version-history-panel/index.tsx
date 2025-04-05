@@ -14,11 +14,11 @@ import {
   useResetWorkflowVersionHistory,
   useUpdateWorkflow,
   useWorkflowVersionHistory,
-} from '@/service/use-workflow';
+} from '@workflow-app/service/use-workflow';
 import Divider from '@base/divider';
 import Loading from './loading';
 import Empty from './empty';
-import { useSelector as useAppContextSelector } from '@/context/app-context';
+import { useSelector as useAppContextSelector } from '@workflow-app/context/app-context';
 import RestoreConfirmModal from './restore-confirm-modal';
 import DeleteConfirmModal from './delete-confirm-modal';
 import VersionInfoModal from '@/app/components/app/app-publisher/version-info-modal';

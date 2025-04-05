@@ -3,7 +3,7 @@ import { capitalize } from 'lodash-es';
 import { RiArrowDownSLine } from '@remixicon/react';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import Button from '@base/button';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 export type ConditionValueMethodProps = {
   valueMethod?: string;

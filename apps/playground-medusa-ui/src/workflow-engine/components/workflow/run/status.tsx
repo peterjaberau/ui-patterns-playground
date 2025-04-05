@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import Indicator from '@/app/components/header/indicator';
 import StatusContainer from '@workflow/run/status-container';
 

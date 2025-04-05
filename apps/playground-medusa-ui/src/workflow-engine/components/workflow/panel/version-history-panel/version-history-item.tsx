@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 
 import ContextMenu from './context-menu';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import type { VersionHistory } from '@workflow-app/types/workflow';
 import { type VersionHistoryContextMenuOptions, WorkflowVersion } from '../../types';
 

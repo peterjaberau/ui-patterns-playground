@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { createStore, useStore } from 'zustand';
-import type { DataSet } from '@/models/datasets';
+import type { DataSet } from '@workflow-app/models/datasets';
 import { DatasetsDetailContext } from './provider';
 import { produce } from 'immer';
 

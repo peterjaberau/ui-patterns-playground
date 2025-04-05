@@ -8,7 +8,7 @@ import { RiAlertFill, RiCloseLine, RiFileDownloadLine } from '@remixicon/react';
 import { WORKFLOW_DATA_UPDATE } from './constants';
 import { SupportUploadFileTypes } from './types';
 import { initialEdges, initialNodes } from './utils';
-// import { importDSL, importDSLConfirm } from '@/service/apps';
+// import { importDSL, importDSLConfirm } from '@workflow-app/service/apps';
 import { fetchWorkflowDraft } from '@workflow-app/service/workflow';
 import { DSLImportMode, DSLImportStatus } from '@workflow-app/models/app';
 // import Uploader from '@/app/components/app/create-from-dsl-modal/uploader';

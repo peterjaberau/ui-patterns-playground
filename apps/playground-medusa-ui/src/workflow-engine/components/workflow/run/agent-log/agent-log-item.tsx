@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { RiArrowRightSLine, RiListView } from '@remixicon/react';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import Button from '@base/button';
 import type { AgentLogItemWithChildren } from '@workflow-app/types/workflow';
 import NodeStatusIcon from '@workflow/nodes/_base/components/node-status-icon';

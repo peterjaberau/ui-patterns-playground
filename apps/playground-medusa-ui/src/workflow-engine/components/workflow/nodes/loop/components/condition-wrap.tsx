@@ -21,7 +21,7 @@ import { useGetAvailableVars } from '../../variable-assigner/hooks';
 import ConditionList from './condition-list';
 import ConditionAdd from './condition-add';
 import { SUB_VARIABLES } from './../default';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import Button from '@base/button';
 import { PortalSelect as Select } from '@base/select';
 

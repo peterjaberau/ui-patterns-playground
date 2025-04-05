@@ -2,7 +2,7 @@ import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigge
 import type { ReactNode } from 'react';
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import type { Strategy } from './agent-strategy';
-import classNames from '@/utils/classnames';
+import classNames from '@utils/classnames';
 import { RiArrowDownSLine, RiErrorWarningFill } from '@remixicon/react';
 import Tooltip from '@base/tooltip';
 import Link from 'next/link';

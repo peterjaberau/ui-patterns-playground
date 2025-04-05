@@ -4,7 +4,7 @@ import { RiArrowDownSLine } from '@remixicon/react';
 import { getOperators, isComparisonOperatorNeedTranslate } from './utils';
 import Button from '@base/button';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import type { ComparisonOperator, MetadataFilteringVariableType } from '@workflow/nodes/knowledge-retrieval/types';
 
 const i18nPrefix = 'workflow.nodes.ifElse';

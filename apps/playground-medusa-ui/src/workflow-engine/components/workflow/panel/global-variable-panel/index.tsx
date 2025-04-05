@@ -6,7 +6,7 @@ import type { GlobalVariable } from '../../types';
 import Item from './item';
 import { useStore } from '@workflow/store';
 
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 const Panel = () => {
   const setShowPanel = useStore((s) => s.setShowGlobalVariablePanel);

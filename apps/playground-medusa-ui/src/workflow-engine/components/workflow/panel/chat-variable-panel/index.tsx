@@ -14,9 +14,9 @@ import type { ConversationVariable } from '@workflow/types';
 import { findUsedVarNodes, updateNodeVars } from '@workflow/nodes/_base/components/variable/utils';
 import { useNodesSyncDraft } from '@workflow/hooks/use-nodes-sync-draft';
 import { BlockEnum } from '@workflow/types';
-import I18n from '@/context/i18n';
+import I18n from '@workflow-app/context/i18n';
 import { LanguagesSupported } from '@/i18n/language';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 const ChatVariablePanel = () => {
   const { locale } = useContext(I18n);

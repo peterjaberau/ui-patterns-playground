@@ -6,7 +6,7 @@ import { RiArrowLeftLine, RiArrowRightSLine, RiErrorWarningLine, RiLoader2Line }
 import { NodeRunningStatus } from '@workflow/types';
 import TracingPanel from '@workflow/run/tracing-panel';
 import { Loop } from '@base/icons/src/vender/workflow';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import type { LoopDurationMap, LoopVariableMap, NodeTracing } from '@workflow-app/types/workflow';
 import CodeEditor from '@workflow/nodes/_base/components/editor/code-editor';
 import { CodeLanguage } from '@workflow/nodes/code/types';

@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { RiAlertFill, RiCheckboxCircleFill, RiLoader2Line } from '@remixicon/react';
 import type { Node } from '@workflow/types';
 import { NodeRunningStatus } from '@workflow/types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 type RetryOnNodeProps = Pick<Node, 'id' | 'data'>;
 const RetryOnNode = ({ data }: RetryOnNodeProps) => {

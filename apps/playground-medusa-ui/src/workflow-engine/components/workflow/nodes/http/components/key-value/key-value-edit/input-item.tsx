@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import React, { useCallback, useState } from 'react';
 
 import useAvailableVarList from '../../../../_base/hooks/use-available-var-list';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import RemoveButton from '@workflow/nodes/_base/components/remove-button';
 import Input from '@workflow/nodes/_base/components/input-support-select-var';
 import type { Var } from '@workflow/types';

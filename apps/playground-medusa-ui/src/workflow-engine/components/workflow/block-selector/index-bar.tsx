@@ -2,7 +2,7 @@ import { pinyin } from 'pinyin-pro';
 import type { FC, RefObject } from 'react';
 import type { ToolWithProvider } from '../types';
 import { CollectionType } from '../../tools/types';
-import classNames from '@/utils/classnames';
+import classNames from '@utils/classnames';
 
 export const CUSTOM_GROUP_NAME = '@@@custom@@@';
 export const WORKFLOW_GROUP_NAME = '@@@workflow@@@';

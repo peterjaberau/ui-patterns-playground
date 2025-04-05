@@ -3,7 +3,7 @@ import React from 'react';
 import type { KnowledgeRetrievalNodeType } from './types';
 import { Folder } from '@base/icons/src/vender/solid/files';
 import type { NodeProps } from '@workflow/types';
-import type { DataSet } from '@/models/datasets';
+import type { DataSet } from '@workflow-app/models/datasets';
 import { useDatasetsDetailStore } from '../../datasets-detail-store/store';
 
 const Node: FC<NodeProps<KnowledgeRetrievalNodeType>> = ({ data }) => {

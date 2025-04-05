@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { useWorkflow } from '../hooks';
 import { useStore } from '@workflow/store';
-import useTimestamp from '@/hooks/use-timestamp';
+import useTimestamp from '@workflow-app/hooks/use-timestamp';
 
 const EditingTitle = () => {
   const { formatTime } = useTimestamp();

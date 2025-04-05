@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { RiFontSize } from '@remixicon/react';
 
 import { useFontSize } from './hooks';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import { Check } from '@base/icons/src/vender/line/general';
 

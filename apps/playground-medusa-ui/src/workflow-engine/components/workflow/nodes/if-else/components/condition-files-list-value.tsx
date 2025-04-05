@@ -6,7 +6,7 @@ import { FILE_TYPE_OPTIONS, TRANSFER_METHOD } from '../../constants';
 import type { ValueSelector } from '../../../types';
 import { Variable02 } from '@base/icons/src/vender/solid/development';
 import { BubbleX, Env } from '@base/icons/src/vender/line/others';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { isConversationVar, isENV, isSystemVar } from '@workflow/nodes/_base/components/variable/utils';
 const i18nPrefix = 'workflow.nodes.ifElse';
 

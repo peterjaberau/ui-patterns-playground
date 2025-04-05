@@ -21,7 +21,7 @@ import { Line3 } from '@base/icons/src/public/common';
 import { Variable02 } from '@base/icons/src/vender/solid/development';
 import { BubbleX } from '@base/icons/src/vender/line/others';
 import { FILE_EXTS } from '@base/prompt-editor/constants';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import type { FileEntity } from '@base/file-uploader/types';
 
 type Props = {

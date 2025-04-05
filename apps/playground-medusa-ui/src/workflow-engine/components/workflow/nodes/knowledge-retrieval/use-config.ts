@@ -18,7 +18,7 @@ import { ComparisonOperator, LogicalOperator, MetadataFilteringVariableType } fr
 import { getMultipleRetrievalConfig, getSelectedDatasetsMode } from './utils';
 import { RETRIEVE_TYPE } from '@workflow-app/types/app';
 import { DATASET_DEFAULT } from '@/config';
-import type { DataSet } from '@/models/datasets';
+import type { DataSet } from '@workflow-app/models/datasets';
 import { fetchDatasets } from '@/service/datasets';
 import useNodeCrud from '@workflow/nodes/_base/hooks/use-node-crud';
 import useOneStepRun from '@workflow/nodes/_base/hooks/use-one-step-run';

@@ -6,7 +6,7 @@ import FilterItem from './filter-item';
 import FilterSwitch from './filter-switch';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import Divider from '@base/divider';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 type FilterProps = {
   filterValue: WorkflowVersionFilterOptions;

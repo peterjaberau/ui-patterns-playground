@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { RiArrowDownSLine, RiCheckLine } from '@remixicon/react';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 type Props = {
   inCell?: boolean;

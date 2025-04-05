@@ -1,7 +1,7 @@
 import Add from './add';
 import Item from './item';
 import type { CommonNodeType, Node } from '@workflow/types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 type ContainerProps = {
   nodeId: string;

@@ -1,6 +1,6 @@
 import { memo, useMemo } from 'react';
 
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { VarBlockIcon } from '@workflow/block-icon';
 import { Line3 } from '@base/icons/src/public/common';
 import { Variable02 } from '@base/icons/src/vender/solid/development';

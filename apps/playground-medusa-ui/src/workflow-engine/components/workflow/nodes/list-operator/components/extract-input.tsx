@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { VarType } from '../../../types';
 import type { Var } from '../../../types';
 import useAvailableVarList from '@workflow/nodes/_base/hooks/use-available-var-list';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import Input from '@workflow/nodes/_base/components/input-support-select-var';
 
 type Props = {

@@ -4,7 +4,7 @@ import FormItem from '../../nodes/_base/components/before-run-form/form-item';
 import { BlockEnum } from '../../types';
 import { useStore, useWorkflowStore } from '../../store';
 import type { StartNodeType } from '../../nodes/start/types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 const UserInput = () => {
   const workflowStore = useWorkflowStore();

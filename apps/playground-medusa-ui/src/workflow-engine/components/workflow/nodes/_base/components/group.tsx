@@ -1,4 +1,4 @@
-import classNames from '@/utils/classnames';
+import classNames from '@utils/classnames';
 import type { ComponentProps, FC, PropsWithChildren, ReactNode } from 'react';
 
 export type GroupLabelProps = ComponentProps<'div'>;

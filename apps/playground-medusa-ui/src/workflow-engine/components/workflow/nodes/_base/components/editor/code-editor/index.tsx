@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import Editor, { loader } from '@monaco-editor/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Base from '../base';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { CodeLanguage } from '@workflow/nodes/code/types';
 import { getFilesInLogs } from '@base/file-uploader/utils';
 

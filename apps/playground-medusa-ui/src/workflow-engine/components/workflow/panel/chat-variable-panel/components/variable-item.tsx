@@ -3,7 +3,7 @@ import { capitalize } from 'lodash-es';
 import { RiDeleteBinLine, RiEditLine } from '@remixicon/react';
 import { BubbleX } from '@base/icons/src/vender/line/others';
 import type { ConversationVariable } from '@workflow/types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 type VariableItemProps = {
   item: ConversationVariable;

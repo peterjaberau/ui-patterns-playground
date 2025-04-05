@@ -13,7 +13,7 @@ import {
 } from '../../types';
 import ConditionItem from './condition-item';
 import type { Node, NodeOutPutVar } from '@workflow/types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 type ConditionListProps = {
   isSubVariable?: boolean;

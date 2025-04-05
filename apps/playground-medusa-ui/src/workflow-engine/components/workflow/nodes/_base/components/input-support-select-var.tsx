@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import React, { useEffect } from 'react';
 import { useBoolean } from 'ahooks';
 
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import type { Node, NodeOutPutVar } from '@workflow/types';
 import { BlockEnum } from '@workflow/types';
 import PromptEditor from '@base/prompt-editor';

@@ -16,7 +16,7 @@ import Switch from '@base/switch';
 import Toast from '@base/toast';
 import ConfigSelect from '@/app/components/app/configuration/config-var/config-select';
 import { ChangeType, type MoreInfo } from '@workflow/types';
-import { checkKeys } from '@/utils/var';
+import { checkKeys } from '@utils/var';
 
 const i18nPrefix = 'workflow.nodes.parameterExtractor';
 const errorI18nPrefix = 'workflow.errorMsg';

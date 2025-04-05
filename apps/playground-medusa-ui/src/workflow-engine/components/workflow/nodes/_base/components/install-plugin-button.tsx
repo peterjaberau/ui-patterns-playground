@@ -1,7 +1,7 @@
 import Button from '@base/button';
 import { RiInstallLine, RiLoader2Line } from '@remixicon/react';
 import type { ComponentProps, MouseEventHandler } from 'react';
-import classNames from '@/utils/classnames';
+import classNames from '@utils/classnames';
 
 import { useCheckInstalled, useInstallPackageFromMarketPlace } from '@/service/use-plugins';
 

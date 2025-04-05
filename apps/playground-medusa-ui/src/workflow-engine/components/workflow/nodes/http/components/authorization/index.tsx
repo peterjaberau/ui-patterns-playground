@@ -13,7 +13,7 @@ import Modal from '@base/modal';
 import Button from '@base/button';
 import Input from '@workflow/nodes/_base/components/input-support-select-var';
 import BaseInput from '@base/input';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 const i18nPrefix = 'workflow.nodes.http.authorization';
 

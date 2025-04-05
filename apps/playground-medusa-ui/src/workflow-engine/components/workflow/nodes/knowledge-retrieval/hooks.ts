@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { getSelectedDatasetsMode } from './utils';
-import type { DataSet, SelectedDatasetsMode } from '@/models/datasets';
+import type { DataSet, SelectedDatasetsMode } from '@workflow-app/models/datasets';
 
 export const useSelectedDatasetsMode = (datasets: DataSet[]) => {
   const selectedDatasetsMode: SelectedDatasetsMode = useMemo(() => {

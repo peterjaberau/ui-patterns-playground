@@ -9,7 +9,7 @@ import { useWorkflowStore } from '../../../store';
 import Editor from '@workflow/nodes/_base/components/prompt/editor';
 import TypeSelector from '@workflow/nodes/_base/components/selector';
 import Tooltip from '@base/tooltip';
-import { PromptRole } from '@/models/debug';
+import { PromptRole } from '@workflow-app/models/debug';
 
 const i18nPrefix = 'workflow.nodes.llm';
 

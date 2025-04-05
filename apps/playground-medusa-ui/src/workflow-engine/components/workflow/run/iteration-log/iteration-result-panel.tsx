@@ -6,7 +6,7 @@ import { RiArrowLeftLine, RiArrowRightSLine, RiErrorWarningLine, RiLoader2Line }
 import { NodeRunningStatus } from '@workflow/types';
 import TracingPanel from '@workflow/run/tracing-panel';
 import { Iteration } from '@base/icons/src/vender/workflow';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import type { IterationDurationMap, NodeTracing } from '@workflow-app/types/workflow';
 const i18nPrefix = 'workflow.singleRun';
 

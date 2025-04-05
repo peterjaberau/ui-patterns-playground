@@ -40,7 +40,7 @@ import {
   TEMPLATE_TRANSFORM_OUTPUT_STRUCT,
   TOOL_OUTPUT_STRUCT,
 } from '@workflow/constants';
-import type { PromptItem } from '@/models/debug';
+import type { PromptItem } from '@workflow-app/models/debug';
 import { VAR_REGEX } from '@/config';
 import type { AgentNodeType } from '../../../agent/types';
 

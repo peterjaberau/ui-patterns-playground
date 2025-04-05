@@ -20,7 +20,7 @@ import {
   useAllWorkflowTools,
   useInvalidateAllCustomTools,
 } from '@/service/use-tools';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 type Props = {
   panelClassName?: string;

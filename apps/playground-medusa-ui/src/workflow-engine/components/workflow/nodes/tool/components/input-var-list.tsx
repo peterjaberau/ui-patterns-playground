@@ -5,7 +5,7 @@ import { produce } from 'immer';
 
 import type { ToolVarInputs } from '../types';
 import { VarType as VarKindType } from '../types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import type { ValueSelector, Var } from '@workflow/types';
 import type { CredentialFormSchema } from '@/app/components/header/account-setting/model-provider-page/declarations';
 import { FormTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations';

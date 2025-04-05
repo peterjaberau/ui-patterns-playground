@@ -15,9 +15,9 @@ import {
 import ShortcutsName from '@workflow/shortcuts-name';
 import type { Node } from '@workflow/types';
 import { BlockEnum } from '@workflow/types';
-import { useGetLanguage } from '@/context/i18n';
+import { useGetLanguage } from '@workflow-app/context/i18n';
 import { CollectionType } from '@tools/types';
-import { canFindTool } from '@/utils';
+import { canFindTool } from '@utils';
 
 type PanelOperatorPopupProps = {
   id: string;

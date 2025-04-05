@@ -10,7 +10,7 @@ import { EditionType, PromptRole } from '../../../types';
 import useAvailableVarList from '../../_base/hooks/use-available-var-list';
 import { useWorkflowStore } from '../../../store';
 import ConfigPromptItem from './config-prompt-item';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import Editor from '@workflow/nodes/_base/components/prompt/editor';
 import AddButton from '@workflow/nodes/_base/components/add-button';
 import { DragHandle } from '@base/icons/src/vender/line/others';

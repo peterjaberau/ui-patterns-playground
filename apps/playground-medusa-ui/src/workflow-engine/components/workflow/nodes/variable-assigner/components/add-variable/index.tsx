@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 import { useVariableAssigner } from '../../hooks';
 import type { VariableAssignerNodeType } from '../../types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import { Plus02 } from '@base/icons/src/vender/line/general';
 import AddVariablePopup from '@workflow/nodes/_base/components/add-variable-popup';

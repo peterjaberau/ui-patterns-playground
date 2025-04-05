@@ -9,7 +9,7 @@ import AuthorizationModal from './components/authorization';
 import type { HttpNodeType } from './types';
 import Timeout from './components/timeout';
 import CurlPanel from './components/curl-panel';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import Field from '@workflow/nodes/_base/components/field';
 import Split from '@workflow/nodes/_base/components/split';
 import OutputVars, { VarItem } from '@workflow/nodes/_base/components/output-vars';

@@ -1,7 +1,7 @@
 import { memo, useState } from 'react';
 
 import { RiMoreFill } from '@remixicon/react';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import ShortcutsName from '@workflow/shortcuts-name';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import Switch from '@base/switch';

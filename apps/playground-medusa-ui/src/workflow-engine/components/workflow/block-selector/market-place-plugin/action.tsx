@@ -6,10 +6,10 @@ import { RiMoreFill } from '@remixicon/react';
 import ActionButton from '@base/action-button';
 // import Button from '@base/button'
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { MARKETPLACE_URL_PREFIX } from '@/config';
 import { useDownloadPlugin } from '@/service/use-plugins';
-import { downloadFile } from '@/utils/format';
+import { downloadFile } from '@utils/format';
 
 type Props = {
   open: boolean;

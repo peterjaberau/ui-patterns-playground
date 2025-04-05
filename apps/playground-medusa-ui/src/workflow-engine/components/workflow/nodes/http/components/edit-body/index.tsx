@@ -8,7 +8,7 @@ import { BodyPayloadValueType, BodyType } from '../../types';
 import KeyValue from '../key-value';
 import useAvailableVarList from '../../../_base/hooks/use-available-var-list';
 import VarReferencePicker from '../../../_base/components/variable/var-reference-picker';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import InputWithVar from '@workflow/nodes/_base/components/prompt/editor';
 import type { ValueSelector, Var } from '@workflow/types';
 import { VarType } from '@workflow/types';

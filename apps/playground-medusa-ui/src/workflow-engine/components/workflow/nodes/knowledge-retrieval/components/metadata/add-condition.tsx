@@ -6,7 +6,7 @@ import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigge
 import Button from '@base/button';
 import Input from '@base/input';
 import type { MetadataShape } from '@workflow/nodes/knowledge-retrieval/types';
-import type { MetadataInDoc } from '@/models/datasets';
+import type { MetadataInDoc } from '@workflow-app/models/datasets';
 
 const AddCondition = ({
   metadataList,

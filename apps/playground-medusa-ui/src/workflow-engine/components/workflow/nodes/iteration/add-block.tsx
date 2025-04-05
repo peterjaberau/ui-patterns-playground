@@ -3,7 +3,7 @@ import { RiAddLine } from '@remixicon/react';
 
 import { useAvailableBlocks, useNodesInteractions, useNodesReadOnly } from '../../hooks';
 import type { IterationNodeType } from './types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import BlockSelector from '@workflow/block-selector';
 import type { OnSelectBlock } from '@workflow/types';
 import { BlockEnum } from '@workflow/types';

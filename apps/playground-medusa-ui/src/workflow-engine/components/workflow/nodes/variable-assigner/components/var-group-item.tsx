@@ -13,7 +13,7 @@ import { VarType } from '@workflow/types';
 import type { NodeOutPutVar, ValueSelector, Var } from '@workflow/types';
 import { VarType as VarKindType } from '@workflow/nodes/tool/types';
 import { Folder } from '@base/icons/src/vender/line/files';
-import { checkKeys } from '@/utils/var';
+import { checkKeys } from '@utils/var';
 import Toast from '@base/toast';
 
 const i18nPrefix = 'workflow.nodes.variableAssigner';

@@ -3,7 +3,7 @@ import { memo, useMemo } from 'react';
 import { useWorkflow } from '../hooks';
 import { useStore } from '../store';
 import { WorkflowVersion } from '../types';
-import useTimestamp from '@/hooks/use-timestamp';
+import useTimestamp from '@workflow-app/hooks/use-timestamp';
 
 const RestoringTitle = () => {
   const { formatTimeFromNow } = useWorkflow();

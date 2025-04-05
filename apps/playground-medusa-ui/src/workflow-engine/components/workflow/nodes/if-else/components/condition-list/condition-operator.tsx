@@ -6,7 +6,7 @@ import type { ComparisonOperator } from '../../types';
 import Button from '@base/button';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import type { VarType } from '@workflow/types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 const i18nPrefix = 'workflow.nodes.ifElse';
 
 type ConditionOperatorProps = {

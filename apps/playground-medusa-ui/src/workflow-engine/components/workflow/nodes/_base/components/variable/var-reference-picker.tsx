@@ -10,7 +10,7 @@ import useAvailableVarList from '../../hooks/use-available-var-list';
 import VarReferencePopup from './var-reference-popup';
 import { getNodeInfoById, isConversationVar, isENV, isSystemVar } from './utils';
 import ConstantField from './constant-field';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import type { Node, NodeOutPutVar, ValueSelector, Var } from '@workflow/types';
 import type { CredentialFormSchema } from '@/app/components/header/account-setting/model-provider-page/declarations';
 import { BlockEnum } from '@workflow/types';

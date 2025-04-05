@@ -10,7 +10,7 @@ import { filterVar } from '../utils';
 import AddVariable from './add-variable';
 import NodeVariableItem from './node-variable-item';
 import { isConversationVar, isENV, isSystemVar } from '@workflow/nodes/_base/components/variable/utils';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { isExceptionVariable } from '@workflow/utils';
 
 const i18nPrefix = 'workflow.nodes.variableAssigner';

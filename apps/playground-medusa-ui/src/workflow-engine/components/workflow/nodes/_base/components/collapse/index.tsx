@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { RiArrowDropRightLine } from '@remixicon/react';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 export { default as FieldCollapse } from './field-collapse';
 

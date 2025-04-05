@@ -4,9 +4,9 @@ import React, { useCallback, useMemo } from 'react';
 import { produce } from 'immer';
 
 import Item from './dataset-item';
-import type { DataSet } from '@/models/datasets';
-import { useSelector as useAppContextSelector } from '@/context/app-context';
-import { hasEditPermissionForDataset } from '@/utils/permission';
+import type { DataSet } from '@workflow-app/models/datasets';
+import { useSelector as useAppContextSelector } from '@workflow-app/context/app-context';
+import { hasEditPermissionForDataset } from '@utils/permission';
 
 type Props = {
   list: DataSet[];

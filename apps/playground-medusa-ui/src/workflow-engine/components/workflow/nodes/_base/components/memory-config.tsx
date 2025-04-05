@@ -5,7 +5,7 @@ import React, { useCallback } from 'react';
 import { produce } from 'immer';
 import type { Memory } from '../../../types';
 import { MemoryRole } from '../../../types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import Field from '@workflow/nodes/_base/components/field';
 import Switch from '@base/switch';
 import Slider from '@base/slider';

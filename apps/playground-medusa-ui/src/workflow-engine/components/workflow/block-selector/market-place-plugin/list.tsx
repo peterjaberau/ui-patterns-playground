@@ -4,7 +4,7 @@ import React, { useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import useStickyScroll, { ScrollPosition } from '../use-sticky-scroll';
 import Item from './item';
 import type { Plugin } from '@/app/components/plugins/types.ts';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import Link from 'next/link';
 import { marketplaceUrlPrefix } from '@/config';
 import { RiArrowRightUpLine, RiSearchLine } from '@remixicon/react';

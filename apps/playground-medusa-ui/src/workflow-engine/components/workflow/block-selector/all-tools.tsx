@@ -5,14 +5,14 @@ import { ToolTypeEnum } from './types';
 import Tools from './tools';
 import { useToolTabs } from './hooks';
 import ViewTypeSelect, { ViewType } from './view-type-select';
-import cn from '@/utils/classnames';
-import { useGetLanguage } from '@/context/i18n';
+import cn from '@utils/classnames';
+import { useGetLanguage } from '@workflow-app/context/i18n';
 import PluginList from '@workflow/block-selector/market-place-plugin/list';
 import ActionButton from '../../base/action-button';
 import { RiAddLine } from '@remixicon/react';
 import { PluginType } from '../../plugins/types';
 import { useMarketplacePlugins } from '../../plugins/marketplace/hooks';
-import { useSelector as useAppContextSelector } from '@/context/app-context';
+import { useSelector as useAppContextSelector } from '@workflow-app/context/app-context';
 
 type AllToolsProps = {
   className?: string;

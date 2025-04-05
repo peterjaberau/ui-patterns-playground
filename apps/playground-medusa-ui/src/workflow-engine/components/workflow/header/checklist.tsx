@@ -5,7 +5,7 @@ import { RiCloseLine, RiListCheck3 } from '@remixicon/react';
 import BlockIcon from '../block-icon';
 import { useChecklist, useNodesInteractions } from '../hooks';
 import type { CommonEdgeType, CommonNodeType } from '../types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import { ChecklistSquare } from '@base/icons/src/vender/line/general';
 import { AlertTriangle } from '@base/icons/src/vender/line/alertsAndFeedback';

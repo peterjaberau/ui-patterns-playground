@@ -11,13 +11,13 @@ import type { ModelConfig, Node, NodeOutPutVar, Variable } from '../../../../typ
 import Wrap from '../editor/wrap';
 import { CodeLanguage } from '../../../code/types';
 import PromptGeneratorBtn from '../../../llm/components/prompt-generator-btn';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import ToggleExpandBtn from '@workflow/nodes/_base/components/toggle-expand-btn';
 import useToggleExpend from '@workflow/nodes/_base/hooks/use-toggle-expend';
 import PromptEditor from '@base/prompt-editor';
 import { Clipboard, ClipboardCheck } from '@base/icons/src/vender/line/files';
 import s from '@/app/components/app/configuration/config-prompt/style.module.css';
-import { useEventEmitterContextContext } from '@/context/event-emitter';
+import { useEventEmitterContextContext } from '@workflow-app/context/event-emitter';
 import { PROMPT_EDITOR_INSERT_QUICKLY } from '@base/prompt-editor/plugins/update-block';
 import { Variable02 } from '@base/icons/src/vender/solid/development';
 import ActionButton from '@base/action-button';

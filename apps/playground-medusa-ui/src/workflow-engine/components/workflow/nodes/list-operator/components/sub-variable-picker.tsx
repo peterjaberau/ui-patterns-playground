@@ -6,7 +6,7 @@ import { SUB_VARIABLES } from '../../constants';
 import type { Item } from '@base/select';
 import { SimpleSelect as Select } from '@base/select';
 import { Variable02 } from '@base/icons/src/vender/solid/development';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 type Props = {
   value: string;

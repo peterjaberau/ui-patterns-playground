@@ -1,5 +1,5 @@
 import { RiAlertFill, RiCheckboxCircleFill, RiErrorWarningLine, RiLoader2Line } from '@remixicon/react';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 type NodeStatusIconProps = {
   status: string;

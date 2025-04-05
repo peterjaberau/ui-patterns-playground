@@ -7,7 +7,7 @@ import VarReferenceVars from './var-reference-vars';
 import type { NodeOutPutVar, ValueSelector, Var } from '@workflow/types';
 import ListEmpty from '@base/list-empty';
 import { LanguagesSupported } from '@/i18n/language';
-import I18n from '@/context/i18n';
+import I18n from '@workflow-app/context/i18n';
 
 type Props = {
   vars: NodeOutPutVar[];

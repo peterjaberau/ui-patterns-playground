@@ -15,7 +15,7 @@ import { ModelTypeEnum } from '@/app/components/header/account-setting/model-pro
 import useNodeCrud from '@workflow/nodes/_base/hooks/use-node-crud';
 import { checkHasQueryBlock } from '@base/prompt-editor/constants';
 import useAvailableVarList from '@workflow/nodes/_base/hooks/use-available-var-list';
-import { supportFunctionCall } from '@/utils/tool-call';
+import { supportFunctionCall } from '@utils/tool-call';
 
 const useConfig = (id: string, payload: ParameterExtractorNodeType) => {
   const { nodesReadOnly: readOnly } = useNodesReadOnly();

@@ -6,7 +6,7 @@ import { produce } from 'immer';
 import type { KeyValue } from '../../../types';
 import VarReferencePicker from '../../../../_base/components/variable/var-reference-picker';
 import InputItem from './input-item';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { PortalSelect } from '@base/select';
 import type { ValueSelector, Var } from '@workflow/types';
 import { VarType } from '@workflow/types';

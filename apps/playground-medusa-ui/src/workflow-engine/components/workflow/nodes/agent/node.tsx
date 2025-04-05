@@ -8,7 +8,7 @@ import { ToolIcon } from './components/tool-icon';
 import useConfig from './use-config';
 
 import { FormTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations';
-import { useRenderI18nObject } from '@/hooks/use-i18n';
+import { useRenderI18nObject } from '@workflow-app/hooks/use-i18n';
 import { ModelBar } from './components/model-bar';
 
 const AgentNode: FC<NodeProps<AgentNodeType>> = (props) => {

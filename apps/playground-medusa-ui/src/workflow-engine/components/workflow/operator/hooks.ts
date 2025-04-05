@@ -4,7 +4,7 @@ import { useWorkflowStore } from '../store';
 import type { NoteNodeType } from '../note-node/types';
 import { CUSTOM_NOTE_NODE } from '../note-node/constants';
 import { NoteTheme } from '../note-node/types';
-import { useAppContext } from '@/context/app-context';
+import { useAppContext } from '@workflow-app/context/app-context';
 
 export const useOperator = () => {
   const workflowStore = useWorkflowStore();

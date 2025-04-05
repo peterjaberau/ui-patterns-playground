@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
 import { Theme } from '@workflow-app/types/app';
-import cn from '@/utils/classnames';
-import useTheme from '@/hooks/use-theme';
+import cn from '@utils/classnames';
+import useTheme from '@workflow-app/hooks/use-theme';
 
 type Props = {
   status: string;

@@ -5,10 +5,10 @@ import IndexBar, { groupItems } from './index-bar';
 import type { ToolDefaultValue, ToolValue } from './types';
 import { ViewType } from './view-type-select';
 import Empty from '@tools/add-tool-modal/empty';
-import { useGetLanguage } from '@/context/i18n';
+import { useGetLanguage } from '@workflow-app/context/i18n';
 import ToolListTreeView from './tool/tool-list-tree-view/list';
 import ToolListFlatView from './tool/tool-list-flat-view/list';
-import classNames from '@/utils/classnames';
+import classNames from '@utils/classnames';
 
 type ToolsProps = {
   showWorkflowEmpty: boolean;

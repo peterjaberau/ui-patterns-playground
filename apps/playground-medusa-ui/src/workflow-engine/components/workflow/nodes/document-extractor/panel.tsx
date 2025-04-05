@@ -12,7 +12,7 @@ import type { DocExtractorNodeType } from './types';
 import { fetchSupportFileTypes } from '@/service/datasets';
 import Field from '@workflow/nodes/_base/components/field';
 import { BlockEnum, InputVarType, type NodePanelProps } from '@workflow/types';
-import I18n from '@/context/i18n';
+import I18n from '@workflow-app/context/i18n';
 import { LanguagesSupported } from '@/i18n/language';
 import BeforeRunForm from '@workflow/nodes/_base/components/before-run-form';
 import ResultPanel from '@workflow/run/result-panel';

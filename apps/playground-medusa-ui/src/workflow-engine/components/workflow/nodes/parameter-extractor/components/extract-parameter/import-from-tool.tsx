@@ -4,14 +4,14 @@ import { memo, useCallback } from 'react';
 
 import BlockSelector from '../../../../block-selector';
 import type { Param, ParamType } from '../../types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { useStore } from '@workflow/store';
 import type { ToolDefaultValue } from '@workflow/block-selector/types';
 import type { ToolParameter } from '@tools/types';
 import { CollectionType } from '@tools/types';
 import type { BlockEnum } from '@workflow/types';
 import { useLanguage } from '@/app/components/header/account-setting/model-provider-page/hooks';
-import { canFindTool } from '@/utils';
+import { canFindTool } from '@utils';
 
 const i18nPrefix = 'workflow.nodes.parameterExtractor';
 

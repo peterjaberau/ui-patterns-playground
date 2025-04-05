@@ -31,10 +31,10 @@ import Button from '@base/button';
 import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import { ArrowNarrowLeft } from '@base/icons/src/vender/line/arrows';
 import { useFeatures } from '@base/features/hooks';
-import { usePublishWorkflow, useResetWorkflowVersionHistory } from '@/service/use-workflow';
+import { usePublishWorkflow, useResetWorkflowVersionHistory } from '@workflow-app/service/use-workflow';
 import type { PublishWorkflowParams } from '@workflow-app/types/workflow';
-import { fetchAppDetail, fetchAppSSO } from '@/service/apps';
-import AppContext from '@/context/app-context';
+import { fetchAppDetail, fetchAppSSO } from '@workflow-app/service/apps';
+import AppContext from '@workflow-app/context/app-context';
 
 const Header: FC = () => {
   const workflowStore = useWorkflowStore();

@@ -15,7 +15,7 @@ import { VarType as VarVarType } from '@workflow/types';
 import type { InputVar, ValueSelector, Var } from '@workflow/types';
 import useOneStepRun from '@workflow/nodes/_base/hooks/use-one-step-run';
 import { useFetchToolsData, useNodesReadOnly } from '@workflow/hooks';
-import { canFindTool } from '@/utils';
+import { canFindTool } from '@utils';
 
 const useConfig = (id: string, payload: ToolNodeType) => {
   const { nodesReadOnly: readOnly } = useNodesReadOnly();

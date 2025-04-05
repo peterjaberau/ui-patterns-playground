@@ -13,7 +13,7 @@ import Field from '@/app/components/app/configuration/config-var/config-modal/fi
 import { TransferMethod } from '@workflow-app/types/app';
 import { fetchFileUploadConfig } from '@/service/common';
 import { useFileSizeLimit } from '@base/file-uploader/hooks';
-import { formatFileSize } from '@/utils/format';
+import { formatFileSize } from '@utils/format';
 
 type Props = {
   payload: UploadFileSetting;

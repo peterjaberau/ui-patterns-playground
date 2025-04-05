@@ -3,14 +3,14 @@ import type { FC } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useHover } from 'ahooks';
 
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { type NodeOutPutVar, type ValueSelector, type Var, VarType } from '@workflow/types';
 import { Variable02 } from '@base/icons/src/vender/solid/development';
 import { ChevronRight } from '@base/icons/src/vender/line/arrows';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import Input from '@base/input';
 import { BubbleX, Env } from '@base/icons/src/vender/line/others';
-import { checkKeys } from '@/utils/var';
+import { checkKeys } from '@utils/var';
 import { FILE_STRUCT } from '@workflow/constants';
 import { Loop } from '@base/icons/src/vender/workflow';
 

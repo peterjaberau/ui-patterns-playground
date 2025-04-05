@@ -6,9 +6,9 @@ import { BlockEnum } from '../../types';
 import type { ToolDefaultValue } from '../types';
 import Tooltip from '@base/tooltip';
 import type { Tool } from '@tools/types';
-import { useGetLanguage } from '@/context/i18n';
+import { useGetLanguage } from '@workflow-app/context/i18n';
 import BlockIcon from '../../block-icon';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 import { RiCheckLine } from '@remixicon/react';
 import Badge from '@base/badge';

@@ -23,7 +23,7 @@ import ConditionInput from './condition-input';
 import ConditionVarSelector from './condition-var-selector';
 import type { Node, NodeOutPutVar, ValueSelector, Var } from '@workflow/types';
 import { VarType } from '@workflow/types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { SimpleSelect as Select } from '@base/select';
 import { Variable02 } from '@base/icons/src/vender/solid/development';
 const optionNameI18NPrefix = 'workflow.nodes.ifElse.optionName';

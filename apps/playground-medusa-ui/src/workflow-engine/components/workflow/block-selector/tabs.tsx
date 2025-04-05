@@ -7,7 +7,7 @@ import type { ToolDefaultValue } from './types';
 import { TabsEnum } from './types';
 import Blocks from './blocks';
 import AllTools from './all-tools';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 export type TabsProps = {
   activeTab: TabsEnum;

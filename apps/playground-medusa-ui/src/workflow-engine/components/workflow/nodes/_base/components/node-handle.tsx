@@ -8,7 +8,7 @@ import BlockSelector from '../../../block-selector';
 import type { ToolDefaultValue } from '../../../block-selector/types';
 import { useAvailableBlocks, useIsChatMode, useNodesInteractions, useNodesReadOnly, useWorkflow } from '../../../hooks';
 import { useStore } from '../../../store';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 type NodeHandleProps = {
   handleId: string;

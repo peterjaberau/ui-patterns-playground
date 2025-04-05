@@ -4,16 +4,16 @@ import React, { useCallback, useState } from 'react';
 import { useBoolean } from 'ahooks';
 import { RiDeleteBinLine, RiEditLine } from '@remixicon/react';
 
-import type { DataSet } from '@/models/datasets';
-import { DataSourceType } from '@/models/datasets';
+import type { DataSet } from '@workflow-app/models/datasets';
+import { DataSourceType } from '@workflow-app/models/datasets';
 import ActionButton, { ActionButtonState } from '@base/action-button';
 import FileIcon from '@base/file-icon';
 import { Folder } from '@base/icons/src/vender/solid/files';
 import SettingsModal from '@/app/components/app/configuration/dataset-config/settings-modal';
 import Drawer from '@base/drawer';
-import useBreakpoints, { MediaType } from '@/hooks/use-breakpoints';
+import useBreakpoints, { MediaType } from '@workflow-app/hooks/use-breakpoints';
 import Badge from '@base/badge';
-import { useKnowledge } from '@/hooks/use-knowledge';
+import { useKnowledge } from '@workflow-app/hooks/use-knowledge';
 
 type Props = {
   payload: DataSet;

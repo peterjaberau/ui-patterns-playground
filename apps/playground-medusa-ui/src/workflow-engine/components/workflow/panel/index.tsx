@@ -14,7 +14,7 @@ import ChatVariablePanel from './chat-variable-panel';
 import EnvPanel from './env-panel';
 import GlobalVariablePanel from './global-variable-panel';
 import VersionHistoryPanel from './version-history-panel';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import MessageLogModal from '@base/message-log-modal';
 

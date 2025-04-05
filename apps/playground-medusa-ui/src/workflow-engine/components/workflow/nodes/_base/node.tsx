@@ -15,7 +15,7 @@ import NodeControl from './components/node-control';
 import ErrorHandleOnNode from './components/error-handle/error-handle-on-node';
 import RetryOnNode from './components/retry/retry-on-node';
 import AddVariablePopupWithPosition from './components/add-variable-popup-with-position';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import BlockIcon from '@workflow/block-icon';
 import Tooltip from '@base/tooltip';
 

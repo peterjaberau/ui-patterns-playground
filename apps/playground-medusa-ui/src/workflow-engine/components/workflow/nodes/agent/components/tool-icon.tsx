@@ -1,9 +1,9 @@
 import Tooltip from '@base/tooltip';
 import Indicator from '@/app/components/header/indicator';
-import classNames from '@/utils/classnames';
+import classNames from '@utils/classnames';
 import { memo, useMemo, useRef, useState } from 'react';
 import { useAllBuiltInTools, useAllCustomTools, useAllWorkflowTools } from '@/service/use-tools';
-import { getIconFromMarketPlace } from '@/utils/get-icon';
+import { getIconFromMarketPlace } from '@utils/get-icon';
 
 import { Group } from '@base/icons/src/vender/other';
 

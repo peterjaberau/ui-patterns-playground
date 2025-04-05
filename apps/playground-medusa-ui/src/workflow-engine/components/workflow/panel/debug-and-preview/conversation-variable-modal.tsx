@@ -13,9 +13,9 @@ import { useStore } from '@workflow/store';
 import type { ConversationVariable } from '@workflow/types';
 import { ChatVarType } from '@workflow/panel/chat-variable-panel/type';
 import { CodeLanguage } from '@workflow/nodes/code/types';
-import useTimestamp from '@/hooks/use-timestamp';
+import useTimestamp from '@workflow-app/hooks/use-timestamp';
 import { fetchCurrentValueOfConversationVariable } from '@/service/workflow';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 export type Props = {
   conversationID: string;

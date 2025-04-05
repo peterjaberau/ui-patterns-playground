@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import React, { useCallback } from 'react';
 import AddButton from '@base/button/add-button';
 import SelectDataset from '@/app/components/app/configuration/dataset-config/select-dataset';
-import type { DataSet } from '@/models/datasets';
+import type { DataSet } from '@workflow-app/models/datasets';
 
 type Props = {
   selectedIds: string[];

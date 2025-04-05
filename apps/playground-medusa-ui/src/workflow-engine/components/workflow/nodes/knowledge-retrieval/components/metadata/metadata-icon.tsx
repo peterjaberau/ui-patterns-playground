@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { RiHashtag, RiTextSnippet, RiTimeLine } from '@remixicon/react';
 import { MetadataFilteringVariableType } from '@workflow/nodes/knowledge-retrieval/types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 type MetadataIconProps = {
   type?: MetadataFilteringVariableType;

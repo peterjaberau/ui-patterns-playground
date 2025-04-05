@@ -3,7 +3,7 @@ import { memo, useMemo } from 'react';
 import { RiBold, RiItalic, RiLink, RiListUnordered, RiStrikethrough } from '@remixicon/react';
 import { useStore } from '../store';
 import { useCommand } from './hooks';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import Tooltip from '@base/tooltip';
 
 type CommandProps = {

@@ -8,7 +8,7 @@ import { useAvailableBlocks, useNodesReadOnly, usePanelInteractions } from '../h
 import { NODES_INITIAL_DATA } from '../constants';
 import { useWorkflowStore } from '../store';
 import TipPopup from './tip-popup';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import BlockSelector from '@workflow/block-selector';
 import type { OnSelectBlock } from '@workflow/types';
 import { BlockEnum } from '@workflow/types';

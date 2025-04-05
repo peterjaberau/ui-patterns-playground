@@ -6,7 +6,7 @@ import ToggleExpandBtn from '../toggle-expand-btn';
 import CodeGeneratorButton from '../code-generator-button';
 import type { CodeLanguage } from '../../../code/types';
 import Wrap from './wrap';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import PromptEditorHeightResizeWrap from '@/app/components/app/configuration/config-prompt/prompt-editor-height-resize-wrap';
 import { Clipboard, ClipboardCheck } from '@base/icons/src/vender/line/files';
 import useToggleExpend from '@workflow/nodes/_base/hooks/use-toggle-expend';

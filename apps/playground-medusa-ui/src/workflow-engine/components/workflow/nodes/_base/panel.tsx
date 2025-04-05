@@ -10,7 +10,7 @@ import { DescriptionInput, TitleInput } from './components/title-description-inp
 import ErrorHandleOnPanel from './components/error-handle/error-handle-on-panel';
 import RetryOnPanel from './components/retry/retry-on-panel';
 import { useResizePanel } from './hooks/use-resize-panel';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import BlockIcon from '@workflow/block-icon';
 import Split from '@workflow/nodes/_base/components/split';
 import {

@@ -9,8 +9,8 @@ import Tooltip from '@base/tooltip';
 import { ToastContext } from '@base/toast';
 import { useStore } from '@workflow/store';
 import type { EnvironmentVariable } from '@workflow/types';
-import cn from '@/utils/classnames';
-import { checkKeys } from '@/utils/var';
+import cn from '@utils/classnames';
+import { checkKeys } from '@utils/var';
 
 export type ModalPropsType = {
   env?: EnvironmentVariable;

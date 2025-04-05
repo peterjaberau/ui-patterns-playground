@@ -16,7 +16,7 @@ import {
   isSystemVar,
 } from '@workflow/nodes/_base/components/variable/utils';
 import Tooltip from '@base/tooltip';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { isExceptionVariable } from '@workflow/utils';
 
 type VariableTagProps = {

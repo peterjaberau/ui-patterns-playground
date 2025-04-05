@@ -5,7 +5,7 @@ import { RiEqualizer2Line } from '@remixicon/react';
 
 import type { MultipleRetrievalConfig, SingleRetrievalConfig } from '../types';
 import type { ModelConfig } from '../../../types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import ConfigRetrievalContent from '@/app/components/app/configuration/dataset-config/params-config/config-content';
 import { RETRIEVE_TYPE } from '@workflow-app/types/app';
@@ -13,8 +13,8 @@ import { DATASET_DEFAULT } from '@/config';
 import { useModelListAndDefaultModelAndCurrentProviderAndModel } from '@/app/components/header/account-setting/model-provider-page/hooks';
 import { ModelTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations';
 import Button from '@base/button';
-import type { DatasetConfigs } from '@/models/debug';
-import type { DataSet } from '@/models/datasets';
+import type { DatasetConfigs } from '@workflow-app/models/debug';
+import type { DataSet } from '@workflow-app/models/datasets';
 
 type Props = {
   payload: {

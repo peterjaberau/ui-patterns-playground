@@ -5,7 +5,7 @@ import React, { useCallback } from 'react';
 import { RiCloseLine, RiLoader2Line } from '@remixicon/react';
 import type { Props as FormProps } from './form';
 import Form from './form';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import Button from '@base/button';
 import { StopCircle } from '@base/icons/src/vender/solid/mediaAndDevices';
 import Split from '@workflow/nodes/_base/components/split';

@@ -7,7 +7,7 @@ import { useIsChatMode, useNodesReadOnly, useWorkflowRun, useWorkflowStartRun } 
 import { WorkflowRunningStatus } from '../types';
 import ViewHistory from './view-history';
 import Checklist from './checklist';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { StopCircle } from '@base/icons/src/vender/line/mediaAndDevices';
 
 const RunMode = memo(() => {

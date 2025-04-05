@@ -4,7 +4,7 @@ import { RiDeleteBinLine, RiEditLine, RiLock2Line } from '@remixicon/react';
 import { Env } from '@base/icons/src/vender/line/others';
 import { useStore } from '@workflow/store';
 import type { EnvironmentVariable } from '@workflow/types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 type EnvItemProps = {
   env: EnvironmentVariable;

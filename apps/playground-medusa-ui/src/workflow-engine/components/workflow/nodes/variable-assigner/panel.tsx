@@ -6,7 +6,7 @@ import RemoveEffectVarConfirm from '../_base/components/remove-effect-var-confir
 import useConfig from './use-config';
 import type { VariableAssignerNodeType } from './types';
 import VarGroupItem from './components/var-group-item';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import type { NodePanelProps } from '@workflow/types';
 import Split from '@workflow/nodes/_base/components/split';
 import OutputVars, { VarItem } from '@workflow/nodes/_base/components/output-vars';

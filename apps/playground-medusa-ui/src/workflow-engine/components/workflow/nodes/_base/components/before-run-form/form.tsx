@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { produce } from 'immer';
 import type { InputVar } from '../../../../types';
 import FormItem from './form-item';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { InputVarType } from '@workflow/types';
 import AddButton from '@base/button/add-button';
 import { RETRIEVAL_OUTPUT_STRUCT } from '@workflow/constants';

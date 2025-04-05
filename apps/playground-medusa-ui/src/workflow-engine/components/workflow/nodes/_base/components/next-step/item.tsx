@@ -5,7 +5,7 @@ import type { CommonNodeType } from '@workflow/types';
 import BlockIcon from '@workflow/block-icon';
 import { useNodesInteractions, useNodesReadOnly, useToolIcon } from '@workflow/hooks';
 import Button from '@base/button';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 type ItemProps = {
   nodeId: string;

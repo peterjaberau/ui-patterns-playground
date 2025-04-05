@@ -8,7 +8,7 @@ import RemoveButton from '../remove-button';
 import VarTypePicker from './var-type-picker';
 import Input from '@base/input';
 import type { VarType } from '@workflow/types';
-import { checkKeys } from '@/utils/var';
+import { checkKeys } from '@utils/var';
 import Toast from '@base/toast';
 
 type Props = {

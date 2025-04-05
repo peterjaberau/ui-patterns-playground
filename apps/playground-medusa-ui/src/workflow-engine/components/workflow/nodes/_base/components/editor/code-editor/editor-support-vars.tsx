@@ -5,7 +5,7 @@ import { useBoolean } from 'ahooks';
 
 import type { Props as EditorProps } from '.';
 import Editor from '.';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import VarReferenceVars from '@workflow/nodes/_base/components/variable/var-reference-vars';
 import type { NodeOutPutVar, Variable } from '@workflow/types';
 

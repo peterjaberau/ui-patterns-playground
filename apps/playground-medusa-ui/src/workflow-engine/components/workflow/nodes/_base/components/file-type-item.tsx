@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import React, { useCallback } from 'react';
 
 import { SupportUploadFileTypes } from '../../../types';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { FILE_EXTS } from '@base/prompt-editor/constants';
 import TagInput from '@base/tag-input';
 import Checkbox from '@base/checkbox';

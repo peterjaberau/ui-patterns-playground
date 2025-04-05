@@ -1,6 +1,6 @@
 import Tooltip from '@base/tooltip';
 import Indicator from '@/app/components/header/indicator';
-import classNames from '@/utils/classnames';
+import classNames from '@utils/classnames';
 import { type ComponentProps, type PropsWithChildren, type ReactNode, memo } from 'react';
 
 export type SettingItemProps = PropsWithChildren<{

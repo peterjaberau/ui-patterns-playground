@@ -9,7 +9,7 @@ import Divider from '../../base/divider';
 import AddBlock from './add-block';
 import TipPopup from './tip-popup';
 import { useOperator } from './hooks';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 
 const Control = () => {
   const controlMode = useStore((s) => s.controlMode);

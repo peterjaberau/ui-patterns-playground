@@ -15,8 +15,8 @@ import { useStore } from '@workflow/store';
 import type { ConversationVariable } from '@workflow/types';
 import { CodeLanguage } from '@workflow/nodes/code/types';
 import { ChatVarType } from '@workflow/panel/chat-variable-panel/type';
-import cn from '@/utils/classnames';
-import { checkKeys } from '@/utils/var';
+import cn from '@utils/classnames';
+import { checkKeys } from '@utils/var';
 
 export type ModalPropsType = {
   chatVar?: ConversationVariable;

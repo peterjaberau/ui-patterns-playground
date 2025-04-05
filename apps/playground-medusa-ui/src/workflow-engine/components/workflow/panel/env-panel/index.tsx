@@ -8,7 +8,7 @@ import EnvItem from '@workflow/panel/env-panel/env-item';
 import type { EnvironmentVariable } from '@workflow/types';
 import { findUsedVarNodes, updateNodeVars } from '@workflow/nodes/_base/components/variable/utils';
 import RemoveEffectVarConfirm from '@workflow/nodes/_base/components/remove-effect-var-confirm';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { useNodesSyncDraft } from '@workflow/hooks/use-nodes-sync-draft';
 
 const EnvPanel = () => {

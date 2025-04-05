@@ -7,7 +7,7 @@ import { useWorkflowHistoryStore } from '../workflow-history-store';
 import Divider from '../../base/divider';
 import { useNodesReadOnly } from '@workflow/hooks';
 import ViewWorkflowHistory from '@workflow/header/view-workflow-history';
-import classNames from '@/utils/classnames';
+import classNames from '@utils/classnames';
 
 export type UndoRedoProps = { handleUndo: () => void; handleRedo: () => void };
 const UndoRedo: FC<UndoRedoProps> = ({ handleUndo, handleRedo }) => {

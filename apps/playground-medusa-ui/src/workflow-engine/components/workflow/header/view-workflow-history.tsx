@@ -7,10 +7,10 @@ import { useNodesReadOnly, useWorkflowHistory } from '../hooks';
 import TipPopup from '../operator/tip-popup';
 import type { WorkflowHistoryState } from '../workflow-history-store';
 import Divider from '../../base/divider';
-import cn from '@/utils/classnames';
+import cn from '@utils/classnames';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import { useStore as useAppStore } from '@workflow-app/components/app/store';
-import classNames from '@/utils/classnames';
+import classNames from '@utils/classnames';
 
 type ChangeHistoryEntry = {
   label: string;

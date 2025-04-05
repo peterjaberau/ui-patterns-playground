@@ -23,11 +23,11 @@ import { type ComponentProps, memo } from 'react';
 import { useDefaultModel } from '@/app/components/header/account-setting/model-provider-page/hooks';
 import Editor from './prompt/editor';
 import { useWorkflowStore } from '../../../store';
-import { useRenderI18nObject } from '@/hooks/use-i18n';
+import { useRenderI18nObject } from '@workflow-app/hooks/use-i18n';
 import type { NodeOutPutVar } from '../../../types';
 import type { Node } from 'reactflow';
 import { useContext } from 'use-context-selector';
-import I18n from '@/context/i18n';
+import I18n from '@workflow-app/context/i18n';
 import { LanguagesSupported } from '@/i18n/language';
 
 export type Strategy = {
