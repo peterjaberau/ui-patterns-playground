@@ -1,15 +1,14 @@
 import { RiArrowLeftLine } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import AgentLogNavMore from './agent-log-nav-more';
 import Button from '@base/button';
-import type { AgentLogItemWithChildren } from '@/types/workflow';
+import type { AgentLogItemWithChildren } from '@workflow-app/types/workflow';
 
 type AgentLogNavProps = {
   agentOrToolLogItemStack: AgentLogItemWithChildren[];
   onShowAgentOrToolLog: (detail?: AgentLogItemWithChildren) => void;
 };
 const AgentLogNav = ({ agentOrToolLogItemStack, onShowAgentOrToolLog }: AgentLogNavProps) => {
-  const { t } = useTranslation();
   const agentOrToolLogItemStackLength = agentOrToolLogItemStack.length;
   const first = agentOrToolLogItemStack[0];
   const mid = agentOrToolLogItemStack.slice(1, -1);

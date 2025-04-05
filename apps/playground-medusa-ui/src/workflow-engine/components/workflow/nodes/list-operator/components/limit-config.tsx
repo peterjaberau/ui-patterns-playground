@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import type { Limit } from '../types';
 import InputNumberWithSlider from '../../_base/components/input-number-with-slider';
 import cn from '@/utils/classnames';
@@ -27,7 +27,6 @@ const LIMIT_DEFAULT: Limit = {
 };
 
 const LimitConfig: FC<Props> = ({ className, readonly, config = LIMIT_DEFAULT, onChange }) => {
-  const { t } = useTranslation();
   const payload = config;
 
   const handleLimitEnabledChange = useCallback(

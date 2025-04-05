@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { v4 as uuid4 } from 'uuid';
 import { RiCloseLine } from '@remixicon/react';
 import { useContext } from 'use-context-selector';
@@ -18,7 +18,6 @@ export type ModalPropsType = {
   onSave: (env: EnvironmentVariable) => void;
 };
 const VariableModal = ({ env, onClose, onSave }: ModalPropsType) => {
-  const { t } = useTranslation();
   const { notify } = useContext(ToastContext);
   const envList = useStore((s) => s.environmentVariables);
   const envSecrets = useStore((s) => s.envSecrets);

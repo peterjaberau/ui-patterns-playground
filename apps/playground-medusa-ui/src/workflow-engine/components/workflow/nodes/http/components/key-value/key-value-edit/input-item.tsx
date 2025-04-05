@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import useAvailableVarList from '../../../../_base/hooks/use-available-var-list';
 import cn from '@/utils/classnames';
 import RemoveButton from '@workflow/nodes/_base/components/remove-button';
@@ -35,8 +35,6 @@ const InputItem: FC<Props> = ({
   isSupportFile,
   insertVarTipToLeft,
 }) => {
-  const { t } = useTranslation();
-
   const hasValue = !!value;
 
   const [isFocus, setIsFocus] = useState(false);

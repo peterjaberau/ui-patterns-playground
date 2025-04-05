@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import RemoveEffectVarConfirm from '../_base/components/remove-effect-var-confirm';
 import useConfig from './use-config';
 import type { CodeNodeType } from './types';
@@ -29,8 +29,6 @@ const codeLanguages = [
   },
 ];
 const Panel: FC<NodePanelProps<CodeNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
-
   const {
     readOnly,
     inputs,

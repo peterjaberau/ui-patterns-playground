@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import Split from '../_base/components/split';
 import type { ToolNodeType } from './types';
 import useConfig from './use-config';
@@ -21,8 +21,6 @@ import formatToTracingNodeList from '@workflow/run/utils/format-log';
 const i18nPrefix = 'workflow.nodes.tool';
 
 const Panel: FC<NodePanelProps<ToolNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
-
   const {
     readOnly,
     inputs,

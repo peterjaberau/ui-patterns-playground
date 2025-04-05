@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiAddLine } from '@remixicon/react';
 import Split from '../_base/components/split';
 import ResultPanel from '../../run/result-panel';
@@ -20,8 +20,6 @@ import { LOOP_NODE_MAX_COUNT } from '@/config';
 const i18nPrefix = 'workflow.nodes.loop';
 
 const Panel: FC<NodePanelProps<LoopNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
-
   const {
     readOnly,
     inputs,

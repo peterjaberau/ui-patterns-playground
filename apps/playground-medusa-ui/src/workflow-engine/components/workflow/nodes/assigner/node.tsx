@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import React from 'react';
 import { useNodes } from 'reactflow';
-import { useTranslation } from 'react-i18next';
+
 import NodeVariableItem from '../variable-assigner/components/node-variable-item';
 import type { AssignerNodeType } from './types';
 import { isConversationVar, isENV, isSystemVar } from '@workflow/nodes/_base/components/variable/utils';
@@ -10,7 +10,6 @@ import { BlockEnum, type Node, type NodeProps } from '@workflow/types';
 const i18nPrefix = 'workflow.nodes.assigner';
 
 const NodeComponent: FC<NodeProps<AssignerNodeType>> = ({ data }) => {
-  const { t } = useTranslation();
   const nodes: Node[] = useNodes();
   if (data.version === '2') {
     const { items: operationItems } = data;

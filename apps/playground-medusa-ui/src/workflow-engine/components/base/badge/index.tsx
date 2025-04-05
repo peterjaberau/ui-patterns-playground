@@ -30,6 +30,7 @@ type BadgeProps = {
   state?: BadgeState;
   styleCss?: CSSProperties;
   children?: ReactNode;
+  [key: string]: any;
 } & React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof BadgeVariants>;
 

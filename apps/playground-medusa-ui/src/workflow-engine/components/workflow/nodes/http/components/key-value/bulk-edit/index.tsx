@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import TextEditor from '@workflow/nodes/_base/components/editor/text-editor';
 import { LayoutGrid02 } from '@base/icons/src/vender/line/layout';
 
@@ -14,7 +14,6 @@ type Props = {
 };
 
 const BulkEdit: FC<Props> = ({ value, onChange, onSwitchToKeyValueEdit }) => {
-  const { t } = useTranslation();
   const [tempValue, setTempValue] = React.useState(value);
 
   const handleChange = useCallback((value: string) => {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiFilter3Line } from '@remixicon/react';
 import MetadataPanel from './metadata-panel';
 import Button from '@base/button';
@@ -13,7 +13,6 @@ const MetadataTrigger = ({
   selectedDatasetsLoaded,
   ...restProps
 }: MetadataShape) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const conditions = metadataFilteringConditions?.conditions || [];
 

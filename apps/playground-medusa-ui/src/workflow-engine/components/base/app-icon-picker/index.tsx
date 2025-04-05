@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import type { Area } from 'react-easy-crop';
 import Modal from '../modal';
 import Divider from '../divider';
@@ -37,8 +37,6 @@ type AppIconPickerProps = {
 };
 
 const AppIconPicker: FC<AppIconPickerProps> = ({ onSelect, onClose, className }) => {
-  const { t } = useTranslation();
-
   const tabs = [
     { key: 'emoji', label: t('app.iconPicker.emoji'), icon: <span className="text-lg">🤖</span> },
     { key: 'image', label: t('app.iconPicker.image'), icon: <ImagePlus /> },

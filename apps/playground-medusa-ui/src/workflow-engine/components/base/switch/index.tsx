@@ -9,6 +9,7 @@ type SwitchProps = {
   defaultValue?: boolean;
   disabled?: boolean;
   className?: string;
+  [key: string]: any;
 };
 
 const Switch = ({

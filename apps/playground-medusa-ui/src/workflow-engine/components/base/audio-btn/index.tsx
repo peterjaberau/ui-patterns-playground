@@ -64,11 +64,11 @@ const AudioBtn = ({ id, voice, value, className, isAudition }: AudioBtnProps) =>
   };
 
   const tooltipContent = {
-    initial: t('appApi.play'),
-    ended: t('appApi.play'),
-    paused: t('appApi.pause'),
-    playing: t('appApi.playing'),
-    loading: t('appApi.loading'),
+    initial: 'Play',
+    ended: 'Play',
+    paused: 'Pause',
+    playing: 'Playing',
+    loading: 'Loading',
   }[audioState];
 
   return (

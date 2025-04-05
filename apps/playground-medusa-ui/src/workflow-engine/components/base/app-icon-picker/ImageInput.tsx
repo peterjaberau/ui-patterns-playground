@@ -4,7 +4,6 @@ import type { ChangeEvent, FC } from 'react';
 import { createRef, useEffect, useState } from 'react';
 import Cropper, { type Area, type CropperProps } from 'react-easy-crop';
 import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 
 import { ImagePlus } from '../icons/src/vender/line/images';
 import { useDraggableUploader } from './hooks';
@@ -23,7 +22,6 @@ type UploaderProps = {
 };
 
 const ImageInput: FC<UploaderProps> = ({ className, cropShape, onImageInput }) => {
-  const { t } = useTranslation();
   const [inputImage, setInputImage] = useState<{ file: File; url: string }>();
   const [isAnimatedImage, setIsAnimatedImage] = useState<boolean>(false);
   useEffect(() => {

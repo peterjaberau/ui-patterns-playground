@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiAlertFill } from '@remixicon/react';
 import { ErrorHandleTypeEnum } from './types';
 
@@ -7,8 +7,6 @@ type ErrorHandleTipProps = {
   type?: ErrorHandleTypeEnum;
 };
 const ErrorHandleTip = ({ type }: ErrorHandleTipProps) => {
-  const { t } = useTranslation();
-
   const text = useMemo(() => {
     if (type === ErrorHandleTypeEnum.failBranch) return t('workflow.nodes.common.errorHandle.failBranch.inLog');
 

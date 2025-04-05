@@ -5,7 +5,7 @@ import type { ToolWithProvider } from '../../../types';
 import type { BlockEnum } from '../../../types';
 import type { ToolDefaultValue, ToolValue } from '../../types';
 import Item from './item';
-import { useTranslation } from 'react-i18next';
+
 import { AGENT_GROUP_NAME, CUSTOM_GROUP_NAME, WORKFLOW_GROUP_NAME } from '../../index-bar';
 
 type Props = {
@@ -16,7 +16,6 @@ type Props = {
 };
 
 const ToolListTreeView: FC<Props> = ({ payload, hasSearchText, onSelect, selectedTools }) => {
-  const { t } = useTranslation();
   const getI18nGroupName = useCallback(
     (name: string) => {
       if (name === CUSTOM_GROUP_NAME) return t('workflow.tabs.customTool');

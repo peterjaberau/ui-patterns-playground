@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiDeleteBinLine } from '@remixicon/react';
-import produce from 'immer';
+import { produce } from 'immer';
 import type { VarType as NumberVarType } from '../../../tool/types';
 import type {
   Condition,
@@ -70,8 +70,6 @@ const ConditionItem = ({
   numberVariables,
   filterVar,
 }: ConditionItemProps) => {
-  const { t } = useTranslation();
-
   const [isHovered, setIsHovered] = useState(false);
   const [open, setOpen] = useState(false);
 

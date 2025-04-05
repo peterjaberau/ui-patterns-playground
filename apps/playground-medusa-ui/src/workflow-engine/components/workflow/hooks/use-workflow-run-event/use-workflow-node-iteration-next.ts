@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useStoreApi } from 'reactflow';
-import produce from 'immer';
-import type { IterationNextResponse } from '@/types/workflow';
+import { produce } from 'immer';
+import type { IterationNextResponse } from '@workflow-app/types/workflow';
 import { useWorkflowStore } from '@workflow/store';
 
 export const useWorkflowNodeIterationNext = () => {

@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import React, { useCallback } from 'react';
-import produce from 'immer';
+import { produce } from 'immer';
 import { RiDeleteBinLine } from '@remixicon/react';
 import OperationSelector from '../operation-selector';
 import { AssignerNodeInputType, WriteMode } from '../../types';
@@ -45,7 +45,6 @@ const VarList: FC<Props> = ({
   writeModeTypesArr,
   writeModeTypesNum,
 }) => {
-  const { t } = useTranslation();
   const handleAssignedVarChange = useCallback(
     (index: number) => {
       return (value: ValueSelector | string) => {

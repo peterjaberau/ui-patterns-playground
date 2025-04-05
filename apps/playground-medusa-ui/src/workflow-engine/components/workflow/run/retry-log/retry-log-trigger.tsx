@@ -1,14 +1,12 @@
-import { useTranslation } from 'react-i18next';
 import { RiArrowRightSLine, RiRestartFill } from '@remixicon/react';
 import Button from '@base/button';
-import type { NodeTracing } from '@/types/workflow';
+import type { NodeTracing } from '@workflow-app/types/workflow';
 
 type RetryLogTriggerProps = {
   nodeInfo: NodeTracing;
   onShowRetryResultList: (detail: NodeTracing[]) => void;
 };
 const RetryLogTrigger = ({ nodeInfo, onShowRetryResultList }: RetryLogTriggerProps) => {
-  const { t } = useTranslation();
   const { retryDetail } = nodeInfo;
 
   const handleShowRetryResultList = (e: React.MouseEvent<HTMLButtonElement>) => {

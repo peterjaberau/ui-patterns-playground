@@ -65,9 +65,7 @@ const Operation: FC<Props> = ({
           >
             {isPinned && <RiUnpinLine className="text-text-tertiary h-4 w-4 shrink-0" />}
             {!isPinned && <RiPushpinLine className="text-text-tertiary h-4 w-4 shrink-0" />}
-            <span className="grow">
-              {isPinned ? t('explore.sidebar.action.unpin') : t('explore.sidebar.action.pin')}
-            </span>
+            <span className="grow">{isPinned ? 'Unpin' : 'Pin'}</span>
           </div>
           {isShowRenameConversation && (
             <div
@@ -77,7 +75,7 @@ const Operation: FC<Props> = ({
               onClick={onRenameConversation}
             >
               <RiEditLine className="text-text-tertiary h-4 w-4 shrink-0" />
-              <span className="grow">{t('explore.sidebar.action.rename')}</span>
+              <span className="grow">{'Rename'}</span>
             </div>
           )}
           {isShowDelete && (
@@ -90,7 +88,7 @@ const Operation: FC<Props> = ({
               <RiDeleteBinLine
                 className={cn('text-text-tertiary group-hover:text-text-destructive h-4 w-4 shrink-0')}
               />
-              <span className="grow">{t('explore.sidebar.action.delete')}</span>
+              <span className="grow">{'Delete'}</span>
             </div>
           )}
         </div>

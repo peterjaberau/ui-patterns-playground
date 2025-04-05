@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { RiDeleteBinLine } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import InputModeSelect from './input-mode-selec';
 import VariableTypeSelect from './variable-type-select';
 import FormItem from './form-item';
@@ -12,7 +12,6 @@ type ItemProps = {
   item: LoopVariable;
 } & LoopVariablesComponentShape;
 const Item = ({ nodeId, item, handleRemoveLoopVariable, handleUpdateLoopVariable }: ItemProps) => {
-  const { t } = useTranslation();
   const handleUpdateItemLabel = useCallback(
     (e: any) => {
       handleUpdateLoopVariable(item.id, { label: e.target.value });

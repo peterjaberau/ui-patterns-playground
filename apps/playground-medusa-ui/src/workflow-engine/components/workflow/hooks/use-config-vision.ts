@@ -1,10 +1,10 @@
-import produce from 'immer';
+import { produce } from 'immer';
 import { useCallback } from 'react';
 import { useIsChatMode } from './use-workflow';
 import type { ModelConfig, VisionSetting } from '@workflow/types';
 import { useTextGenerationCurrentProviderAndModelAndModelList } from '@/app/components/header/account-setting/model-provider-page/hooks';
-import { ModelFeatureEnum } from '@/app/components/header/account-setting/model-provider-page/declarations';
-import { Resolution } from '@/types/app';
+import { ModelFeatureEnum } from '@workflow-app/components/header/account-setting/model-provider-page/declarations';
+import { Resolution } from '@workflow-app/types/app';
 
 type Payload = {
   enabled: boolean;

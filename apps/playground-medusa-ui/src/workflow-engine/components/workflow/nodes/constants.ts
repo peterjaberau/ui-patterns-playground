@@ -38,7 +38,7 @@ import ListFilterNode from './list-operator/node';
 import ListFilterPanel from './list-operator/panel';
 import AgentNode from './agent/node';
 import AgentPanel from './agent/panel';
-import { TransferMethod } from '@/types/app';
+import { TransferMethod } from '@workflow-app/types/app';
 
 export const NodeComponentMap: Record<string, ComponentType<any>> = {
   [BlockEnum.Start]: StartNode,

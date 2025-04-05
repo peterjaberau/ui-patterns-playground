@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useReactFlow, useStoreApi } from 'reactflow';
-import produce from 'immer';
+import { produce } from 'immer';
 import { v4 as uuidV4 } from 'uuid';
 import { usePathname } from 'next/navigation';
 import { useWorkflowStore } from '../store';
@@ -8,13 +8,13 @@ import { useNodesSyncDraft } from '../hooks';
 import { WorkflowRunningStatus } from '../types';
 import { useWorkflowUpdate } from './use-workflow-interactions';
 import { useWorkflowRunEvent } from './use-workflow-run-event/use-workflow-run-event';
-import { useStore as useAppStore } from '@/app/components/app/store';
-import type { IOtherOptions } from '@/service/base';
-import { ssePost } from '@/service/base';
-import { stopWorkflowRun } from '@/service/workflow';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
+import type { IOtherOptions } from '@workflow-app/service/base';
+import { ssePost } from '@workflow-app/service/base';
+import { stopWorkflowRun } from '@workflow-app/service/workflow';
 import { useFeaturesStore } from '@base/features/hooks';
 import { AudioPlayerManager } from '@base/audio-btn/audio.player.manager';
-import type { VersionHistory } from '@/types/workflow';
+import type { VersionHistory } from '@workflow-app/types/workflow';
 
 export const useWorkflowRun = () => {
   const store = useStoreApi();
@@ -23,7 +23,7 @@ export const useWorkflowRun = () => {
   const featuresStore = useFeaturesStore();
   const { doSyncWorkflowDraft } = useNodesSyncDraft();
   const { handleUpdateWorkflowCanvas } = useWorkflowUpdate();
-  const pathname = usePathname();
+  const pathname: any = usePathname();
   const {
     handleWorkflowStarted,
     handleWorkflowFinished,

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import MemoryConfig from '../_base/components/memory-config';
 import VarReferencePicker from '../_base/components/variable/var-reference-picker';
 import Editor from '../_base/components/prompt/editor';
@@ -28,8 +28,6 @@ const i18nPrefix = 'workflow.nodes.parameterExtractor';
 const i18nCommonPrefix = 'workflow.common';
 
 const Panel: FC<NodePanelProps<ParameterExtractorNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
-
   const {
     readOnly,
     inputs,

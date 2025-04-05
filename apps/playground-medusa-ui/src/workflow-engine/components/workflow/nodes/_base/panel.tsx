@@ -2,7 +2,7 @@ import type { FC, ReactNode } from 'react';
 import { cloneElement, memo, useCallback } from 'react';
 import { RiCloseLine, RiPlayLargeLine } from '@remixicon/react';
 import { useShallow } from 'zustand/react/shallow';
-import { useTranslation } from 'react-i18next';
+
 import NextStep from './components/next-step';
 import PanelOperator from './components/panel-operator';
 import HelpLink from './components/help-link';
@@ -27,7 +27,7 @@ import {
 import { canRunBySingle, hasErrorHandleNode, hasRetryNode } from '@workflow/utils';
 import Tooltip from '@base/tooltip';
 import type { Node } from '@workflow/types';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import { useStore } from '@workflow/store';
 
 type BasePanelProps = {
@@ -35,7 +35,6 @@ type BasePanelProps = {
 } & Node;
 
 const BasePanel: FC<BasePanelProps> = ({ id, data, children }) => {
-  const { t } = useTranslation();
   const { showMessageLogModal } = useAppStore(
     useShallow((state) => ({
       showMessageLogModal: state.showMessageLogModal,

@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { useKeyPress } from 'ahooks';
 import { RiCloseLine, RiEqualizer2Line } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import { useNodes } from 'reactflow';
 import { useEdgesInteractions, useNodesInteractions, useWorkflowInteractions } from '../../hooks';
 import { BlockEnum } from '../../types';
@@ -18,7 +18,6 @@ export type ChatWrapperRefType = {
   handleRestart: () => void;
 };
 const DebugAndPreview = () => {
-  const { t } = useTranslation();
   const chatRef = useRef({ handleRestart: () => {} });
   const { handleCancelDebugAndPreviewPanel } = useWorkflowInteractions();
   const { handleNodeCancelRunningStatus } = useNodesInteractions();

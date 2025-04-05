@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import produce from 'immer';
+import { produce } from 'immer';
 import type { EdgeMouseHandler, OnEdgesChange } from 'reactflow';
 import { useStoreApi } from 'reactflow';
 import type { Node } from '../types';

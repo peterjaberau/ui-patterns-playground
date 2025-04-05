@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { Fragment, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import Uploader from './uploader';
 import ImageLinkInput from './image-link-input';
 import ImageList from './image-list';
@@ -16,7 +16,6 @@ type PasteImageLinkButtonProps = {
   disabled?: boolean;
 };
 const PasteImageLinkButton: FC<PasteImageLinkButtonProps> = ({ onUpload, disabled }) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const handleUpload = (imageFile: ImageFile) => {
@@ -54,8 +53,6 @@ type TextGenerationImageUploaderProps = {
   onFilesChange: (files: ImageFile[]) => void;
 };
 const TextGenerationImageUploader: FC<TextGenerationImageUploaderProps> = ({ settings, onFilesChange }) => {
-  const { t } = useTranslation();
-
   const { files, onUpload, onRemove, onImageLinkLoadError, onImageLinkLoadSuccess, onReUpload } = useImageFiles();
 
   useEffect(() => {

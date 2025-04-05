@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiAddLine } from '@remixicon/react';
 import type { HandleAddCondition } from '../types';
 import Button from '@base/button';
@@ -14,7 +14,6 @@ type ConditionAddProps = {
   disabled?: boolean;
 };
 const ConditionAdd = ({ className, variables, onSelectVariable, disabled }: ConditionAddProps) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const handleSelectVariable = useCallback(

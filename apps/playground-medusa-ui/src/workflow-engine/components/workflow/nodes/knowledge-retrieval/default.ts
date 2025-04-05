@@ -4,7 +4,7 @@ import type { KnowledgeRetrievalNodeType } from './types';
 import { checkoutRerankModelConfigedInRetrievalSettings } from './utils';
 import { ALL_CHAT_AVAILABLE_BLOCKS, ALL_COMPLETION_AVAILABLE_BLOCKS } from '@workflow/blocks';
 import { DATASET_DEFAULT } from '@/config';
-import { RETRIEVE_TYPE } from '@/types/app';
+import { RETRIEVE_TYPE } from '@workflow-app/types/app';
 const i18nPrefix = 'workflow';
 
 const nodeDefault: NodeDefault<KnowledgeRetrievalNodeType> = {

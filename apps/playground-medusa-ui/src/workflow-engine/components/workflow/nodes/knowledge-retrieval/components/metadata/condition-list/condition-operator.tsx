@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiArrowDownSLine } from '@remixicon/react';
 import { getOperators, isComparisonOperatorNeedTranslate } from './utils';
 import Button from '@base/button';
@@ -17,7 +17,6 @@ type ConditionOperatorProps = {
   onSelect: (value: ComparisonOperator) => void;
 };
 const ConditionOperator = ({ className, disabled, variableType, value, onSelect }: ConditionOperatorProps) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const options = useMemo(() => {

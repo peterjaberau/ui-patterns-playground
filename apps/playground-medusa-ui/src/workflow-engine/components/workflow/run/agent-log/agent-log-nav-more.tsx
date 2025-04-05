@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { RiMoreLine } from '@remixicon/react';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import Button from '@base/button';
-import type { AgentLogItemWithChildren } from '@/types/workflow';
+import type { AgentLogItemWithChildren } from '@workflow-app/types/workflow';
 
 type AgentLogNavMoreProps = {
   options: { id: string; label: string }[];

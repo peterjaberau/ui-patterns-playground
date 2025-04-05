@@ -1,11 +1,10 @@
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { useStore } from '../store';
 import { getVarType, toNodeAvailableVars } from '@workflow/nodes/_base/components/variable/utils';
 import type { Node, NodeOutPutVar, ValueSelector, Var } from '@workflow/types';
 
 export const useWorkflowVariables = () => {
-  const { t } = useTranslation();
   const environmentVariables = useStore((s) => s.environmentVariables);
   const conversationVariables = useStore((s) => s.conversationVariables);
 
@@ -27,7 +26,6 @@ export const useWorkflowVariables = () => {
     }): NodeOutPutVar[] => {
       return toNodeAvailableVars({
         parentNode,
-        t,
         beforeNodes,
         isChatMode,
         environmentVariables: hideEnv ? [] : environmentVariables,
@@ -35,7 +33,7 @@ export const useWorkflowVariables = () => {
         filterVar,
       });
     },
-    [conversationVariables, environmentVariables, t],
+    [conversationVariables, environmentVariables],
   );
 
   const getCurrentVariableType = useCallback(

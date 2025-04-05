@@ -3,20 +3,20 @@
 import type { MouseEventHandler } from 'react';
 import { memo, useCallback, useRef, useState } from 'react';
 import { useContext } from 'use-context-selector';
-import { useTranslation } from 'react-i18next';
+
 import { RiAlertFill, RiCloseLine, RiFileDownloadLine } from '@remixicon/react';
 import { WORKFLOW_DATA_UPDATE } from './constants';
 import { SupportUploadFileTypes } from './types';
 import { initialEdges, initialNodes } from './utils';
-import { importDSL, importDSLConfirm } from '@/service/apps';
-import { fetchWorkflowDraft } from '@/service/workflow';
-import { DSLImportMode, DSLImportStatus } from '@/models/app';
-import Uploader from '@/app/components/app/create-from-dsl-modal/uploader';
+// import { importDSL, importDSLConfirm } from '@/service/apps';
+import { fetchWorkflowDraft } from '@workflow-app/service/workflow';
+import { DSLImportMode, DSLImportStatus } from '@workflow-app/models/app';
+// import Uploader from '@/app/components/app/create-from-dsl-modal/uploader';
 import Button from '@base/button';
 import Modal from '@base/modal';
 import { ToastContext } from '@base/toast';
-import { useEventEmitterContextContext } from '@/context/event-emitter';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useEventEmitterContextContext } from '@workflow-app/context/event-emitter';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import { FILE_EXTS } from '@base/prompt-editor/constants';
 import { usePluginDependencies } from '@workflow/plugin-dependency/hooks';
 
@@ -27,7 +27,6 @@ type UpdateDSLModalProps = {
 };
 
 const UpdateDSLModal = ({ onCancel, onBackup, onImport }: UpdateDSLModalProps) => {
-  const { t } = useTranslation();
   const { notify } = useContext(ToastContext);
   const appDetail = useAppStore((s) => s.appDetail);
   const [currentFile, setDSLFile] = useState<File>();
@@ -107,60 +106,59 @@ const UpdateDSLModal = ({ onCancel, onBackup, onImport }: UpdateDSLModalProps) =
     if (isCreatingRef.current) return;
     isCreatingRef.current = true;
     if (!currentFile) return;
-    try {
-      if (appDetail && fileContent) {
-        setLoading(true);
-        const response = await importDSL({
-          mode: DSLImportMode.YAML_CONTENT,
-          yaml_content: fileContent,
-          app_id: appDetail.id,
-        });
-        const { id, status, app_id, imported_dsl_version, current_dsl_version } = response;
-
-        if (status === DSLImportStatus.COMPLETED || status === DSLImportStatus.COMPLETED_WITH_WARNINGS) {
-          if (!app_id) {
-            notify({ type: 'error', message: t('workflow.common.importFailure') });
-            return;
-          }
-          handleWorkflowUpdate(app_id);
-          if (onImport) onImport();
-          notify({
-            type: status === DSLImportStatus.COMPLETED ? 'success' : 'warning',
-            message: t(
-              status === DSLImportStatus.COMPLETED ? 'workflow.common.importSuccess' : 'workflow.common.importWarning',
-            ),
-            children: status === DSLImportStatus.COMPLETED_WITH_WARNINGS && t('workflow.common.importWarningDetails'),
-          });
-          await handleCheckPluginDependencies(app_id);
-          setLoading(false);
-          onCancel();
-        } else if (status === DSLImportStatus.PENDING) {
-          setShow(false);
-          setTimeout(() => {
-            setShowErrorModal(true);
-          }, 300);
-          setVersions({
-            importedVersion: imported_dsl_version ?? '',
-            systemVersion: current_dsl_version ?? '',
-          });
-          setImportId(id);
-        } else {
-          setLoading(false);
-          notify({ type: 'error', message: t('workflow.common.importFailure') });
-        }
-      }
-    } catch (e) {
-      // eslint-disable-next-line unused-imports/no-unused-vars
-      setLoading(false);
-      notify({ type: 'error', message: t('workflow.common.importFailure') });
-    }
+    // try {
+    //   if (appDetail && fileContent) {
+    //     setLoading(true);
+    //     const response = await importDSL({
+    //       mode: DSLImportMode.YAML_CONTENT,
+    //       yaml_content: fileContent,
+    //       app_id: appDetail.id,
+    //     });
+    //     const { id, status, app_id, imported_dsl_version, current_dsl_version } = response;
+    //
+    //     if (status === DSLImportStatus.COMPLETED || status === DSLImportStatus.COMPLETED_WITH_WARNINGS) {
+    //       if (!app_id) {
+    //         notify({ type: 'error', message: t('workflow.common.importFailure') });
+    //         return;
+    //       }
+    //       handleWorkflowUpdate(app_id);
+    //       if (onImport) onImport();
+    //       notify({
+    //         type: status === DSLImportStatus.COMPLETED ? 'success' : 'warning',
+    //         message: t(
+    //           status === DSLImportStatus.COMPLETED ? 'workflow.common.importSuccess' : 'workflow.common.importWarning',
+    //         ),
+    //         children: status === DSLImportStatus.COMPLETED_WITH_WARNINGS && t('workflow.common.importWarningDetails'),
+    //       });
+    //       await handleCheckPluginDependencies(app_id);
+    //       setLoading(false);
+    //       onCancel();
+    //     } else if (status === DSLImportStatus.PENDING) {
+    //       setShow(false);
+    //       setTimeout(() => {
+    //         setShowErrorModal(true);
+    //       }, 300);
+    //       setVersions({
+    //         importedVersion: imported_dsl_version ?? '',
+    //         systemVersion: current_dsl_version ?? '',
+    //       });
+    //       setImportId(id);
+    //     } else {
+    //       setLoading(false);
+    //       notify({ type: 'error', message: t('workflow.common.importFailure') });
+    //     }
+    //   }
+    // } catch (e) {
+    //   // eslint-disable-next-line unused-imports/no-unused-vars
+    //   setLoading(false);
+    //   notify({ type: 'error', message: t('workflow.common.importFailure') });
+    // }
     isCreatingRef.current = false;
   }, [
     currentFile,
     fileContent,
     onCancel,
     notify,
-    t,
     appDetail,
     onImport,
     handleWorkflowUpdate,
@@ -168,41 +166,41 @@ const UpdateDSLModal = ({ onCancel, onBackup, onImport }: UpdateDSLModalProps) =
   ]);
 
   const onUpdateDSLConfirm: MouseEventHandler = async () => {
-    try {
-      if (!importId) return;
-      const response = await importDSLConfirm({
-        import_id: importId,
-      });
-
-      const { status, app_id } = response;
-
-      if (status === DSLImportStatus.COMPLETED) {
-        if (!app_id) {
-          notify({ type: 'error', message: t('workflow.common.importFailure') });
-          return;
-        }
-        handleWorkflowUpdate(app_id);
-        await handleCheckPluginDependencies(app_id);
-        if (onImport) onImport();
-        notify({ type: 'success', message: t('workflow.common.importSuccess') });
-        setLoading(false);
-        onCancel();
-      } else if (status === DSLImportStatus.FAILED) {
-        setLoading(false);
-        notify({ type: 'error', message: t('workflow.common.importFailure') });
-      }
-    } catch (e) {
-      // eslint-disable-next-line unused-imports/no-unused-vars
-      setLoading(false);
-      notify({ type: 'error', message: t('workflow.common.importFailure') });
-    }
+    // try {
+    //   if (!importId) return;
+    //   const response = await importDSLConfirm({
+    //     import_id: importId,
+    //   });
+    //
+    //   const { status, app_id } = response;
+    //
+    //   if (status === DSLImportStatus.COMPLETED) {
+    //     if (!app_id) {
+    //       notify({ type: 'error', message: t('workflow.common.importFailure') });
+    //       return;
+    //     }
+    //     handleWorkflowUpdate(app_id);
+    //     await handleCheckPluginDependencies(app_id);
+    //     if (onImport) onImport();
+    //     notify({ type: 'success', message: t('workflow.common.importSuccess') });
+    //     setLoading(false);
+    //     onCancel();
+    //   } else if (status === DSLImportStatus.FAILED) {
+    //     setLoading(false);
+    //     notify({ type: 'error', message: t('workflow.common.importFailure') });
+    //   }
+    // } catch (e) {
+    //   // eslint-disable-next-line unused-imports/no-unused-vars
+    //   setLoading(false);
+    //   notify({ type: 'error', message: t('workflow.common.importFailure') });
+    // }
   };
 
   return (
     <>
       <Modal className="w-[520px] rounded-2xl p-6" isShow={show} onClose={onCancel}>
         <div className="mb-3 flex items-center justify-between">
-          <div className="title-2xl-semi-bold text-text-primary">{t('workflow.common.importDSL')}</div>
+          <div className="title-2xl-semi-bold text-text-primary">{'Import DSL'}</div>
           <div className="flex h-[22px] w-[22px] cursor-pointer items-center justify-center" onClick={onCancel}>
             <RiCloseLine className="text-text-tertiary h-[18px] w-[18px]" />
           </div>
@@ -214,54 +212,56 @@ const UpdateDSLModal = ({ onCancel, onBackup, onImport }: UpdateDSLModalProps) =
           </div>
           <div className="flex grow flex-col items-start gap-0.5 py-1">
             <div className="system-xs-medium text-text-primary whitespace-pre-line">
-              {t('workflow.common.importDSLTip')}
+              {'Current draft will be overwritten. Export workflow as backup before importing.'}
             </div>
             <div className="flex items-start gap-1 self-stretch pb-0.5 pt-1">
               <Button size="small" variant="secondary" className="z-[1000]" onClick={onBackup}>
                 <RiFileDownloadLine className="text-components-button-secondary-text h-3.5 w-3.5" />
-                <div className="flex items-center justify-center gap-1 px-[3px]">
-                  {t('workflow.common.backupCurrentDraft')}
-                </div>
+                <div className="flex items-center justify-center gap-1 px-[3px]">{'Backup Current Draft'}</div>
               </Button>
             </div>
           </div>
         </div>
         <div>
-          <div className="system-md-semibold text-text-primary pt-2">{t('workflow.common.chooseDSL')}</div>
-          <div className="flex w-full flex-col items-start justify-center gap-4 self-stretch py-4">
-            <Uploader file={currentFile} updateFile={handleFile} className="!mt-0 w-full" />
-          </div>
+          <div className="system-md-semibold text-text-primary pt-2">{'Choose DSL file'}</div>
+          {/* <div className="flex w-full flex-col items-start justify-center gap-4 self-stretch py-4"> */}
+          {/*   <Uploader file={currentFile} updateFile={handleFile} className="!mt-0 w-full" /> */}
+          {/* </div> */}
         </div>
         <div className="flex items-center justify-end gap-2 self-stretch pt-5">
-          <Button onClick={onCancel}>{t('app.newApp.Cancel')}</Button>
+          <Button onClick={onCancel}>{'Cancel'}</Button>
           <Button disabled={!currentFile || loading} variant="warning" onClick={handleImport} loading={loading}>
-            {t('workflow.common.overwriteAndImport')}
+            {'Overwrite and Import'}
           </Button>
         </div>
       </Modal>
       <Modal isShow={showErrorModal} onClose={() => setShowErrorModal(false)} className="w-[480px]">
         <div className="flex flex-col items-start gap-2 self-stretch pb-4">
-          <div className="title-2xl-semi-bold text-text-primary">{t('app.newApp.appCreateDSLErrorTitle')}</div>
+          <div className="title-2xl-semi-bold text-text-primary">{'Version Incompatibility'}</div>
           <div className="system-md-regular text-text-secondary flex grow flex-col">
-            <div>{t('app.newApp.appCreateDSLErrorPart1')}</div>
-            <div>{t('app.newApp.appCreateDSLErrorPart2')}</div>
+            <div>
+              {
+                'A significant difference in DSL versions has been detected. Forcing the import may cause the application to malfunction.'
+              }
+            </div>
+            <div>{'Do you want to continue?'}</div>
             <br />
             <div>
-              {t('app.newApp.appCreateDSLErrorPart3')}
+              {'Current application DSL version: '}
               <span className="system-md-medium">{versions?.importedVersion}</span>
             </div>
             <div>
-              {t('app.newApp.appCreateDSLErrorPart4')}
+              {'System-supported DSL version: '}
               <span className="system-md-medium">{versions?.systemVersion}</span>
             </div>
           </div>
         </div>
         <div className="flex items-start justify-end gap-2 self-stretch pt-6">
           <Button variant="secondary" onClick={() => setShowErrorModal(false)}>
-            {t('app.newApp.Cancel')}
+            {'Cancel'}
           </Button>
           <Button variant="primary" destructive onClick={onUpdateDSLConfirm}>
-            {t('app.newApp.Confirm')}
+            {'Confirm'}
           </Button>
         </div>
       </Modal>

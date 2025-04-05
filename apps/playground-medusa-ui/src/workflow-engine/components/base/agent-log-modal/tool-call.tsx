@@ -10,6 +10,7 @@ import { CodeLanguage } from '@workflow/nodes/code/types';
 import { ChevronRight } from '@base/icons/src/vender/line/arrows';
 import type { ToolCall } from '@workflow-app/models/log';
 import { BlockEnum } from '@workflow/types';
+import I18n from '@workflow-app/context/i18n';
 
 type Props = {
   toolCall: ToolCall;
@@ -22,6 +23,7 @@ type Props = {
 
 const ToolCallItem: FC<Props> = ({ toolCall, isLLM = false, isFinal, tokens, observation, finalAnswer }) => {
   const [collapseState, setCollapseState] = useState<boolean>(true);
+  const { locale } = useContext(I18n);
   const toolName = isLLM ? 'LLM' : toolCall.tool_label[locale] || toolCall.tool_label[locale.replaceAll('-', '_')];
 
   const getTime = (time: number) => {

@@ -111,7 +111,7 @@ const Chatbot = () => {
         <div className="flex h-[60px] shrink-0 items-center pl-2">
           {!appData?.custom_config?.remove_webapp_brand && (
             <div className={cn('flex shrink-0 items-center gap-1.5 px-2')}>
-              <div className="system-2xs-medium-uppercase text-text-tertiary">{t('share.chat.poweredBy')}</div>
+              <div className="system-2xs-medium-uppercase text-text-tertiary">{'Powered by'}</div>
               {appData?.custom_config?.replace_webapp_logo && (
                 <img src={appData?.custom_config?.replace_webapp_logo} alt="logo" className="block h-5 w-auto" />
               )}

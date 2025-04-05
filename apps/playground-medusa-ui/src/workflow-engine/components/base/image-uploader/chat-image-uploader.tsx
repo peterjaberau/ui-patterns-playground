@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import Uploader from './uploader';
 import ImageLinkInput from './image-link-input';
 import cn from '@utils/classnames';
@@ -36,7 +36,6 @@ type UploaderButtonProps = {
   limit?: number;
 };
 const UploaderButton: FC<UploaderButtonProps> = ({ methods, onUpload, disabled, limit }) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const hasUploadFromLocal = methods.find((method) => method === TransferMethod.local_file);

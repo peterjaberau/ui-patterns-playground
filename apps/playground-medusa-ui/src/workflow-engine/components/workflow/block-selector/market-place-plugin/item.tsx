@@ -2,7 +2,7 @@
 import type { FC } from 'react';
 import React from 'react';
 import { useContext } from 'use-context-selector';
-import { useTranslation } from 'react-i18next';
+
 import Action from './action';
 import type { Plugin } from '@/app/components/plugins/types.ts';
 import InstallFromMarketplace from '@/app/components/plugins/install-plugin/install-from-marketplace';
@@ -23,7 +23,6 @@ type Props = {
 };
 
 const Item: FC<Props> = ({ payload }) => {
-  const { t } = useTranslation();
   const [open, setOpen] = React.useState(false);
   const { locale } = useContext(I18n);
   const getLocalizedText = (obj: Record<string, string> | undefined) =>

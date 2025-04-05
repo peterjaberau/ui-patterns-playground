@@ -4,7 +4,7 @@ import classNames from '@/utils/classnames';
 import { memo, useMemo, useRef, useState } from 'react';
 import { useAllBuiltInTools, useAllCustomTools, useAllWorkflowTools } from '@/service/use-tools';
 import { getIconFromMarketPlace } from '@/utils/get-icon';
-import { useTranslation } from 'react-i18next';
+
 import { Group } from '@base/icons/src/vender/other';
 
 type Status = 'not-installed' | 'not-authorized' | undefined;
@@ -41,7 +41,7 @@ export const ToolIcon = memo(({ providerName }: ToolIconProps) => {
   }, [currentProvider, isDataReady]);
   const indicator = status === 'not-installed' ? 'red' : status === 'not-authorized' ? 'yellow' : undefined;
   const notSuccess = (['not-installed', 'not-authorized'] as Array<Status>).includes(status);
-  const { t } = useTranslation();
+
   const tooltip = useMemo(() => {
     if (!notSuccess) return undefined;
     if (status === 'not-installed') return t('workflow.nodes.agent.toolNotInstallTooltip', { tool: name });

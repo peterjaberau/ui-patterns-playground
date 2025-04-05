@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiBookOpenLine } from '@remixicon/react';
 import { useNodeHelpLink } from '../hooks/use-node-help-link';
 import TooltipPlus from '@base/tooltip';
@@ -9,7 +9,6 @@ type HelpLinkProps = {
   nodeType: BlockEnum;
 };
 const HelpLink = ({ nodeType }: HelpLinkProps) => {
-  const { t } = useTranslation();
   const link = useNodeHelpLink(nodeType);
 
   if (!link) return null;

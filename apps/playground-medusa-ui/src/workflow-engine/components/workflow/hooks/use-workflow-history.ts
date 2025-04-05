@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 import { debounce } from 'lodash-es';
 import { useStoreApi } from 'reactflow';
-import { useTranslation } from 'react-i18next';
+
 import { useWorkflowHistoryStore } from '../workflow-history-store';
 
 /**
@@ -31,7 +31,6 @@ export enum WorkflowHistoryEvent {
 export const useWorkflowHistory = () => {
   const store = useStoreApi();
   const { store: workflowHistoryStore } = useWorkflowHistoryStore();
-  const { t } = useTranslation();
 
   const [undoCallbacks, setUndoCallbacks] = useState<any[]>([]);
   const [redoCallbacks, setRedoCallbacks] = useState<any[]>([]);
@@ -100,43 +99,40 @@ export const useWorkflowHistory = () => {
     }
   }, []);
 
-  const getHistoryLabel = useCallback(
-    (event: WorkflowHistoryEvent) => {
-      switch (event) {
-        case WorkflowHistoryEvent.NodeTitleChange:
-          return t('workflow.changeHistory.nodeTitleChange');
-        case WorkflowHistoryEvent.NodeDescriptionChange:
-          return t('workflow.changeHistory.nodeDescriptionChange');
-        case WorkflowHistoryEvent.LayoutOrganize:
-        case WorkflowHistoryEvent.NodeDragStop:
-          return t('workflow.changeHistory.nodeDragStop');
-        case WorkflowHistoryEvent.NodeChange:
-          return t('workflow.changeHistory.nodeChange');
-        case WorkflowHistoryEvent.NodeConnect:
-          return t('workflow.changeHistory.nodeConnect');
-        case WorkflowHistoryEvent.NodePaste:
-          return t('workflow.changeHistory.nodePaste');
-        case WorkflowHistoryEvent.NodeDelete:
-          return t('workflow.changeHistory.nodeDelete');
-        case WorkflowHistoryEvent.NodeAdd:
-          return t('workflow.changeHistory.nodeAdd');
-        case WorkflowHistoryEvent.EdgeDelete:
-        case WorkflowHistoryEvent.EdgeDeleteByDeleteBranch:
-          return t('workflow.changeHistory.edgeDelete');
-        case WorkflowHistoryEvent.NodeResize:
-          return t('workflow.changeHistory.nodeResize');
-        case WorkflowHistoryEvent.NoteAdd:
-          return t('workflow.changeHistory.noteAdd');
-        case WorkflowHistoryEvent.NoteChange:
-          return t('workflow.changeHistory.noteChange');
-        case WorkflowHistoryEvent.NoteDelete:
-          return t('workflow.changeHistory.noteDelete');
-        default:
-          return 'Unknown Event';
-      }
-    },
-    [t],
-  );
+  const getHistoryLabel = useCallback((event: WorkflowHistoryEvent) => {
+    switch (event) {
+      case WorkflowHistoryEvent.NodeTitleChange:
+        return 'Block title changed';
+      case WorkflowHistoryEvent.NodeDescriptionChange:
+        return 'Block description changed';
+      case WorkflowHistoryEvent.LayoutOrganize:
+      case WorkflowHistoryEvent.NodeDragStop:
+        return 'Block moved';
+      case WorkflowHistoryEvent.NodeChange:
+        return 'Block changed';
+      case WorkflowHistoryEvent.NodeConnect:
+        return 'Block connected';
+      case WorkflowHistoryEvent.NodePaste:
+        return 'Block pasted';
+      case WorkflowHistoryEvent.NodeDelete:
+        return 'Block deleted';
+      case WorkflowHistoryEvent.NodeAdd:
+        return 'Block added';
+      case WorkflowHistoryEvent.EdgeDelete:
+      case WorkflowHistoryEvent.EdgeDeleteByDeleteBranch:
+        return 'Edge deleted';
+      case WorkflowHistoryEvent.NodeResize:
+        return 'Block resized';
+      case WorkflowHistoryEvent.NoteAdd:
+        return 'Note added';
+      case WorkflowHistoryEvent.NoteChange:
+        return 'Node changed';
+      case WorkflowHistoryEvent.NoteDelete:
+        return 'Note deleted';
+      default:
+        return 'Unknown Event';
+    }
+  }, []);
 
   return {
     store: workflowHistoryStore,

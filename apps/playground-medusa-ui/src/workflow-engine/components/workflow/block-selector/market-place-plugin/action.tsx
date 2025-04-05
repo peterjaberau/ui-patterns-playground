@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiMoreFill } from '@remixicon/react';
 import ActionButton from '@base/action-button';
 // import Button from '@base/button'
@@ -20,7 +20,6 @@ type Props = {
 };
 
 const OperationDropdown: FC<Props> = ({ open, onOpenChange, author, name, version }) => {
-  const { t } = useTranslation();
   const openRef = useRef(open);
   const setOpen = useCallback(
     (v: boolean) => {

@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { VarType } from '../../../types';
 import type { Var } from '../../../types';
 import useAvailableVarList from '@workflow/nodes/_base/hooks/use-available-var-list';
@@ -16,8 +16,6 @@ type Props = {
 };
 
 const ExtractInput: FC<Props> = ({ nodeId, readOnly, value, onChange }) => {
-  const { t } = useTranslation();
-
   const [isFocus, setIsFocus] = useState(false);
   const { availableVars, availableNodesWithParent } = useAvailableVarList(nodeId, {
     onlyLeafNodeVar: false,

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { RiFileList3Line } from '@remixicon/react';
 import type { IChatItem } from '@base/chat/chat/type';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import ActionButton from '@base/action-button';
 
 type LogProps = {

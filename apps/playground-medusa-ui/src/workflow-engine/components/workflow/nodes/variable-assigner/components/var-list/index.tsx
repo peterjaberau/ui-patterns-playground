@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import React, { useCallback } from 'react';
-import produce from 'immer';
+import { produce } from 'immer';
 import RemoveButton from '../../../_base/components/remove-button';
 import ListNoDataPlaceholder from '../../../_base/components/list-no-data-placeholder';
 import VarReferencePicker from '@workflow/nodes/_base/components/variable/var-reference-picker';
@@ -19,7 +19,6 @@ type Props = {
 };
 
 const VarList: FC<Props> = ({ readonly, nodeId, list, onChange, onOpen = () => {}, filterVar }) => {
-  const { t } = useTranslation();
   const handleVarReferenceChange = useCallback(
     (index: number) => {
       return (value: ValueSelector | string) => {

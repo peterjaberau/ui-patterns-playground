@@ -1,13 +1,11 @@
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import type { NodeProps } from 'reactflow';
 import { RiHome5Fill } from '@remixicon/react';
 import Tooltip from '@base/tooltip';
 import { NodeSourceHandle } from '@workflow/nodes/_base/components/node-handle';
 
 const IterationStartNode = ({ id, data }: NodeProps) => {
-  const { t } = useTranslation();
-
   return (
     <div className="nodrag border-workflow-block-border bg-workflow-block-bg shadow-xs group mt-1 flex h-11 w-11 items-center justify-center rounded-2xl border">
       <Tooltip popupContent={t('workflow.blocks.iteration-start')} asChild={false}>
@@ -26,8 +24,6 @@ const IterationStartNode = ({ id, data }: NodeProps) => {
 };
 
 export const IterationStartNodeDumb = () => {
-  const { t } = useTranslation();
-
   return (
     <div className="nodrag border-workflow-block-border relative left-[17px] top-[21px] z-[11] flex h-11 w-11 items-center justify-center rounded-2xl border bg-white">
       <Tooltip popupContent={t('workflow.blocks.iteration-start')} asChild={false}>

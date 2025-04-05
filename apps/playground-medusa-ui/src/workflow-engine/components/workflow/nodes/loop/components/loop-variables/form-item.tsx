@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import VarReferencePicker from '@workflow/nodes/_base/components/variable/var-reference-picker';
 import Input from '@base/input';
 import Textarea from '@base/textarea';
@@ -42,7 +42,6 @@ type FormItemProps = {
   onChange: (value: any) => void;
 };
 const FormItem = ({ nodeId, item, onChange }: FormItemProps) => {
-  const { t } = useTranslation();
   const { value_type, var_type, value } = item;
 
   const handleInputChange = useCallback(

@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiKey2Line } from '@remixicon/react';
 import Button from '@base/button';
 import SecretKeyModal from '@workflow-app/components/develop/secret-key/secret-key-modal';
@@ -13,14 +13,14 @@ type ISecretKeyButtonProps = {
 
 const SecretKeyButton = ({ className, appId, textCls }: ISecretKeyButtonProps) => {
   const [isVisible, setVisible] = useState(false);
-  const { t } = useTranslation();
+
   return (
     <>
       <Button className={`px-3 ${className}`} onClick={() => setVisible(true)} size="small" variant="ghost">
         <div className={'flex h-3.5 w-3.5 items-center justify-center'}>
           <RiKey2Line className="text-text-tertiary h-3.5 w-3.5" />
         </div>
-        <div className={`system-xs-medium text-text-tertiary px-[3px] ${textCls}`}>{t('appApi.apiKey')}</div>
+        <div className={`system-xs-medium text-text-tertiary px-[3px] ${textCls}`}>{'API Key'}</div>
       </Button>
       <SecretKeyModal isShow={isVisible} onClose={() => setVisible(false)} appId={appId} />
     </>

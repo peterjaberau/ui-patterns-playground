@@ -1,5 +1,5 @@
 import { memo, useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiAddLine } from '@remixicon/react';
 import { useAvailableBlocks, useNodesInteractions, useNodesReadOnly, useWorkflow } from '@workflow/hooks';
 import BlockSelector from '@workflow/block-selector';
@@ -13,7 +13,6 @@ type AddProps = {
   isFailBranch?: boolean;
 };
 const Add = ({ nodeId, nodeData, sourceHandle, isParallel, isFailBranch }: AddProps) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const { handleNodeAdd } = useNodesInteractions();
   const { nodesReadOnly } = useNodesReadOnly();

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import type { OnSend } from '../types';
 import Button from '@base/button';
 import Divider from '@base/divider';
@@ -12,15 +12,11 @@ type TryToAskProps = {
   isMobile?: boolean;
 };
 const TryToAsk: FC<TryToAskProps> = ({ suggestedQuestions, onSend, isMobile }) => {
-  const { t } = useTranslation();
-
   return (
     <div className="mb-2 py-2">
       <div className={cn('mb-2.5 flex items-center justify-between gap-2', isMobile && 'justify-end')}>
         <Divider bgStyle="gradient" className="h-px grow rotate-180" />
-        <div className="system-xs-medium-uppercase text-text-tertiary shrink-0">
-          {t('appDebug.feature.suggestedQuestionsAfterAnswer.tryToAsk')}
-        </div>
+        <div className="system-xs-medium-uppercase text-text-tertiary shrink-0">{'Try to ask'}</div>
         {!isMobile && <Divider bgStyle="gradient" className="h-px grow" />}
       </div>
       <div className={cn('flex flex-wrap justify-center', isMobile && 'justify-end')}>

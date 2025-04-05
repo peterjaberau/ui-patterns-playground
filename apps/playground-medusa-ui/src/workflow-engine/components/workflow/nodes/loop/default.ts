@@ -2,7 +2,7 @@ import { BlockEnum } from '../../types';
 import type { NodeDefault } from '../../types';
 import { ComparisonOperator, LogicalOperator, type LoopNodeType } from './types';
 import { isEmptyRelatedOperator } from './utils';
-import { TransferMethod } from '@/types/app';
+import { TransferMethod } from '@workflow-app/types/app';
 import { ALL_CHAT_AVAILABLE_BLOCKS, ALL_COMPLETION_AVAILABLE_BLOCKS } from '@workflow/blocks';
 import { LOOP_NODE_MAX_COUNT } from '@/config';
 const i18nPrefix = 'workflow.errorMsg';

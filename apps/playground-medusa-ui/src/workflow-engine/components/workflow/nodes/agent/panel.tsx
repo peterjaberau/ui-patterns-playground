@@ -5,7 +5,7 @@ import { AgentFeature, type AgentNodeType } from './types';
 import Field from '../_base/components/field';
 import { AgentStrategy } from '../_base/components/agent-strategy';
 import useConfig from './use-config';
-import { useTranslation } from 'react-i18next';
+
 import OutputVars, { VarItem } from '../_base/components/output-vars';
 import type { StrategyParamItem } from '@/app/components/plugins/types';
 import type { CredentialFormSchema } from '@/app/components/header/account-setting/model-provider-page/declarations';
@@ -53,7 +53,7 @@ const AgentPanel: FC<NodePanelProps<AgentNodeType>> = (props) => {
     outputSchema,
     handleMemoryChange,
   } = useConfig(props.id, props.data);
-  const { t } = useTranslation();
+
   const nodeInfo = useMemo(() => {
     if (!runResult) return;
     return formatTracing([runResult], t)[0];

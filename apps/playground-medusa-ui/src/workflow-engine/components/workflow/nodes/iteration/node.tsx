@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { memo, useEffect } from 'react';
 import { Background, useNodesInitialized, useViewport } from 'reactflow';
-import { useTranslation } from 'react-i18next';
+
 import { IterationStartNodeDumb } from '../iteration-start';
 import { useNodeIterationInteractions } from './use-interactions';
 import type { IterationNodeType } from './types';
@@ -16,7 +16,6 @@ const Node: FC<NodeProps<IterationNodeType>> = ({ id, data }) => {
   const { zoom } = useViewport();
   const nodesInitialized = useNodesInitialized();
   const { handleNodeIterationRerender } = useNodeIterationInteractions();
-  const { t } = useTranslation();
 
   useEffect(() => {
     if (nodesInitialized) handleNodeIterationRerender(id);

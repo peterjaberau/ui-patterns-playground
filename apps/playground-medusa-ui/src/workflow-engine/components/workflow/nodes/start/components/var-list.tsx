@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import produce from 'immer';
-import { useTranslation } from 'react-i18next';
+import { produce } from 'immer';
+
 import VarItem from './var-item';
 import { ChangeType, type InputVar, type MoreInfo } from '@workflow/types';
 type Props = {
@@ -12,8 +12,6 @@ type Props = {
 };
 
 const VarList: FC<Props> = ({ readonly, list, onChange }) => {
-  const { t } = useTranslation();
-
   const handleVarChange = useCallback(
     (index: number) => {
       return (payload: InputVar, moreInfo?: MoreInfo) => {

@@ -4,7 +4,6 @@ import { useModelList } from '@/app/components/header/account-setting/model-prov
 import ModelSelector from '@/app/components/header/account-setting/model-provider-page/model-selector';
 import Indicator from '@/app/components/header/indicator';
 import { type FC, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 
 export type ModelBarProps =
   | {
@@ -28,7 +27,6 @@ const useAllModel = () => {
 };
 
 export const ModelBar: FC<ModelBarProps> = (props) => {
-  const { t } = useTranslation();
   const modelList = useAllModel();
   if (!('provider' in props)) {
     return (

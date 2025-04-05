@@ -1,5 +1,5 @@
 import { memo, useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { useNodes } from 'reactflow';
 import FormItem from '../nodes/_base/components/before-run-form/form-item';
 import { BlockEnum, InputVarType, WorkflowRunningStatus } from '../types';
@@ -17,7 +17,6 @@ type Props = {
 };
 
 const InputsPanel = ({ onRun }: Props) => {
-  const { t } = useTranslation();
   const workflowStore = useWorkflowStore();
   const fileSettings = useFeatures((s) => s.features.file);
   const nodes = useNodes<StartNodeType>();

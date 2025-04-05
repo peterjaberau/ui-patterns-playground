@@ -2,7 +2,7 @@
 import type { FC } from 'react';
 import React, { useCallback, useState } from 'react';
 import { useBoolean } from 'ahooks';
-import { useTranslation } from 'react-i18next';
+
 import type { Param } from '../../types';
 import { ParamType } from '../../types';
 import AddButton from '@base/button/add-button';
@@ -38,7 +38,6 @@ type Props = {
 const TYPES = [ParamType.string, ParamType.number, ParamType.arrayString, ParamType.arrayNumber, ParamType.arrayObject];
 
 const AddExtractParameter: FC<Props> = ({ type, payload, onSave, onCancel }) => {
-  const { t } = useTranslation();
   const isAdd = type === 'add';
   const [param, setParam] = useState<Param>(isAdd ? DEFAULT_PARAM : (payload as Param));
   const [renameInfo, setRenameInfo] = useState<MoreInfo | undefined>(undefined);

@@ -17,7 +17,7 @@ import Button from '@base/button';
 import { StopCircle } from '@base/icons/src/vender/solid/mediaAndDevices';
 import AgentLogModal from '@base/agent-log-modal';
 import PromptLogModal from '@base/prompt-log-modal';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import type { AppData } from '@workflow-app/models/share';
 
 export type ChatProps = {
@@ -265,7 +265,7 @@ const Chat: FC<ChatProps> = ({
               <div className="mb-2 flex justify-center">
                 <Button onClick={onStopResponding}>
                   <StopCircle className="mr-[5px] h-3.5 w-3.5 text-gray-500" />
-                  <span className="text-xs font-normal text-gray-500">{t('appDebug.operation.stopResponding')}</span>
+                  <span className="text-xs font-normal text-gray-500">{'Stop responding'}</span>
                 </Button>
               </div>
             )}

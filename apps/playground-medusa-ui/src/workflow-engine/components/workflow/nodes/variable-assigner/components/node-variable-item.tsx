@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import cn from '@/utils/classnames';
 import { VarBlockIcon } from '@workflow/block-icon';
 import { Line3 } from '@base/icons/src/public/common';
@@ -31,8 +31,6 @@ const NodeVariableItem = ({
   className,
   isException,
 }: NodeVariableItemProps) => {
-  const { t } = useTranslation();
-
   const VariableIcon = useMemo(() => {
     if (isEnv) {
       return <Env className="text-util-colors-violet-violet-600 h-3.5 w-3.5 shrink-0" />;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiArrowDownSLine, RiCheckLine } from '@remixicon/react';
 import { ErrorHandleTypeEnum } from './types';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
@@ -10,7 +10,6 @@ type ErrorHandleTypeSelectorProps = {
   onSelected: (value: ErrorHandleTypeEnum) => void;
 };
 const ErrorHandleTypeSelector = ({ value, onSelected }: ErrorHandleTypeSelectorProps) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const options = [
     {

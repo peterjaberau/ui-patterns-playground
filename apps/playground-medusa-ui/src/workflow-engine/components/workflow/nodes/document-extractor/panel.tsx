@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import React from 'react';
 import useSWR from 'swr';
-import { useTranslation } from 'react-i18next';
+
 import { useContext } from 'use-context-selector';
 import VarReferencePicker from '../_base/components/variable/var-reference-picker';
 import OutputVars, { VarItem } from '../_base/components/output-vars';
@@ -20,7 +20,6 @@ import ResultPanel from '@workflow/run/result-panel';
 const i18nPrefix = 'workflow.nodes.docExtractor';
 
 const Panel: FC<NodePanelProps<DocExtractorNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
   const { locale } = useContext(I18n);
   const link = useNodeHelpLink(BlockEnum.DocExtractor);
   const { data: supportFileTypesResponse } = useSWR({ url: '/files/support-type' }, fetchSupportFileTypes);

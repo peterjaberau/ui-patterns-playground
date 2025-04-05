@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import produce from 'immer';
-import { useTranslation } from 'react-i18next';
+import { produce } from 'immer';
+
 import type { OutputVar } from '../../../code/types';
 import RemoveButton from '../remove-button';
 import VarTypePicker from './var-type-picker';
@@ -20,8 +20,6 @@ type Props = {
 };
 
 const OutputVarList: FC<Props> = ({ readonly, outputs, outputKeyOrders, onChange, onRemove }) => {
-  const { t } = useTranslation();
-
   const list = outputKeyOrders.map((key) => {
     return {
       variable: key,

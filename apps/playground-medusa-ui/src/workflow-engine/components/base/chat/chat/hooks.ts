@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { produce, setAutoFreeze } from 'immer';
 import { uniqBy } from 'lodash-es';
 import { useParams, usePathname } from 'next/navigation';
@@ -37,7 +37,6 @@ export const useChat = (
   clearChatList?: boolean,
   clearChatListCallback?: (state: boolean) => void,
 ) => {
-  const { t } = useTranslation();
   const { formatTime } = useTimestamp();
   const { notify } = useToastContext();
   const conversationId = useRef('');
@@ -207,7 +206,7 @@ export const useChat = (
       setSuggestQuestions([]);
 
       if (isRespondingRef.current) {
-        notify({ type: 'info', message: t('appDebug.errorMessage.waitForResponse') });
+        notify({ type: 'info', message: 'Please wait for the response to the previous message to complete.' });
         return false;
       }
 
@@ -613,7 +612,6 @@ export const useChat = (
       return true;
     },
     [
-      t,
       chatTree.length,
       threadMessages,
       config?.suggested_questions_after_answer,

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { memo, useCallback, useMemo } from 'react';
 import { intersectionBy } from 'lodash-es';
-import { useTranslation } from 'react-i18next';
+
 import VarReferencePicker from '../_base/components/variable/var-reference-picker';
 import useConfig from './use-config';
 import RetrievalConfig from './components/retrieval-config';
@@ -19,8 +19,6 @@ import ResultPanel from '@workflow/run/result-panel';
 const i18nPrefix = 'workflow.nodes.knowledgeRetrieval';
 
 const Panel: FC<NodePanelProps<KnowledgeRetrievalNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
-
   const {
     readOnly,
     inputs,

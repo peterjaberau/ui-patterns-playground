@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import React, { useCallback, useState } from 'react';
 import { useBoolean } from 'ahooks';
 import { RiDeleteBinLine, RiEditLine } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import type { DataSet } from '@/models/datasets';
 import { DataSourceType } from '@/models/datasets';
 import ActionButton, { ActionButtonState } from '@base/action-button';
@@ -25,7 +25,7 @@ type Props = {
 
 const DatasetItem: FC<Props> = ({ payload, onRemove, onChange, readonly, editable = true }) => {
   const media = useBreakpoints();
-  const { t } = useTranslation();
+
   const isMobile = media === MediaType.mobile;
   const { formatIndexingTechniqueAndMethod } = useKnowledge();
   const [isDeleteHovered, setIsDeleteHovered] = useState(false);

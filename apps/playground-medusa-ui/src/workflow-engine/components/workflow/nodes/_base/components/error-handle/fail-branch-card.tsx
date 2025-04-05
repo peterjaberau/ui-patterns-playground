@@ -1,9 +1,6 @@
 import { RiMindMap } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
 
 const FailBranchCard = () => {
-  const { t } = useTranslation();
-
   return (
     <div className="px-4 pt-2">
       <div className="bg-workflow-process-bg rounded-[10px] p-4">

@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback, useState } from 'react';
-import produce from 'immer';
-import { useTranslation } from 'react-i18next';
+import { produce } from 'immer';
+
 import type { ToolVarInputs } from '../types';
 import { VarType as VarKindType } from '../types';
 import cn from '@/utils/classnames';
@@ -39,7 +39,7 @@ const InputVarList: FC<Props> = ({
   filterVar,
 }) => {
   const language = useLanguage();
-  const { t } = useTranslation();
+
   const { availableVars, availableNodesWithParent } = useAvailableVarList(nodeId, {
     onlyLeafNodeVar: false,
     filterVar: (varPayload: Var) => {

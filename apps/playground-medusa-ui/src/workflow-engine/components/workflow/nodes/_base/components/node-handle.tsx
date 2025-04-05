@@ -1,7 +1,7 @@
 import type { MouseEvent } from 'react';
 import { memo, useCallback, useEffect, useState } from 'react';
 import { Handle, Position } from 'reactflow';
-import { useTranslation } from 'react-i18next';
+
 import { BlockEnum, NodeRunningStatus } from '../../../types';
 import type { Node } from '../../../types';
 import BlockSelector from '../../../block-selector';
@@ -98,7 +98,6 @@ NodeTargetHandle.displayName = 'NodeTargetHandle';
 
 export const NodeSourceHandle = memo(
   ({ id, data, handleId, handleClassName, nodeSelectorClassName, showExceptionStatus }: NodeHandleProps) => {
-    const { t } = useTranslation();
     const notInitialWorkflow = useStore((s) => s.notInitialWorkflow);
     const [open, setOpen] = useState(false);
     const { handleNodeAdd } = useNodesInteractions();
@@ -182,7 +181,7 @@ export const NodeSourceHandle = memo(
             onSelect={handleSelect}
             asChild
             triggerClassName={(open) => `
-              hidden absolute top-0 left-0 pointer-events-none 
+              hidden absolute top-0 left-0 pointer-events-none
               ${nodeSelectorClassName}
               group-hover:!flex
               ${data.selected && '!flex'}

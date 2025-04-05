@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import React from 'react';
 import { useNodes } from 'reactflow';
-import { useTranslation } from 'react-i18next';
+
 import NodeVariableItem from '../variable-assigner/components/node-variable-item';
 import type { DocExtractorNodeType } from './types';
 import { isConversationVar, isENV, isSystemVar } from '@workflow/nodes/_base/components/variable/utils';
@@ -10,8 +10,6 @@ import { BlockEnum, type Node, type NodeProps } from '@workflow/types';
 const i18nPrefix = 'workflow.nodes.docExtractor';
 
 const NodeComponent: FC<NodeProps<DocExtractorNodeType>> = ({ data }) => {
-  const { t } = useTranslation();
-
   const nodes: Node[] = useNodes();
   const { variable_selector: variable } = data;
 

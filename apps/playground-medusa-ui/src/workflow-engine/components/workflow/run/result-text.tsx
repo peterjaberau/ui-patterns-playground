@@ -1,6 +1,6 @@
 'use client';
 import type { FC } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { ImageIndentLeft } from '@base/icons/src/vender/line/editor';
 import { Markdown } from '@base/markdown';
 import LoadingAnim from '@base/chat/chat/loading-anim';
@@ -16,7 +16,6 @@ type ResultTextProps = {
 };
 
 const ResultText: FC<ResultTextProps> = ({ isRunning, outputs, error, onClick, allFiles }) => {
-  const { t } = useTranslation();
   return (
     <div className="bg-background-section-burn">
       {isRunning && !outputs && (

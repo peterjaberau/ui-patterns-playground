@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { useReactFlow, useStoreApi } from 'reactflow';
-import produce from 'immer';
+import { produce } from 'immer';
 import { useStore, useWorkflowStore } from '../store';
 import {
   CUSTOM_NODE,
@@ -18,11 +18,11 @@ import { useEdgesInteractions } from './use-edges-interactions';
 import { useNodesInteractions } from './use-nodes-interactions';
 import { useNodesSyncDraft } from './use-nodes-sync-draft';
 import { WorkflowHistoryEvent, useWorkflowHistory } from './use-workflow-history';
-import { useEventEmitterContextContext } from '@/context/event-emitter';
-import { fetchWorkflowDraft } from '@/service/workflow';
-import { exportAppConfig } from '@/service/apps';
+import { useEventEmitterContextContext } from '@workflow-app/context/event-emitter';
+import { fetchWorkflowDraft } from '@workflow-app/service/workflow';
+import { exportAppConfig } from '@workflow-app/service/apps';
 import { useToastContext } from '@base/toast';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 
 export const useWorkflowInteractions = () => {
   const workflowStore = useWorkflowStore();
@@ -345,7 +345,6 @@ export const useWorkflowUpdate = () => {
 };
 
 export const useDSL = () => {
-  const { t } = useTranslation();
   const { notify } = useToastContext();
   const { eventEmitter } = useEventEmitterContextContext();
   const [exporting, setExporting] = useState(false);
@@ -372,12 +371,12 @@ export const useDSL = () => {
         a.download = `${appDetail.name}.yml`;
         a.click();
       } catch (e) {
-        notify({ type: 'error', message: t('app.exportFailed') });
+        notify({ type: 'error', message: 'Export failed' });
       } finally {
         setExporting(false);
       }
     },
-    [appDetail, notify, t, doSyncWorkflowDraft, exporting],
+    [appDetail, notify, doSyncWorkflowDraft, exporting],
   );
 
   const exportCheck = useCallback(async () => {
@@ -396,9 +395,9 @@ export const useDSL = () => {
         },
       } as any);
     } catch (e) {
-      notify({ type: 'error', message: t('app.exportFailed') });
+      notify({ type: 'error', message: 'Export failed' });
     }
-  }, [appDetail, eventEmitter, handleExportDSL, notify, t]);
+  }, [appDetail, eventEmitter, handleExportDSL, notify]);
 
   return {
     exportCheck,

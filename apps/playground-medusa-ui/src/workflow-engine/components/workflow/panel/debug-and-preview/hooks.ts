@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { produce, setAutoFreeze } from 'immer';
 import { uniqBy } from 'lodash-es';
 import { useWorkflowRun } from '../../hooks';
@@ -10,7 +10,7 @@ import type { ChatItem, ChatItemInTree, Inputs } from '@base/chat/types';
 import type { InputForm } from '@base/chat/chat/type';
 import { getProcessedInputs, processOpeningStatement } from '@base/chat/chat/utils';
 import { useToastContext } from '@base/toast';
-import { TransferMethod } from '@/types/app';
+import { TransferMethod } from '@workflow-app/types/app';
 import { getProcessedFiles, getProcessedFilesFromResponse } from '@base/file-uploader/utils';
 import type { FileEntity } from '@base/file-uploader/types';
 import { getThreadMessages } from '@base/chat/utils';
@@ -28,7 +28,6 @@ export const useChat = (
   prevChatTree?: ChatItemInTree[],
   stopChat?: (taskId: string) => void,
 ) => {
-  const { t } = useTranslation();
   const { notify } = useToastContext();
   const { handleRun } = useWorkflowRun();
   const hasStopResponded = useRef(false);

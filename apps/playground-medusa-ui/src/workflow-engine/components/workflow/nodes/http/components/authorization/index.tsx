@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import React, { useCallback, useState } from 'react';
-import produce from 'immer';
+import { produce } from 'immer';
 import type { Authorization as AuthorizationPayloadType } from '../../types';
 import { APIType, AuthorizationType } from '../../types';
 import RadioGroup from './radio-group';
@@ -46,8 +46,6 @@ const Field = ({
 };
 
 const Authorization: FC<Props> = ({ nodeId, payload, onChange, isShow, onHide }) => {
-  const { t } = useTranslation();
-
   const [isFocus, setIsFocus] = useState(false);
   const { availableVars, availableNodesWithParent } = useAvailableVarList(nodeId, {
     onlyLeafNodeVar: false,

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useStoreApi } from 'reactflow';
-import produce from 'immer';
-import type { NodeFinishedResponse } from '@/types/workflow';
+import { produce } from 'immer';
+import type { NodeFinishedResponse } from '@workflow-app/types/workflow';
 import { BlockEnum, NodeRunningStatus } from '@workflow/types';
 import { ErrorHandleTypeEnum } from '@workflow/nodes/_base/components/error-handle/types';
 import { useWorkflowStore } from '@workflow/store';
@@ -17,8 +17,8 @@ export const useWorkflowNodeFinished = () => {
       const { getNodes, setNodes, edges, setEdges } = store.getState();
       const nodes = getNodes();
       setWorkflowRunningData(
-        produce(workflowRunningData!, (draft) => {
-          const currentIndex = draft.tracing!.findIndex((item) => item.id === data.id);
+        produce(workflowRunningData!, (draft: any) => {
+          const currentIndex = draft.tracing!.findIndex((item: any) => item.id === data.id);
           if (currentIndex > -1) {
             draft.tracing![currentIndex] = {
               ...draft.tracing![currentIndex],

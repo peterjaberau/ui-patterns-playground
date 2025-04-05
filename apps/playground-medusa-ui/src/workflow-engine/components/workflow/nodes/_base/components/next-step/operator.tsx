@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiMoreFill } from '@remixicon/react';
 import { intersection } from 'lodash-es';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
@@ -14,8 +14,6 @@ type ChangeItemProps = {
   sourceHandle: string;
 };
 const ChangeItem = ({ data, nodeId, sourceHandle }: ChangeItemProps) => {
-  const { t } = useTranslation();
-
   const { handleNodeChange } = useNodesInteractions();
   const { availablePrevBlocks, availableNextBlocks } = useAvailableBlocks(data.type, data.isInIteration, data.isInLoop);
 
@@ -57,7 +55,6 @@ type OperatorProps = {
   sourceHandle: string;
 };
 const Operator = ({ open, onOpenChange, data, nodeId, sourceHandle }: OperatorProps) => {
-  const { t } = useTranslation();
   const { handleNodeDelete, handleNodeDisconnect } = useNodesInteractions();
 
   return (

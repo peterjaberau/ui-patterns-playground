@@ -3,7 +3,7 @@ import type { FC, ReactNode } from 'react';
 import React, { useCallback, useRef } from 'react';
 import { RiDeleteBinLine } from '@remixicon/react';
 import copy from 'copy-to-clipboard';
-import { useTranslation } from 'react-i18next';
+
 import { useBoolean } from 'ahooks';
 import { BlockEnum, EditionType } from '../../../../types';
 import type { ModelConfig, Node, NodeOutPutVar, Variable } from '../../../../types';
@@ -105,7 +105,6 @@ const Editor: FC<Props> = ({
   editorContainerClassName,
   required,
 }) => {
-  const { t } = useTranslation();
   const { eventEmitter } = useEventEmitterContextContext();
   const controlPromptEditorRerenderKey = useStore((s) => s.controlPromptEditorRerenderKey);
 

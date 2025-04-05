@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { useEdges } from 'reactflow';
 import { useNodeHelpLink } from '../../hooks/use-node-help-link';
 import ChangeBlock from './change-block';
@@ -26,7 +26,6 @@ type PanelOperatorPopupProps = {
   showHelpLink?: boolean;
 };
 const PanelOperatorPopup = ({ id, data, onClosePopup, showHelpLink }: PanelOperatorPopupProps) => {
-  const { t } = useTranslation();
   const language = useGetLanguage();
   const edges = useEdges();
   const { handleNodeDelete, handleNodesDuplicate, handleNodeSelect, handleNodesCopy } = useNodesInteractions();

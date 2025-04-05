@@ -1,14 +1,14 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import produce from 'immer';
+
+import { produce } from 'immer';
 import VarReferencePicker from './variable/var-reference-picker';
 import ResolutionPicker from '@workflow/nodes/llm/components/resolution-picker';
 import Field from '@workflow/nodes/_base/components/field';
 import Switch from '@base/switch';
 import { type ValueSelector, type Var, VarType, type VisionSetting } from '@workflow/types';
-import { Resolution } from '@/types/app';
+import { Resolution } from '@workflow-app/types/app';
 import Tooltip from '@base/tooltip';
 const i18nPrefix = 'workflow.nodes.llm';
 
@@ -34,8 +34,6 @@ const ConfigVision: FC<Props> = ({
   },
   onConfigChange,
 }) => {
-  const { t } = useTranslation();
-
   const filterVar = useCallback((payload: Var) => {
     return [VarType.file, VarType.arrayFile].includes(payload.type);
   }, []);

@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import VarReferenceVars from './var-reference-vars';
 import type { NodeOutPutVar, ValueSelector, Var } from '@workflow/types';
 import ListEmpty from '@base/list-empty';
@@ -12,7 +12,6 @@ type Props = {
   itemWidth?: number;
 };
 const AssignedVarReferencePopup: FC<Props> = ({ vars, onChange, itemWidth }) => {
-  const { t } = useTranslation();
   // max-h-[300px] overflow-y-auto todo: use portal to handle long list
   return (
     <div className="bg-components-panel-bg-bur border-components-panel-border w-[352px] rounded-lg border-[0.5px] p-1 shadow-lg">

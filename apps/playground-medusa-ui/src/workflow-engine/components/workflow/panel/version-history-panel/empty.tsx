@@ -1,15 +1,12 @@
 import Button from '@base/button';
 import { RiHistoryLine } from '@remixicon/react';
 import React, { type FC } from 'react';
-import { useTranslation } from 'react-i18next';
 
 type EmptyProps = {
   onResetFilter: () => void;
 };
 
 const Empty: FC<EmptyProps> = ({ onResetFilter }) => {
-  const { t } = useTranslation();
-
   return (
     <div className="flex h-5/6 w-full flex-col justify-center gap-y-2">
       <div className="flex justify-center">

@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiCloseLine, RiLoader2Line } from '@remixicon/react';
 import type { Props as FormProps } from './form';
 import Form from './form';
@@ -12,7 +12,7 @@ import Split from '@workflow/nodes/_base/components/split';
 import { InputVarType, NodeRunningStatus } from '@workflow/types';
 import ResultPanel from '@workflow/run/result-panel';
 import Toast from '@base/toast';
-import { TransferMethod } from '@/types/app';
+import { TransferMethod } from '@workflow-app/types/app';
 import { getProcessedFiles } from '@base/file-uploader/utils';
 import type { BlockEnum } from '@workflow/types';
 import type { Emoji } from '@tools/types';
@@ -64,8 +64,6 @@ const BeforeRunForm: FC<BeforeRunFormProps> = ({
   showSpecialResultPanel,
   ...restResultPanelParams
 }) => {
-  const { t } = useTranslation();
-
   const isFinished =
     runningStatus === NodeRunningStatus.Succeeded ||
     runningStatus === NodeRunningStatus.Failed ||

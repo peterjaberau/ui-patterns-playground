@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { BodyType, type HttpNodeType, Method } from '../types';
 import Modal from '@base/modal';
 import Button from '@base/button';
@@ -102,7 +102,6 @@ const parseCurl = (curlCommand: string): { node: HttpNodeType | null; error: str
 const CurlPanel: FC<Props> = ({ nodeId, isShow, onHide, handleCurlImport }) => {
   const [inputString, setInputString] = useState('');
   const { handleNodeSelect } = useNodesInteractions();
-  const { t } = useTranslation();
 
   const handleSave = useCallback(() => {
     const { node, error } = parseCurl(inputString);

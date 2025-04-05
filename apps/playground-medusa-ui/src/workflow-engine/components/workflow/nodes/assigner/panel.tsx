@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiAddLine } from '@remixicon/react';
 import VarList from './components/var-list';
 import useConfig from './use-config';
@@ -12,7 +12,6 @@ import ActionButton from '@base/action-button';
 const i18nPrefix = 'workflow.nodes.assigner';
 
 const Panel: FC<NodePanelProps<AssignerNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
   const handleAddOperationItem = useHandleAddOperationItem();
   const {
     readOnly,

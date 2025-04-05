@@ -12,7 +12,6 @@ import type { ToolDefaultValue, ToolValue } from '../types';
 import { ViewType } from '../view-type-select';
 import ActonItem from './action-item';
 import BlockIcon from '../../block-icon';
-import { useTranslation } from 'react-i18next';
 
 type Props = {
   className?: string;
@@ -33,7 +32,6 @@ const Tool: FC<Props> = ({
   onSelect,
   selectedTools,
 }) => {
-  const { t } = useTranslation();
   const language = useGetLanguage();
   const isFlatView = viewType === ViewType.flat;
   const actions = payload.tools;

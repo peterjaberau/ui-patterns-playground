@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react';
 import { memo, useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import type { ChatConfig, ChatItem } from '../../types';
 import Operation from './operation';
 import AgentContent from './agent-content';
@@ -45,7 +45,6 @@ const Answer: FC<AnswerProps> = ({
   noChatInput,
   switchSibling,
 }) => {
-  const { t } = useTranslation();
   const { content, citation, agent_thoughts, more, annotation, workflowProcess, allFiles, message_files } = item;
   const hasAgentThoughts = !!agent_thoughts?.length;
 

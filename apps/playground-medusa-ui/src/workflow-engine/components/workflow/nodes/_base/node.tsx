@@ -1,7 +1,7 @@
 import type { FC, ReactElement } from 'react';
 import { cloneElement, memo, useEffect, useMemo, useRef } from 'react';
 import { RiAlertFill, RiCheckboxCircleFill, RiErrorWarningFill, RiLoader2Line } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import type { NodeProps } from '../../types';
 import { BlockEnum, NodeRunningStatus } from '../../types';
 import { useNodesReadOnly, useToolIcon } from '../../hooks';
@@ -24,7 +24,6 @@ type BaseNodeProps = {
 } & NodeProps;
 
 const BaseNode: FC<BaseNodeProps> = ({ id, data, children }) => {
-  const { t } = useTranslation();
   const nodeRef = useRef<HTMLDivElement>(null);
   const { nodesReadOnly } = useNodesReadOnly();
   const { handleNodeIterationChildSizeChange } = useNodeIterationInteractions();

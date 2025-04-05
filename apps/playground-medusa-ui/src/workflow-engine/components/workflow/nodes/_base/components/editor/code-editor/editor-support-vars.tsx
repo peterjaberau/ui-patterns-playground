@@ -2,7 +2,7 @@
 import type { FC } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useBoolean } from 'ahooks';
-import { useTranslation } from 'react-i18next';
+
 import type { Props as EditorProps } from '.';
 import Editor from '.';
 import cn from '@/utils/classnames';
@@ -18,8 +18,6 @@ type Props = {
 } & EditorProps;
 
 const CodeEditor: FC<Props> = ({ availableVars, varList, onAddVar, ...editorProps }) => {
-  const { t } = useTranslation();
-
   const isLeftBraceRef = useRef(false);
 
   const editorRef = useRef(null);

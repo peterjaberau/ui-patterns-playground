@@ -2,7 +2,7 @@
 import type { FC } from 'react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { uniqueId } from 'lodash-es';
-import { useTranslation } from 'react-i18next';
+
 import type { ModelConfig, PromptItem, Variable } from '../../../types';
 import { EditionType } from '../../../types';
 import { useWorkflowStore } from '../../../store';
@@ -79,7 +79,6 @@ const ConfigPromptItem: FC<Props> = ({
   handleAddVariable,
   modelConfig,
 }) => {
-  const { t } = useTranslation();
   const workflowStore = useWorkflowStore();
   const { setControlPromptEditorRerenderKey } = workflowStore.getState();
   const [instanceId, setInstanceId] = useState(uniqueId());

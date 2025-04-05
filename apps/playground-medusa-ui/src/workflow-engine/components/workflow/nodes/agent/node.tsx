@@ -6,7 +6,7 @@ import { Group, GroupLabel } from '../_base/components/group';
 import type { ToolIconProps } from './components/tool-icon';
 import { ToolIcon } from './components/tool-icon';
 import useConfig from './use-config';
-import { useTranslation } from 'react-i18next';
+
 import { FormTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations';
 import { useRenderI18nObject } from '@/hooks/use-i18n';
 import { ModelBar } from './components/model-bar';
@@ -14,7 +14,7 @@ import { ModelBar } from './components/model-bar';
 const AgentNode: FC<NodeProps<AgentNodeType>> = (props) => {
   const { inputs, currentStrategy, currentStrategyStatus, pluginDetail } = useConfig(props.id, props.data);
   const renderI18nObject = useRenderI18nObject();
-  const { t } = useTranslation();
+
   const models = useMemo(() => {
     if (!inputs) return [];
     // if selected, show in node

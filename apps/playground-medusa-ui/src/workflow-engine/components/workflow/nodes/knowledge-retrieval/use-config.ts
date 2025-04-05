@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import produce from 'immer';
+import { produce } from 'immer';
 import { isEqual } from 'lodash-es';
 import { v4 as uuid4 } from 'uuid';
 import type { ValueSelector, Var } from '../../types';
@@ -16,7 +16,7 @@ import type {
 } from './types';
 import { ComparisonOperator, LogicalOperator, MetadataFilteringVariableType } from './types';
 import { getMultipleRetrievalConfig, getSelectedDatasetsMode } from './utils';
-import { RETRIEVE_TYPE } from '@/types/app';
+import { RETRIEVE_TYPE } from '@workflow-app/types/app';
 import { DATASET_DEFAULT } from '@/config';
 import type { DataSet } from '@/models/datasets';
 import { fetchDatasets } from '@/service/datasets';

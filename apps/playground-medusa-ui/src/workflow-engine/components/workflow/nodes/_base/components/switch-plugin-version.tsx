@@ -14,7 +14,7 @@ import useGetIcon from '@/app/components/plugins/install-plugin/base/use-get-ico
 import { pluginManifestToCardPluginProps } from '@/app/components/plugins/install-plugin/utils';
 import { Badge as Badge2, BadgeState } from '@base/badge/index';
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+
 import { marketplaceUrlPrefix } from '@/config';
 
 export type SwitchPluginVersionProps = {
@@ -60,7 +60,7 @@ export const SwitchPluginVersion: FC<SwitchPluginVersionProps> = (props) => {
       },
     );
   };
-  const { t } = useTranslation();
+
   return (
     <Tooltip popupContent={!isShow && !isShowUpdateModal && tooltip} triggerMethod="hover">
       <div className={cn('flex w-fit items-center justify-center', className)} onClick={(e) => e.stopPropagation()}>

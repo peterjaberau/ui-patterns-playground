@@ -1,5 +1,5 @@
 import { memo, useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { groupBy } from 'lodash-es';
 import BlockIcon from '../block-icon';
 import { BlockEnum } from '../types';
@@ -16,7 +16,6 @@ type BlocksProps = {
   availableBlocksTypes?: BlockEnum[];
 };
 const Blocks = ({ searchText, onSelect, availableBlocksTypes = [] }: BlocksProps) => {
-  const { t } = useTranslation();
   const isChatMode = useIsChatMode();
   const nodesExtraData = useNodesExtraData();
   const blocks = useBlocks();

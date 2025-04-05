@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import type { Topic } from '../types';
 import Editor from '@workflow/nodes/_base/components/prompt/editor';
 import useAvailableVarList from '@workflow/nodes/_base/hooks/use-available-var-list';
@@ -20,8 +20,6 @@ type Props = {
 };
 
 const ClassItem: FC<Props> = ({ nodeId, payload, onChange, onRemove, index, readonly, filterVar }) => {
-  const { t } = useTranslation();
-
   const handleNameChange = useCallback(
     (value: string) => {
       onChange({ ...payload, name: value });

@@ -1,6 +1,6 @@
 import React, { type FC, useCallback } from 'react';
 import { RiHistoryLine } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import { useKeyPress } from 'ahooks';
 import Button from '../../base/button';
 import Tooltip from '../../base/tooltip';
@@ -13,7 +13,6 @@ type VersionHistoryButtonProps = {
 const VERSION_HISTORY_SHORTCUT = ['⌘', '⇧', 'H'];
 
 const PopupContent = React.memo(() => {
-  const { t } = useTranslation();
   return (
     <div className="flex items-center gap-x-1">
       <div className="system-xs-medium text-text-secondary px-0.5">{t('workflow.common.versionHistory')}</div>

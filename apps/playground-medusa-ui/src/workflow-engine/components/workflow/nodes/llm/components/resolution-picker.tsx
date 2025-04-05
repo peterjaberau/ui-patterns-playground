@@ -1,9 +1,9 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import OptionCard from '@workflow/nodes/_base/components/option-card';
-import { Resolution } from '@/types/app';
+import { Resolution } from '@workflow-app/types/app';
 
 const i18nPrefix = 'workflow.nodes.llm';
 
@@ -13,8 +13,6 @@ type Props = {
 };
 
 const ResolutionPicker: FC<Props> = ({ value, onChange }) => {
-  const { t } = useTranslation();
-
   const handleOnChange = useCallback(
     (value: Resolution) => {
       return () => {

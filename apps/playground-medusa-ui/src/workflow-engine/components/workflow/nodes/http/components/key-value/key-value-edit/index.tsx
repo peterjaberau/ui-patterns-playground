@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import produce from 'immer';
-import { useTranslation } from 'react-i18next';
+import { produce } from 'immer';
+
 import type { KeyValue } from '../../../types';
 import KeyValueItem from './item';
 import cn from '@/utils/classnames';
@@ -32,8 +32,6 @@ const KeyValueList: FC<Props> = ({
   keyNotSupportVar,
   insertVarTipToLeft,
 }) => {
-  const { t } = useTranslation();
-
   const handleChange = useCallback(
     (index: number) => {
       return (newItem: KeyValue) => {

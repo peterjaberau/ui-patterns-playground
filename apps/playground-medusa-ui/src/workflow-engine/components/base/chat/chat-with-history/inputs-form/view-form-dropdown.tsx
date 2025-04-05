@@ -28,7 +28,7 @@ const ViewFormDropdown = () => {
         <div className="border-components-panel-border bg-components-panel-bg w-[400px] rounded-2xl border-[0.5px] shadow-lg backdrop-blur-sm">
           <div className="border-divider-subtle flex items-center gap-3 rounded-t-2xl border-b px-6 py-4">
             <Message3Fill className="h-6 w-6 shrink-0" />
-            <div className="system-xl-semibold text-text-secondary grow">{t('share.chat.chatSettingsTitle')}</div>
+            <div className="system-xl-semibold text-text-secondary grow">{'New chat setup'}</div>
           </div>
           <div className="p-6">
             <InputsFormContent />

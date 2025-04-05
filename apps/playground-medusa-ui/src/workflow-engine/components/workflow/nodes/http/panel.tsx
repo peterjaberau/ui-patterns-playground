@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import useConfig from './use-config';
 import ApiInput from './components/api-input';
 import KeyValue from './components/key-value';
@@ -22,8 +22,6 @@ import ResultPanel from '@workflow/run/result-panel';
 const i18nPrefix = 'workflow.nodes.http';
 
 const Panel: FC<NodePanelProps<HttpNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
-
   const {
     readOnly,
     isDataReady,

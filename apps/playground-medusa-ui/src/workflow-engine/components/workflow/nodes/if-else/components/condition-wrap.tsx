@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { ReactSortable } from 'react-sortablejs';
 import { RiAddLine, RiDeleteBinLine, RiDraggable } from '@remixicon/react';
 import type {
@@ -70,8 +70,6 @@ const ConditionWrap: FC<Props> = ({
   varsIsVarFileAttribute = {},
   filterVar = () => true,
 }) => {
-  const { t } = useTranslation();
-
   const getAvailableVars = useGetAvailableVars();
 
   const [willDeleteCaseId, setWillDeleteCaseId] = useState('');

@@ -2,7 +2,7 @@ import { uniq, xorBy } from 'lodash-es';
 import type { MultipleRetrievalConfig } from './types';
 import type { DataSet, SelectedDatasetsMode } from '@/models/datasets';
 import { DEFAULT_WEIGHTED_SCORE, RerankingModeEnum } from '@/models/datasets';
-import { RETRIEVE_METHOD } from '@/types/app';
+import { RETRIEVE_METHOD } from '@workflow-app/types/app';
 import { DATASET_DEFAULT } from '@/config';
 
 export const checkNodeValid = () => {

@@ -1,6 +1,6 @@
 import type { MouseEvent } from 'react';
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiCursorLine, RiFunctionAddLine, RiHand, RiStickyNoteAddLine } from '@remixicon/react';
 import { useNodesReadOnly, useWorkflowMoveMode, useWorkflowOrganize } from '../hooks';
 import { ControlMode } from '../types';
@@ -12,7 +12,6 @@ import { useOperator } from './hooks';
 import cn from '@/utils/classnames';
 
 const Control = () => {
-  const { t } = useTranslation();
   const controlMode = useStore((s) => s.controlMode);
   const { handleModePointer, handleModeHand } = useWorkflowMoveMode();
   const { handleLayout } = useWorkflowOrganize();

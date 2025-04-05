@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react';
 import { RiClipboardLine, RiCloseLine } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import copy from 'copy-to-clipboard';
 import ResultText from '../run/result-text';
 import ResultPanel from '../run/result-panel';
@@ -15,7 +15,6 @@ import Loading from '@base/loading';
 import Button from '@base/button';
 
 const WorkflowPreview = () => {
-  const { t } = useTranslation();
   const { handleCancelDebugAndPreviewPanel } = useWorkflowInteractions();
   const workflowRunningData = useStore((s) => s.workflowRunningData);
   const showInputsPanel = useStore((s) => s.showInputsPanel);

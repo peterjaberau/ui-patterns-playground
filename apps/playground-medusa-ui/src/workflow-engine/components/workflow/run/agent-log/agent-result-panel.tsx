@@ -1,8 +1,8 @@
 import { RiAlertFill } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import AgentLogItem from './agent-log-item';
 import AgentLogNav from './agent-log-nav';
-import type { AgentLogItemWithChildren } from '@/types/workflow';
+import type { AgentLogItemWithChildren } from '@workflow-app/types/workflow';
 
 type AgentResultPanelProps = {
   agentOrToolLogItemStack: AgentLogItemWithChildren[];
@@ -14,7 +14,6 @@ const AgentResultPanel = ({
   agentOrToolLogListMap,
   onShowAgentOrToolLog,
 }: AgentResultPanelProps) => {
-  const { t } = useTranslation();
   const top = agentOrToolLogItemStack[agentOrToolLogItemStack.length - 1];
   const list = agentOrToolLogListMap[top.id];
 

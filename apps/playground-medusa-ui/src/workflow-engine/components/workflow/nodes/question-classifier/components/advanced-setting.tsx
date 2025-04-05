@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import MemoryConfig from '../../_base/components/memory-config';
 import Editor from '@workflow/nodes/_base/components/prompt/editor';
 import type { Memory, Node, NodeOutPutVar } from '@workflow/types';
@@ -39,8 +39,6 @@ const AdvancedSetting: FC<Props> = ({
   nodesOutputVars,
   availableNodes,
 }) => {
-  const { t } = useTranslation();
-
   return (
     <>
       <Editor

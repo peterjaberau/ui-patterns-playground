@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
-import produce from 'immer';
+import { produce } from 'immer';
 import { useStoreApi } from 'reactflow';
 import { useParams } from 'next/navigation';
 import { useStore, useWorkflowStore } from '../store';
 import { BlockEnum } from '../types';
 import { useWorkflowUpdate } from '../hooks';
 import { useNodesReadOnly } from './use-workflow';
-import { syncWorkflowDraft } from '@/service/workflow';
+import { syncWorkflowDraft } from '@workflow-app/service/workflow';
 import { useFeaturesStore } from '@base/features/hooks';
-import { API_PREFIX } from '@/config';
+import { API_PREFIX } from '@workflow-app/config';
 
 export const useNodesSyncDraft = () => {
   const store = useStoreApi();
@@ -17,7 +17,7 @@ export const useNodesSyncDraft = () => {
   const { getNodesReadOnly } = useNodesReadOnly();
   const { handleRefreshWorkflowDraft } = useWorkflowUpdate();
   const debouncedSyncWorkflowDraft = useStore((s) => s.debouncedSyncWorkflowDraft);
-  const params = useParams();
+  const params: any = useParams();
 
   const getPostParams = useCallback(() => {
     const { getNodes, edges, transform } = store.getState();

@@ -1,6 +1,6 @@
 import { memo, useCallback } from 'react';
 import { RiAddLine } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import { useAvailableBlocks, useNodesInteractions, useNodesReadOnly } from '../../hooks';
 import type { IterationNodeType } from './types';
 import cn from '@/utils/classnames';
@@ -13,7 +13,6 @@ type AddBlockProps = {
   iterationNodeData: IterationNodeType;
 };
 const AddBlock = ({ iterationNodeData }: AddBlockProps) => {
-  const { t } = useTranslation();
   const { nodesReadOnly } = useNodesReadOnly();
   const { handleNodeAdd } = useNodesInteractions();
   const { availableNextBlocks } = useAvailableBlocks(BlockEnum.Start, true);

@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import produce from 'immer';
+
+import { produce } from 'immer';
 import RemoveButton from '../remove-button';
 import VarReferencePicker from './var-reference-picker';
 import Input from '@base/input';
@@ -32,8 +32,6 @@ const VarList: FC<Props> = ({
   filterVar,
   isSupportFileVar = true,
 }) => {
-  const { t } = useTranslation();
-
   const handleVarNameChange = useCallback(
     (index: number) => {
       return (e: React.ChangeEvent<HTMLInputElement>) => {

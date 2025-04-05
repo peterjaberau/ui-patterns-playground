@@ -1,5 +1,5 @@
 import { memo, useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiArrowDownSLine } from '@remixicon/react';
 import { capitalize } from 'lodash-es';
 import { useBoolean } from 'ahooks';
@@ -34,7 +34,6 @@ const ConditionNumberInput = ({
   isShort,
   unit,
 }: ConditionNumberInputProps) => {
-  const { t } = useTranslation();
   const [numberVarTypeVisible, setNumberVarTypeVisible] = useState(false);
   const [variableSelectorVisible, setVariableSelectorVisible] = useState(false);
   const [isFocus, { setTrue: setFocus, setFalse: setBlur }] = useBoolean();

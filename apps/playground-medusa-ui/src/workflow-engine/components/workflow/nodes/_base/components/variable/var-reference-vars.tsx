@@ -2,7 +2,7 @@
 import type { FC } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useHover } from 'ahooks';
-import { useTranslation } from 'react-i18next';
+
 import cn from '@/utils/classnames';
 import { type NodeOutPutVar, type ValueSelector, type Var, VarType } from '@workflow/types';
 import { Variable02 } from '@base/icons/src/vender/solid/development';
@@ -254,7 +254,6 @@ const VarReferenceVars: FC<Props> = ({
   itemWidth,
   maxHeightClass,
 }) => {
-  const { t } = useTranslation();
   const [searchText, setSearchText] = useState('');
 
   const filteredVars = vars

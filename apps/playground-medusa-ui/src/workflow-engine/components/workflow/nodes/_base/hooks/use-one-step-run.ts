@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { unionBy } from 'lodash-es';
-import produce from 'immer';
+import { produce } from 'immer';
 import { useIsChatMode, useNodeDataUpdate, useWorkflow } from '@workflow/hooks';
 import {
   getNodeInfoById,
@@ -13,7 +13,7 @@ import {
 
 import type { CommonNodeType, InputVar, ValueSelector, Var, Variable } from '@workflow/types';
 import { BlockEnum, InputVarType, NodeRunningStatus, VarType } from '@workflow/types';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import { useStore, useWorkflowStore } from '@workflow/store';
 import { getIterationSingleNodeRunUrl, getLoopSingleNodeRunUrl, singleNodeRun } from '@/service/workflow';
 import Toast from '@base/toast';
@@ -34,7 +34,7 @@ import LoopDefault from '@workflow/nodes/loop/default';
 import { ssePost } from '@/service/base';
 
 import { getInputVars as doGetInputVars } from '@base/prompt-editor/constants';
-import type { NodeTracing } from '@/types/workflow';
+import type { NodeTracing } from '@workflow-app/types/workflow';
 const { checkValid: checkLLMValid } = LLMDefault;
 const { checkValid: checkKnowledgeRetrievalValid } = KnowledgeRetrievalDefault;
 const { checkValid: checkIfElseValid } = IfElseDefault;
@@ -106,7 +106,6 @@ const useOneStepRun = <T>({
   iteratorInputKey,
   loopInputKey,
 }: Params<T>) => {
-  const { t } = useTranslation();
   const { getBeforeNodesInSameBranch, getBeforeNodesInSameBranchIncludeParent } = useWorkflow() as any;
   const conversationVariables = useStore((s) => s.conversationVariables);
   const isChatMode = useIsChatMode();

@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { useContext } from 'use-context-selector';
 import VarReferenceVars from './var-reference-vars';
 import type { NodeOutPutVar, ValueSelector, Var } from '@workflow/types';
@@ -17,7 +17,6 @@ type Props = {
   isSupportFileVar?: boolean;
 };
 const VarReferencePopup: FC<Props> = ({ vars, popupFor, onChange, itemWidth, isSupportFileVar = true }) => {
-  const { t } = useTranslation();
   const { locale } = useContext(I18n);
   // max-h-[300px] overflow-y-auto todo: use portal to handle long list
   return (

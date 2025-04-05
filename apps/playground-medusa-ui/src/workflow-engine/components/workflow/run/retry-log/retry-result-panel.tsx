@@ -2,10 +2,10 @@
 
 import type { FC } from 'react';
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiArrowLeftLine } from '@remixicon/react';
 import TracingPanel from '../tracing-panel';
-import type { NodeTracing } from '@/types/workflow';
+import type { NodeTracing } from '@workflow-app/types/workflow';
 
 type Props = {
   list: NodeTracing[];
@@ -13,8 +13,6 @@ type Props = {
 };
 
 const RetryResultPanel: FC<Props> = ({ list, onBack }) => {
-  const { t } = useTranslation();
-
   return (
     <div>
       <div

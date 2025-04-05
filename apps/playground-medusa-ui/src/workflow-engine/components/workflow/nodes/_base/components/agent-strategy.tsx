@@ -11,7 +11,7 @@ import type { ToolVarInputs } from '../../tool/types';
 import ListEmpty from '@base/list-empty';
 import { AgentStrategySelector } from './agent-strategy-selector';
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+
 import Form from '@/app/components/header/account-setting/model-provider-page/model-modal/Form';
 import { Agent } from '@base/icons/src/vender/workflow';
 import { InputNumber } from '@base/input-number';
@@ -67,7 +67,7 @@ export const AgentStrategy = memo((props: AgentStrategyProps) => {
     availableNodes,
     nodeId,
   } = props;
-  const { t } = useTranslation();
+
   const { locale } = useContext(I18n);
   const defaultModel = useDefaultModel(ModelTypeEnum.textGeneration);
   const renderI18nObject = useRenderI18nObject();

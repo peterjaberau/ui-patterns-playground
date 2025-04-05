@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import dayjs from 'dayjs';
 import { RiCalendarLine, RiCloseCircleFill } from '@remixicon/react';
 import DatePicker from '@base/date-and-time-picker/date-picker';
@@ -12,7 +12,6 @@ type ConditionDateProps = {
   onChange: (date?: number) => void;
 };
 const ConditionDate = ({ value, onChange }: ConditionDateProps) => {
-  const { t } = useTranslation();
   const {
     userProfile: { timezone },
   } = useAppContext();

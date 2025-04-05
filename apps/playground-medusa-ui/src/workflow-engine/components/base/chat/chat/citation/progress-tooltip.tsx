@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { FC } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 
 type ProgressTooltipProps = {
@@ -8,7 +8,6 @@ type ProgressTooltipProps = {
 };
 
 const ProgressTooltip: FC<ProgressTooltipProps> = ({ data }) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   return (
@@ -23,7 +22,7 @@ const ProgressTooltip: FC<ProgressTooltipProps> = ({ data }) => {
       </PortalToFollowElemTrigger>
       <PortalToFollowElemContent style={{ zIndex: 1001 }}>
         <div className="system-xs-medium bg-components-tooltip-bg text-text-quaternary rounded-lg p-3 shadow-lg">
-          {t('common.chat.citation.hitScore')} {data}
+          {'Retrieval Score'} {data}
         </div>
       </PortalToFollowElemContent>
     </PortalToFollowElem>

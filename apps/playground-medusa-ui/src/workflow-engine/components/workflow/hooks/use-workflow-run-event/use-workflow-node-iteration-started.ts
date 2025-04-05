@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { useReactFlow, useStoreApi } from 'reactflow';
-import produce from 'immer';
+import { produce } from 'immer';
 import { useWorkflowStore } from '@workflow/store';
-import type { IterationStartedResponse } from '@/types/workflow';
+import type { IterationStartedResponse } from '@workflow-app/types/workflow';
 import { NodeRunningStatus } from '@workflow/types';
 import { DEFAULT_ITER_TIMES } from '@workflow/constants';
 

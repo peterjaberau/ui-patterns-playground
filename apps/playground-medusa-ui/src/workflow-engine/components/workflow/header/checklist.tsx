@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { useEdges, useNodes } from 'reactflow';
 import { RiCloseLine, RiListCheck3 } from '@remixicon/react';
 import BlockIcon from '../block-icon';
@@ -14,7 +14,6 @@ type WorkflowChecklistProps = {
   disabled: boolean;
 };
 const WorkflowChecklist = ({ disabled }: WorkflowChecklistProps) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const nodes = useNodes<CommonNodeType>();
   const edges = useEdges<CommonEdgeType>();

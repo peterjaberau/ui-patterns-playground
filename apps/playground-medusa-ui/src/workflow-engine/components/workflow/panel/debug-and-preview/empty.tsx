@@ -1,9 +1,6 @@
-import { useTranslation } from 'react-i18next';
 import { ChatBotSlim } from '@base/icons/src/vender/line/communication';
 
 const Empty = () => {
-  const { t } = useTranslation();
-
   return (
     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
       <div className="mb-2 flex justify-center">

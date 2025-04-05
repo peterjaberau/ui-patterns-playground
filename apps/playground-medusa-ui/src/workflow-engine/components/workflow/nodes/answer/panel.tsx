@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import useConfig from './use-config';
 import type { AnswerNodeType } from './types';
 import Editor from '@workflow/nodes/_base/components/prompt/editor';
@@ -9,8 +9,6 @@ import useAvailableVarList from '@workflow/nodes/_base/hooks/use-available-var-l
 const i18nPrefix = 'workflow.nodes.answer';
 
 const Panel: FC<NodePanelProps<AnswerNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
-
   const { readOnly, inputs, handleAnswerChange, filterVar } = useConfig(id, data);
 
   const { availableVars, availableNodesWithParent } = useAvailableVarList(id, {

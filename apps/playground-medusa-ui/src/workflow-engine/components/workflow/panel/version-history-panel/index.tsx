@@ -1,14 +1,14 @@
 'use client';
 import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiArrowDownDoubleLine, RiCloseLine, RiLoader2Line } from '@remixicon/react';
 import { useNodesSyncDraft, useWorkflowRun } from '../../hooks';
 import { useStore, useWorkflowStore } from '../../store';
 import { VersionHistoryContextMenuOptions, WorkflowVersionFilterOptions } from '../../types';
 import VersionHistoryItem from './version-history-item';
 import Filter from './filter';
-import type { VersionHistory } from '@/types/workflow';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import type { VersionHistory } from '@workflow-app/types/workflow';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import {
   useDeleteWorkflow,
   useResetWorkflowVersionHistory,
@@ -42,7 +42,6 @@ const VersionHistoryPanel = () => {
   const currentVersion = useStore((s) => s.currentVersion);
   const setCurrentVersion = useStore((s) => s.setCurrentVersion);
   const userProfile = useAppContextSelector((s) => s.userProfile);
-  const { t } = useTranslation();
 
   const {
     data: versionHistory,

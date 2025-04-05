@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { memo, useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiPlayLargeLine } from '@remixicon/react';
 import { useNodeDataUpdate, useNodesInteractions, useNodesSyncDraft } from '../../../hooks';
 import type { Node } from '../../../types';
@@ -11,7 +11,6 @@ import Tooltip from '@base/tooltip';
 
 type NodeControlProps = Pick<Node, 'id' | 'data'>;
 const NodeControl: FC<NodeControlProps> = ({ id, data }) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const { handleNodeDataUpdate } = useNodeDataUpdate();
   const { handleNodeSelect } = useNodesInteractions();

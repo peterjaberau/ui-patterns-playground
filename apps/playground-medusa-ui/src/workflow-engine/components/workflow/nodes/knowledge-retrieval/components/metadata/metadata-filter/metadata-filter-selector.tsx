@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiArrowDownSLine, RiCheckLine } from '@remixicon/react';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import Button from '@base/button';
@@ -13,7 +13,6 @@ const MetadataFilterSelector = ({
   value = MetadataFilteringModeEnum.disabled,
   onSelect,
 }: MetadataFilterSelectorProps) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const options = [
     {

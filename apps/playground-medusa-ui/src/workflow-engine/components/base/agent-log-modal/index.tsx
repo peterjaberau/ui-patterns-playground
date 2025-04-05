@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiCloseLine } from '@remixicon/react';
 import { useEffect, useRef, useState } from 'react';
 import { useClickAway } from 'ahooks';
@@ -13,7 +13,6 @@ type AgentLogModalProps = {
   onCancel: () => void;
 };
 const AgentLogModal: FC<AgentLogModalProps> = ({ currentLogItem, width, onCancel }) => {
-  const { t } = useTranslation();
   const ref = useRef(null);
   const [mounted, setMounted] = useState(false);
 

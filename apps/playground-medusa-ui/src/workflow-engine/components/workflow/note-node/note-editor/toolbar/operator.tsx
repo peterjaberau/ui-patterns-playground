@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiMoreFill } from '@remixicon/react';
 import cn from '@/utils/classnames';
 import ShortcutsName from '@workflow/shortcuts-name';
@@ -14,7 +14,6 @@ export type OperatorProps = {
   onShowAuthorChange: (showAuthor: boolean) => void;
 };
 const Operator = ({ onCopy, onDelete, onDuplicate, showAuthor, onShowAuthorChange }: OperatorProps) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   return (

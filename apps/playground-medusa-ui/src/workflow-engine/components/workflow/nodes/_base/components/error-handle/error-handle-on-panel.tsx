@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import Collapse from '../collapse';
 import { ErrorHandleTypeEnum } from './types';
 import ErrorHandleTypeSelector from './error-handle-type-selector';
@@ -12,7 +12,6 @@ import Tooltip from '@base/tooltip';
 
 type ErrorHandleProps = Pick<Node, 'id' | 'data'>;
 const ErrorHandle = ({ id, data }: ErrorHandleProps) => {
-  const { t } = useTranslation();
   const { error_strategy, default_value } = data;
   const { collapsed, setCollapsed, handleErrorHandleTypeChange } = useErrorHandle(id, data);
   const { handleFormChange } = useDefaultValue(id);

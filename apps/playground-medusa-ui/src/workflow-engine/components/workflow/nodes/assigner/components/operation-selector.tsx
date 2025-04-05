@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { RiArrowDownSLine, RiCheckLine } from '@remixicon/react';
 import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
+
 import type { WriteMode } from '../types';
 import { getOperationItems } from '../utils';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
@@ -40,7 +40,6 @@ const OperationSelector: FC<OperationSelectorProps> = ({
   writeModeTypesArr,
   writeModeTypesNum,
 }) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const items = getOperationItems(assignedVarType, writeModeTypes, writeModeTypesArr, writeModeTypesNum);

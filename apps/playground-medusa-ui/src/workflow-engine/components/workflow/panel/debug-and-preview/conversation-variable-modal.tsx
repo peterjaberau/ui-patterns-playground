@@ -1,7 +1,7 @@
 'use client';
 import React, { useCallback } from 'react';
 import { useMount } from 'ahooks';
-import { useTranslation } from 'react-i18next';
+
 import { capitalize } from 'lodash-es';
 import copy from 'copy-to-clipboard';
 import { RiCloseLine } from '@remixicon/react';
@@ -23,7 +23,6 @@ export type Props = {
 };
 
 const ConversationVariableModal = ({ conversationID, onHide }: Props) => {
-  const { t } = useTranslation();
   const { formatTime } = useTimestamp();
   const varList = useStore((s) => s.conversationVariables) as ConversationVariable[];
   const appID = useStore((s) => s.appId);

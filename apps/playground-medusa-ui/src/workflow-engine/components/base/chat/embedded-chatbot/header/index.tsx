@@ -29,7 +29,7 @@ const Header: FC<IHeaderProps> = ({ isMobile, customerIcon, title, theme, onCrea
           <div className="shrink-0">
             {!appData?.custom_config?.remove_webapp_brand && (
               <div className={cn('flex shrink-0 items-center gap-1.5 px-2')}>
-                <div className="system-2xs-medium-uppercase text-text-tertiary">{t('share.chat.poweredBy')}</div>
+                <div className="system-2xs-medium-uppercase text-text-tertiary">{'Powered by'}</div>
                 {appData?.custom_config?.replace_webapp_logo && (
                   <img src={appData?.custom_config?.replace_webapp_logo} alt="logo" className="block h-5 w-auto" />
                 )}
@@ -39,7 +39,7 @@ const Header: FC<IHeaderProps> = ({ isMobile, customerIcon, title, theme, onCrea
           </div>
           {currentConversationId && <Divider type="vertical" className="h-3.5" />}
           {currentConversationId && (
-            <Tooltip popupContent={t('share.chat.resetChat')}>
+            <Tooltip popupContent={'Reset chat'}>
               <ActionButton size="l" onClick={onCreateNewChat}>
                 <RiResetLeftLine className="h-[18px] w-[18px]" />
               </ActionButton>
@@ -68,7 +68,7 @@ const Header: FC<IHeaderProps> = ({ isMobile, customerIcon, title, theme, onCrea
       </div>
       <div className="flex items-center gap-1">
         {currentConversationId && (
-          <Tooltip popupContent={t('share.chat.resetChat')}>
+          <Tooltip popupContent={'Reset chat'}>
             <ActionButton size="l" onClick={onCreateNewChat}>
               <RiResetLeftLine className={cn('h-[18px] w-[18px]', theme?.colorPathOnHeader)} />
             </ActionButton>

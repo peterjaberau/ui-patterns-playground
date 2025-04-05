@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { useStore } from '@workflow/store';
 import PromptEditor from '@base/prompt-editor';
 import { BlockEnum } from '@workflow/types';
@@ -12,7 +11,6 @@ type ConditionInputProps = {
   availableNodes: Node[];
 };
 const ConditionInput = ({ value, onChange, disabled, nodesOutputVars, availableNodes }: ConditionInputProps) => {
-  const { t } = useTranslation();
   const controlPromptEditorRerenderKey = useStore((s) => s.controlPromptEditorRerenderKey);
 
   return (

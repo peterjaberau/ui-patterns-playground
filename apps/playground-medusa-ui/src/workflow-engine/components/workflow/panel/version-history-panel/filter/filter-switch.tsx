@@ -1,5 +1,5 @@
 import React, { type FC } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import Switch from '@base/switch';
 
 type FilterSwitchProps = {
@@ -8,8 +8,6 @@ type FilterSwitchProps = {
 };
 
 const FilterSwitch: FC<FilterSwitchProps> = ({ enabled, handleSwitch }) => {
-  const { t } = useTranslation();
-
   return (
     <div className="flex items-center p-1">
       <div className="flex w-full items-center gap-x-1 px-2 py-1.5">

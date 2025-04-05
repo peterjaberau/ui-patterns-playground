@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiBold, RiItalic, RiLink, RiListUnordered, RiStrikethrough } from '@remixicon/react';
 import { useStore } from '../store';
 import { useCommand } from './hooks';
@@ -10,7 +10,6 @@ type CommandProps = {
   type: 'bold' | 'italic' | 'strikethrough' | 'link' | 'bullet';
 };
 const Command = ({ type }: CommandProps) => {
-  const { t } = useTranslation();
   const selectedIsBold = useStore((s) => s.selectedIsBold);
   const selectedIsItalic = useStore((s) => s.selectedIsItalic);
   const selectedIsStrikeThrough = useStore((s) => s.selectedIsStrikeThrough);

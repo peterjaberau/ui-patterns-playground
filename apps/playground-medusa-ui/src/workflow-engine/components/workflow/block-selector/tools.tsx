@@ -1,5 +1,5 @@
 import { memo, useMemo, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import type { BlockEnum, ToolWithProvider } from '../types';
 import IndexBar, { groupItems } from './index-bar';
 import type { ToolDefaultValue, ToolValue } from './types';
@@ -30,7 +30,6 @@ const Blocks = ({
   indexBarClassName,
   selectedTools,
 }: ToolsProps) => {
-  const { t } = useTranslation();
   const language = useGetLanguage();
   const isFlatView = viewType === ViewType.flat;
   const isShowLetterIndex = isFlatView && tools.length > 10;

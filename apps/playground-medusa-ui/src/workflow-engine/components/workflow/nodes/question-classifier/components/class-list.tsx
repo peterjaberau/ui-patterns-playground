@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import produce from 'immer';
-import { useTranslation } from 'react-i18next';
+import { produce } from 'immer';
+
 import { useEdgesInteractions } from '../../../hooks';
 import AddButton from '../../_base/components/add-button';
 import Item from './class-item';
@@ -20,7 +20,6 @@ type Props = {
 };
 
 const ClassList: FC<Props> = ({ nodeId, list, onChange, readonly, filterVar }) => {
-  const { t } = useTranslation();
   const { handleEdgeDeleteByDeleteBranch } = useEdgesInteractions();
 
   const handleClassChange = useCallback(

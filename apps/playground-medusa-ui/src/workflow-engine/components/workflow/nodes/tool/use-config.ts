@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import produce from 'immer';
+
+import { produce } from 'immer';
 import { useBoolean } from 'ahooks';
 import { useStore } from '../../store';
 import { type ToolNodeType, type ToolVarInputs, VarType } from './types';
@@ -20,7 +20,6 @@ import { canFindTool } from '@/utils';
 const useConfig = (id: string, payload: ToolNodeType) => {
   const { nodesReadOnly: readOnly } = useNodesReadOnly();
   const { handleFetchAllTools } = useFetchToolsData();
-  const { t } = useTranslation();
 
   const language = useLanguage();
   const { inputs, setInputs: doSetInputs } = useNodeCrud<ToolNodeType>(id, payload);

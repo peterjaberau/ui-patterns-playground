@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { memo, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiClipboardLine, RiEditLine, RiResetLeftLine, RiThumbDownLine, RiThumbUpLine } from '@remixicon/react';
 import type { ChatItem } from '../../types';
 import { useChatContext } from '../context';
@@ -32,7 +32,6 @@ const Operation: FC<OperationProps> = ({
   hasWorkflowProcess,
   noChatInput,
 }) => {
-  const { t } = useTranslation();
   const { config, onAnnotationAdded, onAnnotationEdited, onAnnotationRemoved, onFeedback, onRegenerate } =
     useChatContext();
   const [isShowReplyModal, setIsShowReplyModal] = useState(false);
@@ -98,7 +97,7 @@ const Operation: FC<OperationProps> = ({
             <ActionButton
               onClick={() => {
                 copy(content);
-                Toast.notify({ type: 'success', message: t('common.actionMsg.copySuccessfully') });
+                Toast.notify({ type: 'success', message: 'Copied successfully' });
               }}
             >
               <RiClipboardLine className="h-4 w-4" />

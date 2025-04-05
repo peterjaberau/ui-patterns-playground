@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { useStoreApi } from 'reactflow';
 import type { CommonNodeType, Edge, Node } from '../types';
 import { BlockEnum } from '../types';
@@ -11,17 +11,16 @@ import { useIsChatMode } from './use-workflow';
 import { useNodesExtraData } from './use-nodes-data';
 import { useToastContext } from '@base/toast';
 import { CollectionType } from '@tools/types';
-import { useGetLanguage } from '@/context/i18n';
+import { useGetLanguage } from '@workflow-app/context/i18n';
 import type { AgentNodeType } from '../nodes/agent/types';
 import { useStrategyProviders } from '@/service/use-strategy';
-import { canFindTool } from '@/utils';
+import { canFindTool } from '@utils/index';
 import { useDatasetsDetailStore } from '../datasets-detail-store/store';
 import type { KnowledgeRetrievalNodeType } from '../nodes/knowledge-retrieval/types';
-import type { DataSet } from '@/models/datasets';
+import type { DataSet } from '@workflow-app/models/datasets';
 import { fetchDatasets } from '@/service/datasets';
 
 export const useChecklist = (nodes: Node[], edges: Edge[]) => {
-  const { t } = useTranslation();
   const language = useGetLanguage();
   const nodesExtraData = useNodesExtraData();
   const isChatMode = useIsChatMode();
@@ -86,9 +85,11 @@ export const useChecklist = (nodes: Node[], edges: Edge[]) => {
         const data = node.data as AgentNodeType;
         const isReadyForCheckValid = !!strategyProviders;
         const provider = strategyProviders?.find(
-          (provider) => provider.declaration.identity.name === data.agent_strategy_provider_name,
+          (provider: any) => provider.declaration.identity.name === data.agent_strategy_provider_name,
         );
-        const strategy = provider?.declaration.strategies?.find((s) => s.identity.name === data.agent_strategy_name);
+        const strategy = provider?.declaration.strategies?.find(
+          (s: any) => s.identity.name === data.agent_strategy_name,
+        );
         moreDataForCheckValid = {
           provider,
           strategy,
@@ -99,7 +100,7 @@ export const useChecklist = (nodes: Node[], edges: Edge[]) => {
 
       if (node.type === CUSTOM_NODE) {
         const checkData = getCheckData(node.data);
-        const { errorMessage } = nodesExtraData[node.data.type].checkValid(checkData, t, moreDataForCheckValid);
+        const { errorMessage } = nodesExtraData[node.data.type].checkValid(checkData, moreDataForCheckValid);
 
         if (errorMessage || !validNodes.find((n) => n.id === node.id)) {
           list.push({
@@ -118,8 +119,8 @@ export const useChecklist = (nodes: Node[], edges: Edge[]) => {
       list.push({
         id: 'answer-need-added',
         type: BlockEnum.Answer,
-        title: t('workflow.blocks.answer'),
-        errorMessage: t('workflow.common.needAnswerNode'),
+        title: 'Answer',
+        errorMessage: 'The Answer block must be added',
       });
     }
 
@@ -127,8 +128,8 @@ export const useChecklist = (nodes: Node[], edges: Edge[]) => {
       list.push({
         id: 'end-need-added',
         type: BlockEnum.End,
-        title: t('workflow.blocks.end'),
-        errorMessage: t('workflow.common.needEndNode'),
+        title: 'End',
+        errorMessage: 'The End block must be added',
       });
     }
 
@@ -142,7 +143,6 @@ export const useChecklist = (nodes: Node[], edges: Edge[]) => {
     workflowTools,
     language,
     nodesExtraData,
-    t,
     strategyProviders,
     getCheckData,
   ]);
@@ -151,7 +151,6 @@ export const useChecklist = (nodes: Node[], edges: Edge[]) => {
 };
 
 export const useChecklistBeforePublish = () => {
-  const { t } = useTranslation();
   const language = useGetLanguage();
   const buildInTools = useStore((s) => s.buildInTools);
   const customTools = useStore((s) => s.customTools);
@@ -193,7 +192,7 @@ export const useChecklistBeforePublish = () => {
     );
 
     if (maxDepth > MAX_TREE_DEPTH) {
-      notify({ type: 'error', message: t('workflow.common.maxTreeDepth', { depth: MAX_TREE_DEPTH }) });
+      notify({ type: 'error', message: `Maximum limit of ${MAX_TREE_DEPTH} nodes per branch` });
       return false;
     }
     // Before publish, we need to fetch datasets detail, in case of the settings of datasets have been changed
@@ -233,9 +232,11 @@ export const useChecklistBeforePublish = () => {
         const data = node.data as AgentNodeType;
         const isReadyForCheckValid = !!strategyProviders;
         const provider = strategyProviders?.find(
-          (provider) => provider.declaration.identity.name === data.agent_strategy_provider_name,
+          (provider: any) => provider.declaration.identity.name === data.agent_strategy_provider_name,
         );
-        const strategy = provider?.declaration.strategies?.find((s) => s.identity.name === data.agent_strategy_name);
+        const strategy = provider?.declaration.strategies?.find(
+          (s: any) => s.identity.name === data.agent_strategy_name,
+        );
         moreDataForCheckValid = {
           provider,
           strategy,
@@ -245,11 +246,7 @@ export const useChecklistBeforePublish = () => {
       }
 
       const checkData = getCheckData(node.data, datasets);
-      const { errorMessage } = nodesExtraData[node.data.type as BlockEnum].checkValid(
-        checkData,
-        t,
-        moreDataForCheckValid,
-      );
+      const { errorMessage } = nodesExtraData[node.data.type as BlockEnum].checkValid(checkData, moreDataForCheckValid);
 
       if (errorMessage) {
         notify({ type: 'error', message: `[${node.data.title}] ${errorMessage}` });
@@ -257,18 +254,18 @@ export const useChecklistBeforePublish = () => {
       }
 
       if (!validNodes.find((n) => n.id === node.id)) {
-        notify({ type: 'error', message: `[${node.data.title}] ${t('workflow.common.needConnectTip')}` });
+        notify({ type: 'error', message: `[${node.data.title}] This step is not connected to anything` });
         return false;
       }
     }
 
     if (isChatMode && !nodes.find((node) => node.data.type === BlockEnum.Answer)) {
-      notify({ type: 'error', message: t('workflow.common.needAnswerNode') });
+      notify({ type: 'error', message: 'The Answer block must be added' });
       return false;
     }
 
     if (!isChatMode && !nodes.find((node) => node.data.type === BlockEnum.End)) {
-      notify({ type: 'error', message: t('workflow.common.needEndNode') });
+      notify({ type: 'error', message: 'The End block must be added' });
       return false;
     }
 
@@ -277,7 +274,6 @@ export const useChecklistBeforePublish = () => {
     store,
     isChatMode,
     notify,
-    t,
     buildInTools,
     customTools,
     workflowTools,

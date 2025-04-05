@@ -1,5 +1,5 @@
 'use client';
-import { useTranslation } from 'react-i18next';
+
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import InputCopy from './input-copy';
 import s from './style.module.css';
@@ -15,24 +15,18 @@ type ISecretKeyGenerateModalProps = {
 };
 
 const SecretKeyGenerateModal = ({ isShow = false, onClose, newKey, className }: ISecretKeyGenerateModalProps) => {
-  const { t } = useTranslation();
   return (
-    <Modal
-      isShow={isShow}
-      onClose={onClose}
-      title={`${t('appApi.apiKeyModal.apiSecretKey')}`}
-      className={`px-8 ${className}`}
-    >
+    <Modal isShow={isShow} onClose={onClose} title={'API Secret key'} className={`px-8 ${className}`}>
       <XMarkIcon className={`text-text-tertiary absolute h-6 w-6 cursor-pointer ${s.close}`} onClick={onClose} />
       <p className="text-text-tertiary mt-1 text-[13px] font-normal leading-5">
-        {t('appApi.apiKeyModal.generateTips')}
+        {'Keep this key in a secure and accessible place.'}
       </p>
       <div className="my-4">
         <InputCopy className="w-full" value={newKey?.token} />
       </div>
       <div className="my-4 flex justify-end">
         <Button className={`shrink-0 ${s.w64}`} onClick={onClose}>
-          <span className="text-text-secondary text-xs font-medium">{t('appApi.actionMsg.ok')}</span>
+          <span className="text-text-secondary text-xs font-medium">{'OK'}</span>
         </Button>
       </div>
     </Modal>

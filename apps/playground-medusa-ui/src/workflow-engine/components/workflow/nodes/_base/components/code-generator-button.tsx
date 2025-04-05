@@ -6,7 +6,7 @@ import cn from 'classnames';
 import type { CodeLanguage } from '../../code/types';
 import { Generator } from '@base/icons/src/vender/other';
 import { ActionButton } from '@base/action-button';
-import { AppType } from '@/types/app';
+import { AppType } from '@workflow-app/types/app';
 import type { CodeGenRes } from '@/service/debug';
 import { GetCodeGeneratorResModal } from '@/app/components/app/configuration/config/code-generator/get-code-generator-res';
 

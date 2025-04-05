@@ -1,5 +1,5 @@
 import { memo, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { ComparisonOperator, type Condition } from '../types';
 import { comparisonOperatorNotRequireValue, isComparisonOperatorNeedTranslate, isEmptyRelatedOperator } from '../utils';
 import { FILE_TYPE_OPTIONS, TRANSFER_METHOD } from '../../constants';
@@ -14,7 +14,6 @@ type ConditionValueProps = {
   condition: Condition;
 };
 const ConditionValue = ({ condition }: ConditionValueProps) => {
-  const { t } = useTranslation();
   const { variable_selector, comparison_operator: operator, sub_variable_condition } = condition;
 
   const variableSelector = variable_selector as ValueSelector;

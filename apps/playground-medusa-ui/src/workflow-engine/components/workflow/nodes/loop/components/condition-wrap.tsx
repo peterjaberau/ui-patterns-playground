@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiAddLine } from '@remixicon/react';
 import type {
   Condition,
@@ -62,8 +62,6 @@ const ConditionWrap: FC<Props> = ({
   availableNodes = [],
   availableVars = [],
 }) => {
-  const { t } = useTranslation();
-
   const getAvailableVars = useGetAvailableVars();
 
   const filterNumberVar = useCallback((varPayload: Var) => {

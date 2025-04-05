@@ -8,7 +8,7 @@ import AllTools from '@workflow/block-selector/all-tools';
 import type { ToolDefaultValue, ToolValue } from './types';
 import type { BlockEnum } from '@workflow/types';
 import SearchBox from '@/app/components/plugins/marketplace/search-box';
-import { useTranslation } from 'react-i18next';
+
 import { useBoolean } from 'ahooks';
 import EditCustomToolModal from '@tools/edit-custom-collection-modal/modal';
 import { createCustomCollection } from '@/service/tools';
@@ -49,7 +49,6 @@ const ToolPicker: FC<Props> = ({
   selectedTools,
   panelClassName,
 }) => {
-  const { t } = useTranslation();
   const [searchText, setSearchText] = useState('');
   const [tags, setTags] = useState<string[]>([]);
 

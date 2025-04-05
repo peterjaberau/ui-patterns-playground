@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import MemoryConfig from '../_base/components/memory-config';
 import VarReferencePicker from '../_base/components/variable/var-reference-picker';
 import ConfigVision from '../_base/components/config-vision';
@@ -24,8 +24,6 @@ import Editor from '@workflow/nodes/_base/components/prompt/editor';
 const i18nPrefix = 'workflow.nodes.llm';
 
 const Panel: FC<NodePanelProps<LLMNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
-
   const {
     readOnly,
     inputs,

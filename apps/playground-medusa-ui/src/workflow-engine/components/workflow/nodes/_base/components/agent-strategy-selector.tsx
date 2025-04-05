@@ -10,7 +10,7 @@ import { InstallPluginButton } from './install-plugin-button';
 import ViewTypeSelect, { ViewType } from '../../../block-selector/view-type-select';
 import SearchInput from '@base/search-input';
 import Tools from '../../../block-selector/tools';
-import { useTranslation } from 'react-i18next';
+
 import { useStrategyProviders } from '@/service/use-strategy';
 import { PluginType, type StrategyPluginDetail } from '@/app/components/plugins/types';
 import type { ToolWithProvider } from '../../../types';
@@ -25,7 +25,6 @@ import { ToolTipContent } from '@base/tooltip/content';
 const NotFoundWarn = (props: { title: ReactNode; description: ReactNode }) => {
   const { title, description } = props;
 
-  const { t } = useTranslation();
   return (
     <Tooltip
       popupContent={
@@ -120,7 +119,6 @@ export const AgentStrategySelector = memo((props: AgentStrategySelectorProps) =>
   const icon = list?.find((coll) => coll.tools?.find((tool) => tool.name === value?.agent_strategy_name))?.icon as
     | string
     | undefined;
-  const { t } = useTranslation();
 
   const wrapElemRef = useRef<HTMLDivElement>(null);
 

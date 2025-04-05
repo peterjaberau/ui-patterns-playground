@@ -2,7 +2,7 @@ import { memo, useCallback, useState } from 'react';
 import { useContext } from 'use-context-selector';
 import { useStoreApi } from 'reactflow';
 import { RiBookOpenLine, RiCloseLine } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import { useStore } from '@workflow/store';
 import ActionButton, { ActionButtonState } from '@base/action-button';
 import { BubbleX, LongArrowLeft, LongArrowRight } from '@base/icons/src/vender/line/others';
@@ -19,7 +19,6 @@ import { LanguagesSupported } from '@/i18n/language';
 import cn from '@/utils/classnames';
 
 const ChatVariablePanel = () => {
-  const { t } = useTranslation();
   const { locale } = useContext(I18n);
   const store = useStoreApi();
   const setShowChatVariablePanel = useStore((s) => s.setShowChatVariablePanel);

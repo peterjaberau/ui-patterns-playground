@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import VarReferencePicker from '../_base/components/variable/var-reference-picker';
 import Split from '../_base/components/split';
 import ResultPanel from '../../run/result-panel';
@@ -21,7 +21,6 @@ import { useLogs } from '@workflow/run/hooks';
 const i18nPrefix = 'workflow.nodes.iteration';
 
 const Panel: FC<NodePanelProps<IterationNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
   const responseMethod = [
     {
       value: ErrorHandleMode.Terminated,

@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiDeleteBinLine, RiEditLine } from '@remixicon/react';
 import type { Param } from '../../types';
 import { Variable02 } from '@base/icons/src/vender/solid/development';
@@ -14,8 +14,6 @@ type Props = {
 };
 
 const Item: FC<Props> = ({ payload, onEdit, onDelete }) => {
-  const { t } = useTranslation();
-
   return (
     <div className="hover:shadow-xs group relative rounded-lg border-[0.5px] border-gray-200 bg-white px-2.5 py-2">
       <div className="flex justify-between">

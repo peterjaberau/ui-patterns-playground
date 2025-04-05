@@ -2,7 +2,7 @@
 import type { FC } from 'react';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useContext } from 'use-context-selector';
-import { useTranslation } from 'react-i18next';
+
 import { flatten, uniq } from 'lodash-es';
 import ResultPanel from './result';
 import TracingPanel from './tracing';
@@ -11,7 +11,7 @@ import { ToastContext } from '@base/toast';
 import Loading from '@base/loading';
 // import { fetchAgentLogDetail } from '@/service/log'
 import type { AgentIteration, AgentLogDetailResponse } from '@workflow-app/models/log';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import type { IChatItem } from '@base/chat/chat/type';
 
 export type AgentLogDetailProps = {
@@ -22,10 +22,9 @@ export type AgentLogDetailProps = {
 };
 
 const AgentLogDetail: FC<AgentLogDetailProps> = ({ activeTab = 'DETAIL', conversationID, messageID, log }) => {
-  const { t } = useTranslation();
   const { notify } = useContext(ToastContext);
   const [currentTab, setCurrentTab] = useState<string>(activeTab);
-  const appDetail = useAppStore((s) => s.appDetail);
+  const appDetail = useAppStore((s: any) => s.appDetail);
   const [loading, setLoading] = useState<boolean>(true);
   const [runDetail, setRunDetail] = useState<AgentLogDetailResponse>();
   const [list, setList] = useState<AgentIteration[]>([]);
@@ -43,22 +42,22 @@ const AgentLogDetail: FC<AgentLogDetailProps> = ({ activeTab = 'DETAIL', convers
 
   const getLogDetail = useCallback(
     async (appID: string, conversationID: string, messageID: string) => {
-      try {
-        const res = await fetchAgentLogDetail({
-          appID,
-          params: {
-            conversation_id: conversationID,
-            message_id: messageID,
-          },
-        });
-        setRunDetail(res);
-        setList(res.iterations);
-      } catch (err) {
-        notify({
-          type: 'error',
-          message: `${err}`,
-        });
-      }
+      // try {
+      //   const res = await fetchAgentLogDetail({
+      //     appID,
+      //     params: {
+      //       conversation_id: conversationID,
+      //       message_id: messageID,
+      //     },
+      //   });
+      //   setRunDetail(res);
+      //   setList(res.iterations);
+      // } catch (err) {
+      //   notify({
+      //     type: 'error',
+      //     message: `${err}`,
+      //   });
+      // }
     },
     [notify],
   );

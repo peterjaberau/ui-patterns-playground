@@ -2,15 +2,15 @@
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
 import useSWR from 'swr';
-import produce from 'immer';
-import { useTranslation } from 'react-i18next';
+import { produce } from 'immer';
+
 import type { UploadFileSetting } from '../../../types';
 import { SupportUploadFileTypes } from '../../../types';
 import OptionCard from './option-card';
 import FileTypeItem from './file-type-item';
 import InputNumberWithSlider from './input-number-with-slider';
 import Field from '@/app/components/app/configuration/config-var/config-modal/field';
-import { TransferMethod } from '@/types/app';
+import { TransferMethod } from '@workflow-app/types/app';
 import { fetchFileUploadConfig } from '@/service/common';
 import { useFileSizeLimit } from '@base/file-uploader/hooks';
 import { formatFileSize } from '@/utils/format';
@@ -30,8 +30,6 @@ const FileUploadSetting: FC<Props> = ({
   hideSupportFileType = false,
   onChange,
 }) => {
-  const { t } = useTranslation();
-
   const { allowed_file_upload_methods, max_length, allowed_file_types, allowed_file_extensions } = payload;
   const { data: fileUploadConfigResponse } = useSWR({ url: '/files/upload' }, fetchFileUploadConfig);
   const { imgSizeLimit, docSizeLimit, audioSizeLimit, videoSizeLimit, maxFileUploadLimit } =

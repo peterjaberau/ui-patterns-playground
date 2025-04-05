@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import type { NodeProps } from 'reactflow';
 import { NodeSourceHandle } from '../_base/components/node-handle';
 import { isEmptyRelatedOperator } from './utils';
@@ -11,7 +11,7 @@ const i18nPrefix = 'workflow.nodes.ifElse';
 
 const IfElseNode: FC<NodeProps<IfElseNodeType>> = (props) => {
   const { data } = props;
-  const { t } = useTranslation();
+
   const { cases } = data;
   const casesLength = cases.length;
   const checkIsConditionSet = useCallback((condition: Condition) => {

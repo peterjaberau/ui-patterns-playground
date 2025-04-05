@@ -73,10 +73,10 @@ import Loading from '@base/loading';
 import { FeaturesProvider } from '@base/features';
 import type { Features as FeaturesData } from '@base/features/types';
 import { useFeaturesStore } from '@base/features/hooks';
-import { useEventEmitterContextContext } from '@/context/event-emitter';
+import { useEventEmitterContextContext } from '@workflow-app/context/event-emitter';
 import Confirm from '@base/confirm';
 import { FILE_EXTS } from '@base/prompt-editor/constants';
-import { fetchFileUploadConfig } from '@/service/common';
+// import { fetchFileUploadConfig } from '@/service/common';
 import DatasetsDetailProvider from './datasets-detail-store/provider';
 
 const nodeTypes = {
@@ -320,7 +320,7 @@ Workflow.displayName = 'Workflow';
 
 const WorkflowWrap = memo(() => {
   const { data, isLoading } = useWorkflowInit();
-  const { data: fileUploadConfigResponse } = useSWR({ url: '/files/upload' }, fetchFileUploadConfig);
+  // const { data: fileUploadConfigResponse } = useSWR({ url: '/files/upload' }, fetchFileUploadConfig);
 
   const nodesData = useMemo(() => {
     if (data) return initialNodes(data.graph.nodes, data.graph.edges);
@@ -357,7 +357,7 @@ const WorkflowWrap = memo(() => {
       allowed_file_upload_methods: features.file_upload?.allowed_file_upload_methods ||
         features.file_upload?.image?.transfer_methods || ['local_file', 'remote_url'],
       number_limits: features.file_upload?.number_limits || features.file_upload?.image?.number_limits || 3,
-      fileUploadConfig: fileUploadConfigResponse,
+      // fileUploadConfig: fileUploadConfigResponse,
     },
     opening: {
       enabled: !!features.opening_statement,

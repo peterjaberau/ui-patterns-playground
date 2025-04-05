@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { RiArrowRightSLine, RiErrorWarningFill, RiLoader2Line } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import type { ChatItem, WorkflowProcess } from '../../types';
 import TracingPanel from '@workflow/run/tracing-panel';
 import cn from '@utils/classnames';
@@ -22,7 +22,6 @@ const WorkflowProcessItem = ({
   hideProcessDetail = false,
   readonly = false,
 }: WorkflowProcessProps) => {
-  const { t } = useTranslation();
   const [collapse, setCollapse] = useState(!expand);
   const running = data.status === WorkflowRunningStatus.Running;
   const succeeded = data.status === WorkflowRunningStatus.Succeeded;
@@ -52,9 +51,7 @@ const WorkflowProcessItem = ({
         {running && <RiLoader2Line className="text-text-tertiary mr-1 h-3.5 w-3.5 shrink-0 animate-spin" />}
         {succeeded && <CheckCircle className="text-text-success mr-1 h-3.5 w-3.5 shrink-0" />}
         {failed && <RiErrorWarningFill className="text-text-destructive mr-1 h-3.5 w-3.5 shrink-0" />}
-        <div className={cn('system-xs-medium text-text-secondary', !collapse && 'grow')}>
-          {t('workflow.common.workflowProcess')}
-        </div>
+        <div className={cn('system-xs-medium text-text-secondary', !collapse && 'grow')}>{'Workflow Process'}</div>
         {!readonly && <RiArrowRightSLine className={cn('text-text-tertiary ml-1 h-4 w-4', !collapse && 'rotate-90')} />}
       </div>
       {!collapse && !readonly && (

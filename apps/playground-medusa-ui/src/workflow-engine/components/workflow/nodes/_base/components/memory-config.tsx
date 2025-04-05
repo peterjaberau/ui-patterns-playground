@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import produce from 'immer';
+
+import { produce } from 'immer';
 import type { Memory } from '../../../types';
 import { MemoryRole } from '../../../types';
 import cn from '@/utils/classnames';
@@ -62,7 +62,6 @@ const MemoryConfig: FC<Props> = ({
   onChange,
   canSetRoleName = false,
 }) => {
-  const { t } = useTranslation();
   const payload = config.data;
   const handleMemoryEnabledChange = useCallback(
     (enabled: boolean) => {

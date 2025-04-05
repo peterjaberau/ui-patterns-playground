@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { getConnectedEdges, getOutgoers, useEdges, useStoreApi } from 'reactflow';
 import { useToolIcon } from '../../../../hooks';
 import BlockIcon from '../../../../block-icon';
@@ -14,7 +14,6 @@ type NextStepProps = {
   selectedNode: Node;
 };
 const NextStep = ({ selectedNode }: NextStepProps) => {
-  const { t } = useTranslation();
   const data = selectedNode.data;
   const toolIcon = useToolIcon(data);
   const store = useStoreApi();

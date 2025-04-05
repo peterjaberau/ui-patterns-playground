@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useStoreApi } from 'reactflow';
-import produce from 'immer';
-import type { WorkflowStartedResponse } from '@/types/workflow';
+import { produce } from 'immer';
+import type { WorkflowStartedResponse } from '@workflow-app/types/workflow';
 import { WorkflowRunningStatus } from '@workflow/types';
 import { useWorkflowStore } from '@workflow/store';
 

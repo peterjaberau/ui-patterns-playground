@@ -31,7 +31,7 @@ const InputsFormNode = ({ collapsed, setCollapsed }: Props) => {
           )}
         >
           <Message3Fill className="h-6 w-6 shrink-0" />
-          <div className="system-xl-semibold text-text-secondary grow">{t('share.chat.chatSettingsTitle')}</div>
+          <div className="system-xl-semibold text-text-secondary grow">{'New chat setup'}</div>
           {collapsed && (
             <Button
               className="text-text-tertiary uppercase"
@@ -39,7 +39,7 @@ const InputsFormNode = ({ collapsed, setCollapsed }: Props) => {
               variant="ghost"
               onClick={() => setCollapsed(false)}
             >
-              {t('common.operation.edit')}
+              {'Edit'}
             </Button>
           )}
           {!collapsed && currentConversationId && (
@@ -49,7 +49,7 @@ const InputsFormNode = ({ collapsed, setCollapsed }: Props) => {
               variant="ghost"
               onClick={() => setCollapsed(true)}
             >
-              {t('common.operation.close')}
+              {'Close'}
             </Button>
           )}
         </div>
@@ -72,7 +72,7 @@ const InputsFormNode = ({ collapsed, setCollapsed }: Props) => {
                   : {}
               }
             >
-              {t('share.chat.startChat')}
+              {'Start chat'}
             </Button>
           </div>
         )}

@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from 'react';
 import { escape } from 'lodash-es';
 import { FloatingPortal, flip, offset, shift, useFloating } from '@floating-ui/react';
-import { useTranslation } from 'react-i18next';
+
 import { useClickAway } from 'ahooks';
 import { RiEditLine, RiExternalLinkLine, RiLinkUnlinkM } from '@remixicon/react';
 import { useStore } from '../../store';
@@ -13,7 +13,6 @@ type LinkEditorComponentProps = {
   containerElement: HTMLDivElement | null;
 };
 const LinkEditorComponent = ({ containerElement }: LinkEditorComponentProps) => {
-  const { t } = useTranslation();
   const { handleSaveLink, handleUnlink } = useLink();
   const selectedLinkUrl = useStore((s) => s.selectedLinkUrl);
   const linkAnchorElement = useStore((s) => s.linkAnchorElement);

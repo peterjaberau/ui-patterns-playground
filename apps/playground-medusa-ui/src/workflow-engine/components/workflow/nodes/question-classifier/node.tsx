@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import type { NodeProps } from 'reactflow';
 import InfoPanel from '../_base/components/info-panel';
 import { NodeSourceHandle } from '../_base/components/node-handle';
@@ -12,8 +12,6 @@ import ReadonlyInputWithSelectVar from '../_base/components/readonly-input-with-
 const i18nPrefix = 'workflow.nodes.questionClassifiers';
 
 const Node: FC<NodeProps<QuestionClassifierNodeType>> = (props) => {
-  const { t } = useTranslation();
-
   const { data, id } = props;
   const { provider, name: modelId } = data.model;
   // const tempTopics = data.topics

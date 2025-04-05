@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback, useMemo } from 'react';
-import produce from 'immer';
-import { useTranslation } from 'react-i18next';
+import { produce } from 'immer';
+
 import Item from './dataset-item';
 import type { DataSet } from '@/models/datasets';
 import { useSelector as useAppContextSelector } from '@/context/app-context';
@@ -15,7 +15,6 @@ type Props = {
 };
 
 const DatasetList: FC<Props> = ({ list, onChange, readonly }) => {
-  const { t } = useTranslation();
   const userProfile = useAppContextSelector((s) => s.userProfile);
 
   const handleRemove = useCallback(

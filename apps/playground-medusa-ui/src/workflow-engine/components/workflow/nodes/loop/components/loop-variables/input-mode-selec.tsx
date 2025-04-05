@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import PureSelect from '@base/select/pure';
 
 type InputModeSelectProps = {
@@ -6,7 +5,6 @@ type InputModeSelectProps = {
   onChange: (value: string) => void;
 };
 const InputModeSelect = ({ value, onChange }: InputModeSelectProps) => {
-  const { t } = useTranslation();
   const options = [
     {
       label: 'Variable',

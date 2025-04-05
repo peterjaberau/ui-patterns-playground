@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import produce from 'immer';
+
+import { produce } from 'immer';
 import { RiDeleteBinLine } from '@remixicon/react';
 import type { InputVar } from '../../../../types';
 import { BlockEnum, InputVarType, SupportUploadFileTypes } from '../../../../types';
@@ -14,7 +14,7 @@ import Input from '@base/input';
 import Textarea from '@base/textarea';
 import TextGenerationImageUploader from '@base/image-uploader/text-generation-image-uploader';
 import { FileUploaderInAttachmentWrapper } from '@base/file-uploader';
-import { Resolution, TransferMethod } from '@/types/app';
+import { Resolution, TransferMethod } from '@workflow-app/types/app';
 import { useFeatures } from '@base/features/hooks';
 import { VarBlockIcon } from '@workflow/block-icon';
 import { Line3 } from '@base/icons/src/public/common';
@@ -34,7 +34,6 @@ type Props = {
 };
 
 const FormItem: FC<Props> = ({ payload, value, onChange, className, autoFocus, inStepRun = false }) => {
-  const { t } = useTranslation();
   const { type } = payload;
   const fileSettings = useFeatures((s) => s.features.file);
   const handleArrayItemChange = useCallback(

@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useImperativeHandle, useMemo, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import useStickyScroll, { ScrollPosition } from '../use-sticky-scroll';
 import Item from './item';
 import type { Plugin } from '@/app/components/plugins/types.ts';
@@ -20,7 +20,6 @@ type Props = {
 };
 
 const List = ({ ref, wrapElemRef, searchText, tags, list, toolContentClassName, disableMaxWidth = false }) => {
-  const { t } = useTranslation();
   const hasFilter = !searchText;
   const hasRes = list.length > 0;
   const urlWithSearchText = `${marketplaceUrlPrefix}/?q=${searchText}&tags=${tags.join(',')}`;

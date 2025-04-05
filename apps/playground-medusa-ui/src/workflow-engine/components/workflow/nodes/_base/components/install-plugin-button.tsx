@@ -2,7 +2,7 @@ import Button from '@base/button';
 import { RiInstallLine, RiLoader2Line } from '@remixicon/react';
 import type { ComponentProps, MouseEventHandler } from 'react';
 import classNames from '@/utils/classnames';
-import { useTranslation } from 'react-i18next';
+
 import { useCheckInstalled, useInstallPackageFromMarketPlace } from '@/service/use-plugins';
 
 type InstallPluginButtonProps = Omit<ComponentProps<typeof Button>, 'children' | 'loading'> & {
@@ -12,7 +12,7 @@ type InstallPluginButtonProps = Omit<ComponentProps<typeof Button>, 'children' |
 
 export const InstallPluginButton = (props: InstallPluginButtonProps) => {
   const { className, uniqueIdentifier, onSuccess, ...rest } = props;
-  const { t } = useTranslation();
+
   const manifest = useCheckInstalled({
     pluginIds: [uniqueIdentifier],
     enabled: !!uniqueIdentifier,

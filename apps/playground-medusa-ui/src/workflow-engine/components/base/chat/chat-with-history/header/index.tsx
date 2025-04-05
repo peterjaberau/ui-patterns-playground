@@ -110,7 +110,7 @@ const Header = () => {
             <div className="bg-divider-regular h-[14px] w-px"></div>
           </div>
           {isSidebarCollapsed && (
-            <Tooltip disabled={!!currentConversationId} popupContent={t('share.chat.newChatTip')}>
+            <Tooltip disabled={!!currentConversationId} popupContent={'Already in a new chat'}>
               <div>
                 <ActionButton
                   size="l"
@@ -128,7 +128,7 @@ const Header = () => {
         </div>
         <div className="flex items-center gap-1">
           {currentConversationId && (
-            <Tooltip popupContent={t('share.chat.resetChat')}>
+            <Tooltip popupContent={'Reset conversation'}>
               <ActionButton size="l" onClick={handleNewConversation}>
                 <RiResetLeftLine className="h-[18px] w-[18px]" />
               </ActionButton>
@@ -139,8 +139,8 @@ const Header = () => {
       </div>
       {!!showConfirm && (
         <Confirm
-          title={t('share.chat.deleteConversation.title')}
-          content={t('share.chat.deleteConversation.content') || ''}
+          title={'Delete conversation'}
+          content={'Are you sure you want to delete this conversation?'}
           isShow
           onCancel={handleCancelConfirm}
           onConfirm={handleDelete}

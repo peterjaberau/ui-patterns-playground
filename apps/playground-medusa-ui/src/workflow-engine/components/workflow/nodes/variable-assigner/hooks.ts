@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useNodes, useStoreApi } from 'reactflow';
 import { uniqBy } from 'lodash-es';
-import produce from 'immer';
+import { produce } from 'immer';
 import { useIsChatMode, useNodeDataUpdate, useWorkflow, useWorkflowVariables } from '../../hooks';
 import type { Node, ValueSelector, Var } from '../../types';
 import { useWorkflowStore } from '../../store';

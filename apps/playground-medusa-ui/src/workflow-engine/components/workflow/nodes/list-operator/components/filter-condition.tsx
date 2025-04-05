@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import ConditionOperator from '../../if-else/components/condition-list/condition-operator';
 import { VarType } from '../../../types';
 import type { Condition } from '../types';
@@ -28,7 +28,6 @@ const FilterCondition: FC<Props> = ({
   hasSubVariable,
   readOnly,
 }) => {
-  const { t } = useTranslation();
   const isSelect = [ComparisonOperator.in, ComparisonOperator.notIn, ComparisonOperator.allOf].includes(
     condition.comparison_operator,
   );

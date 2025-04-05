@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
 import { uniqBy } from 'lodash-es';
-import { useTranslation } from 'react-i18next';
+
 import { useContext } from 'use-context-selector';
 import { getIncomers, getOutgoers, useStoreApi } from 'reactflow';
 import type { Connection } from 'reactflow';
@@ -14,21 +14,21 @@ import { CUSTOM_NOTE_NODE } from '../note-node/constants';
 import { findUsedVarNodes, getNodeOutputVars, updateNodeVars } from '../nodes/_base/components/variable/utils';
 import { useNodesExtraData } from './use-nodes-data';
 import { useWorkflowTemplate } from './use-workflow-template';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import {
   fetchNodesDefaultConfigs,
   fetchPublishedWorkflow,
   fetchWorkflowDraft,
   syncWorkflowDraft,
-} from '@/service/workflow';
-import type { FetchWorkflowDraftResponse } from '@/types/workflow';
+} from '@workflow-app/service/workflow';
+import type { FetchWorkflowDraftResponse } from '@workflow-app/types/workflow';
 import { fetchAllBuiltInTools, fetchAllCustomTools, fetchAllWorkflowTools } from '@/service/tools';
-import I18n from '@/context/i18n';
+import I18n from '@workflow-app/context/i18n';
 import { CollectionType } from '@tools/types';
 import { CUSTOM_ITERATION_START_NODE } from '@workflow/nodes/iteration-start/constants';
 import { CUSTOM_LOOP_START_NODE } from '@workflow/nodes/loop-start/constants';
-import { useWorkflowConfig } from '@/service/use-workflow';
-import { canFindTool } from '@/utils';
+import { useWorkflowConfig } from '@workflow-app/service/use-workflow';
+import { canFindTool } from '@utils/index';
 
 export const useIsChatMode = () => {
   const appDetail = useAppStore((s) => s.appDetail);
@@ -37,7 +37,6 @@ export const useIsChatMode = () => {
 };
 
 export const useWorkflow = () => {
-  const { t } = useTranslation();
   const { locale } = useContext(I18n);
   const store = useStoreApi();
   const workflowStore = useWorkflowStore();
@@ -313,13 +312,13 @@ export const useWorkflow = () => {
       const connectedEdges = edges.filter((edge) => edge.source === nodeId && edge.sourceHandle === nodeHandle);
       if (connectedEdges.length > PARALLEL_LIMIT - 1) {
         const { setShowTips } = workflowStore.getState();
-        setShowTips(t('workflow.common.parallelTip.limit', { num: PARALLEL_LIMIT }));
+        setShowTips(`Parallelism is limited to ${PARALLEL_LIMIT} branches.`);
         return false;
       }
 
       return true;
     },
-    [store, workflowStore, t],
+    [store, workflowStore],
   );
 
   const checkNestedParallelLimit = useCallback(
@@ -334,9 +333,7 @@ export const useWorkflow = () => {
         if (parallel.depth > (workflowConfig?.parallel_depth_limit || PARALLEL_DEPTH_LIMIT)) {
           const { setShowTips } = workflowStore.getState();
           setShowTips(
-            t('workflow.common.parallelTip.depthLimit', {
-              num: workflowConfig?.parallel_depth_limit || PARALLEL_DEPTH_LIMIT,
-            }),
+            `Parallel nesting layer limit of ${workflowConfig?.parallel_depth_limit || PARALLEL_DEPTH_LIMIT} layers`,
           );
           return false;
         }
@@ -344,7 +341,7 @@ export const useWorkflow = () => {
 
       return true;
     },
-    [t, workflowStore, workflowConfig?.parallel_depth_limit],
+    [workflowStore, workflowConfig?.parallel_depth_limit],
   );
 
   const isValidConnection = useCallback(
@@ -390,9 +387,12 @@ export const useWorkflow = () => {
 
   const formatTimeFromNow = useCallback(
     (time: number) => {
-      return dayjs(time)
-        .locale(locale === 'zh-Hans' ? 'zh-cn' : locale)
-        .fromNow();
+      // @ts-ignore
+      return dayjs(time).locale('en-US').fromNow();
+
+      // return dayjs(time)
+      //   .locale(locale === 'zh-Hans' ? 'zh-cn' : locale)
+      //   .fromNow();
     },
     [locale],
   );

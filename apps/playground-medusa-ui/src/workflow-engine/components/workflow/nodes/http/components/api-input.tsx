@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiArrowDownSLine } from '@remixicon/react';
 import { Method } from '../types';
 import Selector from '../../_base/components/selector';
@@ -29,8 +29,6 @@ type Props = {
 };
 
 const ApiInput: FC<Props> = ({ nodeId, readonly, method, onMethodChange, url, onUrlChange }) => {
-  const { t } = useTranslation();
-
   const [isFocus, setIsFocus] = useState(false);
   const { availableVars, availableNodesWithParent } = useAvailableVarList(nodeId, {
     onlyLeafNodeVar: false,

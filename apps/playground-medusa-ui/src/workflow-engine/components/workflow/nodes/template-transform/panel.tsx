@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiQuestionLine } from '@remixicon/react';
 import { CodeLanguage } from '../code/types';
 import useConfig from './use-config';
@@ -18,8 +18,6 @@ import ResultPanel from '@workflow/run/result-panel';
 const i18nPrefix = 'workflow.nodes.templateTransform';
 
 const Panel: FC<NodePanelProps<TemplateTransformNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
-
   const {
     readOnly,
     inputs,

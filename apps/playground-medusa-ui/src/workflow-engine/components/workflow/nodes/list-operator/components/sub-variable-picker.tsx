@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { SUB_VARIABLES } from '../../constants';
 import type { Item } from '@base/select';
 import { SimpleSelect as Select } from '@base/select';
@@ -15,7 +15,6 @@ type Props = {
 };
 
 const SubVariablePicker: FC<Props> = ({ value, onChange, className }) => {
-  const { t } = useTranslation();
   const subVarOptions = SUB_VARIABLES.map((item) => ({
     value: item,
     name: item,

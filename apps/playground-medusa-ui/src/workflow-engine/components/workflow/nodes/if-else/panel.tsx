@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiAddLine } from '@remixicon/react';
 import useConfig from './use-config';
 import type { IfElseNodeType } from './types';
@@ -12,7 +12,6 @@ import Field from '@workflow/nodes/_base/components/field';
 const i18nPrefix = 'workflow.nodes.ifElse';
 
 const Panel: FC<NodePanelProps<IfElseNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
   const {
     readOnly,
     inputs,

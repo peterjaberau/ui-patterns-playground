@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { useBoolean } from 'ahooks';
 import type { Param } from '../../types';
 import ListNoDataPlaceholder from '../../../_base/components/list-no-data-placeholder';
@@ -18,7 +18,6 @@ type Props = {
 };
 
 const List: FC<Props> = ({ list, onChange }) => {
-  const { t } = useTranslation();
   const [isShowEditModal, { setTrue: showEditModal, setFalse: hideEditModal }] = useBoolean(false);
 
   const handleItemChange = useCallback(

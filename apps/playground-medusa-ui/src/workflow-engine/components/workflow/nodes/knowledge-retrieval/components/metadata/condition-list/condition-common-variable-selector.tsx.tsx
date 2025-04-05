@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import type { VarType } from '@workflow/types';
 import { Variable02 } from '@base/icons/src/vender/solid/development';
@@ -17,7 +17,6 @@ const ConditionCommonVariableSelector = ({
   onChange,
   varType,
 }: ConditionCommonVariableSelectorProps) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const selected = variables.find((v) => v.name === value);

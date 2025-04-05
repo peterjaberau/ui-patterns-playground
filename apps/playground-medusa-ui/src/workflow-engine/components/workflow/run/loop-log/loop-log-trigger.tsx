@@ -1,7 +1,6 @@
-import { useTranslation } from 'react-i18next';
 import { RiArrowRightSLine } from '@remixicon/react';
 import Button from '@base/button';
-import type { LoopDurationMap, LoopVariableMap, NodeTracing } from '@/types/workflow';
+import type { LoopDurationMap, LoopVariableMap, NodeTracing } from '@workflow-app/types/workflow';
 import { Loop } from '@base/icons/src/vender/workflow';
 
 type LoopLogTriggerProps = {
@@ -13,7 +12,6 @@ type LoopLogTriggerProps = {
   ) => void;
 };
 const LoopLogTrigger = ({ nodeInfo, onShowLoopResultList }: LoopLogTriggerProps) => {
-  const { t } = useTranslation();
   const getErrorCount = (details: NodeTracing[][] | undefined) => {
     if (!details || details.length === 0) return 0;
 

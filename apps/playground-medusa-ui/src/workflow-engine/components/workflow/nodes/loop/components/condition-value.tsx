@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { ComparisonOperator } from '../types';
 import { comparisonOperatorNotRequireValue, isComparisonOperatorNeedTranslate } from '../utils';
 import { FILE_TYPE_OPTIONS, TRANSFER_METHOD } from './../default';
@@ -15,7 +15,6 @@ type ConditionValueProps = {
   value: string | string[];
 };
 const ConditionValue = ({ variableSelector, labelName, operator, value }: ConditionValueProps) => {
-  const { t } = useTranslation();
   const variableName =
     labelName ||
     (isSystemVar(variableSelector) ? variableSelector.slice(0).join('.') : variableSelector.slice(1).join('.'));

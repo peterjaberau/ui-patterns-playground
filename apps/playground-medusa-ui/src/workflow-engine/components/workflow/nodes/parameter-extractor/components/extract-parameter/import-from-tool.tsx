@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import { memo, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import BlockSelector from '../../../../block-selector';
 import type { Param, ParamType } from '../../types';
 import cn from '@/utils/classnames';
@@ -31,7 +31,6 @@ function toParmExactParams(toolParams: ToolParameter[], lan: string): Param[] {
   });
 }
 const ImportFromTool: FC<Props> = ({ onImport }) => {
-  const { t } = useTranslation();
   const language = useLanguage();
 
   const buildInTools = useStore((s) => s.buildInTools);

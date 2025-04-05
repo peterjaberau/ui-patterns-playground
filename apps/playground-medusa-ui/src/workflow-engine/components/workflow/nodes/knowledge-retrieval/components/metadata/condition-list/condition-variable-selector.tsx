@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import VariableTag from '@workflow/nodes/_base/components/variable-tag';
 import VarReferenceVars from '@workflow/nodes/_base/components/variable/var-reference-vars';
@@ -22,7 +22,6 @@ const ConditionVariableSelector = ({
   nodesOutputVars = [],
   onChange,
 }: ConditionVariableSelectorProps) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const handleChange = useCallback(

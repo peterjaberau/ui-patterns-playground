@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { SupportUploadFileTypes } from '../../../types';
 import cn from '@/utils/classnames';
 import { FILE_EXTS } from '@base/prompt-editor/constants';
@@ -29,8 +29,6 @@ const FileTypeItem: FC<Props> = ({
   customFileTypes = [],
   onCustomFileTypesChange = () => {},
 }) => {
-  const { t } = useTranslation();
-
   const handleOnSelect = useCallback(() => {
     onToggle(type);
   }, [onToggle, type]);

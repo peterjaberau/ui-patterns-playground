@@ -8,7 +8,7 @@ import type {
   LoopDurationMap,
   LoopVariableMap,
   NodeTracing,
-} from '@/types/workflow';
+} from '@workflow-app/types/workflow';
 
 export type SpecialResultPanelProps = {
   showRetryDetail?: boolean;

@@ -1,7 +1,6 @@
-import { useTranslation } from 'react-i18next';
 import { RiArrowRightSLine } from '@remixicon/react';
 import Button from '@base/button';
-import type { IterationDurationMap, NodeTracing } from '@/types/workflow';
+import type { IterationDurationMap, NodeTracing } from '@workflow-app/types/workflow';
 import { Iteration } from '@base/icons/src/vender/workflow';
 
 type IterationLogTriggerProps = {
@@ -12,7 +11,6 @@ type IterationLogTriggerProps = {
   ) => void;
 };
 const IterationLogTrigger = ({ nodeInfo, onShowIterationResultList }: IterationLogTriggerProps) => {
-  const { t } = useTranslation();
   const getErrorCount = (details: NodeTracing[][] | undefined) => {
     if (!details || details.length === 0) return 0;
 

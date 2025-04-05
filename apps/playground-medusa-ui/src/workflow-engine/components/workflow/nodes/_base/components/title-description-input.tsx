@@ -1,6 +1,5 @@
 import { memo, useCallback, useState } from 'react';
 import Textarea from 'react-textarea-autosize';
-import { useTranslation } from 'react-i18next';
 
 type TitleInputProps = {
   value: string;
@@ -8,7 +7,6 @@ type TitleInputProps = {
 };
 
 export const TitleInput = memo(({ value, onBlur }: TitleInputProps) => {
-  const { t } = useTranslation();
   const [localValue, setLocalValue] = useState(value);
 
   const handleBlur = () => {
@@ -38,7 +36,6 @@ type DescriptionInputProps = {
   onChange: (value: string) => void;
 };
 export const DescriptionInput = memo(({ value, onChange }: DescriptionInputProps) => {
-  const { t } = useTranslation();
   const [focus, setFocus] = useState(false);
   const handleFocus = useCallback(() => {
     setFocus(true);

@@ -1,11 +1,10 @@
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { VersionHistoryContextMenuOptions } from '../../../types';
 import type { ContextMenuProps } from './index';
 
 const useContextMenu = (props: ContextMenuProps) => {
   const { isNamedVersion } = props;
-  const { t } = useTranslation();
 
   const deleteOperation = {
     key: VersionHistoryContextMenuOptions.delete,

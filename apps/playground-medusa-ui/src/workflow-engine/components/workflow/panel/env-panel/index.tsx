@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 import { useStoreApi } from 'reactflow';
 import { RiCloseLine } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import { useStore } from '@workflow/store';
 import VariableTrigger from '@workflow/panel/env-panel/variable-trigger';
 import EnvItem from '@workflow/panel/env-panel/env-item';
@@ -12,7 +12,6 @@ import cn from '@/utils/classnames';
 import { useNodesSyncDraft } from '@workflow/hooks/use-nodes-sync-draft';
 
 const EnvPanel = () => {
-  const { t } = useTranslation();
   const store = useStoreApi();
   const setShowEnvPanel = useStore((s) => s.setShowEnvPanel);
   const envList = useStore((s) => s.environmentVariables) as EnvironmentVariable[];

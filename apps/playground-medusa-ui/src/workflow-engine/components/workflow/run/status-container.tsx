@@ -1,6 +1,6 @@
 'use client';
 import type { FC } from 'react';
-import { Theme } from '@/types/app';
+import { Theme } from '@workflow-app/types/app';
 import cn from '@/utils/classnames';
 import useTheme from '@/hooks/use-theme';
 

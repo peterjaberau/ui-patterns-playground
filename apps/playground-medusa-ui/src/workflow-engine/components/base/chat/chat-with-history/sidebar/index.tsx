@@ -105,7 +105,7 @@ const Sidebar = ({ isPanel }: Props) => {
           onClick={handleNewConversation}
         >
           <RiEditBoxLine className="mr-1 h-4 w-4" />
-          {t('share.chat.newChat')}
+          {'Start New chat'}
         </Button>
       </div>
       <div className="h-0 grow space-y-2 overflow-y-auto px-3 pt-4">
@@ -114,7 +114,7 @@ const Sidebar = ({ isPanel }: Props) => {
           <div className="mb-4">
             <List
               isPin
-              title={t('share.chat.pinnedTitle') || ''}
+              title={'Pinned'}
               list={pinnedConversationList}
               onChangeConversation={handleChangeConversation}
               onOperate={handleOperate}
@@ -124,7 +124,7 @@ const Sidebar = ({ isPanel }: Props) => {
         )}
         {!!conversationList.length && (
           <List
-            title={(pinnedConversationList.length && t('share.chat.unpinnedTitle')) || ''}
+            title={(pinnedConversationList.length && 'Recent') || ''}
             list={conversationList}
             onChangeConversation={handleChangeConversation}
             onOperate={handleOperate}
@@ -138,7 +138,7 @@ const Sidebar = ({ isPanel }: Props) => {
         <div className="shrink-0">
           {!appData?.custom_config?.remove_webapp_brand && (
             <div className={cn('flex shrink-0 items-center gap-1.5 px-2')}>
-              <div className="system-2xs-medium-uppercase text-text-tertiary">{t('share.chat.poweredBy')}</div>
+              <div className="system-2xs-medium-uppercase text-text-tertiary">{'Powered by'}</div>
               {appData?.custom_config?.replace_webapp_logo && (
                 <img src={appData?.custom_config?.replace_webapp_logo} alt="logo" className="block h-5 w-auto" />
               )}
@@ -149,8 +149,8 @@ const Sidebar = ({ isPanel }: Props) => {
       </div>
       {!!showConfirm && (
         <Confirm
-          title={t('share.chat.deleteConversation.title')}
-          content={t('share.chat.deleteConversation.content') || ''}
+          title={'Delete conversation'}
+          content={'Are you sure you want to delete this conversation?'}
           isShow
           onCancel={handleCancelConfirm}
           onConfirm={handleDelete}

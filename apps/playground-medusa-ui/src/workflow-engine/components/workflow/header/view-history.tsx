@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 import useSWR from 'swr';
-import { useTranslation } from 'react-i18next';
+
 import { useShallow } from 'zustand/react/shallow';
 import { RiCheckboxCircleLine, RiCloseLine, RiErrorWarningLine } from '@remixicon/react';
 import { useIsChatMode, useNodesInteractions, useWorkflow, useWorkflowInteractions, useWorkflowRun } from '../hooks';
@@ -8,7 +8,7 @@ import { ControlMode, WorkflowRunningStatus } from '../types';
 import cn from '@/utils/classnames';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import Tooltip from '@base/tooltip';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import { ClockPlay, ClockPlaySlim } from '@base/icons/src/vender/line/time';
 import { AlertTriangle } from '@base/icons/src/vender/line/alertsAndFeedback';
 import { fetchChatRunHistory, fetchWorkflowRunHistory } from '@/service/workflow';
@@ -19,7 +19,6 @@ type ViewHistoryProps = {
   withText?: boolean;
 };
 const ViewHistory = ({ withText }: ViewHistoryProps) => {
-  const { t } = useTranslation();
   const isChatMode = useIsChatMode();
   const [open, setOpen] = useState(false);
   const { formatTimeFromNow } = useWorkflow();

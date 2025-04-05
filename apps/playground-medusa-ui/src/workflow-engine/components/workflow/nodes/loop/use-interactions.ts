@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import produce from 'immer';
-import { useTranslation } from 'react-i18next';
+import { produce } from 'immer';
+
 import { useStoreApi } from 'reactflow';
 import type { BlockEnum, Node } from '../../types';
 import { generateNewNode, getNodeCustomTypeByNodeDataType } from '../../utils';
@@ -8,7 +8,6 @@ import { LOOP_PADDING, NODES_INITIAL_DATA } from '../../constants';
 import { CUSTOM_LOOP_START_NODE } from '../loop-start/constants';
 
 export const useNodeLoopInteractions = () => {
-  const { t } = useTranslation();
   const store = useStoreApi();
 
   const handleNodeLoopRerender = useCallback(

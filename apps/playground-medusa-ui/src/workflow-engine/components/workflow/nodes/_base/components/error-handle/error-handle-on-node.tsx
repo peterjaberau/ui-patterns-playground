@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { useUpdateNodeInternals } from 'reactflow';
 import { NodeSourceHandle } from '../node-handle';
 import { ErrorHandleTypeEnum } from './types';
@@ -9,7 +9,6 @@ import cn from '@/utils/classnames';
 
 type ErrorHandleOnNodeProps = Pick<Node, 'id' | 'data'>;
 const ErrorHandleOnNode = ({ id, data }: ErrorHandleOnNodeProps) => {
-  const { t } = useTranslation();
   const { error_strategy } = data;
   const updateNodeInternals = useUpdateNodeInternals();
 

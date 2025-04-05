@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import produce from 'immer';
-import type { AgentLogResponse } from '@/types/workflow';
+import { produce } from 'immer';
+import type { AgentLogResponse } from '@workflow-app/types/workflow';
 import { useWorkflowStore } from '@workflow/store';
 
 export const useWorkflowAgentLog = () => {
@@ -19,7 +19,9 @@ export const useWorkflowAgentLog = () => {
 
             if (current.execution_metadata) {
               if (current.execution_metadata.agent_log) {
-                const currentLogIndex = current.execution_metadata.agent_log.findIndex((log) => log.id === data.id);
+                const currentLogIndex = current.execution_metadata.agent_log.findIndex(
+                  (log: any) => log.id === data.id,
+                );
                 if (currentLogIndex > -1) {
                   current.execution_metadata.agent_log[currentLogIndex] = {
                     ...current.execution_metadata.agent_log[currentLogIndex],

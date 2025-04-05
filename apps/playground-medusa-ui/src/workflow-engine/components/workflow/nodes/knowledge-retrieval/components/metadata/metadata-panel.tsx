@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { RiCloseLine } from '@remixicon/react';
 import AddCondition from './add-condition';
 import ConditionList from './condition-list';
@@ -14,8 +13,6 @@ const MetadataPanel = ({
   handleAddCondition,
   ...restProps
 }: MetadataPanelProps) => {
-  const { t } = useTranslation();
-
   return (
     <div className="border-components-panel-border bg-components-panel-bg w-[420px] rounded-2xl border-[0.5px] shadow-2xl">
       <div className="relative px-3 pt-3.5">

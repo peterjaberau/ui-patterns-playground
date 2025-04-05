@@ -6,7 +6,7 @@ import UserInput from './user-input';
 import Chat from '@base/chat/chat';
 import type { ChatItem, ChatItemInTree } from '@base/chat/types';
 import { fetchConversationMessages } from '@/service/debug';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import Loading from '@base/loading';
 import { getProcessedFilesFromResponse } from '@base/file-uploader/utils';
 import type { IChatItem } from '@base/chat/chat/type';

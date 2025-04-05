@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { memo, useCallback, useMemo } from 'react';
 import { RiApps2AddLine, RiHistoryLine } from '@remixicon/react';
 import { useNodes } from 'reactflow';
-import { useTranslation } from 'react-i18next';
+
 import { useContext, useContextSelector } from 'use-context-selector';
 import { useStore, useWorkflowStore } from '../store';
 import { BlockEnum, InputVarType, WorkflowVersion } from '../types';
@@ -28,16 +28,15 @@ import ChatVariableButton from './chat-variable-button';
 import EnvButton from './env-button';
 import VersionHistoryButton from './version-history-button';
 import Button from '@base/button';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import { ArrowNarrowLeft } from '@base/icons/src/vender/line/arrows';
 import { useFeatures } from '@base/features/hooks';
 import { usePublishWorkflow, useResetWorkflowVersionHistory } from '@/service/use-workflow';
-import type { PublishWorkflowParams } from '@/types/workflow';
+import type { PublishWorkflowParams } from '@workflow-app/types/workflow';
 import { fetchAppDetail, fetchAppSSO } from '@/service/apps';
 import AppContext from '@/context/app-context';
 
 const Header: FC = () => {
-  const { t } = useTranslation();
   const workflowStore = useWorkflowStore();
   const appDetail = useAppStore((s) => s.appDetail);
   const setAppDetail = useAppStore((s) => s.setAppDetail);

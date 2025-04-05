@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { CLICK_COMMAND, COMMAND_PRIORITY_LOW } from 'lexical';
 import { mergeRegister } from '@lexical/utils';
 import { TOGGLE_LINK_COMMAND } from '@lexical/link';
@@ -61,7 +61,6 @@ export const useOpenLink = () => {
 };
 
 export const useLink = () => {
-  const { t } = useTranslation();
   const [editor] = useLexicalComposerContext();
   const noteEditorStore = useNoteEditorStore();
   const { notify } = useToastContext();

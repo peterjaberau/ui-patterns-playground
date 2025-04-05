@@ -37,13 +37,13 @@ const MobileOperationDropdown = ({ handleResetChat, handleViewChatSettings }: Pr
             className="system-md-regular text-text-secondary hover:bg-state-base-hover flex cursor-pointer items-center space-x-1 rounded-lg px-3 py-1.5"
             onClick={handleResetChat}
           >
-            <span className="grow">{t('share.chat.resetChat')}</span>
+            <span className="grow">{'Reset conversation'}</span>
           </div>
           <div
             className="system-md-regular text-text-secondary hover:bg-state-base-hover flex cursor-pointer items-center space-x-1 rounded-lg px-3 py-1.5"
             onClick={handleViewChatSettings}
           >
-            <span className="grow">{t('share.chat.viewChatSettings')}</span>
+            <span className="grow">{'View chat settings'}</span>
           </div>
         </div>
       </PortalToFollowElemContent>

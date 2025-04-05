@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import ObjectValueItem from '@workflow/panel/chat-variable-panel/components/object-value-item';
 
 type Props = {
@@ -10,8 +10,6 @@ type Props = {
 };
 
 const ObjectValueList: FC<Props> = ({ list, onChange }) => {
-  const { t } = useTranslation();
-
   return (
     <div className="w-full overflow-hidden rounded-lg border border-gray-200">
       <div className="system-xs-medium text-text-tertiary flex h-7 items-center uppercase">

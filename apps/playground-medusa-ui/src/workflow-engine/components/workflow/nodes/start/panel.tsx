@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import RemoveEffectVarConfirm from '../_base/components/remove-effect-var-confirm';
 import VarList from './components/var-list';
 import VarItem from './components/var-item';
@@ -15,7 +15,6 @@ import type { InputVar, NodePanelProps } from '@workflow/types';
 const i18nPrefix = 'workflow.nodes.start';
 
 const Panel: FC<NodePanelProps<StartNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
   const {
     readOnly,
     isChatMode,

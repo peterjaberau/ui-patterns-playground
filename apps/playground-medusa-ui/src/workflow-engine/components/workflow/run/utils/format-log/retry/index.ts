@@ -1,4 +1,4 @@
-import type { NodeTracing } from '@/types/workflow';
+import type { NodeTracing } from '@workflow-app/types/workflow';
 
 const format = (list: NodeTracing[]): NodeTracing[] => {
   const retryNodes = list.filter((item) => {

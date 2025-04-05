@@ -1,7 +1,7 @@
 import type { MouseEvent } from 'react';
 import { useCallback, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import produce from 'immer';
+
+import { produce } from 'immer';
 import type {
   NodeDragHandler,
   NodeMouseHandler,
@@ -15,6 +15,7 @@ import { unionBy } from 'lodash-es';
 import type { ToolDefaultValue } from '../block-selector/types';
 import type { Edge, Node, OnNodeAdd } from '../types';
 import { BlockEnum } from '../types';
+import workflowTranslation from '@workflow-app/i18n/en-US/workflow';
 import { useWorkflowStore } from '../store';
 import {
   CUSTOM_EDGE,
@@ -49,7 +50,6 @@ import { useNodesReadOnly, useWorkflow, useWorkflowReadOnly } from './use-workfl
 import { WorkflowHistoryEvent, useWorkflowHistory } from './use-workflow-history';
 
 export const useNodesInteractions = () => {
-  const { t } = useTranslation();
   const store = useStoreApi();
   const workflowStore = useWorkflowStore();
   const reactflow = useReactFlow();
@@ -499,8 +499,8 @@ export const useNodesInteractions = () => {
 
             if (!showConfirm) {
               setShowConfirm({
-                title: t('workflow.nodes.iteration.deleteTitle'),
-                desc: t('workflow.nodes.iteration.deleteDesc') || '',
+                title: 'Delete Iteration Node?',
+                desc: 'Deleting the iteration node will delete all child nodes',
                 onConfirm: () => {
                   iterationChildren.forEach((child) => {
                     handleNodeDelete(child.id);
@@ -536,8 +536,8 @@ export const useNodesInteractions = () => {
 
             if (!showConfirm) {
               setShowConfirm({
-                title: t('workflow.nodes.loop.deleteTitle'),
-                desc: t('workflow.nodes.loop.deleteDesc') || '',
+                title: 'Delete Loop Node?',
+                desc: 'Deleting the loop node will remove all child nodes',
                 onConfirm: () => {
                   loopChildren.forEach((child) => {
                     handleNodeDelete(child.id);
@@ -582,7 +582,7 @@ export const useNodesInteractions = () => {
       if (currentNode.type === CUSTOM_NOTE_NODE) saveStateToHistory(WorkflowHistoryEvent.NoteDelete);
       else saveStateToHistory(WorkflowHistoryEvent.NodeDelete);
     },
-    [getNodesReadOnly, store, handleSyncWorkflowDraft, saveStateToHistory, workflowStore, t],
+    [getNodesReadOnly, store, handleSyncWorkflowDraft, saveStateToHistory, workflowStore],
   );
 
   const handleNodeAdd = useCallback<OnNodeAdd>(
@@ -601,8 +601,8 @@ export const useNodesInteractions = () => {
           ...NODES_INITIAL_DATA[nodeType],
           title:
             nodesWithSameType.length > 0
-              ? `${t(`workflow.blocks.${nodeType}`)} ${nodesWithSameType.length + 1}`
-              : t(`workflow.blocks.${nodeType}`),
+              ? `${(workflowTranslation as any).blocks[nodeType]} ${nodesWithSameType.length + 1}`
+              : (workflowTranslation as any).blocks[nodeType],
           ...(toolDefaultValue || {}),
           selected: true,
           _showAddVariablePopup:
@@ -1013,7 +1013,6 @@ export const useNodesInteractions = () => {
     [
       getNodesReadOnly,
       store,
-      t,
       handleSyncWorkflowDraft,
       saveStateToHistory,
       workflowStore,
@@ -1041,8 +1040,8 @@ export const useNodesInteractions = () => {
           ...NODES_INITIAL_DATA[nodeType],
           title:
             nodesWithSameType.length > 0
-              ? `${t(`workflow.blocks.${nodeType}`)} ${nodesWithSameType.length + 1}`
-              : t(`workflow.blocks.${nodeType}`),
+              ? `${(workflowTranslation as any).blocks[nodeType]} ${nodesWithSameType.length + 1}`
+              : (workflowTranslation as any).blocks[nodeType],
           ...(toolDefaultValue || {}),
           _connectedSourceHandleIds: [],
           _connectedTargetHandleIds: [],
@@ -1092,7 +1091,7 @@ export const useNodesInteractions = () => {
 
       saveStateToHistory(WorkflowHistoryEvent.NodeChange);
     },
-    [getNodesReadOnly, store, t, handleSyncWorkflowDraft, saveStateToHistory],
+    [getNodesReadOnly, store, handleSyncWorkflowDraft, saveStateToHistory],
   );
 
   const handleNodeCancelRunningStatus = useCallback(() => {

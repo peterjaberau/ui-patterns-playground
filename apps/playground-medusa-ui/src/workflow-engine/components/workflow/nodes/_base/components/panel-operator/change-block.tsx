@@ -1,5 +1,5 @@
 import { memo, useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { intersection } from 'lodash-es';
 import BlockSelector from '@workflow/block-selector';
 import { useAvailableBlocks, useNodesInteractions } from '@workflow/hooks';
@@ -11,7 +11,6 @@ type ChangeBlockProps = {
   sourceHandle: string;
 };
 const ChangeBlock = ({ nodeId, nodeData, sourceHandle }: ChangeBlockProps) => {
-  const { t } = useTranslation();
   const { handleNodeChange } = useNodesInteractions();
   const { availablePrevBlocks, availableNextBlocks } = useAvailableBlocks(
     nodeData.type,

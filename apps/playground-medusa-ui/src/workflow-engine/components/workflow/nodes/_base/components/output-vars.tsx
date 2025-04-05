@@ -1,7 +1,7 @@
 'use client';
 import type { FC, ReactNode } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { FieldCollapse } from '@workflow/nodes/_base/components/collapse';
 
 type Props = {
@@ -11,7 +11,6 @@ type Props = {
 };
 
 const OutputVars: FC<Props> = ({ title, children }) => {
-  const { t } = useTranslation();
   return <FieldCollapse title={title || t('workflow.nodes.common.outputVars')}>{children}</FieldCollapse>;
 };
 type VarItemProps = {

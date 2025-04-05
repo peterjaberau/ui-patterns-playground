@@ -1,6 +1,6 @@
 import { memo, useCallback, useMemo, useState } from 'react';
 import { RiCloseLine, RiHistoryLine } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import { useShallow } from 'zustand/react/shallow';
 import { useStoreApi } from 'reactflow';
 import { useNodesReadOnly, useWorkflowHistory } from '../hooks';
@@ -9,7 +9,7 @@ import type { WorkflowHistoryState } from '../workflow-history-store';
 import Divider from '../../base/divider';
 import cn from '@/utils/classnames';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import classNames from '@/utils/classnames';
 
 type ChangeHistoryEntry = {
@@ -25,7 +25,6 @@ type ChangeHistoryList = {
 };
 
 const ViewWorkflowHistory = () => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const { nodesReadOnly } = useNodesReadOnly();

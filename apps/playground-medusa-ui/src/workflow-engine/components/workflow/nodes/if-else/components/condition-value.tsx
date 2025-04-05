@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { useNodes } from 'reactflow';
 import { ComparisonOperator } from '../types';
 import { comparisonOperatorNotRequireValue, isComparisonOperatorNeedTranslate } from '../utils';
@@ -18,7 +18,6 @@ type ConditionValueProps = {
   value: string | string[];
 };
 const ConditionValue = ({ variableSelector, labelName, operator, value }: ConditionValueProps) => {
-  const { t } = useTranslation();
   const nodes = useNodes();
   const variableName =
     labelName ||

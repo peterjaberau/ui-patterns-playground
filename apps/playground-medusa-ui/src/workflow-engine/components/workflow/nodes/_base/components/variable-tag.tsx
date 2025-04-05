@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useNodes } from 'reactflow';
 import { capitalize } from 'lodash-es';
-import { useTranslation } from 'react-i18next';
+
 import { RiErrorWarningFill } from '@remixicon/react';
 import { VarBlockIcon } from '@workflow/block-icon';
 import type { CommonNodeType, Node, ValueSelector, VarType } from '@workflow/types';
@@ -42,7 +42,6 @@ const VariableTag = ({ valueSelector, varType, isShort, availableNodes }: Variab
   const variableName = isSystemVar(valueSelector) ? valueSelector.slice(0).join('.') : valueSelector.slice(1).join('.');
   const isException = isExceptionVariable(variableName, node?.data.type);
 
-  const { t } = useTranslation();
   return (
     <Tooltip popupContent={!isValid && t('workflow.errorMsg.invalidVariable')}>
       <div

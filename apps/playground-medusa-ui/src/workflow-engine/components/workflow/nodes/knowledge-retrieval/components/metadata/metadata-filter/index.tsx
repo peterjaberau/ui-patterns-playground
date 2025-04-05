@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import MetadataTrigger from '../metadata-trigger';
 import MetadataFilterSelector from './metadata-filter-selector';
 import Collapse from '@workflow/nodes/_base/components/collapse';
@@ -20,7 +20,6 @@ const MetadataFilter = ({
   handleMetadataCompletionParamsChange,
   ...restProps
 }: MetadataFilterProps) => {
-  const { t } = useTranslation();
   const [collapsed, setCollapsed] = useState(true);
 
   const handleMetadataFilterModeChangeWrapped = useCallback(

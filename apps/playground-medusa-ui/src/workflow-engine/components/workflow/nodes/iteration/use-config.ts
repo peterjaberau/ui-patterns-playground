@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import produce from 'immer';
+import { produce } from 'immer';
 import { useBoolean } from 'ahooks';
 import { useIsChatMode, useIsNodeInIteration, useNodesReadOnly, useWorkflow } from '../../hooks';
 import { VarType } from '../../types';

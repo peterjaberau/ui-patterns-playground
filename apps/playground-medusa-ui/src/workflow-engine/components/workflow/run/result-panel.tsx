@@ -1,12 +1,12 @@
 'use client';
 import type { FC } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import StatusPanel from './status';
 import MetaData from './meta';
 import CodeEditor from '@workflow/nodes/_base/components/editor/code-editor';
 import { CodeLanguage } from '@workflow/nodes/code/types';
 import ErrorHandleTip from '@workflow/nodes/_base/components/error-handle/error-handle-tip';
-import type { AgentLogItemWithChildren, NodeTracing } from '@/types/workflow';
+import type { AgentLogItemWithChildren, NodeTracing } from '@workflow-app/types/workflow';
 import { BlockEnum } from '@workflow/types';
 import { hasRetryNode } from '@workflow/utils';
 import { IterationLogTrigger } from '@workflow/run/iteration-log';
@@ -56,7 +56,6 @@ const ResultPanel: FC<ResultPanelProps> = ({
   onShowRetryDetail,
   handleShowAgentOrToolLog,
 }) => {
-  const { t } = useTranslation();
   const isIterationNode = nodeInfo?.node_type === BlockEnum.Iteration && !!nodeInfo?.details?.length;
   const isLoopNode = nodeInfo?.node_type === BlockEnum.Loop && !!nodeInfo?.details?.length;
   const isRetryNode = hasRetryNode(nodeInfo?.node_type) && !!nodeInfo?.retryDetail?.length;

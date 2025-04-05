@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import produce from 'immer';
+
+import { produce } from 'immer';
 import { useContext } from 'use-context-selector';
 import { ToastContext } from '@base/toast';
 import VariableTypeSelector from '@workflow/panel/chat-variable-panel/components/variable-type-select';
@@ -24,7 +24,6 @@ export const DEFAULT_OBJECT_VALUE = {
 };
 
 const ObjectValueItem: FC<Props> = ({ index, list, onChange }) => {
-  const { t } = useTranslation();
   const { notify } = useContext(ToastContext);
   const [isFocus, setIsFocus] = useState(false);
 

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import Button from '@base/button';
 import type { ImageFile } from '@workflow-app/types/app';
 import { TransferMethod } from '@workflow-app/types/app';
@@ -11,7 +11,6 @@ type ImageLinkInputProps = {
 };
 const regex = /^(https?|ftp):\/\//;
 const ImageLinkInput: FC<ImageLinkInputProps> = ({ onUpload, disabled }) => {
-  const { t } = useTranslation();
   const [imageLink, setImageLink] = useState('');
 
   const handleClick = () => {

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import useConfig from './use-config';
 import type { EndNodeType } from './types';
 import VarList from '@workflow/nodes/_base/components/variable/var-list';
@@ -11,8 +11,6 @@ import type { NodePanelProps } from '@workflow/types';
 const i18nPrefix = 'workflow.nodes.end';
 
 const Panel: FC<NodePanelProps<EndNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
-
   const { readOnly, inputs, handleVarListChange, handleAddVariable } = useConfig(id, data);
 
   const outputs = inputs.outputs;

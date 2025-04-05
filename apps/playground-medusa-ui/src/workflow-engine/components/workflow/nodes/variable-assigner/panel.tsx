@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import Field from '../_base/components/field';
 import RemoveEffectVarConfirm from '../_base/components/remove-effect-var-confirm';
 import useConfig from './use-config';
@@ -15,8 +15,6 @@ import AddButton from '@workflow/nodes/_base/components/add-button';
 
 const i18nPrefix = 'workflow.nodes.variableAssigner';
 const Panel: FC<NodePanelProps<VariableAssignerNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
-
   const {
     readOnly,
     inputs,

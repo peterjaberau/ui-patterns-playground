@@ -1,11 +1,11 @@
 'use client';
-import { useTranslation } from 'react-i18next';
+
 import s from './secret-key/style.module.css';
 import Doc from '@workflow-app/components/develop/doc';
 import Loading from '@base//loading';
 import InputCopy from '@workflow-app/components/develop/secret-key/input-copy';
 import SecretKeyButton from '@workflow-app/components/develop/secret-key/secret-key-button';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 
 type IDevelopMainProps = {
   appId: string;
@@ -13,7 +13,6 @@ type IDevelopMainProps = {
 
 const DevelopMain = ({ appId }: IDevelopMainProps) => {
   const appDetail = useAppStore((state) => state.appDetail);
-  const { t } = useTranslation();
 
   if (!appDetail) {
     return (
@@ -32,16 +31,14 @@ const DevelopMain = ({ appId }: IDevelopMainProps) => {
             <div
               className={`ml-2 shrink-0 rounded-[6px] border border-solid border-gray-200 px-2 py-0.5 text-[0.625rem] text-gray-500 ${s.customApi}`}
             >
-              {t('appApi.apiServer')}
+              {'API Server'}
             </div>
           </InputCopy>
           <div
             className={`mr-2 flex h-9 items-center rounded-lg px-3 text-[13px] font-normal ${appDetail.enable_api ? 'bg-green-50 text-green-500' : 'bg-yellow-50 text-yellow-500'}`}
           >
-            <div className="mr-1">{t('appApi.status')}</div>
-            <div className="font-semibold">
-              {appDetail.enable_api ? `${t('appApi.ok')}` : `${t('appApi.disabled')}`}
-            </div>
+            <div className="mr-1">{'Status'}</div>
+            <div className="font-semibold">{appDetail.enable_api ? 'Ok' : 'Disabled'}</div>
           </div>
           <SecretKeyButton className="shrink-0" appId={appId} />
         </div>

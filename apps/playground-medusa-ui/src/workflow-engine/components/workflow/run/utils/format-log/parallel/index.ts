@@ -1,5 +1,5 @@
 import { BlockEnum } from '@workflow/types';
-import type { NodeTracing } from '@/types/workflow';
+import type { NodeTracing } from '@workflow-app/types/workflow';
 
 function printNodeStructure(node: NodeTracing, depth: number) {
   const indent = '  '.repeat(depth);

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import produce from 'immer';
+import { produce } from 'immer';
 import useVarList from '../_base/hooks/use-var-list';
 import useOutputVarList from '../_base/hooks/use-output-var-list';
 import { BlockEnum, VarType } from '../../types';
@@ -10,7 +10,7 @@ import { CodeLanguage } from './types';
 import useNodeCrud from '@workflow/nodes/_base/hooks/use-node-crud';
 import useOneStepRun from '@workflow/nodes/_base/hooks/use-one-step-run';
 import { fetchNodeDefault } from '@/service/workflow';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import { useNodesReadOnly } from '@workflow/hooks';
 
 const useConfig = (id: string, payload: CodeNodeType) => {

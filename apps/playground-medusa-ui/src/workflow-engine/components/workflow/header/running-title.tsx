@@ -1,11 +1,10 @@
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { useIsChatMode } from '../hooks';
 import { useStore } from '../store';
 import { ClockPlay } from '@base/icons/src/vender/line/time';
 
 const RunningTitle = () => {
-  const { t } = useTranslation();
   const isChatMode = useIsChatMode();
   const historyWorkflowData = useStore((s) => s.historyWorkflowData);
 

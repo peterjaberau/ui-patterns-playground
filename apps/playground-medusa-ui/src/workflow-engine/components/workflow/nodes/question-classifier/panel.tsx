@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import VarReferencePicker from '../_base/components/variable/var-reference-picker';
 import ConfigVision from '../_base/components/config-vision';
 import { findVariableWhenOnLLMVision } from '../utils';
@@ -21,8 +21,6 @@ import type { Props as FormProps } from '@workflow/nodes/_base/components/before
 const i18nPrefix = 'workflow.nodes.questionClassifiers';
 
 const Panel: FC<NodePanelProps<QuestionClassifierNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
-
   const {
     readOnly,
     inputs,

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { Fragment, memo, useCallback, useState } from 'react';
 import { RiZoomInLine, RiZoomOutLine } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import { useReactFlow, useViewport } from 'reactflow';
 import { useNodesSyncDraft, useWorkflowReadOnly } from '../hooks';
 
@@ -23,7 +23,6 @@ enum ZoomType {
 }
 
 const ZoomInOut: FC = () => {
-  const { t } = useTranslation();
   const { zoomIn, zoomOut, zoomTo, fitView } = useReactFlow();
   const { zoom } = useViewport();
   const { handleSyncWorkflowDraft } = useNodesSyncDraft();

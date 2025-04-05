@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiAlertFill, RiCheckboxCircleFill, RiLoader2Line } from '@remixicon/react';
 import type { Node } from '@workflow/types';
 import { NodeRunningStatus } from '@workflow/types';
@@ -7,7 +7,6 @@ import cn from '@/utils/classnames';
 
 type RetryOnNodeProps = Pick<Node, 'id' | 'data'>;
 const RetryOnNode = ({ data }: RetryOnNodeProps) => {
-  const { t } = useTranslation();
   const { retry_config } = data;
   const showSelectedBorder = data.selected || data._isBundled || data._isEntering;
   const { isRunning, isSuccessful, isException, isFailed } = useMemo(() => {

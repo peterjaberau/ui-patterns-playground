@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import type { FC } from 'react';
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+
 import Tooltip from './tooltip';
 import ProgressTooltip from './progress-tooltip';
 import type { Resources } from './index';
@@ -17,7 +17,6 @@ type PopupProps = {
 };
 
 const Popup: FC<PopupProps> = ({ data, showHitInfo = false }) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const fileType = data.dataSourceType !== 'notion' ? /\.([^.]*)$/g.exec(data.documentName)?.[1] || '' : 'notion';
 
@@ -62,7 +61,7 @@ const Popup: FC<PopupProps> = ({ data, showHitInfo = false }) => {
                           href={`/datasets/${source.dataset_id}/documents/${source.document_id}`}
                           className="text-text-accent hidden h-[18px] items-center text-xs group-hover:flex"
                         >
-                          {t('common.chat.citation.linkToDataset')}
+                          {'Link to knowledge'}
                           <ArrowUpRight className="ml-1 h-3 w-3" />
                         </Link>
                       )}
@@ -71,17 +70,17 @@ const Popup: FC<PopupProps> = ({ data, showHitInfo = false }) => {
                     {showHitInfo && (
                       <div className="system-xs-medium text-text-quaternary mt-2 flex flex-wrap items-center">
                         <Tooltip
-                          text={t('common.chat.citation.characters')}
+                          text={'Characters'}
                           data={source.word_count}
                           icon={<TypeSquare className="mr-1 h-3 w-3" />}
                         />
                         <Tooltip
-                          text={t('common.chat.citation.hitCount')}
+                          text={'Retrieval count'}
                           data={source.hit_count}
                           icon={<Target04 className="mr-1 h-3 w-3" />}
                         />
                         <Tooltip
-                          text={t('common.chat.citation.vectorHash')}
+                          text={'Vector hash'}
                           data={source.index_node_hash?.substring(0, 7)}
                           icon={<BezierCurve03 className="mr-1 h-3 w-3" />}
                         />

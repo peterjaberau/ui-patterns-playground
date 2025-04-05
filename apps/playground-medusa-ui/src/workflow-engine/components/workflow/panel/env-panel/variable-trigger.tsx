@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiAddLine } from '@remixicon/react';
 import Button from '@base/button';
 import VariableModal from '@workflow/panel/env-panel/variable-modal';
@@ -16,8 +16,6 @@ type Props = {
 };
 
 const VariableTrigger = ({ open, setOpen, env, onClose, onSave }: Props) => {
-  const { t } = useTranslation();
-
   return (
     <PortalToFollowElem
       open={open}

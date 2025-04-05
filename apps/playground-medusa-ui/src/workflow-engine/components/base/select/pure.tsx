@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiArrowDownSLine, RiCheckLine } from '@remixicon/react';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import type { PortalToFollowElemOptions } from '@base/portal-to-follow-elem';
@@ -29,7 +29,6 @@ type PureSelectProps = {
   };
 };
 const PureSelect = ({ options, value, onChange, containerProps, triggerProps, popupProps }: PureSelectProps) => {
-  const { t } = useTranslation();
   const { open, onOpenChange, placement, offset } = containerProps || {};
   const { className: triggerClassName } = triggerProps || {};
   const {

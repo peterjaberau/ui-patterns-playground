@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiAddLine } from '@remixicon/react';
 import Button from '@base/button';
 import VariableModal from '@workflow/panel/chat-variable-panel/components/variable-modal';
@@ -17,8 +17,6 @@ type Props = {
 };
 
 const VariableModalTrigger = ({ open, setOpen, showTip, chatVar, onClose, onSave }: Props) => {
-  const { t } = useTranslation();
-
   return (
     <PortalToFollowElem
       open={open}

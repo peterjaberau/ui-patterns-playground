@@ -12,7 +12,7 @@ import Chat from '@base/chat/chat';
 import type { ChatItem, ChatItemInTree, OnSend } from '@base/chat/types';
 import { useFeatures } from '@base/features/hooks';
 import { fetchSuggestedQuestions, stopChatMessageResponding } from '@/service/debug';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 import { getLastAnswer, isValidGeneratedAnswer } from '@base/chat/utils';
 
 type ChatWrapperProps = {

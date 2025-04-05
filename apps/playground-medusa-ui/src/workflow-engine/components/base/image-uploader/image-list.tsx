@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiCloseLine, RiLoader2Line } from '@remixicon/react';
 import cn from '@utils/classnames';
 import { RefreshCcw01 } from '@base/icons/src/vender/line/arrows';
@@ -27,7 +27,6 @@ const ImageList: FC<ImageListProps> = ({
   onImageLinkLoadSuccess,
   onImageLinkLoadError,
 }) => {
-  const { t } = useTranslation();
   const [imagePreviewUrl, setImagePreviewUrl] = useState('');
 
   const handleImageLinkLoadSuccess = (item: ImageFile) => {

@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 import { RiAddCircleFill } from '@remixicon/react';
 import { useStoreApi } from 'reactflow';
-import { useTranslation } from 'react-i18next';
+
 import type { OffsetOptions } from '@floating-ui/react';
 import { generateNewNode, getNodeCustomTypeByNodeDataType } from '../utils';
 import { useAvailableBlocks, useNodesReadOnly, usePanelInteractions } from '../hooks';
@@ -18,7 +18,6 @@ type AddBlockProps = {
   offset?: OffsetOptions;
 };
 const AddBlock = ({ renderTrigger, offset }: AddBlockProps) => {
-  const { t } = useTranslation();
   const store = useStoreApi();
   const workflowStore = useWorkflowStore();
   const { nodesReadOnly } = useNodesReadOnly();

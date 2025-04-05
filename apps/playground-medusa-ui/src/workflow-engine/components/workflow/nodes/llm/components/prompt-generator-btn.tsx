@@ -6,10 +6,10 @@ import cn from 'classnames';
 import { Generator } from '@base/icons/src/vender/other';
 import { ActionButton } from '@base/action-button';
 import GetAutomaticResModal from '@/app/components/app/configuration/config/automatic/get-automatic-res';
-import { AppType } from '@/types/app';
+import { AppType } from '@workflow-app/types/app';
 import type { AutomaticRes } from '@/service/debug';
 import type { ModelConfig } from '@workflow/types';
-import type { Model } from '@/types/app';
+import type { Model } from '@workflow-app/types/app';
 
 type Props = {
   className?: string;

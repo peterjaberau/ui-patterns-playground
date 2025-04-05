@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { useRetryConfig } from './hooks';
 import s from './style.module.css';
 import Switch from '@base/switch';
@@ -9,7 +8,6 @@ import Split from '@workflow/nodes/_base/components/split';
 
 type RetryOnPanelProps = Pick<Node, 'id' | 'data'>;
 const RetryOnPanel = ({ id, data }: RetryOnPanelProps) => {
-  const { t } = useTranslation();
   const { handleRetryConfigChange } = useRetryConfig(id);
   const { retry_config } = data;
 

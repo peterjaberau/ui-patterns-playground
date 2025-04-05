@@ -1,7 +1,7 @@
 'use client';
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import type { Timeout as TimeoutPayloadType } from '../../types';
 import Input from '@base/input';
 import { FieldCollapse } from '@workflow/nodes/_base/components/collapse';
@@ -48,7 +48,6 @@ const InputField: FC<{
 };
 
 const Timeout: FC<Props> = ({ readonly, payload, onChange }) => {
-  const { t } = useTranslation();
   const { connect, read, write, max_connect_timeout, max_read_timeout, max_write_timeout } = payload ?? {};
 
   return (

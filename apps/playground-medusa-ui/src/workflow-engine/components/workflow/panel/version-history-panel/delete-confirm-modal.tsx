@@ -1,7 +1,7 @@
 import React, { type FC } from 'react';
 import Modal from '@base/modal';
-import type { VersionHistory } from '@/types/workflow';
-import { useTranslation } from 'react-i18next';
+import type { VersionHistory } from '@workflow-app/types/workflow';
+
 import Button from '@base/button';
 
 type DeleteConfirmModalProps = {
@@ -12,8 +12,6 @@ type DeleteConfirmModalProps = {
 };
 
 const DeleteConfirmModal: FC<DeleteConfirmModalProps> = ({ isOpen, versionInfo, onClose, onDelete }) => {
-  const { t } = useTranslation();
-
   return (
     <Modal className="p-0" isShow={isOpen} onClose={onClose}>
       <div className="flex flex-col gap-y-2 p-6 pb-4">

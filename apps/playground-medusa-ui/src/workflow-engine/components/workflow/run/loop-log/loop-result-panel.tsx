@@ -1,13 +1,13 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiArrowLeftLine, RiArrowRightSLine, RiErrorWarningLine, RiLoader2Line } from '@remixicon/react';
 import { NodeRunningStatus } from '@workflow/types';
 import TracingPanel from '@workflow/run/tracing-panel';
 import { Loop } from '@base/icons/src/vender/workflow';
 import cn from '@/utils/classnames';
-import type { LoopDurationMap, LoopVariableMap, NodeTracing } from '@/types/workflow';
+import type { LoopDurationMap, LoopVariableMap, NodeTracing } from '@workflow-app/types/workflow';
 import CodeEditor from '@workflow/nodes/_base/components/editor/code-editor';
 import { CodeLanguage } from '@workflow/nodes/code/types';
 const i18nPrefix = 'workflow.singleRun';
@@ -20,7 +20,6 @@ type Props = {
 };
 
 const LoopResultPanel: FC<Props> = ({ list, onBack, loopDurationMap, loopVariableMap }) => {
-  const { t } = useTranslation();
   const [expandedLoops, setExpandedLoops] = useState<Record<number, boolean>>({});
 
   const toggleLoop = useCallback((index: number) => {

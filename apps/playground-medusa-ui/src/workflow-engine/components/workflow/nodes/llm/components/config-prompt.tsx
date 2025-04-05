@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import produce from 'immer';
+
+import { produce } from 'immer';
 import { ReactSortable } from 'react-sortablejs';
 import { v4 as uuid4 } from 'uuid';
 import type { ModelConfig, PromptItem, ValueSelector, Var, Variable } from '../../../types';
@@ -50,7 +50,6 @@ const ConfigPrompt: FC<Props> = ({
   handleAddVariable,
   modelConfig,
 }) => {
-  const { t } = useTranslation();
   const workflowStore = useWorkflowStore();
   const { setControlPromptEditorRerenderKey } = workflowStore.getState();
   const payloadWithIds =

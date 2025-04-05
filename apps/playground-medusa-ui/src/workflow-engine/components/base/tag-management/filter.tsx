@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { useDebounceFn, useMount } from 'ahooks';
 import { RiArrowDownSLine } from '@remixicon/react';
 import { useStore as useTagStore } from './store';
@@ -12,7 +12,7 @@ import { Check } from '@base/icons/src/vender/line/general';
 import { XCircle } from '@base/icons/src/vender/solid/general';
 import type { Tag } from '@base/tag-management/constant';
 
-import { fetchTagList } from '@/service/tag';
+// import { fetchTagList } from '@/service/tag';
 
 type TagFilterProps = {
   type: 'knowledge' | 'app';
@@ -20,7 +20,6 @@ type TagFilterProps = {
   onChange: (v: string[]) => void;
 };
 const TagFilter: FC<TagFilterProps> = ({ type, value, onChange }) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const tagList = useTagStore((s) => s.tagList);
@@ -52,11 +51,11 @@ const TagFilter: FC<TagFilterProps> = ({ type, value, onChange }) => {
     else onChange([...value, tag.id]);
   };
 
-  useMount(() => {
-    fetchTagList(type).then((res) => {
-      setTagList(res);
-    });
-  });
+  // useMount(() => {
+  //   fetchTagList(type).then((res) => {
+  //     setTagList(res);
+  //   });
+  // });
 
   return (
     <PortalToFollowElem open={open} onOpenChange={setOpen} placement="bottom-start" offset={4}>
@@ -73,7 +72,7 @@ const TagFilter: FC<TagFilterProps> = ({ type, value, onChange }) => {
               <Tag01 className="text-text-tertiary h-3.5 w-3.5" />
             </div>
             <div className="text-text-secondary text-[13px] leading-[18px]">
-              {!value.length && t('common.tag.placeholder')}
+              {!value.length && 'All Tags'}
               {!!value.length && currentTag?.name}
             </div>
             {value.length > 1 && (
@@ -124,7 +123,7 @@ const TagFilter: FC<TagFilterProps> = ({ type, value, onChange }) => {
               {!filteredTagList.length && (
                 <div className="flex flex-col items-center gap-1 p-3">
                   <Tag03 className="text-text-tertiary h-6 w-6" />
-                  <div className="text-text-tertiary text-xs leading-[14px]">{t('common.tag.noTag')}</div>
+                  <div className="text-text-tertiary text-xs leading-[14px]">{'No tags'}</div>
                 </div>
               )}
             </div>

@@ -11,7 +11,7 @@ import Loading from '@base/loading';
 import { fetchRunDetail, fetchTracingList } from '@/service/log';
 import type { NodeTracing } from '@workflow-app/types/workflow';
 import type { WorkflowRunDetailResponse } from '@workflow-app/models/log';
-import { useStore as useAppStore } from '@/app/components/app/store';
+import { useStore as useAppStore } from '@workflow-app/components/app/store';
 export type RunProps = {
   hideResult?: boolean;
   activeTab?: 'RESULT' | 'DETAIL' | 'TRACING';

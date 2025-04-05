@@ -1,8 +1,8 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import produce from 'immer';
+
+import { produce } from 'immer';
 import type { KeyValue } from '../../../types';
 import VarReferencePicker from '../../../../_base/components/variable/var-reference-picker';
 import InputItem from './input-item';
@@ -45,8 +45,6 @@ const KeyValueItem: FC<Props> = ({
   keyNotSupportVar,
   insertVarTipToLeft,
 }) => {
-  const { t } = useTranslation();
-
   const handleChange = useCallback(
     (key: string) => {
       return (value: string | ValueSelector) => {

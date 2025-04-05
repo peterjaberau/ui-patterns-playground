@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import type { DefaultValueForm } from './types';
 import Input from '@base/input';
 import { VarType } from '@workflow/types';
@@ -11,7 +11,6 @@ type DefaultValueProps = {
   onFormChange: (form: DefaultValueForm) => void;
 };
 const DefaultValue = ({ forms, onFormChange }: DefaultValueProps) => {
-  const { t } = useTranslation();
   const getFormChangeHandler = useCallback(
     ({ key, type }: DefaultValueForm) => {
       return (payload: any) => {

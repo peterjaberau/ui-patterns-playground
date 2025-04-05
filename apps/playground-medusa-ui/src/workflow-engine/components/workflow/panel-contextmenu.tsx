@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { useClickAway } from 'ahooks';
 import Divider from '../base/divider';
 import ShortcutsName from './shortcuts-name';
@@ -10,7 +10,6 @@ import { useOperator } from './operator/hooks';
 import cn from '@utils/classnames';
 
 const PanelContextmenu = () => {
-  const { t } = useTranslation();
   const ref = useRef(null);
   const panelMenu = useStore((s) => s.panelMenu);
   const clipboardElements = useStore((s) => s.clipboardElements);
@@ -32,7 +31,7 @@ const PanelContextmenu = () => {
   const renderTrigger = () => {
     return (
       <div className="text-text-secondary hover:bg-state-base-hover flex h-8 cursor-pointer items-center justify-between rounded-lg px-3 text-sm">
-        {t('workflow.common.addBlock')}
+        {'Add Block'}
       </div>
     );
   };
@@ -64,7 +63,7 @@ const PanelContextmenu = () => {
             handlePaneContextmenuCancel();
           }}
         >
-          {t('workflow.nodes.note.addNote')}
+          {'Add Note'}
         </div>
         <div
           className="text-text-secondary hover:bg-state-base-hover flex h-8 cursor-pointer items-center justify-between rounded-lg px-3 text-sm"
@@ -73,7 +72,7 @@ const PanelContextmenu = () => {
             handlePaneContextmenuCancel();
           }}
         >
-          {t('workflow.common.run')}
+          {'Run'}
           <ShortcutsName keys={['alt', 'r']} />
         </div>
       </div>
@@ -91,7 +90,7 @@ const PanelContextmenu = () => {
             }
           }}
         >
-          {t('workflow.common.pasteHere')}
+          {'Paste Here'}
           <ShortcutsName keys={['ctrl', 'v']} />
         </div>
       </div>
@@ -101,13 +100,13 @@ const PanelContextmenu = () => {
           className="text-text-secondary hover:bg-state-base-hover flex h-8 cursor-pointer items-center justify-between rounded-lg px-3 text-sm"
           onClick={() => exportCheck()}
         >
-          {t('app.export')}
+          {'Export'}
         </div>
         <div
           className="text-text-secondary hover:bg-state-base-hover flex h-8 cursor-pointer items-center justify-between rounded-lg px-3 text-sm"
           onClick={() => setShowImportDSLModal(true)}
         >
-          {t('workflow.common.importDSL')}
+          {'Import DSL'}
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import type { NodeTracing } from '@/types/workflow';
+import type { NodeTracing } from '@workflow-app/types/workflow';
 import { addChildrenToIterationNode } from './iteration';
 import { addChildrenToLoopNode } from './loop';
 import formatParallelNode from './parallel';

@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import type { WorkflowRetryConfig } from './types';
 import { useNodeDataUpdate } from '@workflow/hooks';
-import type { NodeTracing } from '@/types/workflow';
+import type { NodeTracing } from '@workflow-app/types/workflow';
 
 export const useRetryConfig = (id: string) => {
   const { handleNodeDataUpdateWithSyncDraft } = useNodeDataUpdate();

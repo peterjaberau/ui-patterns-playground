@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import produce from 'immer';
+import { produce } from 'immer';
 import { useBoolean } from 'ahooks';
 import type { CodeNodeType, OutputVar } from '../../code/types';
 import type { ValueSelector } from '@workflow/types';

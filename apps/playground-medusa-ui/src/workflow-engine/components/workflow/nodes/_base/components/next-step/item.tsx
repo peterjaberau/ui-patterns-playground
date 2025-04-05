@@ -1,5 +1,5 @@
 import { memo, useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import Operator from './operator';
 import type { CommonNodeType } from '@workflow/types';
 import BlockIcon from '@workflow/block-icon';
@@ -13,7 +13,6 @@ type ItemProps = {
   data: CommonNodeType;
 };
 const Item = ({ nodeId, sourceHandle, data }: ItemProps) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const { nodesReadOnly } = useNodesReadOnly();
   const { handleNodeSelect } = useNodesInteractions();

@@ -1,9 +1,9 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiAddLine } from '@remixicon/react';
-import produce from 'immer';
+import { produce } from 'immer';
 import RemoveButton from '@workflow/nodes/_base/components/remove-button';
 import Button from '@base/button';
 import Input from '@base/input';
@@ -15,8 +15,6 @@ type Props = {
 };
 
 const ArrayValueList: FC<Props> = ({ isString = true, list, onChange }) => {
-  const { t } = useTranslation();
-
   const handleNameChange = useCallback(
     (index: number) => {
       return (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,10 +1,7 @@
-import { useTranslation } from 'react-i18next';
 import { BLOCKS } from './constants';
 import { TabsEnum, ToolTypeEnum } from './types';
 
 export const useBlocks = () => {
-  const { t } = useTranslation();
-
   return BLOCKS.map((block) => {
     return {
       ...block,
@@ -14,8 +11,6 @@ export const useBlocks = () => {
 };
 
 export const useTabs = () => {
-  const { t } = useTranslation();
-
   return [
     {
       key: TabsEnum.Blocks,
@@ -29,8 +24,6 @@ export const useTabs = () => {
 };
 
 export const useToolTabs = () => {
-  const { t } = useTranslation();
-
   return [
     {
       key: ToolTypeEnum.All,

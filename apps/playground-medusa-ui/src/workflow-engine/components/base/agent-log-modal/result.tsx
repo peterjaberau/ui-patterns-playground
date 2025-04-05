@@ -1,6 +1,6 @@
 'use client';
 import type { FC } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import StatusPanel from '@workflow/run/status';
 import CodeEditor from '@workflow/nodes/_base/components/editor/code-editor';
 import { CodeLanguage } from '@workflow/nodes/code/types';
@@ -32,7 +32,6 @@ const ResultPanel: FC<ResultPanelProps> = ({
   tools,
   iterations,
 }) => {
-  const { t } = useTranslation();
   const { formatTime } = useTimestamp();
 
   return (

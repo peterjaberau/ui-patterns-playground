@@ -2,13 +2,13 @@
 import type { FC } from 'react';
 import React, { useCallback, useState } from 'react';
 import { RiEqualizer2Line } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import type { MultipleRetrievalConfig, SingleRetrievalConfig } from '../types';
 import type { ModelConfig } from '../../../types';
 import cn from '@/utils/classnames';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 import ConfigRetrievalContent from '@/app/components/app/configuration/dataset-config/params-config/config-content';
-import { RETRIEVE_TYPE } from '@/types/app';
+import { RETRIEVE_TYPE } from '@workflow-app/types/app';
 import { DATASET_DEFAULT } from '@/config';
 import { useModelListAndDefaultModelAndCurrentProviderAndModel } from '@/app/components/header/account-setting/model-provider-page/hooks';
 import { ModelTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations';
@@ -45,7 +45,6 @@ const RetrievalConfig: FC<Props> = ({
   onOpenFromPropsChange,
   selectedDatasets,
 }) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const mergedOpen = openFromProps !== undefined ? openFromProps : open;
 

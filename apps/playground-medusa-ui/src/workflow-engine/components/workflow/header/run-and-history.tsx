@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiLoader2Line, RiPlayLargeLine } from '@remixicon/react';
 import { useStore } from '../store';
 import { useIsChatMode, useNodesReadOnly, useWorkflowRun, useWorkflowStartRun } from '../hooks';
@@ -11,7 +11,6 @@ import cn from '@/utils/classnames';
 import { StopCircle } from '@base/icons/src/vender/line/mediaAndDevices';
 
 const RunMode = memo(() => {
-  const { t } = useTranslation();
   const { handleWorkflowStartRunInWorkflow } = useWorkflowStartRun();
   const { handleStopRun } = useWorkflowRun();
   const workflowRunningData = useStore((s) => s.workflowRunningData);
@@ -55,7 +54,6 @@ const RunMode = memo(() => {
 RunMode.displayName = 'RunMode';
 
 const PreviewMode = memo(() => {
-  const { t } = useTranslation();
   const { handleWorkflowStartRunInChatflow } = useWorkflowStartRun();
 
   return (

@@ -1,13 +1,13 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiArrowLeftLine, RiArrowRightSLine, RiErrorWarningLine, RiLoader2Line } from '@remixicon/react';
 import { NodeRunningStatus } from '@workflow/types';
 import TracingPanel from '@workflow/run/tracing-panel';
 import { Iteration } from '@base/icons/src/vender/workflow';
 import cn from '@/utils/classnames';
-import type { IterationDurationMap, NodeTracing } from '@/types/workflow';
+import type { IterationDurationMap, NodeTracing } from '@workflow-app/types/workflow';
 const i18nPrefix = 'workflow.singleRun';
 
 type Props = {
@@ -17,7 +17,6 @@ type Props = {
 };
 
 const IterationResultPanel: FC<Props> = ({ list, onBack, iterDurationMap }) => {
-  const { t } = useTranslation();
   const [expandedIterations, setExpandedIterations] = useState<Record<number, boolean>>({});
 
   const toggleIteration = useCallback((index: number) => {

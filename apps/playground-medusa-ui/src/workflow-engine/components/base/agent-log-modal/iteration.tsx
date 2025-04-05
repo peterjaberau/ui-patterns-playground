@@ -1,5 +1,5 @@
 'use client';
-import { useTranslation } from 'react-i18next';
+
 import type { FC } from 'react';
 import ToolCall from './tool-call';
 import Divider from '@base/divider';
@@ -13,8 +13,6 @@ type Props = {
 };
 
 const Iteration: FC<Props> = ({ iterationInfo, isFinal, index }) => {
-  const { t } = useTranslation();
-
   return (
     <div className={cn('px-4 py-2')}>
       <div className="flex items-center">

@@ -1,5 +1,5 @@
 import { memo, useCallback, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { useClickAway } from 'ahooks';
 import type { NodeProps } from 'reactflow';
 import NodeResizer from '../nodes/_base/components/node-resizer';
@@ -26,7 +26,6 @@ const Icon = () => {
 };
 
 const NoteNode = ({ id, data }: NodeProps<NoteNodeType>) => {
-  const { t } = useTranslation();
   const controlPromptEditorRerenderKey = useStore((s) => s.controlPromptEditorRerenderKey);
   const ref = useRef<HTMLDivElement | null>(null);
   const theme = data.theme;

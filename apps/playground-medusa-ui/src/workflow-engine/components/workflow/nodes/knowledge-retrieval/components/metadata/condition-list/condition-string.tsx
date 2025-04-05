@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import ConditionValueMethod from './condition-value-method';
 import type { ConditionValueMethodProps } from './condition-value-method';
 import ConditionVariableSelector from './condition-variable-selector';
@@ -26,7 +26,6 @@ const ConditionString = ({
   isCommonVariable,
   commonVariables,
 }: ConditionStringProps) => {
-  const { t } = useTranslation();
   const handleVariableValueChange = useCallback(
     (v: ValueSelector) => {
       onChange(`{{#${v.join('.')}#}}`);

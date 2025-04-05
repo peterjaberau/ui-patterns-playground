@@ -1,5 +1,5 @@
 import type { CommonNodeType, ModelConfig, Node, NodeOutPutVar, ValueSelector } from '@workflow/types';
-import type { RETRIEVE_TYPE } from '@/types/app';
+import type { RETRIEVE_TYPE } from '@workflow-app/types/app';
 import type { DataSet, MetadataInDoc, RerankingModeEnum, WeightedScoreEnum } from '@/models/datasets';
 
 export type MultipleRetrievalConfig = {

@@ -6,8 +6,9 @@ import type {
   PromptMode,
 } from '@workflow-app/models/debug';
 import type { CollectionType } from '@tools/types';
+import type { LanguagesSupported } from '@workflow-app/i18n/language';
 import type { Tag } from '@base/tag-management/constant';
-import type { RerankingModeEnum, WeightedScoreEnum } from '@/models/datasets';
+import type { RerankingModeEnum, WeightedScoreEnum } from '@workflow-app/models/datasets';
 import type { UploadFileSetting } from '@workflow/types';
 
 export enum Theme {

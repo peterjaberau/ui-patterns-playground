@@ -1,6 +1,6 @@
 import type { FC, MouseEventHandler } from 'react';
 import { memo, useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import type { OffsetOptions, Placement } from '@floating-ui/react';
 import type { BlockEnum, OnSelectBlock } from '../types';
 import Tabs from './tabs';
@@ -43,7 +43,6 @@ const NodeSelector: FC<NodeSelectorProps> = ({
   disabled,
   noBlocks = false,
 }) => {
-  const { t } = useTranslation();
   const [searchText, setSearchText] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [localOpen, setLocalOpen] = useState(false);

@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react';
-import produce from 'immer';
+import { produce } from 'immer';
 import { useBoolean } from 'ahooks';
 import { v4 as uuid4 } from 'uuid';
 import { useIsChatMode, useIsNodeInLoop, useNodesReadOnly, useWorkflow } from '../../hooks';

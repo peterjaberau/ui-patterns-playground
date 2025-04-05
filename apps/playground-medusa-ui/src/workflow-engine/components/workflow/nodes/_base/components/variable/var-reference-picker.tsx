@@ -1,9 +1,9 @@
 'use client';
 import type { FC } from 'react';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiArrowDownSLine, RiCloseLine, RiErrorWarningFill } from '@remixicon/react';
-import produce from 'immer';
+import { produce } from 'immer';
 import { useStoreApi } from 'reactflow';
 import RemoveButton from '../remove-button';
 import useAvailableVarList from '../../hooks/use-available-var-list';
@@ -82,7 +82,6 @@ const VarReferencePicker: FC<Props> = ({
   popupFor,
   zIndex,
 }) => {
-  const { t } = useTranslation();
   const store = useStoreApi();
   const { getNodes } = store.getState();
   const isChatMode = useIsChatMode();

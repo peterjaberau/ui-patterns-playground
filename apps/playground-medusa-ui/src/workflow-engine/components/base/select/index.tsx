@@ -15,7 +15,7 @@ import {
 import { ChevronDownIcon, ChevronUpIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import Badge from '../badge/index';
 import { RiCheckLine } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
+
 import classNames from '@utils/classnames';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
 
@@ -193,7 +193,6 @@ const SimpleSelect: FC<ISelectProps> = ({
   notClearable,
   renderOption,
 }) => {
-  const { t } = useTranslation();
   const localPlaceholder = placeholder || t('common.placeholder.select');
 
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
@@ -326,7 +325,6 @@ const PortalSelect: FC<PortalSelectProps> = ({
   readonly,
   hideChecked,
 }) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const localPlaceholder = placeholder || t('common.placeholder.select');
   const selectedItem = value ? items.find((item) => item.value === value) : undefined;

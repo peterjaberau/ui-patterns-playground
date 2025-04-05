@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import produce from 'immer';
-import { useTranslation } from 'react-i18next';
+import { produce } from 'immer';
+
 import { useStoreApi } from 'reactflow';
 import type { BlockEnum, Node } from '../../types';
 import { generateNewNode, getNodeCustomTypeByNodeDataType } from '../../utils';
@@ -8,7 +8,6 @@ import { ITERATION_PADDING, NODES_INITIAL_DATA } from '../../constants';
 import { CUSTOM_ITERATION_START_NODE } from '../iteration-start/constants';
 
 export const useNodeIterationInteractions = () => {
-  const { t } = useTranslation();
   const store = useStoreApi();
 
   const handleNodeIterationRerender = useCallback(

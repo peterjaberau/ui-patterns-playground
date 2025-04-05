@@ -1,13 +1,12 @@
 import { RiArrowRightLine } from '@remixicon/react';
-import { useTranslation } from 'react-i18next';
-import type { AgentLogItemWithChildren, NodeTracing } from '@/types/workflow';
+
+import type { AgentLogItemWithChildren, NodeTracing } from '@workflow-app/types/workflow';
 
 type AgentLogTriggerProps = {
   nodeInfo: NodeTracing;
   onShowAgentOrToolLog: (detail?: AgentLogItemWithChildren) => void;
 };
 const AgentLogTrigger = ({ nodeInfo, onShowAgentOrToolLog }: AgentLogTriggerProps) => {
-  const { t } = useTranslation();
   const { agentLog, execution_metadata } = nodeInfo;
   const agentStrategy = execution_metadata?.tool_info?.agent_strategy;
 

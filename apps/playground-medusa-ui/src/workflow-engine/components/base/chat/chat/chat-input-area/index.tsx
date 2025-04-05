@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import Textarea from 'react-textarea-autosize';
-import { useTranslation } from 'react-i18next';
+
 import Recorder from 'js-audio-recorder';
 import type { EnableType, OnSend } from '../../types';
 import type { Theme } from '../../embedded-chatbot/theme/theme-context';
@@ -46,7 +46,6 @@ const ChatInputArea = ({
   isResponding,
   disabled,
 }: ChatInputAreaProps) => {
-  const { t } = useTranslation();
   const { notify } = useToastContext();
   const { wrapperRef, textareaRef, textValueRef, holdSpaceRef, handleTextareaResize, isMultipleLine } =
     useTextAreaHeight();
@@ -133,10 +132,10 @@ const ChatInputArea = ({
         setShowVoiceInput(true);
       },
       () => {
-        notify({ type: 'error', message: t('common.voiceInput.notAllow') });
+        notify({ type: 'error', message: 'microphone not authorized' });
       },
     );
-  }, [t, notify]);
+  }, [notify]);
 
   const operation = (
     <div></div>
@@ -175,7 +174,7 @@ const ChatInputArea = ({
                 className={cn(
                   'body-lg-regular text-text-tertiary w-full resize-none bg-transparent p-1 leading-6 outline-none',
                 )}
-                placeholder={t('common.chat.inputPlaceholder') || ''}
+                placeholder={'Talk to Bot'}
                 autoFocus
                 minRows={1}
                 onResize={handleTextareaResize}

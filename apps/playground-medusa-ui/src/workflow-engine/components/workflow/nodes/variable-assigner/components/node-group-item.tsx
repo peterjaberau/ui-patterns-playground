@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { useNodes } from 'reactflow';
 import { useStore } from '../../../store';
 import { BlockEnum } from '../../../types';
@@ -27,7 +27,6 @@ type NodeGroupItemProps = {
   item: GroupItem;
 };
 const NodeGroupItem = ({ item }: NodeGroupItemProps) => {
-  const { t } = useTranslation();
   const enteringNodePayload = useStore((s) => s.enteringNodePayload);
   const hoveringAssignVariableGroupId = useStore((s) => s.hoveringAssignVariableGroupId);
   const nodes: Node[] = useNodes();

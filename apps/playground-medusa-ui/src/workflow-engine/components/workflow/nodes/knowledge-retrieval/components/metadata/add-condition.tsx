@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { RiAddLine } from '@remixicon/react';
 import MetadataIcon from './metadata-icon';
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@base/portal-to-follow-elem';
@@ -12,7 +12,6 @@ const AddCondition = ({
   metadataList,
   handleAddCondition,
 }: Pick<MetadataShape, 'handleAddCondition' | 'metadataList'>) => {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
 

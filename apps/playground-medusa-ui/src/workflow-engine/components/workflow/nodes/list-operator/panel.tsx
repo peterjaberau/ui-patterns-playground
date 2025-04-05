@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import VarReferencePicker from '../_base/components/variable/var-reference-picker';
 import OutputVars, { VarItem } from '../_base/components/output-vars';
 import OptionCard from '../_base/components/option-card';
@@ -18,8 +18,6 @@ import ExtractInput from '@workflow/nodes/list-operator/components/extract-input
 const i18nPrefix = 'workflow.nodes.listFilter';
 
 const Panel: FC<NodePanelProps<ListFilterNodeType>> = ({ id, data }) => {
-  const { t } = useTranslation();
-
   const {
     readOnly,
     inputs,

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import produce from 'immer';
-import type { TextChunkResponse } from '@/types/workflow';
+import { produce } from 'immer';
+import type { TextChunkResponse } from '@workflow-app/types/workflow';
 import { useWorkflowStore } from '@workflow/store';
 
 export const useWorkflowTextChunk = () => {

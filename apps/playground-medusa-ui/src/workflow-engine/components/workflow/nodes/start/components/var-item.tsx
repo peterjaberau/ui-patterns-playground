@@ -2,7 +2,7 @@
 import type { FC } from 'react';
 import React, { useCallback, useRef } from 'react';
 import { useBoolean, useHover } from 'ahooks';
-import { useTranslation } from 'react-i18next';
+
 import { RiDeleteBinLine } from '@remixicon/react';
 import InputVarTypeIcon from '../../_base/components/input-var-type-icon';
 import type { InputVar, MoreInfo } from '@workflow/types';
@@ -30,8 +30,6 @@ const VarItem: FC<Props> = ({
   varKeys = [],
   showLegacyBadge = false,
 }) => {
-  const { t } = useTranslation();
-
   const ref = useRef(null);
   const isHovering = useHover(ref);
   const [isShowEditVarModal, { setTrue: showEditVarModal, setFalse: hideEditVarModal }] = useBoolean(false);
