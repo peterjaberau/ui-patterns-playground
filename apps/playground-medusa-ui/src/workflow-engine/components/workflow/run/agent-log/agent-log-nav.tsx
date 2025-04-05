@@ -35,11 +35,11 @@ const AgentLogNav = ({ agentOrToolLogItemStack, onShowAgentOrToolLog }: AgentLog
           variant="ghost-accent"
           onClick={() => onShowAgentOrToolLog(first)}
         >
-          {t('workflow.nodes.agent.strategy.label')}
+          {'Agentic Strategy'}
         </Button>
       ) : (
         <div className="system-xs-medium-uppercase text-text-tertiary flex items-center px-[5px]">
-          {t('workflow.nodes.agent.strategy.label')}
+          {'Agentic Strategy'}
         </div>
       )}
       {!!mid.length && (

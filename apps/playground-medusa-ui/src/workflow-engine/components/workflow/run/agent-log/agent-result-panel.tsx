@@ -36,7 +36,9 @@ const AgentResultPanel = ({
             }}
           ></div>
           <RiAlertFill className="text-text-warning-secondary mr-1.5 h-4 w-4" />
-          <div className="system-xs-medium text-text-primary">{t('runLog.circularInvocationTip')}</div>
+          <div className="system-xs-medium text-text-primary">
+            {'There is circular invocation of tools/nodes in the current workflow.'}
+          </div>
         </div>
       )}
     </div>

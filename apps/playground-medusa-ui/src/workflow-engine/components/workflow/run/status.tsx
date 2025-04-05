@@ -2,7 +2,7 @@
 import type { FC } from 'react';
 
 import cn from '@utils/classnames';
-import Indicator from '@/app/components/header/indicator';
+import Indicator from '@workflow-app/components/header/indicator';
 import StatusContainer from '@workflow/run/status-container';
 
 type ResultProps = {
@@ -18,7 +18,7 @@ const StatusPanel: FC<ResultProps> = ({ status, time, tokens, error, exceptionCo
     <StatusContainer status={status}>
       <div className="flex">
         <div className={cn('max-w-[120px] flex-[33%]', status === 'partial-succeeded' && 'min-w-[140px]')}>
-          <div className="system-2xs-medium-uppercase text-text-tertiary mb-1">{t('runLog.resultPanel.status')}</div>
+          <div className="system-2xs-medium-uppercase text-text-tertiary mb-1">{'STATUS'}</div>
           <div
             className={cn(
               'system-xs-semibold-uppercase flex items-center gap-1',
@@ -68,14 +68,14 @@ const StatusPanel: FC<ResultProps> = ({ status, time, tokens, error, exceptionCo
           </div>
         </div>
         <div className="max-w-[152px] flex-[33%]">
-          <div className="system-2xs-medium-uppercase text-text-tertiary mb-1">{t('runLog.resultPanel.time')}</div>
+          <div className="system-2xs-medium-uppercase text-text-tertiary mb-1">{'ELAPSED TIME'}</div>
           <div className="system-sm-medium text-text-secondary flex items-center gap-1">
             {status === 'running' && <div className="bg-text-quaternary h-2 w-16 rounded-sm" />}
             {status !== 'running' && <span>{time ? `${time?.toFixed(3)}s` : '-'}</span>}
           </div>
         </div>
         <div className="flex-[33%]">
-          <div className="system-2xs-medium-uppercase text-text-tertiary mb-1">{t('runLog.resultPanel.tokens')}</div>
+          <div className="system-2xs-medium-uppercase text-text-tertiary mb-1">{'TOTAL TOKENS'}</div>
           <div className="system-sm-medium text-text-secondary flex items-center gap-1">
             {status === 'running' && <div className="bg-text-quaternary h-2 w-20 rounded-sm" />}
             {status !== 'running' && <span>{`${tokens || 0} Tokens`}</span>}
@@ -90,7 +90,7 @@ const StatusPanel: FC<ResultProps> = ({ status, time, tokens, error, exceptionCo
             <>
               <div className="bg-divider-subtle my-2 h-[0.5px]" />
               <div className="system-xs-regular text-text-destructive">
-                {t('workflow.nodes.common.errorHandle.partialSucceeded.tip', { num: exceptionCounts })}
+                {`There are ${exceptionCounts} nodes in the process running abnormally, please go to tracing to check the logs.`}
               </div>
             </>
           )}
@@ -100,7 +100,7 @@ const StatusPanel: FC<ResultProps> = ({ status, time, tokens, error, exceptionCo
         <>
           <div className="bg-divider-deep my-2 h-[0.5px]" />
           <div className="system-xs-medium text-text-warning">
-            {t('workflow.nodes.common.errorHandle.partialSucceeded.tip', { num: exceptionCounts })}
+            {`There are ${exceptionCounts} nodes in the process running abnormally, please go to tracing to check the logs.`}
           </div>
         </>
       )}
@@ -114,7 +114,7 @@ const StatusPanel: FC<ResultProps> = ({ status, time, tokens, error, exceptionCo
               target="_blank"
               className="text-text-accent"
             >
-              {t('workflow.common.learnMore')}
+              {'Learn more'}
             </a>
           </div>
         </>

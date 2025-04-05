@@ -8,7 +8,7 @@ import CodeEditor from '@workflow/nodes/_base/components/editor/code-editor';
 import { CodeLanguage } from '@workflow/nodes/code/types';
 import BlockIcon from '@workflow/block-icon';
 import { BlockEnum } from '@workflow/types';
-import useGetIcon from '@/app/components/plugins/install-plugin/base/use-get-icon';
+import useGetIcon from '@workflow-app/components/plugins/install-plugin/base/use-get-icon';
 
 type AgentLogItemProps = {
   item: AgentLogItemWithChildren;

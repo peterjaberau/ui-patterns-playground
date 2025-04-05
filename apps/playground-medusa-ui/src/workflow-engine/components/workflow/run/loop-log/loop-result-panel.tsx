@@ -72,7 +72,7 @@ const LoopResultPanel: FC<Props> = ({ list, onBack, loopDurationMap, loopVariabl
         }}
       >
         <RiArrowLeftLine className="mr-1 h-4 w-4" />
-        <div className="system-sm-medium">{t(`${i18nPrefix}.back`)}</div>
+        <div className="system-sm-medium">{'Back'}</div>
       </div>
       {/* List */}
       <div className="bg-components-panel-bg p-2">
@@ -90,9 +90,7 @@ const LoopResultPanel: FC<Props> = ({ list, onBack, loopDurationMap, loopVariabl
                 <div className="border-divider-subtle bg-util-colors-cyan-cyan-500 flex h-4 w-4 shrink-0 items-center justify-center rounded-[5px]">
                   <Loop className="text-text-primary-on-surface h-3 w-3" />
                 </div>
-                <span className="system-sm-semibold-uppercase text-text-primary grow">
-                  {t(`${i18nPrefix}.loop`)} {index + 1}
-                </span>
+                <span className="system-sm-semibold-uppercase text-text-primary grow">{`Loop ${index + 1}`}</span>
                 {loopStatusShow(index, loop, loopDurationMap)}
               </div>
             </div>
@@ -107,7 +105,7 @@ const LoopResultPanel: FC<Props> = ({ list, onBack, loopDurationMap, loopVariabl
                 <div className="p-2 pb-0">
                   <CodeEditor
                     readOnly
-                    title={<div>{t('workflow.nodes.loop.loopVariables').toLocaleUpperCase()}</div>}
+                    title={<div>{'LOOP VARIABLES'}</div>}
                     language={CodeLanguage.json}
                     height={112}
                     value={loopVariableMap[index]}

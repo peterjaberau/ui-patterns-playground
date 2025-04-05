@@ -18,12 +18,12 @@ const AgentLogTrigger = ({ nodeInfo, onShowAgentOrToolLog }: AgentLogTriggerProp
       }}
     >
       <div className="system-2xs-medium-uppercase text-text-tertiary flex items-center px-3 pt-2">
-        {t('workflow.nodes.agent.strategy.label')}
+        {'Agentic Strategy'}
       </div>
       <div className="flex items-center pb-1.5 pl-3 pr-2 pt-1">
         {agentStrategy && <div className="system-xs-medium text-text-secondary grow">{agentStrategy}</div>}
         <div className="system-xs-regular-uppercase text-text-tertiary flex shrink-0 cursor-pointer items-center px-[1px]">
-          {t('runLog.detail')}
+          {'DETAIL'}
           <RiArrowRightLine className="ml-0.5 h-3.5 w-3.5" />
         </div>
       </div>

@@ -90,7 +90,7 @@ const ResultPanel: FC<ResultPanelProps> = ({
       <div className="flex flex-col gap-2 px-4 py-2">
         <CodeEditor
           readOnly
-          title={<div>{t('workflow.common.input').toLocaleUpperCase()}</div>}
+          title={<div>{'INPUT'}</div>}
           language={CodeLanguage.json}
           value={inputs}
           isJSONStringifyBeauty
@@ -98,7 +98,7 @@ const ResultPanel: FC<ResultPanelProps> = ({
         {process_data && (
           <CodeEditor
             readOnly
-            title={<div>{t('workflow.common.processData').toLocaleUpperCase()}</div>}
+            title={<div>{'PROCESS DATA'}</div>}
             language={CodeLanguage.json}
             value={process_data}
             isJSONStringifyBeauty
@@ -107,7 +107,7 @@ const ResultPanel: FC<ResultPanelProps> = ({
         {(outputs || status === 'running') && (
           <CodeEditor
             readOnly
-            title={<div>{t('workflow.common.output').toLocaleUpperCase()}</div>}
+            title={<div>{'OUTPUT'}</div>}
             language={CodeLanguage.json}
             value={outputs}
             isJSONStringifyBeauty

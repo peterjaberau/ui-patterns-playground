@@ -40,15 +40,8 @@ const IterationLogTrigger = ({ nodeInfo, onShowIterationResultList }: IterationL
     >
       <Iteration className="text-components-button-tertiary-text h-4 w-4 shrink-0" />
       <div className="system-sm-medium text-components-button-tertiary-text flex-1 text-left">
-        {t('workflow.nodes.iteration.iteration', {
-          count: getCount(nodeInfo.details?.length, nodeInfo.metadata?.iterator_length),
-        })}
-        {getErrorCount(nodeInfo.details) > 0 && (
-          <>
-            {t('workflow.nodes.iteration.comma')}
-            {t('workflow.nodes.iteration.error', { count: getErrorCount(nodeInfo.details) })}
-          </>
-        )}
+        {`Iteration count: ${getCount(nodeInfo.details?.length, nodeInfo.metadata?.iterator_length)}`}
+        {getErrorCount(nodeInfo.details) > 0 && <>{`Iteration Errors: ${getErrorCount(nodeInfo.details)}`}</>}
       </div>
       <RiArrowRightSLine className="text-components-button-tertiary-text h-4 w-4 shrink-0" />
     </Button>

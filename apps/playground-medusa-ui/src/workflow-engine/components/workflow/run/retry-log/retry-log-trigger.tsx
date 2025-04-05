@@ -23,7 +23,7 @@ const RetryLogTrigger = ({ nodeInfo, onShowRetryResultList }: RetryLogTriggerPro
     >
       <div className="flex items-center">
         <RiRestartFill className="text-components-button-tertiary-text mr-0.5 h-4 w-4 shrink-0" />
-        {t('workflow.nodes.common.retry.retries', { num: retryDetail?.length })}
+        {`${retryDetail?.length} Retries`}
       </div>
       <RiArrowRightSLine className="text-components-button-tertiary-text h-4 w-4 shrink-0" />
     </Button>

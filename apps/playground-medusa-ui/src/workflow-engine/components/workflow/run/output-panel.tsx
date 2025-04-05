@@ -5,7 +5,7 @@ import CodeEditor from '@workflow/nodes/_base/components/editor/code-editor';
 import { CodeLanguage } from '@workflow/nodes/code/types';
 import { Markdown } from '@base/markdown';
 import LoadingAnim from '@base/chat/chat/loading-anim';
-import { FileList } from '@base/file-uploader';
+// import { FileList } from '@base/file-uploader';
 import StatusContainer from '@workflow/run/status-container';
 import { getProcessedFilesFromResponse } from '@base/file-uploader/utils';
 
@@ -73,7 +73,8 @@ const OutputPanel: FC<OutputPanelProps> = ({ isRunning, outputs, error, height }
       )}
       {fileList.length > 0 && (
         <div className="px-4 py-2">
-          <FileList files={fileList} showDeleteAction={false} showDownloadAction canPreview />
+          <div>files list</div>
+          {/* <FileList files={fileList} showDeleteAction={false} showDownloadAction canPreview /> */}
         </div>
       )}
       {!isTextOutput && outputs && Object.keys(outputs).length > 0 && height! > 0 && (

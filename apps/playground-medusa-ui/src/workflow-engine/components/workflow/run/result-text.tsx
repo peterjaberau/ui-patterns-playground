@@ -5,7 +5,7 @@ import { ImageIndentLeft } from '@base/icons/src/vender/line/editor';
 import { Markdown } from '@base/markdown';
 import LoadingAnim from '@base/chat/chat/loading-anim';
 import StatusContainer from '@workflow/run/status-container';
-import { FileList } from '@base/file-uploader';
+// import { FileList } from '@base/file-uploader';
 
 type ResultTextProps = {
   isRunning?: boolean;
@@ -31,13 +31,13 @@ const ResultText: FC<ResultTextProps> = ({ isRunning, outputs, error, onClick, a
       {!isRunning && !outputs && !error && !allFiles?.length && (
         <div className="mt-[120px] flex flex-col items-center px-4 py-2 text-[13px] leading-[18px] text-gray-500">
           <ImageIndentLeft className="h-6 w-6 text-gray-400" />
-          <div className="mr-2">{t('runLog.resultEmpty.title')}</div>
+          <div className="mr-2">{'This run only output JSON format,'}</div>
           <div>
-            {t('runLog.resultEmpty.tipLeft')}
+            {'please go to the '}
             <span onClick={onClick} className="text-primary-600 cursor-pointer">
-              {t('runLog.resultEmpty.link')}
+              {'detail panel'}
             </span>
-            {t('runLog.resultEmpty.tipRight')}
+            {' view it.'}
           </div>
         </div>
       )}
@@ -52,7 +52,7 @@ const ResultText: FC<ResultTextProps> = ({ isRunning, outputs, error, onClick, a
             allFiles.map((item) => (
               <div key={item.varName} className="system-xs-regular flex flex-col gap-1 px-4 py-2">
                 <div className="text-text-tertiary py-1">{item.varName}</div>
-                <FileList files={item.list} showDeleteAction={false} showDownloadAction canPreview />
+                {/* <FileList files={item.list} showDeleteAction={false} showDownloadAction canPreview /> */}
               </div>
             ))}
         </>

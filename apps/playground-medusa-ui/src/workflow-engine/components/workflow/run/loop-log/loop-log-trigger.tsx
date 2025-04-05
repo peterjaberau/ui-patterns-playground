@@ -41,13 +41,8 @@ const LoopLogTrigger = ({ nodeInfo, onShowLoopResultList }: LoopLogTriggerProps)
     >
       <Loop className="text-components-button-tertiary-text h-4 w-4 shrink-0" />
       <div className="system-sm-medium text-components-button-tertiary-text flex-1 text-left">
-        {t('workflow.nodes.loop.loop', { count: getCount(nodeInfo.details?.length, nodeInfo.metadata?.loop_length) })}
-        {getErrorCount(nodeInfo.details) > 0 && (
-          <>
-            {t('workflow.nodes.loop.comma')}
-            {t('workflow.nodes.loop.error', { count: getErrorCount(nodeInfo.details) })}
-          </>
-        )}
+        {`${getCount(nodeInfo.details?.length, nodeInfo.metadata?.loop_length)} Loop(s)`}
+        {getErrorCount(nodeInfo.details) > 0 && <>{`Errors: ${getErrorCount(nodeInfo.details)}`}</>}
       </div>
       <RiArrowRightSLine className="text-components-button-tertiary-text h-4 w-4 shrink-0" />
     </Button>

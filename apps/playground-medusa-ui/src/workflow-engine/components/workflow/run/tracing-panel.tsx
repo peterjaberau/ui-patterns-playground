@@ -1,4 +1,5 @@
 'use client';
+import { t } from 'i18next';
 import type { FC } from 'react';
 import React, { useCallback, useState } from 'react';
 import cn from 'classnames';
