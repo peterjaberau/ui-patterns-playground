@@ -1,6 +1,3 @@
-import '@/styles/index.css';
-import '@xyflow/react/dist/style.css';
-
 export * from '@x-flow/XFlowProvider';
 export * from '@x-flow/XFlow';
 export * from '@x-flow/withProvider';

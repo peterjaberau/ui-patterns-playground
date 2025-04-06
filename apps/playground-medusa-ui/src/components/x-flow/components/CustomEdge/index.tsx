@@ -2,10 +2,10 @@ import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { BezierEdge, EdgeLabelRenderer, getBezierPath, useReactFlow } from '@xyflow/react';
 import { memo, useContext, useState, FunctionComponent } from 'react';
 import { shallow } from 'zustand/shallow';
-import { useFlow, useStore, uuid, uuid4 } from '@/.';
+import { useFlow, useStore, uuid, uuid4 } from '../../index';
 import { ConfigContext } from '../../models/context';
 import NodeSelectPopover from '../NodesPopover';
-import './index.css';
+// import '../../styles/index.css';
 
 const CustomEdge: FunctionComponent = (edge: any): any => {
   const { id, sourceX, sourceY, targetX, targetY, source, target, sourceHandleId } = edge;

@@ -1,9 +1,9 @@
 import type { Viewport } from 'reactflow';
-import type { BlockEnum, ConversationVariable, Edge, EnvironmentVariable, Node } from './index';
-import type { TransferMethod } from './app';
-import type { ErrorHandleTypeEnum } from './workflow-nodes-base';
+import type { ConversationVariable, Edge, EnvironmentVariable, Node } from './index';
+import type { TransferMethodEnum } from '../helpers/constants/app.constants';
+import type { ErrorHandleTypeEnum, BlockEnum } from '../helpers/constants/workflow.constants';
 
-export type AgentLogItem = {
+export type AgentLogItemType = {
   node_execution_id: string;
   id: string;
   node_id: string;
@@ -19,12 +19,12 @@ export type AgentLogItem = {
   };
 };
 
-export type AgentLogItemWithChildren = AgentLogItem & {
+export type AgentLogItemWithChildrenType = AgentLogItemType & {
   hasCircle?: boolean;
-  children: AgentLogItemWithChildren[];
+  children: AgentLogItemWithChildrenType[];
 };
 
-export type NodeTracing = {
+export type NodeTracingType = {
   id: string;
   index: number;
   predecessor_node_id: string;
@@ -53,10 +53,10 @@ export type NodeTracing = {
     parent_parallel_id?: string;
     parent_parallel_start_node_id?: string;
     parallel_mode_run_id?: string;
-    iteration_duration_map?: IterationDurationMap;
-    loop_duration_map?: LoopDurationMap;
+    iteration_duration_map?: IterationDurationMapType;
+    loop_duration_map?: LoopDurationMapType;
     error_strategy?: ErrorHandleTypeEnum;
-    agent_log?: AgentLogItem[];
+    agent_log?: AgentLogItemType[];
     tool_info?: {
       agent_strategy?: string;
       icon?: string;
@@ -75,26 +75,26 @@ export type NodeTracing = {
     name: string;
     email: string;
   };
-  iterDurationMap?: IterationDurationMap;
-  loopDurationMap?: LoopDurationMap;
+  iterDurationMap?: IterationDurationMapType;
+  loopDurationMap?: LoopDurationMapType;
   finished_at: number;
   extras?: any;
   expand?: boolean; // for UI
-  details?: NodeTracing[][]; // iteration or loop detail
-  retryDetail?: NodeTracing[]; // retry detail
+  details?: NodeTracingType[][]; // iteration or loop detail
+  retryDetail?: NodeTracingType[]; // retry detail
   retry_index?: number;
   parallelDetail?: {
     // parallel detail. if is in parallel, this field will be set
     isParallelStartNode?: boolean;
     parallelTitle?: string;
     branchTitle?: string;
-    children?: NodeTracing[];
+    children?: NodeTracingType[];
   };
   parallel_id?: string;
   parallel_start_node_id?: string;
   parent_parallel_id?: string;
   parent_parallel_start_node_id?: string;
-  agentLog?: AgentLogItemWithChildren[]; // agent log
+  agentLog?: AgentLogItemWithChildrenType[]; // agent log
 };
 
 export type FetchWorkflowDraftResponse = {
@@ -126,9 +126,9 @@ export type FetchWorkflowDraftResponse = {
   marked_comment: string;
 };
 
-export type VersionHistory = FetchWorkflowDraftResponse;
+export type VersionHistoryType = FetchWorkflowDraftResponse;
 
-export type FetchWorkflowDraftPageParams = {
+export type FetchWorkflowDraftPageParamsType = {
   appId: string;
   initialPage: number;
   limit: number;
@@ -136,17 +136,17 @@ export type FetchWorkflowDraftPageParams = {
   namedOnly?: boolean;
 };
 
-export type FetchWorkflowDraftPageResponse = {
-  items: VersionHistory[];
+export type FetchWorkflowDraftPageResponseType = {
+  items: VersionHistoryType[];
   has_more: boolean;
   page: number;
 };
 
-export type NodeTracingListResponse = {
-  data: NodeTracing[];
+export type NodeTracingTypeListResponseType = {
+  data: NodeTracingType[];
 };
 
-export type WorkflowStartedResponse = {
+export type WorkflowStartedResponseType = {
   task_id: string;
   workflow_run_id: string;
   event: string;
@@ -158,7 +158,7 @@ export type WorkflowStartedResponse = {
   };
 };
 
-export type WorkflowFinishedResponse = {
+export type WorkflowFinishedResponseType = {
   task_id: string;
   workflow_run_id: string;
   event: string;
@@ -178,101 +178,92 @@ export type WorkflowFinishedResponse = {
       email: string;
     };
     finished_at: number;
-    files?: FileResponse[];
+    files?: FileResponseType[];
   };
 };
 
-export type NodeStartedResponse = {
+export type NodeStartedResponseType = {
   task_id: string;
   workflow_run_id: string;
   event: string;
-  data: NodeTracing;
+  data: NodeTracingType;
 };
 
-export type FileResponse = {
+export type FileResponseType = {
   related_id: string;
   extension: string;
   filename: string;
   size: number;
   mime_type: string;
-  transfer_method: TransferMethod;
+  transfer_method: TransferMethodEnum;
   type: string;
   url: string;
 };
 
-export type NodeFinishedResponse = {
+export type NodeFinishedResponseType = {
   task_id: string;
   workflow_run_id: string;
   event: string;
-  data: NodeTracing;
+  data: NodeTracingType;
 };
 
-export type IterationStartedResponse = {
+export type IterationStartedResponseType = {
   task_id: string;
   workflow_run_id: string;
   event: string;
-  data: NodeTracing;
+  data: NodeTracingType;
 };
 
-export type IterationNextResponse = {
+export type IterationNextResponseType = {
   task_id: string;
   workflow_run_id: string;
   event: string;
-  data: NodeTracing;
+  data: NodeTracingType;
 };
 
-export type IterationFinishedResponse = {
+export type IterationFinishedResponseType = {
   task_id: string;
   workflow_run_id: string;
   event: string;
-  data: NodeTracing;
+  data: NodeTracingType;
 };
 
-export type LoopStartedResponse = {
+export type LoopStartedResponseType = {
   task_id: string;
   workflow_run_id: string;
   event: string;
-  data: NodeTracing;
+  data: NodeTracingType;
 };
 
-export type LoopNextResponse = {
+export type LoopNextResponseType = {
   task_id: string;
   workflow_run_id: string;
   event: string;
-  data: NodeTracing;
+  data: NodeTracingType;
 };
 
-export type LoopFinishedResponse = {
+export type LoopFinishedResponseType = {
   task_id: string;
   workflow_run_id: string;
   event: string;
-  data: NodeTracing;
+  data: NodeTracingType;
 };
 
-export type ParallelBranchStartedResponse = {
+export type ParallelBranchStartedResponseType = {
   task_id: string;
   workflow_run_id: string;
   event: string;
-  data: NodeTracing;
+  data: NodeTracingType;
 };
 
-export type ParallelBranchFinishedResponse = {
+export type ParallelBranchFinishedResponseType = {
   task_id: string;
   workflow_run_id: string;
   event: string;
-  data: NodeTracing;
+  data: NodeTracingType;
 };
 
-export type TextChunkResponse = {
-  task_id: string;
-  workflow_run_id: string;
-  event: string;
-  data: {
-    text: string;
-  };
-};
-
-export type TextReplaceResponse = {
+export type TextChunkResponseType = {
   task_id: string;
   workflow_run_id: string;
   event: string;
@@ -281,13 +272,22 @@ export type TextReplaceResponse = {
   };
 };
 
-export type AgentLogResponse = {
+export type TextReplaceResponseType = {
   task_id: string;
+  workflow_run_id: string;
   event: string;
-  data: AgentLogItemWithChildren;
+  data: {
+    text: string;
+  };
 };
 
-export type WorkflowRunHistory = {
+export type AgentLogResponseType = {
+  task_id: string;
+  event: string;
+  data: AgentLogItemWithChildrenType;
+};
+
+export type WorkflowRunHistoryType = {
   id: string;
   sequence_number: number;
   version: string;
@@ -313,20 +313,20 @@ export type WorkflowRunHistory = {
     email: string;
   };
 };
-export type WorkflowRunHistoryResponse = {
-  data: WorkflowRunHistory[];
+export type WorkflowRunHistoryResponseType = {
+  data: WorkflowRunHistoryType[];
 };
 
-export type ChatRunHistoryResponse = {
-  data: WorkflowRunHistory[];
+export type ChatRunHistoryResponseType = {
+  data: WorkflowRunHistoryType[];
 };
 
-export type NodesDefaultConfigsResponse = {
+export type NodesDefaultConfigsResponseType = {
   type: string;
   config: any;
 }[];
 
-export type ConversationVariableResponse = {
+export type ConversationVariableResponseType = {
   data: (ConversationVariable & { updated_at: number; created_at: number })[];
   has_more: boolean;
   limit: number;
@@ -334,20 +334,20 @@ export type ConversationVariableResponse = {
   page: number;
 };
 
-export type IterationDurationMap = Record<string, number>;
-export type LoopDurationMap = Record<string, number>;
-export type LoopVariableMap = Record<string, any>;
+export type IterationDurationMapType = Record<string, number>;
+export type LoopDurationMapType = Record<string, number>;
+export type LoopVariableMapType = Record<string, any>;
 
-export type WorkflowConfigResponse = {
+export type WorkflowConfigResponseType = {
   parallel_depth_limit: number;
 };
 
-export type PublishWorkflowParams = {
+export type PublishWorkflowParamsType = {
   title: string;
   releaseNotes: string;
 };
 
-export type UpdateWorkflowParams = {
+export type UpdateWorkflowParamsType = {
   workflowId: string;
   title: string;
   releaseNotes: string;

@@ -1,4 +1,8 @@
 'use client';
+
+import '@xyflow/react/dist/style.css';
+import './styles/index.css';
+
 import { Background, BackgroundVariant, MarkerType, ReactFlow, useReactFlow } from '@xyflow/react';
 import { useEventListener, useMemoizedFn } from 'ahooks';
 import { produce, setAutoFreeze } from 'immer';
@@ -24,7 +28,7 @@ import { shallow } from 'zustand/shallow';
 import NodeEditor from './components/NodeEditor';
 import NodeLogPanel from './components/NodeLogPanel';
 import { useTemporalStore } from './hooks/useTemporalStore';
-import './index.css';
+// import './index.css';
 import { ConfigContext } from './models/context';
 
 const CustomNode = memo(CustomNodeComponent);
@@ -278,7 +282,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
   };
 
   return (
-    <div id="xflow-container" ref={workflowContainerRef}>
+    <div id="xflow-container" style={{ height: '100%' }} ref={workflowContainerRef}>
       <ReactFlow
         panOnDrag={panOnDrag}
         nodeTypes={nodeTypes}
@@ -292,7 +296,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
             strokeWidth: 1.5, // line thickness
           },
           markerEnd: {
-            type: MarkerType.ArrowClosed, // 箭头
+            type: MarkerType.ArrowClosed, //
           },
           deletable: deletable, //Default connection properties are controlled by this item
         }}

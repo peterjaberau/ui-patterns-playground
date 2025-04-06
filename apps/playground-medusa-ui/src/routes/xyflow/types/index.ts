@@ -1,49 +1,27 @@
-import type { Edge as ReactFlowEdge, Node as ReactFlowNode, Viewport } from 'reactflow';
-import type { Resolution, TransferMethod } from './app';
-import type { ToolDefaultValue } from './workflow-block-selector';
-import type { VarType as VarKindType } from './workflow-tools';
-import type { FileResponse, NodeTracing } from './app-workflow';
-import type { Collection, Tool } from './tools';
-import type { ChatVarType } from './workflow-chat';
-import type { DefaultValueForm, ErrorHandleTypeEnum, WorkflowRetryConfig } from './workflow-nodes-base';
-import type { StructuredOutput } from './workflow-nodes';
+import type { Edge as ReactFlowEdge, Node as ReactFlowNodeType, Viewport } from '@xyflow/react';
+import type { ToolDefaultValueType } from './workflow.types';
 
-export enum BlockEnum {
-  Start = 'start',
-  End = 'end',
-  Answer = 'answer',
-  LLM = 'llm',
-  KnowledgeRetrieval = 'knowledge-retrieval',
-  QuestionClassifier = 'question-classifier',
-  IfElse = 'if-else',
-  Code = 'code',
-  TemplateTransform = 'template-transform',
-  HttpRequest = 'http-request',
-  VariableAssigner = 'variable-assigner',
-  VariableAggregator = 'variable-aggregator',
-  Tool = 'tool',
-  ParameterExtractor = 'parameter-extractor',
-  Iteration = 'iteration',
-  DocExtractor = 'document-extractor',
-  ListFilter = 'list-operator',
-  IterationStart = 'iteration-start',
-  Assigner = 'assigner', // is now named as VariableAssigner
-  Agent = 'agent',
-  Loop = 'loop',
-  LoopStart = 'loop-start',
-  LoopEnd = 'loop-end',
-}
+import type { FileResponseType, NodeTracingType } from './app-workflow.type';
+import type { CollectionType, ToolType } from './tools.type';
 
-export enum ControlMode {
-  Pointer = 'pointer',
-  Hand = 'hand',
-}
-export enum ErrorHandleMode {
-  Terminated = 'terminated',
-  ContinueOnError = 'continue-on-error',
-  RemoveAbnormalOutput = 'remove-abnormal-output',
-}
-export type Branch = {
+import type { ResolutionEnum, TransferMethodEnum } from '../helpers/constants/app.constants';
+import {
+  VarTypeEnum as VarKindType,
+  ChatVarTypeEnum,
+  ErrorHandleTypeEnum,
+  BlockEnum,
+  NodeRunningStatusEnum,
+  InputVarTypeEnum,
+  PromptRoleEnum,
+  EditionTypeEnum,
+  ValueTypeEnum,
+  ChangeTypeEnum,
+  SupportUploadFileTypesEnum,
+} from '../helpers/constants/workflow.constants';
+
+import type { DefaultValueFormType, WorkflowRetryConfigType, StructuredOutputType } from './tools.type';
+
+export type BranchType = {
   id: string;
   name: string;
 };
@@ -51,11 +29,11 @@ export type Branch = {
 export type CommonNodeType<T = {}> = {
   _connectedSourceHandleIds?: string[];
   _connectedTargetHandleIds?: string[];
-  _targetBranches?: Branch[];
+  _targetBranches?: BranchType[];
   _isSingleRun?: boolean;
-  _runningStatus?: NodeRunningStatus;
+  _runningStatus?: NodeRunningStatusEnum;
   _runningBranchId?: string;
-  _singleRunningStatus?: NodeRunningStatus;
+  _singleRunningStatus?: NodeRunningStatusEnum;
   _isCandidate?: boolean;
   _isBundled?: boolean;
   _children?: { nodeId: string; nodeType: BlockEnum }[];
@@ -80,18 +58,18 @@ export type CommonNodeType<T = {}> = {
   isInLoop?: boolean;
   loop_id?: string;
   error_strategy?: ErrorHandleTypeEnum;
-  retry_config?: WorkflowRetryConfig;
-  default_value?: DefaultValueForm[];
+  retry_config?: WorkflowRetryConfigType;
+  default_value?: DefaultValueFormType[];
 } & T &
-  Partial<Pick<ToolDefaultValue, 'provider_id' | 'provider_type' | 'provider_name' | 'tool_name'>>;
+  Partial<Pick<ToolDefaultValueType, 'provider_id' | 'provider_type' | 'provider_name' | 'tool_name'>>;
 
 export type CommonEdgeType = {
   _hovering?: boolean;
   _connectedNodeIsHovering?: boolean;
   _connectedNodeIsSelected?: boolean;
   _isBundled?: boolean;
-  _sourceRunningStatus?: NodeRunningStatus;
-  _targetRunningStatus?: NodeRunningStatus;
+  _sourceRunningStatus?: NodeRunningStatusEnum;
+  _targetRunningStatus?: NodeRunningStatusEnum;
   _waitingRun?: boolean;
   isInIteration?: boolean;
   iteration_id?: string;
@@ -101,24 +79,24 @@ export type CommonEdgeType = {
   targetType: BlockEnum;
 };
 
-export type Node<T = {}> = ReactFlowNode<CommonNodeType<T>>;
-export type SelectedNode = Pick<Node, 'id' | 'data'>;
+export type NodeType<T = {}> = ReactFlowNodeType<CommonNodeType<T>>;
+export type SelectedNodeType = Pick<NodeType, 'id' | 'data'>;
 export type NodeProps<T = unknown> = { id: string; data: CommonNodeType<T> };
 export type NodePanelProps<T> = {
   id: string;
   data: CommonNodeType<T>;
 };
-export type Edge = ReactFlowEdge<CommonEdgeType>;
+export type EdgeType = ReactFlowEdge<CommonEdgeType>;
 
-export type WorkflowDataUpdater = {
+export type WorkflowDataUpdaterType = {
   nodes: Node[];
-  edges: Edge[];
+  edges: EdgeType[];
   viewport: Viewport;
 };
 
-export type ValueSelector = string[]; // [nodeId, key | obj key path]
+export type ValueSelectorType = string[]; // [nodeId, key | obj key path]
 
-export type Variable = {
+export type VariableType = {
   variable: string;
   label?:
     | string
@@ -127,7 +105,7 @@ export type Variable = {
         nodeName: string;
         variable: string;
       };
-  value_selector: ValueSelector;
+  value_selector: ValueSelectorType;
   variable_type?: VarKindType;
   value?: string;
   options?: string[];
@@ -135,49 +113,34 @@ export type Variable = {
   isParagraph?: boolean;
 };
 
-export type EnvironmentVariable = {
+export type EnvironmentVariableType = {
   id: string;
   name: string;
   value: any;
   value_type: 'string' | 'number' | 'secret';
 };
 
-export type ConversationVariable = {
+export type ConversationVariableType = {
   id: string;
   name: string;
-  value_type: ChatVarType;
+  value_type: ChatVarTypeEnum;
   value: any;
   description: string;
 };
 
-export type GlobalVariable = {
+export type GlobalVariableType = {
   name: string;
   value_type: 'string' | 'number';
   description: string;
 };
 
-export type VariableWithValue = {
+export type VariableWithValueType = {
   key: string;
   value: string;
 };
 
-export enum InputVarType {
-  textInput = 'text-input',
-  paragraph = 'paragraph',
-  select = 'select',
-  number = 'number',
-  url = 'url',
-  files = 'files',
-  json = 'json', // obj, array
-  contexts = 'contexts', // knowledge retrieval
-  iterator = 'iterator', // iteration input
-  singleFile = 'file',
-  multiFiles = 'file-list',
-  loop = 'loop', // loop input
-}
-
-export type InputVar = {
-  type: InputVarType;
+export type InputVarType = {
+  type: InputVarTypeEnum;
   label:
     | string
     | {
@@ -192,47 +155,36 @@ export type InputVar = {
   required: boolean;
   hint?: string;
   options?: string[];
-  value_selector?: ValueSelector;
-} & Partial<UploadFileSetting>;
+  value_selector?: ValueSelectorType;
+} & Partial<UploadFileSettingType>;
 
-export type ModelConfig = {
+export type ModelConfigType = {
   provider: string;
   name: string;
   mode: string;
   completion_params: Record<string, any>;
 };
 
-export enum PromptRole {
-  system = 'system',
-  user = 'user',
-  assistant = 'assistant',
-}
-
-export enum EditionType {
-  basic = 'basic',
-  jinja2 = 'jinja2',
-}
-
-export type PromptItem = {
+export type PromptItemType = {
   id?: string;
-  role?: PromptRole;
+  role?: PromptRoleEnum;
   text: string;
-  edition_type?: EditionType;
+  edition_type?: EditionTypeEnum;
   jinja2_text?: string;
 };
 
-export enum MemoryRole {
+export enum MemoryRoleType {
   user = 'user',
   assistant = 'assistant',
 }
 
-export type RolePrefix = {
+export type RolePrefixType = {
   user: string;
   assistant: string;
 };
 
-export type Memory = {
-  role_prefix?: RolePrefix;
+export type MemoryType = {
+  role_prefix?: RolePrefixType;
   window: {
     enabled: boolean;
     size: number | string | null;
@@ -240,30 +192,10 @@ export type Memory = {
   query_prompt_template: string;
 };
 
-export enum VarType {
-  string = 'string',
-  number = 'number',
-  secret = 'secret',
-  boolean = 'boolean',
-  object = 'object',
-  file = 'file',
-  array = 'array',
-  arrayString = 'array[string]',
-  arrayNumber = 'array[number]',
-  arrayObject = 'array[object]',
-  arrayFile = 'array[file]',
-  any = 'any',
-}
-
-export enum ValueType {
-  variable = 'variable',
-  constant = 'constant',
-}
-
-export type Var = {
+export type VarType = {
   variable: string;
-  type: VarType;
-  children?: Var[] | StructuredOutput; // if type is obj, has the children struct
+  type: VarKindType;
+  children?: VarType[] | StructuredOutputType; // if type is obj, has the children struct
   isParagraph?: boolean;
   isSelect?: boolean;
   options?: string[];
@@ -274,59 +206,36 @@ export type Var = {
   nodeId?: string;
 };
 
-export type NodeOutPutVar = {
+export type NodeOutPutVarType = {
   nodeId: string;
   title: string;
-  vars: Var[];
+  vars: VarType[];
   isStartNode?: boolean;
   isLoop?: boolean;
 };
 
-export type Block = {
+export type BlockType = {
   classification?: string;
   type: BlockEnum;
   title: string;
   description?: string;
 };
 
-export type NodeDefault<T> = {
+export type NodeDefaultType<T> = {
   defaultValue: Partial<T>;
   getAvailablePrevNodes: (isChatMode: boolean) => BlockEnum[];
   getAvailableNextNodes: (isChatMode: boolean) => BlockEnum[];
   checkValid: (payload: T, t: any, moreDataForCheckValid?: any) => { isValid: boolean; errorMessage?: string };
 };
 
-export type OnSelectBlock = (type: BlockEnum, toolDefaultValue?: ToolDefaultValue) => void;
+export type OnSelectBlockType = (type: BlockEnum, toolDefaultValue?: ToolDefaultValueType) => void;
 
-export enum WorkflowRunningStatus {
-  Waiting = 'waiting',
-  Running = 'running',
-  Succeeded = 'succeeded',
-  Failed = 'failed',
-  Stopped = 'stopped',
-}
-
-export enum WorkflowVersion {
-  Draft = 'draft',
-  Latest = 'latest',
-}
-
-export enum NodeRunningStatus {
-  NotStart = 'not-start',
-  Waiting = 'waiting',
-  Running = 'running',
-  Succeeded = 'succeeded',
-  Failed = 'failed',
-  Exception = 'exception',
-  Retry = 'retry',
-}
-
-export type OnNodeAdd = (
+export type OnNodeAddType = (
   newNodePayload: {
     nodeType: BlockEnum;
     sourceHandle?: string;
     targetHandle?: string;
-    toolDefaultValue?: ToolDefaultValue;
+    toolDefaultValue?: ToolDefaultValueType;
   },
   oldNodesPayload: {
     prevNodeId?: string;
@@ -336,20 +245,20 @@ export type OnNodeAdd = (
   },
 ) => void;
 
-export type CheckValidRes = {
+export type CheckValidResType = {
   isValid: boolean;
   errorMessage?: string;
 };
 
-export type RunFile = {
+export type RunFileType = {
   type: string;
-  transfer_method: TransferMethod[];
+  transfer_method: TransferMethodEnum[];
   url?: string;
   upload_file_id?: string;
   related_id?: string;
 };
 
-export type WorkflowRunningData = {
+export type WorkflowRunningDataType = {
   task_id?: string;
   message_id?: string;
   conversation_id?: string;
@@ -369,64 +278,40 @@ export type WorkflowRunningData = {
     steps?: number;
     showSteps?: boolean;
     total_steps?: number;
-    files?: FileResponse[];
+    files?: FileResponseType[];
     exceptions_count?: number;
   };
-  tracing?: NodeTracing[];
+  tracing?: NodeTracingType[];
 };
 
-export type HistoryWorkflowData = {
+export type HistoryWorkflowDataType = {
   id: string;
   sequence_number: number;
   status: string;
   conversation_id?: string;
 };
 
-export enum ChangeType {
-  changeVarName = 'changeVarName',
-  remove = 'remove',
-}
-
-export type MoreInfo = {
-  type: ChangeType;
+export type MoreInfoType = {
+  type: ChangeTypeEnum;
   payload?: {
     beforeKey: string;
     afterKey?: string;
   };
 };
 
-export type ToolWithProvider = Collection & {
-  tools: Tool[];
+export type ToolWithProviderType = CollectionType & {
+  tools: ToolType[];
 };
 
-export enum SupportUploadFileTypes {
-  image = 'image',
-  document = 'document',
-  audio = 'audio',
-  video = 'video',
-  custom = 'custom',
-}
-
-export type UploadFileSetting = {
-  allowed_file_upload_methods: TransferMethod[];
-  allowed_file_types: SupportUploadFileTypes[];
+export type UploadFileSettingType = {
+  allowed_file_upload_methods: TransferMethodEnum[];
+  allowed_file_types: SupportUploadFileTypesEnum[];
   allowed_file_extensions?: string[];
   max_length: number;
   number_limits?: number;
 };
 
-export type VisionSetting = {
-  variable_selector: ValueSelector;
-  detail: Resolution;
+export type VisionSettingType = {
+  variable_selector: ValueSelectorType;
+  detail: ResolutionEnum;
 };
-
-export enum WorkflowVersionFilterOptions {
-  all = 'all',
-  onlyYours = 'onlyYours',
-}
-
-export enum VersionHistoryContextMenuOptions {
-  restore = 'restore',
-  edit = 'edit',
-  delete = 'delete',
-}

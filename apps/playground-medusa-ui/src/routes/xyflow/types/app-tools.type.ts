@@ -1,47 +1,14 @@
-export enum LOC {
-  tools = 'tools',
-  app = 'app',
-}
+import { CollectionTypeEnum, ResolutionEnum } from '../helpers/constants/app.constants';
+import { EmojiType } from './common.type';
 
-export enum AuthType {
-  none = 'none',
-  apiKey = 'api_key',
-}
-
-export enum AuthHeaderPrefix {
-  basic = 'basic',
-  bearer = 'bearer',
-  custom = 'custom',
-}
-
-export type Credential = {
-  auth_type: AuthType;
-  api_key_header?: string;
-  api_key_value?: string;
-  api_key_header_prefix?: AuthHeaderPrefix;
-};
-
-export enum CollectionType {
-  all = 'all',
-  builtIn = 'builtin',
-  custom = 'api',
-  model = 'model',
-  workflow = 'workflow',
-}
-
-export type Emoji = {
-  background: string;
-  content: string;
-};
-
-export type Collection = {
+export type CollectionType = {
   id: string;
   name: string;
   author: string;
   description: any;
-  icon: string | Emoji;
+  icon: string | any;
   label: any;
-  type: CollectionType;
+  type: CollectionTypeEnum;
   team_credentials: Record<string, any>;
   is_team_authorization: boolean;
   allow_delete: boolean;
@@ -50,7 +17,7 @@ export type Collection = {
   letter?: string;
 };
 
-export type ToolParameter = {
+export type ToolParameterType = {
   name: string;
   label: any;
   human_description: any;
@@ -68,17 +35,17 @@ export type ToolParameter = {
 };
 
 // Action
-export type Tool = {
+export type ToolType = {
   name: string;
   author: string;
   label: any;
   description: any;
-  parameters: ToolParameter[];
+  parameters: ToolParameterType[];
   labels: string[];
   output_schema: Record<string, any>;
 };
 
-export type ToolCredential = {
+export type ToolCredentialType = {
   name: string;
   label: any;
   help: any | null;
@@ -92,11 +59,11 @@ export type ToolCredential = {
   }[];
 };
 
-export type CustomCollectionBackend = {
+export type CustomCollectionBackendType = {
   provider: string;
   original_provider?: string;
   credentials: Credential;
-  icon: Emoji;
+  icon: EmojiType;
   schema_type: string;
   schema: string;
   privacy_policy: string;
@@ -141,7 +108,7 @@ export type WorkflowToolProviderParameter = {
 
 export type WorkflowToolProviderRequest = {
   name: string;
-  icon: Emoji;
+  icon: EmojiType;
   description: string;
   parameters: WorkflowToolProviderParameter[];
   labels: string[];
@@ -153,7 +120,7 @@ export type WorkflowToolProviderResponse = {
   workflow_tool_id: string;
   label: string;
   name: string;
-  icon: Emoji;
+  icon: EmojiType;
   description: string;
   synced: boolean;
   tool: {

@@ -1,8 +1,13 @@
 import '@xyflow/react/dist/style.css';
-import '../assets/styles/index.css';
-// import '../assets/styles/workflow.css';
+import './assets/styles/index.css'; //from xyflow
+// import './assets/styles/style.css'; //from dify
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import type { FC } from 'react';
+import { WorkflowContextProvider } from './context';
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import useSWR from 'swr';
+import { setAutoFreeze } from 'immer';
+
 import {
   ReactFlow,
   useNodesState,
@@ -19,11 +24,10 @@ import {
   Edge,
   ReactFlowProvider,
 } from '@xyflow/react';
-import DevTools from './tools/dev-tools';
+import DevTools from './components/tools/dev-tools';
 
-import { nodes as initialNodes, edges as initialEdges } from '../helpers/datasets';
-
-import { nodeTypesMapping, edgeTypesMapping } from '../helpers/mapping';
+import { nodes as initialNodes, edges as initialEdges } from './helpers/datasets';
+import { nodeTypes, edgeTypes } from './helpers/registry';
 
 const nodeClassName = (node: any) => node.type;
 
@@ -41,8 +45,8 @@ const WorkflowComponent = () => {
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
       fitView
-      nodeTypes={nodeTypesMapping}
-      edgeTypes={edgeTypesMapping}
+      nodeTypes={nodeTypes}
+      edgeTypes={edgeTypes}
       style={{ backgroundColor: '#F7F9FB' }}
       proOptions={{ hideAttribution: true }}
     >

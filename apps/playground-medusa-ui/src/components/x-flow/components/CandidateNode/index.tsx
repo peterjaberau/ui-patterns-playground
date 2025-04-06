@@ -2,9 +2,8 @@ import { useReactFlow, useViewport } from '@xyflow/react';
 import { useEventListener } from 'ahooks';
 import { memo } from 'react';
 import { shallow } from 'zustand/shallow';
-import { useStore } from '@/.';
+import { useStore, useFlow } from '../../index';
 import CustomNode from '../CustomNode';
-import { useFlow } from '@/.';
 import { FunctionComponent } from 'react';
 
 const CandidateNode: FunctionComponent = (): any => {

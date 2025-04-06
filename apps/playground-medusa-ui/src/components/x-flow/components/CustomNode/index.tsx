@@ -6,11 +6,9 @@ import { ItemType } from 'antd/es/menu/interface';
 import classNames from 'classnames';
 import { isFunction } from 'lodash';
 import { memo, useCallback, useContext, useMemo, useState, FunctionComponent } from 'react';
-import { useFlow } from '@/.';
+import { useFlow, useStore, capitalize, isTruthy, transformNodeStatus, uuid, uuid4 } from '../../index';
 
 import { shallow } from 'zustand/shallow';
-import { useStore } from '@/.';
-import { capitalize, isTruthy, transformNodeStatus, uuid, uuid4 } from '@/.';
 
 import { ConfigContext } from '../../models/context';
 import './index.css';

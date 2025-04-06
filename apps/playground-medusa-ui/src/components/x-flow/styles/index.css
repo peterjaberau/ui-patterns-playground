@@ -1,7 +1,7 @@
 @import url('./xy-theme.css');
 
 .xflow-container {
-  height: 100%;
+  height: 100% !important;
   width: 100%;
   background: #f0f2f7;
   position: relative;

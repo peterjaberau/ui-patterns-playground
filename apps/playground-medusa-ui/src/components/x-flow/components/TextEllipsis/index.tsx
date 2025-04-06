@@ -73,7 +73,7 @@ const TextEllipsis: FC<ITextEllipsisProps> = ({ text, style, toolTipProps, type 
         title={text}
         getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
         color="#ffff"
-        overlayInnerStyle={{
+        style={{
           color: '#354052',
           fontSize: '12px',
           borderRadius: '8px',

@@ -1,10 +1,10 @@
 'use client';
 
 import { Skeleton } from '@codefast/ui';
-import WorkflowComponent from './components';
+import WorkflowComponent from './workflow';
 
 import { useFlowById } from './loader';
-// import WorkflowProvider from './workflow-provider';
+// import WorkflowProvider from './-provider';
 
 export const XyFlow = () => {
   const { flow, isLoading, isError, error } = useFlowById('id-default');
