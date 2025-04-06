@@ -1,7 +1,7 @@
 'use client';
 
 import '@xyflow/react/dist/style.css';
-import './styles/index.css';
+// import './styles/index.css';
 
 import { Background, BackgroundVariant, MarkerType, ReactFlow, useReactFlow } from '@xyflow/react';
 import { useEventListener, useMemoizedFn } from 'ahooks';
@@ -28,7 +28,7 @@ import { shallow } from 'zustand/shallow';
 import NodeEditor from './components/NodeEditor';
 import NodeLogPanel from './components/NodeLogPanel';
 import { useTemporalStore } from './hooks/useTemporalStore';
-// import './index.css';
+import './index.css';
 import { ConfigContext } from './models/context';
 
 const CustomNode = memo(CustomNodeComponent);
@@ -282,7 +282,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
   };
 
   return (
-    <div id="xflow-container" style={{ height: '100%' }} ref={workflowContainerRef}>
+    <div id="xflow-container" ref={workflowContainerRef}>
       <ReactFlow
         panOnDrag={panOnDrag}
         nodeTypes={nodeTypes}

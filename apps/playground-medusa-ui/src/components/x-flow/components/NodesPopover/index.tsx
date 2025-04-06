@@ -86,6 +86,7 @@ export default forwardRef((props: any, popoverRef) => {
       {...popoverProps}
       trigger="click"
       {...popoverVersionProps}
+      // @ts-ignore
       content={<NodesMenu ref={ref} items={settings} showSearch={showSearch} onClick={handCreateNode} />}
     >
       {children}

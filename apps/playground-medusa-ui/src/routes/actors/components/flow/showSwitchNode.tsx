@@ -4,7 +4,7 @@ import React from 'react';
 import './index.css';
 import TextEllipsis from './TextEllipsis';
 
-const showSwitchNode = ({ data, index }) => {
+const showSwitchNode = ({ data, index }: any) => {
   const { type, value } = data;
   if (!type && !value) {
     return <div style={{ minHeight: '40px' }}></div>;

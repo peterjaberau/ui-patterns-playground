@@ -52,7 +52,7 @@ const useFlow = () => {
     };
   };
 
-  const setFlowData = ({ nodes, edges }) => {
+  const setFlowData = ({ nodes, edges }: any) => {
     if (!!nodes) {
       setNodes(nodes);
     }
@@ -95,7 +95,8 @@ const useFlow = () => {
   });
 
   const copyNode = useMemoizedFn((nodeId) => {
-    const copyNodes = generateCopyNodes(storeApi.getState().nodes.find((node) => node.id === nodeId));
+    // @ts-ignore
+    const copyNodes: any = generateCopyNodes(storeApi.getState().nodes.find((node: any) => node.id === nodeId));
     storeApi.setState({
       copyNodes,
     });
@@ -124,11 +125,13 @@ const useFlow = () => {
   const deleteNode = useMemoizedFn((nodeId) => {
     record(() => {
       storeApi.setState({
+        // @ts-ignore
         edges: storeApi.getState().edges.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
       });
     });
     record(() => {
       storeApi.setState({
+        // @ts-ignore
         nodes: storeApi.getState().nodes.filter((node) => node.id !== nodeId),
       });
     });

@@ -30,7 +30,6 @@ export const ActorEditorFlow = () => {
             className="w-100 h-100 flex flex-col justify-start"
             style={{ height: '800px', width: '100%', position: 'relative' }}
           >
-            {/* <Header data={{}} /> */}
             <XFlowProvider
               initialValues={{ nodes, edges }}
               settings={settings as any}

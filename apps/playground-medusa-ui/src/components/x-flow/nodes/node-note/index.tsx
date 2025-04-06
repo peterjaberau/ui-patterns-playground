@@ -21,13 +21,13 @@ export default memo((props: any) => {
   const [editorState, setEditorState] = useState(BraftEditor.createEditorState(data?.value));
 
   // Triggered when the editor content changes
-  const handleEditorChange = (newEditorState) => {
+  const handleEditorChange = (newEditorState: any) => {
     setEditorState(newEditorState);
     handleNodeValueChange({ value: newEditorState.toHTML() });
   };
 
   const handleNodeValueChange = debounce((data: any) => {
-    for (let node of nodes) {
+    for (let node of nodes as any) {
       if (node.id === id) {
         node.data = {
           ...node?.data,
@@ -36,7 +36,7 @@ export default memo((props: any) => {
         break;
       }
     }
-    setNodes([...nodes], false);
+    setNodes([...(nodes as any)], false);
   }, 200);
 
   return (

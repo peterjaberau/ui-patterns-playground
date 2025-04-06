@@ -100,10 +100,14 @@ const Panel: FC<IPanelProps> = (props: IPanelProps) => {
       width={nodePanel?.width || globalConfig?.nodePanel?.width || 400} //Change to the configured width. Node width > global width > default 400
       mask={false}
       onClose={onClose}
-      headerStyle={{ paddingBottom: '12px' }}
-      style={{
+      rootStyle={{
         position: 'absolute',
         right: isShowStatusPanel ? offsetRightStatus : 0,
+      }}
+      styles={{
+        header: {
+          paddingBottom: '12px',
+        },
       }}
       title={
         <>

@@ -56,11 +56,13 @@ const PanelStatusLogContainer: FC<IPanelProps> = (props: IPanelProps) => {
       width={width}
       mask={false}
       onClose={onClose}
-      headerStyle={{
-        paddingBottom: '12px',
-      }}
       style={{
         position: 'absolute',
+      }}
+      styles={{
+        header: {
+          paddingBottom: '12px',
+        },
       }}
       title={
         <>
