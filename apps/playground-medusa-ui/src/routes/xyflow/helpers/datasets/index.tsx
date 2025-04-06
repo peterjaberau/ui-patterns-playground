@@ -124,25 +124,9 @@ export const nodes: any[] = [
     position: { x: 350, y: 500 },
     data: {},
   },
-
-  {
-    id: 'custom-node-color-1',
-    type: 'colorselector',
-    position: { x: -350, y: 500 },
-    data: {
-      backgroundColor: '#c9f1dd',
-    },
-  },
 ];
 
 export const edges: any[] = [
-  {
-    id: 'edge-resize-me-to-custom-color-selector',
-    source: '2-3',
-    target: 'custom-node-color-1',
-    animated: true,
-    label: 'animated edge',
-  },
   {
     id: 'e1-2',
     source: '1-1',

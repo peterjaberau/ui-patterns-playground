@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Dependency } from '@/app/components/plugins/types';
+import type { Dependency } from '@workflow-app/components/plugins/types';
 
 type Shape = {
   dependencies: Dependency[];

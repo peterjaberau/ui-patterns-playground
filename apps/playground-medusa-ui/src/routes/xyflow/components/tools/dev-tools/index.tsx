@@ -3,12 +3,14 @@ import { Panel, PanelPosition } from '@xyflow/react';
 
 import NodeInspector from './NodeInspector';
 import ChangeLogger from './ChangeLogger';
+import ViewportLogger from './ViewportLogger';
 
 import './style.css';
 
 export default function ReactFlowDevTools({ position = 'top-left' }: { position?: PanelPosition }) {
   const [nodeInspectorActive, setNodeInspectorActive] = useState(false);
   const [changeLoggerActive, setChangeLoggerActive] = useState(false);
+  const [viewportLoggerActive, setViewportLoggerActive] = useState(false);
 
   return (
     <div className="react-flow__devtools">
@@ -19,9 +21,13 @@ export default function ReactFlowDevTools({ position = 'top-left' }: { position?
         <DevToolButton setActive={setChangeLoggerActive} active={changeLoggerActive} title="Toggle Change Logger">
           Change Logger
         </DevToolButton>
+        <DevToolButton setActive={setViewportLoggerActive} active={viewportLoggerActive} title="Toggle Viewport Logger">
+          Viewport Logger
+        </DevToolButton>
       </Panel>
       {changeLoggerActive && <ChangeLogger />}
       {nodeInspectorActive && <NodeInspector />}
+      {viewportLoggerActive && <ViewportLogger />}
     </div>
   );
 }

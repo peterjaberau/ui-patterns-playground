@@ -57,7 +57,7 @@ const WorkflowPreview = () => {
               )}
               onClick={() => switchTab('INPUT')}
             >
-              {t('runLog.input')}
+              {'INPUT'}
             </div>
           )}
           <div
@@ -71,7 +71,7 @@ const WorkflowPreview = () => {
               switchTab('RESULT');
             }}
           >
-            {t('runLog.result')}
+            {'RESULT'}
           </div>
           <div
             className={cn(
@@ -84,7 +84,7 @@ const WorkflowPreview = () => {
               switchTab('DETAIL');
             }}
           >
-            {t('runLog.detail')}
+            {'DETAIL'}
           </div>
           <div
             className={cn(
@@ -97,7 +97,7 @@ const WorkflowPreview = () => {
               switchTab('TRACING');
             }}
           >
-            {t('runLog.tracing')}
+            {'TRACING'}
           </div>
         </div>
         <div

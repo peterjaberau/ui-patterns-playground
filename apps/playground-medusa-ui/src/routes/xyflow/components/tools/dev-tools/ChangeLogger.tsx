@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { NodeChange, OnNodesChange, useStore, useStoreApi } from '@xyflow/react';
+import { useStore, useStoreApi, type OnNodesChange, type NodeChange } from '@xyflow/react';
 
 type ChangeLoggerProps = {
   color?: string;
@@ -19,10 +19,9 @@ function ChangeInfo({ change }: ChangeInfoProps) {
       <div>node id: {id}</div>
       <div>
         {type === 'add' ? JSON.stringify(change.item, null, 2) : null}
-        {type === 'dimensions' ? `${change.dimensions?.width} × ${change.dimensions?.height}` : null}
+        {type === 'dimensions' ? `dimensions: ${change.dimensions?.width} × ${change.dimensions?.height}` : null}
         {type === 'position' ? `position: ${change.position?.x.toFixed(1)}, ${change.position?.y.toFixed(1)}` : null}
         {type === 'remove' ? 'remove' : null}
-        {type === 'replace' ? JSON.stringify(change.item, null, 2) : null}
         {type === 'select' ? (change.selected ? 'select' : 'unselect') : null}
       </div>
     </div>
@@ -46,20 +45,11 @@ export default function ChangeLogger({ limit = 20 }: ChangeLoggerProps) {
     const onNodesChangeLogger: OnNodesChange = (changes) => {
       userOnNodesChange(changes);
 
-      setChanges((c) => {
-        changes.forEach((change) => {
-          if (c.length >= limit) {
-            c.pop();
-          }
-
-          c = [change, ...c];
-        });
-        return c;
-      });
+      setChanges((oldChanges) => [...changes, ...oldChanges].slice(0, limit));
     };
 
     store.setState({ onNodesChange: onNodesChangeLogger });
-  }, [onNodesChange]);
+  }, [onNodesChange, limit]);
 
   return (
     <div className="react-flow__devtools-changelogger">

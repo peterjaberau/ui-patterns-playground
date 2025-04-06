@@ -1,8 +1,10 @@
 'use client';
 
 import { Skeleton } from '@codefast/ui';
-import { XyflowGeneral } from './components';
+import WorkflowComponent from './components';
+
 import { useFlowById } from './loader';
+// import WorkflowProvider from './workflow-provider';
 
 export const XyFlow = () => {
   const { flow, isLoading, isError, error } = useFlowById('id-default');
@@ -24,7 +26,17 @@ export const XyFlow = () => {
     <div className="flex w-full flex-col gap-y-3">
       <div className="flex w-full grid-cols-4 flex-col items-start gap-x-4 gap-y-3">
         <div className="col-span-3 flex w-full min-w-0 flex-col gap-y-3">
-          <XyflowGeneral flow={flow} />
+          <div className="flex h-[800px] justify-center p-4">
+            <WorkflowComponent />
+          </div>
+
+          {/* <div className="flex h-[800px] justify-center p-4"> */}
+          {/*   <WorkflowProvider /> */}
+          {/* </div> */}
+
+          {/* <div className="flex h-[800px] justify-center p-4"> */}
+          {/*   <WorkflowProvider /> */}
+          {/* </div> */}
         </div>
         <div className="col-span-1 flex w-full min-w-0 flex-col gap-y-3"></div>
       </div>
