@@ -1,3 +1,4 @@
+import '@ant-design/v5-patch-for-react-19';
 import React, { useEffect, useRef, useImperativeHandle } from 'react';
 import { useForm } from 'form-render';
 import { useUpdateEffect } from 'ahooks';

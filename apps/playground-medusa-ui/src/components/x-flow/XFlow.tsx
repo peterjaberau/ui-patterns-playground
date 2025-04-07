@@ -1,9 +1,8 @@
 'use client';
+import { Background, BackgroundVariant, MarkerType, ReactFlow, useReactFlow } from '@xyflow/react';
 
 import '@xyflow/react/dist/style.css';
-// import './styles/index.css';
 
-import { Background, BackgroundVariant, MarkerType, ReactFlow, useReactFlow } from '@xyflow/react';
 import { useEventListener, useMemoizedFn } from 'ahooks';
 import { produce, setAutoFreeze } from 'immer';
 import { debounce, isFunction } from 'lodash';
@@ -19,8 +18,8 @@ import CustomNodeComponent from './components/CustomNode';
 import { useStore, useStoreApi } from './hooks/useStore';
 
 import Operator from './operator';
-import { FlowProps } from '.';
-import { isTruthy, uuid, uuid4 } from '.';
+import FlowProps from './types';
+import { isTruthy, uuid, uuid4 } from './utils';
 import autoLayoutNodes from './utils/autoLayoutNodes';
 
 import { message } from 'antd';
@@ -42,6 +41,7 @@ const edgeTypes = { buttonedge: memo(CustomEdge) };
 const XFlow: FC<FlowProps> = memo((props) => {
   const workflowContainerRef = useRef<HTMLDivElement>(null);
   const storeApi = useStoreApi();
+
   const { zoomTo } = useReactFlow();
   const {
     layout,
@@ -79,7 +79,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
   const [openPanel, setOpenPanel] = useState<boolean>(true);
   const [openLogPanel, setOpenLogPanel] = useState<boolean>(true);
   const { onNodeClick } = props;
-  const nodeEditorRef = useRef(null) as any;
+  const nodeEditorRef = useRef(null);
 
   useEffect(() => {
     zoomTo(0.8);
@@ -105,7 +105,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
           pageX: e.clientX,
           pageY: e.clientY,
           elementX: e.clientX - containerClientRect.left,
-          elementsY: e.clientY - containerClientRect.top,
+          elementY: e.clientY - containerClientRect.top,
         });
       }
     },
@@ -202,6 +202,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
       custom: (props: any) => {
         const { data, id, ...rest } = props;
         const { _nodeType, _status, ...restData } = data || {};
+
         return (
           <CustomNode
             {...rest}
@@ -212,8 +213,8 @@ const XFlow: FC<FlowProps> = memo((props) => {
             status={_status}
             //@ts-ignore
             onClick={async (e: any) => {
-              if (nodeEditorRef?.current?.validateForm) {
-                const result = await nodeEditorRef?.current?.validateForm();
+              if ((nodeEditorRef?.current as any)?.validateForm) {
+                const result = await (nodeEditorRef?.current as any)?.validateForm();
                 if (!result) {
                   message.error('Please check the required items!');
                   return;
@@ -352,7 +353,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
             nodeType={activeNode?._nodeType}
             onClose={async () => {
               //Panel close verification form
-              const result = await nodeEditorRef?.current?.validateForm();
+              const result = await (nodeEditorRef?.current as any)?.validateForm();
               if (!result) {
                 return;
               }
@@ -391,4 +392,4 @@ const XFlow: FC<FlowProps> = memo((props) => {
   );
 });
 
-export { XFlow };
+export default XFlow;

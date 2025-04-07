@@ -2,10 +2,9 @@
 
 // @ts-ignore
 import FormRender, { Schema, useForm } from 'form-render';
-import * as Immer from 'immer';
-const { produce } = Immer;
+import { produce } from 'immer';
 import { debounce, isFunction } from 'lodash';
-import { FC, forwardRef, useContext, useEffect, useImperativeHandle, useState } from 'react';
+import { FC, forwardRef, useContext, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { shallow } from 'zustand/shallow';
 import { useStore } from '../../hooks/useStore';
 import { ConfigContext } from '../../models/context';
@@ -21,15 +20,16 @@ interface INodeEditorProps {
 
 const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
   const { data, nodeType, id } = props;
-  const form = useForm();
+  const form: any = useForm();
   // // 1. Get node configuration information
   const { settingMap, widgets, readOnly }: any = useContext(ConfigContext);
-  const nodeSetting = settingMap[nodeType] || {};
+  const nodeSetting: any = settingMap[nodeType] || {};
   const [customVal, setCustomVal] = useState(data);
   const CustomSettingWidget = widgets[`${nodeType}NodeSettingWidget`]; // Built-in setting component
   const NodeWidget = widgets[nodeSetting?.settingWidget]; // Custom panel configuration component
   const getSettingSchema = nodeSetting['getSettingSchema'];
   const [asyncSchema, setAsyncSchema] = useState<Schema>({});
+  const nodeWidgetRef = useRef(null);
 
   useImperativeHandle(ref, () => ({
     validateForm: async () => {
@@ -40,10 +40,11 @@ const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
           .then(() => {
             return true;
           })
-          // @ts-ignore
           .catch((err: any) => {
             return false;
           });
+      } else if (nodeSetting?.settingWidget && (nodeWidgetRef.current as any)?.validateForm) {
+        result = await (nodeWidgetRef.current as any).validateForm();
       }
       return result;
     },
@@ -93,7 +94,7 @@ const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
       if (node) {
         // Update the node data
         if (node?.data?._nodeType === 'Switch' || node?.data?._nodeType === 'Parallel') {
-          data['list'] = (data?.list || [])?.map((item, index) => {
+          data['list'] = (data?.list || [])?.map((item: any, index: any) => {
             if (item?._id) {
               return item;
             } else {
@@ -126,11 +127,12 @@ const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
       <NodeWidget
         {...nodeSetting?.settingWidgetProps}
         value={customVal}
-        onChange={(values) => {
+        onChange={(values: any) => {
           setCustomVal(values);
           handleNodeValueChange({ ...values });
         }}
         readOnly={readOnly}
+        ref={nodeWidgetRef}
       />
     );
   } else if (nodeSetting?.settingSchema) {
@@ -156,7 +158,7 @@ const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
     // Built-in nodes
     return (
       <CustomSettingWidget
-        onChange={(val) => {
+        onChange={(val: any) => {
           handleNodeValueChange({ ...val });
         }}
         value={data}

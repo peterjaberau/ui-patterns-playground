@@ -12,7 +12,7 @@ interface ITrackNodeItemProps {
   nodeType: string;
   nodeStatus: string;
   node: any;
-  logTrackList?: []; // 默认的追踪数据
+  logTrackList?: []; // Default tracking data
   onTrackCollapseChange: (data: any) => void;
 }
 
@@ -27,8 +27,8 @@ export default memo((props: ITrackNodeItemProps) => {
     nodeView: { status = [] },
     logPanel,
   } = globalConfig;
-  const statusObj = transformNodeStatus(status || []);
-  const statusData = statusObj[nodeStatus];
+  const statusObj: any = transformNodeStatus(status || []);
+  const statusData: any = statusObj[nodeStatus];
 
   return (
     <div className="log-track-node">
@@ -52,7 +52,7 @@ export default memo((props: ITrackNodeItemProps) => {
               <span
                 className="track-icon-box"
                 style={{
-                  background: nodeSetting?.icon?.bgColor || '#F79009',
+                  background: nodeSetting?.icon?.backgroundColor || '#F79009',
                 }}
               >
                 {iconSvg ? iconSvg : <Icon style={{ fontSize: 14, color: '#fff' }} type={nodeSetting?.icon?.type} />}

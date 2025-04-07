@@ -1,5 +1,5 @@
 'use client';
-import FormRender, { Schema, useForm } from 'form-render';
+import FormRender, { useForm } from 'form-render';
 import { memo, useEffect } from 'react';
 import '../index.css';
 import { safeJsonStringify } from '../../../utils';
@@ -10,7 +10,7 @@ interface INodeSwitchSettingPorps {
   readOnly: boolean;
 }
 
-const schema: Schema = {
+const schema: any = {
   type: 'object',
   displayType: 'row',
   properties: {
@@ -47,7 +47,7 @@ const schema: Schema = {
 };
 
 export default memo((props: INodeSwitchSettingPorps) => {
-  const form = useForm();
+  const form: any = useForm();
   const { onChange, value } = props;
 
   const watch = {

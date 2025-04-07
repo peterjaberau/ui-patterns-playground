@@ -52,7 +52,9 @@ export default memo((props: any) => {
                 placement="right"
                 addNode={handleAddNode}
                 ref={popoverRef}
-                onNodeSelectPopoverChange={(val: any) => setOpenNodeSelectPopover(val)}
+                onNodeSelectPopoverChange={(val: any) => {
+                  setOpenNodeSelectPopover(val);
+                }}
               >
                 <Tooltip
                   title="Click to add a node"

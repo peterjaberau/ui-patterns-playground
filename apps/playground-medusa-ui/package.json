@@ -144,6 +144,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@codefast/eslint-config": "workspace:*",
     "@medusajs/types": "2.6.1",
     "@rgrove/parse-xml": "^4.1.0",

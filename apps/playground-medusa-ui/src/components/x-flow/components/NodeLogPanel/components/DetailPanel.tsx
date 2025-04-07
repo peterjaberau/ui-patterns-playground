@@ -13,11 +13,11 @@ export default memo((props: any) => {
   return (
     <div className={classNames('log-detail-panel', { ['log-detail-panel-code-full']: isFullScreen })}>
       {isRenderStatus && <StatusPanel currentStatus={currentStatus} statusPanelData={detailData?.statusPanel} />}
-      {(detailData?.codePanel || [])?.map((item, index) => (
+      {(detailData?.codePanel || [])?.map((item: any, index: any) => (
         <CodePanel
           codeData={item}
           key={index}
-          onFullScreenChange={(isFullScreen) => {
+          onFullScreenChange={(isFullScreen: any) => {
             setIsFullScreen(isFullScreen);
           }}
         />

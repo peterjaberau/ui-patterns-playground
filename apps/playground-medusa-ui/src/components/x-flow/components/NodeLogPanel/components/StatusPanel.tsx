@@ -8,7 +8,7 @@ import { getTransparentColor, transformNodeStatus } from '../../../utils';
 import TextEllipsis from '../../TextEllipsis';
 import '../index.css';
 
-const StatusItem = ({ title, content, isBadge, color, colorLabel }) => {
+const StatusItem = ({ title, content, isBadge, color, colorLabel }: any) => {
   return (
     <div className="log-status-item">
       <Space style={{ width: '100%' }} direction="vertical" size={2}>
@@ -24,12 +24,12 @@ const StatusItem = ({ title, content, isBadge, color, colorLabel }) => {
 };
 
 export default memo((props: any) => {
-  const { currentStatus, statusPanelData: renderData } = props;
-  const { globalConfig } = useContext(ConfigContext);
+  const { currentStatus, statusPanelData: renderData }: any = props;
+  const { globalConfig }: any = useContext(ConfigContext);
   const {
     nodeView: { status = [] },
   } = globalConfig;
-  const statusObj = transformNodeStatus(status || []);
+  const statusObj: any = transformNodeStatus(status || []);
   const statusColor = statusObj[currentStatus]?.color;
   const bgColor = getTransparentColor(statusColor, 0.1);
   const boxShadowColor = getTransparentColor(statusColor, 0.2);
@@ -50,7 +50,7 @@ export default memo((props: any) => {
           'log-status-panel-single': renderData?.status?.length == 1,
         })}
       >
-        {(renderData?.status || [])?.map((item, index) => (
+        {(renderData?.status || [])?.map((item: any, index: any) => (
           <StatusItem
             title={item?.label}
             content={item?.value}

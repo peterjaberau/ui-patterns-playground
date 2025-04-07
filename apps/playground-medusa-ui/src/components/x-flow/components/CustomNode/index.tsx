@@ -5,18 +5,20 @@ import { Dropdown, Menu, message } from 'antd';
 import { ItemType } from 'antd/es/menu/interface';
 import classNames from 'classnames';
 import { isFunction } from 'lodash';
-import { memo, useCallback, useContext, useMemo, useState, FunctionComponent } from 'react';
-import { useFlow, useStore, capitalize, isTruthy, transformNodeStatus, uuid, uuid4 } from '../../index';
-
+import React, { memo, useCallback, useContext, useMemo, useState } from 'react';
 import { shallow } from 'zustand/shallow';
-
+import { useStore } from '../../hooks/useStore';
 import { ConfigContext } from '../../models/context';
+import { capitalize, isTruthy, transformNodeStatus, uuid, uuid4 } from '../../utils';
 import './index.css';
 import SourceHandle from './sourceHandle';
+import { useFlow } from '../../hooks/useFlow';
 
-const CustomNode: FunctionComponent = (props: any) => {
+export default memo((props: any) => {
   const { id, type, data, layout, isConnectable, selected, onClick, status } = props;
   const { widgets, settingMap, globalConfig, onMenuItemClick, antdVersion, readOnly }: any = useContext(ConfigContext);
+
+  console.log('customNode', id);
   const deletable = globalConfig?.edge?.deletable ?? true;
   const disabledCopy = settingMap[type]?.disabledCopy ?? false;
   const disabledDelete = settingMap[type]?.disabledDelete ?? false;
@@ -288,6 +290,4 @@ const CustomNode: FunctionComponent = (props: any) => {
       )}
     </div>
   );
-};
-
-export default memo(CustomNode);
+});

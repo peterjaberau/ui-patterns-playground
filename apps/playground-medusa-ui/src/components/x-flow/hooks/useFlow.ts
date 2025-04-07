@@ -13,7 +13,7 @@ import { message } from 'antd';
 // 1. Try to reuse existing methods of reactflow instead of reinventing the wheel
 // 2. Do not expose new methods and states unless necessary
 
-const useFlow = () => {
+export const useFlow = () => {
   const storeApi = useStoreApi();
   const instance = storeApi.getState();
 
@@ -176,5 +176,3 @@ const useFlow = () => {
     [instance],
   );
 };
-
-export { useFlow };

@@ -1,3 +1,4 @@
+import '@ant-design/v5-patch-for-react-19';
 import React, { useEffect } from 'react';
 import { ConfigProvider } from 'antd';
 import dayjs from 'dayjs';
@@ -6,24 +7,15 @@ import enUS from 'antd/lib/locale/en_US';
 import 'dayjs/locale/zh-cn';
 import locales from './locales';
 import { StoreContext, createStore } from './core/store';
-import { UseBoundStore, StoreApi } from 'zustand'
+import { UseBoundStore, StoreApi } from 'zustand';
 
 import RenderCore from './core';
 import { TableContext, TableRenderProps } from './types';
 
-export type {
-  TableRenderProps,
-  ProColumnsType,
-  SearchProps,
-  TableContext,
-} from './types';
+export type { TableRenderProps, ProColumnsType, SearchProps, TableContext } from './types';
 
 const TableRender = React.forwardRef<TableContext, TableRenderProps>((props, ref) => {
-  const {
-    configProvider,
-    locale = 'zh-CN',
-    ...otherProps
-  } = props;
+  const { configProvider, locale = 'zh-CN', ...otherProps } = props;
 
   const storeRef = React.useRef<UseBoundStore<StoreApi<TableRenderProps>>>(null);
   if (!storeRef.current) {
@@ -45,16 +37,13 @@ const TableRender = React.forwardRef<TableContext, TableRenderProps>((props, ref
 
   const langPack: any = {
     ...antdLocale,
-    "TableRender": locales[locale],
-    ...configProvider?.locale
+    TableRender: locales[locale],
+    ...configProvider?.locale,
   };
 
   return (
-    <ConfigProvider
-      {...configProvider}
-      locale={langPack}
-    >
-      <StoreContext.Provider value={storeRef.current}>
+    <ConfigProvider {...configProvider} locale={langPack}>
+      <StoreContext.Provider value={storeRef.current as any}>
         <RenderCore {...otherProps} tableRef={ref} />
       </StoreContext.Provider>
     </ConfigProvider>

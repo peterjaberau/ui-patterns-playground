@@ -5,7 +5,7 @@ import { ConfigContext } from '../../models/context';
 
 export default memo((props: any) => {
   const { type, onClick, data } = props;
-  const { settingMap, widgets, iconFontUrl, globalConfig } = useContext(ConfigContext);
+  const { settingMap, widgets, iconFontUrl, globalConfig }: any = useContext(ConfigContext);
   const nodeSetting = settingMap[type] || {};
   const NodeWidget = widgets[nodeSetting?.nodeWidget] || undefined;
   const nodeDescription = nodeSetting?.description || '';

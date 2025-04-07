@@ -36,8 +36,8 @@ export default memo((props: any) => {
     shallow,
   );
 
-  const renderTitle = (item, index) => {
-    const defTitle = item?.title || `事件${index}`;
+  const renderTitle = (item: any, index: any) => {
+    const defTitle = item?.title || `Event${index}`;
     const title = parallelExtra?.titleKey ? item[parallelExtra?.titleKey] : defTitle;
     return (
       <div className="item-header">
@@ -53,10 +53,10 @@ export default memo((props: any) => {
         </div>
         <SourceHandle
           position={position}
-          isConnectable={(edges || [])?.filter((flow) => flow?.sourceHandle === item?._id)?.length === 0}
+          isConnectable={(edges || [])?.filter((flow: any) => flow?.sourceHandle === item?._id)?.length === 0}
           selected={selected}
           isHovered={isHovered}
-          handleAddNode={(data) => {
+          handleAddNode={(data: any) => {
             handleAddNode(data, item?._id);
           }}
           id={item?._id}
@@ -66,7 +66,7 @@ export default memo((props: any) => {
     );
   };
 
-  const renderContent = (item, index) => {
+  const renderContent = (item: any, index: any) => {
     const value = parallelExtra?.valueKey ? item[parallelExtra?.valueKey] : item?.value;
     return (
       <div className="item-content">
@@ -93,7 +93,7 @@ export default memo((props: any) => {
       })}
       size={5}
     >
-      {(data?.list || [{ _id: `id_${uuid()}` }, { _id: `id_${uuid()}` }])?.map((item, index) => (
+      {(data?.list || [{ _id: `id_${uuid()}` }, { _id: `id_${uuid()}` }])?.map((item: any, index: any) => (
         <div
           className={classNames('node-parallel-widget-item', {
             'node-parallel-bottom-item': isSwitchBottom,

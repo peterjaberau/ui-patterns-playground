@@ -1,4 +1,4 @@
-import { uuid } from './';
+import { uuid } from './index';
 
 /**
  * Get all child nodes

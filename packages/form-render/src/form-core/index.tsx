@@ -1,4 +1,5 @@
-import React, { useEffect, useContext, FC, useMemo } from 'react';
+import '@ant-design/v5-patch-for-react-19';
+import { useEffect, useContext, FC } from 'react';
 import { Form, Row, Col, Button, Space, ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { cloneDeep } from 'lodash-es';

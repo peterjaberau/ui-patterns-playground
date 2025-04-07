@@ -8,7 +8,7 @@ import ParallelBuildInNodeWidget from './ParallelBuildInNodeWidget';
 
 export default memo((props: any) => {
   const { onClick, type, data, position, isConnectable, selected, isHovered, handleAddNode } = props;
-  const { settingMap, widgets, iconFontUrl, globalConfig } = useContext(ConfigContext);
+  const { settingMap, widgets, iconFontUrl, globalConfig }: any = useContext(ConfigContext);
   const nodeSetting = settingMap[type] || {};
   const NodeWidget = widgets[nodeSetting?.nodeWidget] || undefined;
   const nodeDescription = nodeSetting?.description || '';

@@ -17,16 +17,16 @@ export default memo((props: any) => {
     shallow,
   );
 
-  const statusNode = (nodes || [])?.filter((item) => isTruthy(item?.data?._status));
-  const trackList = (statusNode || [])?.map((node) => {
-    const logTrackList = logList?.find((item) => item?.nodeId == node?.id);
+  const statusNode = (nodes || [])?.filter((item: any) => isTruthy(item?.data?._status));
+  const trackList = (statusNode || [])?.map((node: any) => {
+    const logTrackList = logList?.find((item: any) => item?.nodeId == node?.id);
     return { ...node, logTrackList: logTrackList?.codePanel || [] };
   });
 
   return (
     <div className="log-track-panel">
       {trackList?.length ? (
-        (trackList || [])?.map((item, index) => (
+        (trackList || [])?.map((item: any, index: any) => (
           <TrackNodeItem
             nodeType={item?.data?._nodeType}
             key={item?.id}

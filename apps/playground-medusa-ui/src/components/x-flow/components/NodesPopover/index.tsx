@@ -11,6 +11,7 @@ import './index.css';
 
 export default forwardRef((props: any, popoverRef) => {
   const { addNode, children, onNodeSelectPopoverChange } = props;
+
   const { setIsAddingNode } = useStore((s) => ({
     setIsAddingNode: s.setIsAddingNode,
   }));

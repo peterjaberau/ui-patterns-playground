@@ -19,14 +19,14 @@ interface INodeEditorProps {
 
 const NodeLogPanel: FC<INodeEditorProps> = (props: any) => {
   const { id, node, onTrackCollapseChange }: any = props;
-  const { widgets, globalConfig, logPanel } = useContext(ConfigContext);
+  const { widgets, globalConfig, logPanel }: any = useContext(ConfigContext);
   const {
     // @ts-ignore
     nodeView: { status = [] },
   } = globalConfig;
   const CustomWidget = widgets[logPanel?.logWidget]; // Built-in setting component
   const logData = isArray(logPanel?.logList)
-    ? (logPanel?.logList || [])?.find((item) => item?.nodeId === id)
+    ? (logPanel?.logList || [])?.find((item: any) => item?.nodeId === id)
     : logPanel?.logList;
 
   if (logPanel?.logWidget && CustomWidget) {

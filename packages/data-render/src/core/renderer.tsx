@@ -1,4 +1,3 @@
-import React from 'react';
 import { Empty, Skeleton } from 'antd';
 import { get } from 'lodash-es';
 import decorator from '../models/resolver';
@@ -78,7 +77,7 @@ export default (props: any): any => {
           dataKey: item.dataKey,
           getParentData: () => {
             return currData;
-          }
+          },
         }}
       />
     );

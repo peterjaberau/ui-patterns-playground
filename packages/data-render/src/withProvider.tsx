@@ -1,3 +1,4 @@
+import '@ant-design/v5-patch-for-react-19';
 import React, { useEffect, useRef } from 'react';
 import { ConfigProvider } from 'antd';
 import dayjs from 'dayjs';
@@ -9,17 +10,9 @@ import 'dayjs/locale/zh-cn';
 import { createStore } from './models/store';
 import { FRContext } from './models/context';
 
-export default function withProvider<T>(
-  Element: React.ComponentType<T>,
-  defaultWidgets?: any,
-): React.ComponentType<T> {
+export default function withProvider<T>(Element: React.ComponentType<T>, defaultWidgets?: any): React.ComponentType<T> {
   return (props: any) => {
-    const {
-      configProvider,
-      locale = 'zh-CN',
-      widgets,
-      ...rest
-    } = props;
+    const { configProvider, locale = 'zh-CN', widgets, ...rest } = props;
 
     const storeRef = useRef(createStore());
     const store: any = storeRef.current;

@@ -1,14 +1,16 @@
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { BezierEdge, EdgeLabelRenderer, getBezierPath, useReactFlow } from '@xyflow/react';
-import { memo, useContext, useState, FunctionComponent } from 'react';
+import React, { memo, useContext, useState } from 'react';
 import { shallow } from 'zustand/shallow';
-import { useFlow, useStore, uuid, uuid4 } from '../../index';
+import { useFlow } from '../../hooks/useFlow';
+import { useStore } from '../../hooks/useStore';
 import { ConfigContext } from '../../models/context';
+import { uuid, uuid4 } from '../../utils';
 import NodeSelectPopover from '../NodesPopover';
-// import '../../styles/index.css';
+import './index.css';
 
-const CustomEdge: FunctionComponent = (edge: any): any => {
-  const { id, sourceX, sourceY, targetX, targetY, source, target, sourceHandleId } = edge;
+export default memo((edge: any) => {
+  const { id, selected, sourceX, sourceY, targetX, targetY, source, target, sourceHandleId } = edge;
 
   const reactflow = useReactFlow();
   const [isHovered, setIsHovered] = useState(false);
@@ -24,7 +26,7 @@ const CustomEdge: FunctionComponent = (edge: any): any => {
   const hideEdgeDelBtn = globalConfig?.edge?.hideEdgeDelBtn ?? false;
   const deletable = globalConfig?.edge?.deletable ?? true;
 
-  const { addEdges, mousePosition, onEdgesChange, layout }: any = useStore(
+  const { nodes, edges, addEdges, mousePosition, onEdgesChange, layout }: any = useStore(
     (state: any) => ({
       layout: state.layout,
       nodes: state.nodes,
@@ -96,71 +98,41 @@ const CustomEdge: FunctionComponent = (edge: any): any => {
         {...edgeExtra}
         edgePath={edgePath}
         label={
-          isHovered ? (
-            <>
-              <EdgeLabelRenderer>
-                <div
-                  style={{
-                    position: 'absolute',
-                    zIndex: 1000,
-                    pointerEvents: 'all',
-                    transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
-                  }}
-                >
-                  <div
-                    style={{ width: '60px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
-                  >
-                    {!hideEdgeDelBtn && !readOnly && (
-                      <div
-                        style={{
-                          width: '16px',
-                          height: '16px',
-                          borderRadius: '16px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          background: '#296dff',
-                          visibility: 'visible',
-                        }}
-                        onClick={() => {
-                          if (readOnly) {
-                            return;
-                          }
-                          onEdgesChange([{ id, type: 'remove' }]);
-                        }}
-                      >
-                        <CloseOutlined style={{ color: '#fff', fontSize: 10 }} />
+          isHovered && (
+            <EdgeLabelRenderer>
+              <div
+                className="custom-edge-line"
+                style={{
+                  transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
+                }}
+              >
+                <div className="line-content">
+                  {!hideEdgeDelBtn && !readOnly && (
+                    <div
+                      className="line-icon-box"
+                      onClick={() => {
+                        if (readOnly) {
+                          return;
+                        }
+                        onEdgesChange([{ id, type: 'remove' }]);
+                      }}
+                    >
+                      <CloseOutlined style={{ color: '#ffffff', fontSize: 10 }} />
+                    </div>
+                  )}
+                  {!hideEdgeAddBtn && !readOnly && (
+                    <NodeSelectPopover placement="right" addNode={handleAddNode}>
+                      <div className="line-icon-box">
+                        <PlusOutlined style={{ color: '#fff', fontSize: 10 }} />
                       </div>
-                    )}
-                    {!hideEdgeAddBtn && !readOnly && (
-                      <NodeSelectPopover placement="right" addNode={handleAddNode}>
-                        <div
-                          style={{
-                            width: '16px',
-                            height: '16px',
-                            borderRadius: '16px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            background: '#296dff',
-                            visibility: 'visible',
-                          }}
-                        >
-                          <PlusOutlined style={{ color: '#fff', fontSize: 10 }} />
-                        </div>
-                      </NodeSelectPopover>
-                    )}
-                  </div>
+                    </NodeSelectPopover>
+                  )}
                 </div>
-              </EdgeLabelRenderer>
-            </>
-          ) : (
-            (null as any)
+              </div>
+            </EdgeLabelRenderer>
           )
         }
       />
     </g>
   );
-};
-
-export default memo(CustomEdge);
+});
