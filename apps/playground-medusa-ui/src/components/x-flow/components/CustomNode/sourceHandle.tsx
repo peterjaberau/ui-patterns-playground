@@ -60,11 +60,11 @@ export default memo((props: any) => {
                   title="Click to add a node"
                   arrow={false}
                   style={{
-                    background: '#fff',
+                    backgroundColor: '#fff',
                     color: '#354052',
                     fontSize: '12px',
                   }}
-                  color="#fff"
+                  // color="#fff"
                   {...toolTipVersionProps}
                   getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
                 >

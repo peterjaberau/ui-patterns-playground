@@ -1,0 +1,36 @@
+{
+  "name": "@pattern/zen-engine-wasm",
+  "version": "0.13.0",
+  "description": "ZEN Engine WASM",
+  "license": "MIT",
+  "sideEffects": [
+    "./dist/zen_engine_wasm.js",
+    "./dist/snippets/*"
+  ],
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "dist",
+    "util",
+    "index.js",
+    "index.d.ts",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "wasm-pack build --out-dir dist --target web --no-pack --release && rm dist/.gitignore",
+    "build-debug": "wasm-pack build --out-dir dist --target web --no-pack --dev && rm dist/.gitignore",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "@lezer/common": "^1.2.2",
+    "@lezer/highlight": "^1.2.1",
+    "@lezer/lr": "^1.4.2"
+  },
+  "devDependencies": {
+    "wasm-pack": "^0.13.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

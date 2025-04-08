@@ -1,7 +1,6 @@
 'use client';
 
-// @ts-ignore
-import FormRender, { Schema, useForm } from 'form-render';
+import FormRender, { useForm } from '@/components/form-render';
 import { produce } from 'immer';
 import { debounce, isFunction } from 'lodash';
 import { FC, forwardRef, useContext, useEffect, useImperativeHandle, useRef, useState } from 'react';
@@ -28,7 +27,7 @@ const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
   const CustomSettingWidget = widgets[`${nodeType}NodeSettingWidget`]; // Built-in setting component
   const NodeWidget = widgets[nodeSetting?.settingWidget]; // Custom panel configuration component
   const getSettingSchema = nodeSetting['getSettingSchema'];
-  const [asyncSchema, setAsyncSchema] = useState<Schema>({});
+  const [asyncSchema, setAsyncSchema] = useState({});
   const nodeWidgetRef = useRef(null);
 
   useImperativeHandle(ref, () => ({
@@ -54,6 +53,7 @@ const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
     const shema = await getSettingSchema(id, nodeType, nodeSetting, data, form).catch(() => ({}));
     setAsyncSchema(shema);
   }
+
   useEffect(() => {
     if (isFunction(getSettingSchema)) {
       getSchema();

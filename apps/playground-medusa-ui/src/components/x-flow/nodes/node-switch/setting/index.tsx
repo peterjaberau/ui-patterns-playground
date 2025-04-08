@@ -1,5 +1,5 @@
 'use client';
-import FormRender, { useForm } from 'form-render';
+import FormRender, { useForm } from '@/components/form-render';
 import { memo, useEffect } from 'react';
 import '../index.css';
 import { safeJsonStringify } from '../../../utils';

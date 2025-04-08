@@ -343,6 +343,8 @@ const XFlow: FC<FlowProps> = memo((props) => {
           onNodeClick && onNodeClick(event, node);
         }}
         deleteKeyCode={globalConfig?.deleteKeyCode}
+        connectionMode={'loose' as any}
+        snapToGrid={false}
       >
         <CandidateNode />
         <Operator addNode={handleAddNode} xflowRef={workflowContainerRef} />

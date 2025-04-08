@@ -23,6 +23,20 @@ const nextConfig: NextConfig = {
   },
   // reactStrictMode: true,
 
+  webpack(config, { isServer }) {
+    if (!isServer) {
+      // Deduplicate specific Lezer packages
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@lezer/common': require.resolve('@lezer/common'),
+        '@lezer/lr': require.resolve('@lezer/lr'),
+        '@lezer/highlight': require.resolve('@lezer/highlight'),
+      };
+    }
+
+    return config;
+  },
+
   // webpack: (config) => {
   //   config.resolve.alias = {
   //     ...config.resolve.alias,

@@ -1,0 +1,36 @@
+{
+  "name": "@pattern/zen-lezer",
+  "version": "0.3.1",
+  "description": "lezer-based ZEN grammar",
+  "license": "MIT",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "lezer-generator src/zen.grammar -o src/parser && tsup",
+    "build-debug": "lezer-generator src/zen.grammar --names -o src/parser && tsup",
+    "prepublishOnly": "pnpm run build",
+    "watch": "nodemon --watch 'src/zen.grammar' --exec 'pnpm run build'"
+  },
+  "dependencies": {
+    "@lezer/common": "^1.2.2",
+    "@lezer/highlight": "^1.2.1",
+    "@lezer/lr": "^1.4.2"
+  },
+  "devDependencies": {
+    "@lezer/generator": "^1.7.1",
+    "mocha": "^10.7.3",
+    "tsup": "^8.4.0"
+  }
+}

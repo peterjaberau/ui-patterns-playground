@@ -10,6 +10,7 @@ import XFlow, { FlowProvider } from '@/components/x-flow';
 // import XFlow from '@/components/x-flow';
 import React from 'react';
 import { getFlowConfig, getDomainSchema } from './flow/config';
+import { NodeWidgetHTTP, NodeWidgetLLM, NodeWidgetClassifier } from './flow/nodeWidgets';
 
 import showSwitchNode from './flow/components/showSwitchNode';
 // import { XFlow } from '@/components/x-flow';
@@ -46,7 +47,12 @@ export const ActorEditorFlow = () => {
         <div className="flex p-4">
           <FlowProvider>
             <div style={{ height: '800px', width: '100%', position: 'relative' }}>
-              <XFlow initialValues={flowConfig.content} settings={flowSettings?.schema} {...flowConfig.props} />
+              <XFlow
+                {...flowConfig.props}
+                initialValues={flowConfig.content}
+                settings={flowSettings?.schema}
+                widgets={{ NodeWidgetHTTP, NodeWidgetLLM, NodeWidgetClassifier }}
+              />
               <Tools />
             </div>
           </FlowProvider>
