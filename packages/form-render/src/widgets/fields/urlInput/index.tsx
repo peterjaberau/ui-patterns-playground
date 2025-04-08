@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+'use client';
+import { useContext } from 'react';
 import { Input, ConfigProvider } from 'antd';
 import { isUrl, translation } from '../../utils';
 import withFieldWrap from '../../utils/withFieldWrap';
@@ -11,7 +12,7 @@ const UrlNode: React.FC<UrlNodeProps> = (props) => {
   const configCtx = useContext(ConfigProvider.ConfigContext);
   const t = translation(configCtx);
 
-  const { value, addonText = t('test_src')} = props;
+  const { value, addonText = t('test_src') } = props;
   const useUrl = isUrl(value);
 
   if (useUrl) {
@@ -33,14 +34,7 @@ interface UrlInputProps {
   onChange?: (value: string) => void;
 }
 
-const UrlInput: React.FC<UrlInputProps> = ({
-  value,
-  prefix,
-  suffix,
-  addonText,
-  onChange,
-  ...rest
-}) => {
+const UrlInput: React.FC<UrlInputProps> = ({ value, prefix, suffix, addonText, onChange, ...rest }) => {
   let _value = value || '';
 
   if (prefix) {
@@ -72,16 +66,11 @@ const UrlInput: React.FC<UrlInputProps> = ({
       prefix={prefix}
       suffix={suffix}
       onChange={handleChange}
-      addonAfter={
-        <UrlNode
-          value={value}
-          addonText={addonText}
-        />
-      }
+      // @ts-ignore
+      addonAfter={<UrlNode value={value} addonText={addonText} />}
       {...rest}
     />
   );
-}
+};
 
 export default withFieldWrap(UrlInput);
-

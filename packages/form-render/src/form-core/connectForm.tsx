@@ -1,4 +1,5 @@
-import React, { forwardRef } from 'react';
+'use client';
+import { forwardRef } from 'react';
 import useForm from '../models/useForm';
 
 export default (Component: React.FC<any>) => {
@@ -7,4 +8,4 @@ export default (Component: React.FC<any>) => {
 
     return <Component ref={ref} {...props} form={form} />;
   });
-}
+};

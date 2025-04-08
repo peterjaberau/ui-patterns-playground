@@ -6,19 +6,23 @@ import { Button } from '@medusajs/ui';
 import { Container, Heading, Text } from '@medusajs/ui';
 import { useSelector } from '@xstate/react';
 import Link from 'next/link';
-import WithProvider from '@/components/x-flow';
+import XFlow, { FlowProvider } from '@/components/x-flow';
+// import XFlow from '@/components/x-flow';
+import React from 'react';
+import { getFlowConfig, getDomainSchema } from './flow/config';
 
+import showSwitchNode from './flow/components/showSwitchNode';
 // import { XFlow } from '@/components/x-flow';
 import { settings } from './flow/setting';
 import { nodes, edges } from './flow/const';
-import React from 'react';
 import './flow/index.css';
-import showSwitchNode from './flow/showSwitchNode';
-import { customNodeWidget, customEndNodeWidget, customLLMNodeWidget } from './flow/customization/nodeWidgets';
 import { Tools } from './flow/tools';
 
 export const ActorEditorFlow = () => {
   const handleCreateActorInstance = () => {};
+
+  const [flowSettings, setFlowSettings] = React.useState(getDomainSchema({ name: 'general' }));
+  const [flowConfig, setFlowConfig] = React.useState(getFlowConfig({ name: 'basic' }));
 
   return (
     <>
@@ -40,18 +44,12 @@ export const ActorEditorFlow = () => {
         </div>
 
         <div className="flex p-4">
-          <div style={{ height: '800px', width: '100%', position: 'relative' }}>
-            <WithProvider
-              initialValues={{ nodes, edges }}
-              settings={settings as any}
-              nodeSelector={{
-                showSearch: true,
-              }}
-              widgets={{ showSwitchNode }}
-              // , customEndNodeWidget, customNodeWidget, customLLMNodeWidget
-            />
-            <Tools />
-          </div>
+          <FlowProvider>
+            <div style={{ height: '800px', width: '100%', position: 'relative' }}>
+              <XFlow initialValues={flowConfig.content} settings={flowSettings?.schema} {...flowConfig.props} />
+              <Tools />
+            </div>
+          </FlowProvider>
         </div>
       </Container>
     </>

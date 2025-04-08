@@ -1,26 +1,26 @@
 import { isMatch, some, set, get, cloneDeep, has as _has, merge, mergeWith, isUndefined, omitBy } from 'lodash-es';
 
 export const _set = set;
-export const _get = get;
+export const _get: any = get;
 export const _cloneDeep = cloneDeep;
 // export const _has = has;
 export { _has };
 export const _merge = merge;
 export const _mergeWith = mergeWith;
 export const _isUndefined = isUndefined;
-export const _omitBy = omitBy;
-export const _some = some;
+export const _omitBy: any = omitBy;
+export const _some: any = some;
 export const _isMatch = isMatch;
 
 export const isObject = (data: any) => {
   const str = Object.prototype.toString.call(data);
   return str.indexOf('Object') > -1;
-}
+};
 
 export const isArray = (data: any) => {
   const str = Object.prototype.toString.call(data);
   return str.indexOf('Array') > -1;
-}
+};
 
 export const isFunction = (data: any) => typeof data === 'function';
 
@@ -31,14 +31,14 @@ export function isUrl(string: string) {
   return protocolRE.test(string);
 }
 
-export const isNumber = (str: string | number) => !isNaN(Number(str))
+export const isNumber = (str: string | number) => !isNaN(Number(str));
 
-export const getArray = (arr, defaultValue = []) => {
+export const getArray = (arr: any, defaultValue = []) => {
   if (Array.isArray(arr)) return arr;
   return defaultValue;
 };
 
-export function getFormat(format) {
+export function getFormat(format: any) {
   let dateFormat;
   switch (format) {
     case 'date':
@@ -77,11 +77,11 @@ export function getFormat(format) {
 export function isObjType(schema: any) {
   //return schema?.type === 'object' && schema.properties && !schema.widget;
   return schema?.type === 'object' && schema?.properties && schema?.widgetType !== 'field';
-};
+}
 
 export function isListType(schema: any) {
   return schema?.type === 'array' && isObjType(schema?.items) && schema?.enum === undefined;
-};
+}
 
 export function isCheckBoxType(schema: any, readOnly: boolean) {
   if (readOnly) return false;
@@ -99,7 +99,7 @@ export const translation = (configCtx: any) => (key: string) => {
 };
 
 export const hasFuncProperty = (obj: any) => {
-  return _some(obj, (value) => {
+  return _some(obj, (value: any) => {
     if (isFunction(value)) {
       return true;
     }
@@ -121,5 +121,3 @@ export const hasFuncProperty = (obj: any) => {
 export const safeGet = (object: any, path: string, defaultValue: any) => {
   return get(object, path, defaultValue) ?? defaultValue;
 };
-
-

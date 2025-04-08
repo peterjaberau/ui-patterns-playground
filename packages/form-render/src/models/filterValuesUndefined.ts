@@ -2,8 +2,8 @@ import { isUndefined, omitBy } from 'lodash-es';
 import { isObject, isArray } from '../utils';
 
 export default (values: any, notFilter?: boolean) => {
-  const recursiveArray = (list: any[]) => {
-    let result = list.map(item => {
+  const recursiveArray: any = (list: any[]) => {
+    let result = list.map((item) => {
       if (isObject(item)) {
         return recursiveObj(item, false);
       }
@@ -23,8 +23,8 @@ export default (values: any, notFilter?: boolean) => {
       return _obj;
     }
 
-    let obj =  omitBy(_obj, isUndefined);
-    Object.keys(obj).forEach(key => {
+    let obj = omitBy(_obj, isUndefined);
+    Object.keys(obj).forEach((key) => {
       const item = obj[key];
 
       if (isObject(item)) {
@@ -46,6 +46,6 @@ export default (values: any, notFilter?: boolean) => {
     }
     return obj;
   };
- 
+
   return recursiveObj(values) || {};
 };

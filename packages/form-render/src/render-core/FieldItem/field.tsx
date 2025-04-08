@@ -1,4 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+'use client';
+import { useContext, useEffect } from 'react';
 import { Button, ConfigProvider, Form } from 'antd';
 import { useUpdateEffect } from 'ahooks';
 import { _get, translation, isFunction } from '../../utils';
@@ -6,7 +7,7 @@ import { _get, translation, isFunction } from '../../utils';
 export const FieldWrapperStatus = (props: any) => {
   const { Field, fieldProps, maxWidth, initialValue, acitonRender, ...otherProps } = props;
   const { onStatusChange, addons, ...otherFieldProps } = fieldProps;
-  const style = maxWidth ? { maxWidth, ...fieldProps?.style } : { ...fieldProps?.style } ;
+  const style = maxWidth ? { maxWidth, ...fieldProps?.style } : { ...fieldProps?.style };
 
   const { status } = Form.Item.useStatus();
   const errors = addons.getFieldError(addons.dataPath);
@@ -21,17 +22,8 @@ export const FieldWrapperStatus = (props: any) => {
 
   return (
     <>
-      <Field 
-        {...otherProps}
-        {...otherFieldProps}
-        style={style}
-        addons={addons}
-      />
-      {acitonRender && (
-        <span className='ant-form-item-actions'>
-          {acitonRender()}
-        </span>
-      )}
+      <Field {...otherProps} {...otherFieldProps} style={style} addons={addons} />
+      {acitonRender && <span className="ant-form-item-actions">{acitonRender()}</span>}
     </>
   );
 };
@@ -40,9 +32,9 @@ export const FieldWrapper = (props: any) => {
   const { Field, fieldProps, maxWidth, initialValue, acitonRender, ...otherProps } = props;
   const { addons, schema } = fieldProps;
 
-  const _style = maxWidth ? { maxWidth, ...fieldProps?.style }: { ...fieldProps?.style }
+  const _style = maxWidth ? { maxWidth, ...fieldProps?.style } : { ...fieldProps?.style };
   const { removeBtn } = schema;
- 
+
   const configCtx = useContext(ConfigProvider.ConfigContext);
   const t = translation(configCtx);
 
@@ -62,26 +54,13 @@ export const FieldWrapper = (props: any) => {
 
   return (
     <>
-      <Field
-        {...otherProps} 
-        {...fieldProps}
-        style={_style}
-      />
+      <Field {...otherProps} {...fieldProps} style={_style} />
       {removeBtn && (
-        <Button
-          type='link'
-          danger
-          {...removeBtn}
-          onClick={handleRemove}
-        >
+        <Button type="link" danger {...removeBtn} onClick={handleRemove}>
           {removeBtn?.text || t('delete')}
         </Button>
       )}
-      {acitonRender && (
-        <span className='fr-item-actions'>
-          {acitonRender()}
-        </span>
-      )}
+      {acitonRender && <span className="fr-item-actions">{acitonRender()}</span>}
     </>
   );
-}
+};

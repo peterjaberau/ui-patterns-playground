@@ -1,5 +1,6 @@
+'use client';
 import '@ant-design/v5-patch-for-react-19';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { ConfigProvider } from 'antd';
 import dayjs from 'dayjs';
 import { useUnmount } from 'ahooks';
@@ -7,7 +8,7 @@ import { useUnmount } from 'ahooks';
 import zhCN from 'antd/lib/locale/zh_CN';
 import enUS from 'antd/lib/locale/en_US';
 import locales from './locales';
-import 'dayjs/locale/zh-cn';
+import 'dayjs/locale/en';
 
 import { createStore } from './models/store';
 import { FRContext, ConfigContext } from './models/context';
@@ -30,6 +31,7 @@ export default function withProvider<T>(Element: React.ComponentType<T>, default
     const storeRef = useRef(createStore());
     const store: any = storeRef.current;
 
+    console.log('✅ form-render locale - before');
     useEffect(() => {
       if (locale === 'en-US') {
         dayjs.locale('en');
@@ -37,10 +39,13 @@ export default function withProvider<T>(Element: React.ComponentType<T>, default
       }
       dayjs.locale('zh-cn');
     }, [locale]);
+    console.log('✅ form-render locale - after');
 
+    console.log('✅ form-render before useUnmount');
     useUnmount(() => {
       form.resetFields();
     });
+    console.log('✅ form-render after useUnmount');
 
     if (!form) {
       console.warn('Please provide a form instance to FormRender');
@@ -60,7 +65,7 @@ export default function withProvider<T>(Element: React.ComponentType<T>, default
 
     const langPack: any = {
       ...antdLocale,
-      FormRender: locales[locale],
+      FormRender: (locales as any)[locale],
       ...configProvider?.locale,
     };
 
@@ -75,7 +80,7 @@ export default function withProvider<T>(Element: React.ComponentType<T>, default
           },
         }}
       >
-        <ConfigContext.Provider value={configContext}>
+        <ConfigContext.Provider value={configContext as any}>
           <FRContext.Provider value={store}>
             <Element form={form} {...otherProps} />
           </FRContext.Provider>

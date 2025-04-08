@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+'use client';
+import { useContext } from 'react';
 import { translation } from '../utils';
 import { ConfigProvider } from 'antd';
 
@@ -12,6 +13,6 @@ const ErrorSchema = (schema: any) => {
       <div>{JSON.stringify(schema)}</div>
     </div>
   );
-}
+};
 
 export default ErrorSchema;

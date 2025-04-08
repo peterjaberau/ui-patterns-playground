@@ -1,4 +1,3 @@
-import React from 'react';
 import { Input } from 'antd';
 import withFieldWrap from '../../utils/withFieldWrap';
 
@@ -14,5 +13,4 @@ const TextArea = (props: any) => {
   return <Input.TextArea {...finalProps} />;
 };
 
-
-export default withFieldWrap(TextArea)
+export default withFieldWrap(TextArea);

@@ -1,4 +1,4 @@
-export default (properties, orderKey = 'order') => {
+export default (properties: any, orderKey: any = 'order') => {
   const orderHash = new Map();
   // order is not a number of data
   const unsortedList: any[] = [];
@@ -15,9 +15,9 @@ export default (properties, orderKey = 'order') => {
     }
   };
 
-  properties.forEach(item => insert(item));
+  properties.forEach((item: any) => insert(item));
   const sortedList = Array.from(orderHash.entries())
     .sort(([order1], [order2]) => order1 - order2) // The smaller the order value, the higher the priority
     .flatMap(([, items]) => items);
   return sortedList.concat(unsortedList);
-}
+};

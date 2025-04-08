@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { Table, Form, Space, Popconfirm, Button, Divider, Tooltip } from 'antd';
 import type { FormListFieldData, TableColumnsType } from 'antd';
@@ -24,7 +25,7 @@ interface ListVirtualProps {
   renderCore: any;
   rootPath: any;
   /*
-   * 没有数据时是否隐藏表格
+   * Whether to hide tables when there is no data
    */
   hideEmptyTable?: boolean;
   [key: string]: any;
@@ -86,7 +87,8 @@ const VirtualList: React.FC<ListVirtualProps> = (props) => {
 
   const itemSchema = schema?.items?.properties || {};
 
-  const [vt, set_components] = useVT(() => ({ scroll: { y: scrollY } }), []);
+  // @ts-ignore
+  const [vt, set_components]: any = useVT(() => ({ scroll: { y: scrollY } }), []);
 
   const handleCopy = (name: number) => {
     const value = form.getFieldValue(rootPath.concat(name));

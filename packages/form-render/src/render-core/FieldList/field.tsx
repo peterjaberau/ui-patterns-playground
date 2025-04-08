@@ -1,4 +1,6 @@
-import React, { useContext, useEffect, useMemo } from 'react';
+'use client';
+
+import { useContext, useEffect, useMemo } from 'react';
 import { Form, message, ConfigProvider, Button } from 'antd';
 import { isFunction, translation } from '../../utils';
 import { getWidget } from '../../models/mapping';
@@ -17,9 +19,9 @@ export default (props: any) => {
     upperCtx,
     formCtx,
     configContext,
-    setListData
+    setListData,
   } = props;
- 
+
   const { widgets, globalConfig } = configContext;
   const configCtx = useContext(ConfigProvider.ConfigContext);
   const t = translation(configCtx);
@@ -37,13 +39,13 @@ export default (props: any) => {
   };
 
   let defaultActionColumnProps = {
-    colHeaderText: t('operate')
+    colHeaderText: t('operate'),
   };
 
   let widgetName = schema.widget || 'cardList';
   const Widget = getWidget(widgetName, widgets);
   const { props: listProps, removeBtn, rules = [], ...otherSchema } = schema;
-  
+
   let {
     addBtnProps,
     delConfirmProps,
@@ -73,7 +75,7 @@ export default (props: any) => {
   if (otherSchema?.min > 0 && listData.length <= otherSchema?.min) {
     hideDelete = true;
   }
- 
+
   if (otherSchema?.max > 0 && otherSchema?.max <= listData.length) {
     hideAdd = true;
   }
@@ -156,7 +158,7 @@ export default (props: any) => {
     }
 
     if (isFunction(copyFunc)) {
-      console.log(copyIndex, 'copyIndex')
+      console.log(copyIndex, 'copyIndex');
       copyFunc((funData?: any) => add(funData || data), { schema, data, copyIndex });
       return;
     }
@@ -185,26 +187,17 @@ export default (props: any) => {
             return;
           }
           if (!data || data.length < otherSchema.min) {
-            return Promise.reject(
-              new Error(
-                otherSchema?.message?.min ||
-                `数据长度必须大于等于${otherSchema.min}`
-              )
-            );
+            return Promise.reject(new Error(otherSchema?.message?.min || `数据长度必须大于等于${otherSchema.min}`));
           }
-        }
+        },
       },
-      ...transformRules(rules || [], methods, form)
+      ...transformRules(rules || [], methods, form),
     ];
   }
 
   return (
     <>
-      <Form.List
-        name={path}
-        initialValue={defaultValue}
-        rules={ruleList}
-      >
+      <Form.List name={path} initialValue={defaultValue} rules={ruleList}>
         {(fields, operation, { errors }) => (
           <>
             <Widget
@@ -231,7 +224,7 @@ export default (props: any) => {
               moveItem={handleMove(operation.move)}
               copyItem={handleCopy(operation.add, fields)}
               temporary={{
-                displayType
+                displayType,
               }}
               addBtnProps={{
                 ...defaultAddBtnProps,
@@ -247,23 +240,23 @@ export default (props: any) => {
               }}
               copyBtnProps={{
                 children: t('copy'),
-                btnType: operateBtnType
+                btnType: operateBtnType,
               }}
               editorBtnProps={{
                 children: t('edit'),
-                btnType: operateBtnType
+                btnType: operateBtnType,
               }}
               deleteBtnProps={{
                 children: t('delete'),
-                btnType: operateBtnType
+                btnType: operateBtnType,
               }}
               moveUpBtnProps={{
                 children: t('moveUp'),
-                btnType: operateBtnType
+                btnType: operateBtnType,
               }}
               moveDownBtnProps={{
                 children: t('moveDown'),
-                btnType: operateBtnType
+                btnType: operateBtnType,
               }}
             />
             {errors?.length !== 0 && (
@@ -275,15 +268,10 @@ export default (props: any) => {
         )}
       </Form.List>
       {removeBtn && (
-        <Button
-          type='link'
-          danger
-          {...removeBtn}
-          onClick={handleDelete}
-        >
+        <Button type="link" danger {...removeBtn} onClick={handleDelete}>
           {removeBtn?.text || t('delete')}
         </Button>
       )}
     </>
   );
-}
+};

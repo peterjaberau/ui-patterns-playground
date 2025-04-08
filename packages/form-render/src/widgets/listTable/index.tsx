@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Form, Space, Popconfirm, Button, Divider, Tooltip } from 'antd';
-import type { FormListFieldData, TableColumnsType } from 'antd';
+import type { FormListFieldData } from 'antd';
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
@@ -23,7 +23,7 @@ interface ListTableProps {
   renderCore: any;
   rootPath: any;
   /*
-   * 没有数据时是否隐藏表格
+   * Whether to hide tables when there is no data
    */
   hideEmptyTable?: boolean;
   [key: string]: any;
@@ -117,7 +117,7 @@ const TableList: React.FC<ListTableProps> = (props) => {
             )}
           </>
         ),
-        render: (_, field) => {
+        render: (_: any, field: any) => {
           const fieldSchema = {
             type: 'object',
             properties: {
@@ -156,7 +156,7 @@ const TableList: React.FC<ListTableProps> = (props) => {
       width: '190px',
       fixed: 'right',
       ...otherActionColumnProps,
-      render: (_, field) => (
+      render: (_: any, field: any) => (
         <Form.Item>
           <Space className="fr-list-item-operate" split={operateBtnType !== 'icon' && <Divider type="vertical" />}>
             {!hideMove && (

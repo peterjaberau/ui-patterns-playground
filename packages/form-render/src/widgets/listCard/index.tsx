@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Space, Popconfirm, Divider } from 'antd';
 import { PlusOutlined, CloseOutlined, ArrowUpOutlined, ArrowDownOutlined, CopyOutlined } from '@ant-design/icons';
 import classnames from 'classnames';
@@ -68,7 +67,7 @@ const CardList = (props: any) => {
   return (
     <>
       <div className={classnames('fr-list-card', { 'fr-list-card-background': hasBackground })}>
-        {fields.map(({ key, name }) => {
+        {fields.map(({ key, name }: any) => {
           const length = fields.length;
           const newSchema = cloneDeep(schema);
           if (newSchema.items.title && typeof newSchema.items.title === 'string') {

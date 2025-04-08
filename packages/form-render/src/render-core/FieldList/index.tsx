@@ -1,4 +1,6 @@
-import React, { useContext } from 'react';
+'use client';
+
+import { useContext } from 'react';
 import { Form } from 'antd';
 
 import { _get } from '../../utils';
@@ -12,7 +14,7 @@ export default (props: any) => {
   const { schema, rootPath } = props;
   const { items, ...listSchema } = schema || {};
 
-  const store:any = useContext(FRContext);
+  const store: any = useContext(FRContext);
   const { schema: formSchema } = store.getState();
 
   const configCtx: any = useContext(ConfigContext);
@@ -20,26 +22,25 @@ export default (props: any) => {
   const dependencies = schema?.dependencies;
 
   // No function expressions exist
-  if ((!isHasExpression(schema) && !mustacheDisabled) && (!dependencies || !dependencies?.length)) {
-    return <Main configContext={configCtx} {...props}  />;
+  if (!isHasExpression(schema) && !mustacheDisabled && (!dependencies || !dependencies?.length)) {
+    return <Main configContext={configCtx} {...props} />;
   }
 
   // Need to listen to form values for dynamic rendering
   return (
-    <Form.Item
-      noStyle
-      shouldUpdate={fieldShouldUpdate(JSON.stringify(listSchema || {}), rootPath, dependencies, true)}
-    >
+    <Form.Item noStyle shouldUpdate={fieldShouldUpdate(JSON.stringify(listSchema || {}), rootPath, dependencies, true)}>
       {(form: any) => {
-       const formData = form.getFieldsValue(true);
-       const newListSchema = mustacheDisabled ? schema : parseAllExpression(listSchema, formData, rootPath, formSchema);
+        const formData = form.getFieldsValue(true);
+        const newListSchema = mustacheDisabled
+          ? schema
+          : parseAllExpression(listSchema, formData, rootPath, formSchema);
         return (
-          <Main 
-            configContext={configCtx} 
-            {...props} 
+          <Main
+            configContext={configCtx}
+            {...props}
             schema={{
               items,
-              ...newListSchema
+              ...newListSchema,
             }}
             rootPath={rootPath}
           />
@@ -47,4 +48,4 @@ export default (props: any) => {
       }}
     </Form.Item>
   );
-}
+};

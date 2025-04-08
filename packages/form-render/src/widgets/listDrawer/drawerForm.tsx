@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+'use client';
+import { useContext } from 'react';
 import { Button, Drawer, Space, ConfigProvider } from 'antd';
 import { translation } from '../utils';
 

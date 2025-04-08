@@ -1,5 +1,5 @@
 /**
- * 滑动输入组件
+ * Sliding input component
  */
 import React from 'react';
 import { InputNumber, Slider } from 'antd';

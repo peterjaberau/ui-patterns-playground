@@ -39,8 +39,9 @@ export const mapping = {
   '*?readOnly': 'html', // TODO: html widgets for list / object
 };
 
-export function getWidgetName(schema, _mapping = mapping) {
-  const { type, format, enum: enums, readOnly, widget, props } = schema;
+export function getWidgetName(schema: any, _mapping: any = mapping) {
+  // @ts-ignore
+  const { type, format, enum: enums, readOnly, widget, props }: any = schema;
 
   //If the rendering widget has been specified, it is best
   if (schema['ui:widget'] || schema.widget) {
@@ -55,11 +56,7 @@ export function getWidgetName(schema, _mapping = mapping) {
 
   if (enums) {
     // Intelligently select controls based on enum length
-    if (
-      Array.isArray(enums) &&
-      ((type === 'array' && enums.length > 6) ||
-        (type !== 'array' && enums.length > 2))
-    ) {
+    if (Array.isArray(enums) && ((type === 'array' && enums.length > 6) || (type !== 'array' && enums.length > 2))) {
       list.push(`${type}?enum_long`);
       list.push('*?enum_long');
     } else {
@@ -71,7 +68,6 @@ export function getWidgetName(schema, _mapping = mapping) {
 
   if (props?.options) {
     if ((type === 'array' && props.options.length > 6) || (type !== 'array' && props.options.length > 2)) {
-
       list.push(`${type}?enum_long`);
       list.push('*?enum_long');
     } else {
@@ -93,14 +89,13 @@ export function getWidgetName(schema, _mapping = mapping) {
   }
 
   let widgetName = '';
-  list.some(item => {
+  list.some((item) => {
     widgetName = _mapping[item];
     return !!widgetName;
   });
 
   return widgetName;
 }
-
 
 function capitalizeFirstLetter(str: any) {
   if (!str) {
@@ -122,7 +117,7 @@ export const getWidget = (name: string, widgets: any) => {
   }
 
   return widget;
-}
+};
 
 export const extraSchemaList = {
   checkbox: {

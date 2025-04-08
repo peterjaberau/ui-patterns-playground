@@ -18,7 +18,6 @@ export default memo((props: any) => {
   const { id, type, data, layout, isConnectable, selected, onClick, status } = props;
   const { widgets, settingMap, globalConfig, onMenuItemClick, antdVersion, readOnly }: any = useContext(ConfigContext);
 
-  console.log('customNode', id);
   const deletable = globalConfig?.edge?.deletable ?? true;
   const disabledCopy = settingMap[type]?.disabledCopy ?? false;
   const disabledDelete = settingMap[type]?.disabledDelete ?? false;

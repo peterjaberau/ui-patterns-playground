@@ -1,10 +1,10 @@
-const displayTypeEnum = {
+const displayTypeEnum: any = {
   column: 'vertical',
   row: 'horizontal',
   inline: 'inline',
 };
 
-const transformProps =  (props: any) => {
+const transformProps = (props: any) => {
   const {
     schema,
     beforeFinish,
@@ -78,7 +78,7 @@ const transformProps =  (props: any) => {
     maxWidth,
     className,
     validateTrigger,
-    antdVersion
+    antdVersion,
   };
 };
 

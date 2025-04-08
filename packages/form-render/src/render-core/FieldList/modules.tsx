@@ -1,5 +1,3 @@
-import React from "react";
-
 export const getParamValue = (formCtx: any, upperCtx: any, schema: any) => (valueKey: string) => {
   return schema[valueKey] ?? upperCtx[valueKey] ?? formCtx[valueKey];
 };
@@ -7,13 +5,13 @@ export const getParamValue = (formCtx: any, upperCtx: any, schema: any) => (valu
 export const getFormListLayout = (getValueFromKey: any, displayType: string) => {
   const _labelCol = getValueFromKey('labelCol');
   const _fieldCol = getValueFromKey('fieldCol');
-  const labelWidth = getValueFromKey('labelWidth')
+  const labelWidth = getValueFromKey('labelWidth');
 
   let labelCol: any = { span: 5 };
   let fieldCol: any = { flex: 1 };
 
   if (labelWidth && displayType !== 'column') {
-    labelCol = { flex : labelWidth + 'px' };
+    labelCol = { flex: labelWidth + 'px' };
   }
 
   if (_labelCol) {
@@ -40,10 +38,10 @@ export const getLabel = (schema: any, displayType: string, widgets: any) => {
   const LabelNode = widgets[labelWidget];
 
   if (LabelNode) {
-    return <LabelNode schema={schema} />
+    return <LabelNode schema={schema} />;
   }
 
-  if ((!description && !descWidget)) {
+  if (!description && !descWidget) {
     return title;
   }
 
@@ -54,11 +52,7 @@ export const getLabel = (schema: any, displayType: string, widgets: any) => {
     }
 
     if (description) {
-      return (
-        <span className='fr-desc'>
-          ({description})
-        </span>
-      )
+      return <span className="fr-desc">({description})</span>;
     }
     return null;
   };
@@ -72,7 +66,7 @@ export const getLabel = (schema: any, displayType: string, widgets: any) => {
       {title}
       <RenderDesc />
     </>
-  )
+  );
 };
 
 export const getTooltip = (schema: any, displayType: string) => {
@@ -95,8 +89,8 @@ export const getTooltip = (schema: any, displayType: string) => {
 
   if (displayType === 'column' && descType === 'icon') {
     return {
-      title: description
-    }
+      title: description,
+    };
   }
 
   return null;

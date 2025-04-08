@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+'use client';
+import { useContext } from 'react';
 import { Button, message, Upload, ConfigProvider } from 'antd';
 import { ButtonProps } from 'antd/es/button';
 import { UploadOutlined } from '@ant-design/icons';

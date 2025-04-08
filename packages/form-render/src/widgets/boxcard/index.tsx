@@ -1,10 +1,9 @@
-import React from 'react';
 import { Card } from 'antd';
 import BoxPanel from '../components/PanelView';
 
 import './index.css';
 
-const BoxCard = ({ children, title, description }) => {
+const BoxCard = ({ children, title, description }: any) => {
   if (!title) {
     return <BoxPanel>{children}</BoxPanel>;
   }

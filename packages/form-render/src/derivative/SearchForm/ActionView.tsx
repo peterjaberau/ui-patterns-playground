@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Button, Space, ConfigProvider } from 'antd';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { translation } from '../../utils';
@@ -15,6 +15,7 @@ const ActionView = (props: any) => {
     searchText,
     resetText,
     hasCollapse,
+    // @ts-ignore
     setLimitHeight,
     setExpand,
     isExpand,

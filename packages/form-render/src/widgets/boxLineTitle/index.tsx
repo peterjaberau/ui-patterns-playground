@@ -1,9 +1,7 @@
-import React from 'react';
-import HeaderTitle from '../components/HeaderTitle';
 import PanelView from '../components/PanelView';
 import './index.css';
 
-const FLineTitle = ({ children, title, description }) => {
+const FLineTitle = ({ children, title, description }: any) => {
   if (!title) {
     return <PanelView>{children}</PanelView>;
   }

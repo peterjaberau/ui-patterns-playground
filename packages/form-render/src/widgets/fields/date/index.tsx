@@ -1,17 +1,15 @@
-
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import dayjs from 'dayjs';
 import quarterOfYear from 'dayjs/plugin/quarterOfYear';
 import { getFormat, transformDateValue } from '../../utils';
 import DatePicker from '../../components/DatePicker';
 import withFieldWrap from '../../utils/withFieldWrap';
 
-
 dayjs.extend(quarterOfYear);
 
-const DateCmpt = ({ onChange, format, value, style, ...rest }) => {
+const DateCmpt = ({ onChange, format, value, style, ...rest }: any) => {
   const dateFormat = getFormat(format);
-  
+
   const valueObj = useMemo(() => {
     return transformDateValue(value, format, dateFormat);
   }, [value]);

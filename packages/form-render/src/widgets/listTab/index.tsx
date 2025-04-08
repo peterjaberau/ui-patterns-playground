@@ -1,9 +1,9 @@
-import React, { useState, useContext, useMemo, useEffect } from 'react';
+'use client';
+import { useState, useContext, useMemo, useEffect } from 'react';
 import { Popconfirm, Tabs, ConfigProvider } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import type { FormListFieldData } from 'antd';
 import { translation } from '../utils';
-import './index.css';
 
 interface ListTabProps {
   fields: FormListFieldData[];

@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+'use client';
+import { useState, useRef } from 'react';
 import { Popover } from 'antd';
 
 const VirtualCell = (props: any) => {
@@ -10,7 +11,7 @@ const VirtualCell = (props: any) => {
   const onStatusChange = (_: any, errors: any[]) => {
     const message = errors[0] || null;
     setErrorMsg(message);
-   
+
     if (mouseRef.current && message) {
       setVisible(true);
     }
@@ -19,19 +20,19 @@ const VirtualCell = (props: any) => {
   if (!schema.properties[dataIndex].onStatusChange) {
     schema.properties[dataIndex].onStatusChange = onStatusChange;
   }
-  
+
   const popoverVisible = visible && errorMsg;
   let popoverProps: any = {
-    open: popoverVisible
+    open: popoverVisible,
   };
   if ((window as any).antdVersion === 'v4') {
     popoverProps = {
-      visible: popoverVisible
+      visible: popoverVisible,
     };
   }
 
   return (
-    <div 
+    <div
       onMouseEnter={() => {
         mouseRef.current = true;
         setVisible(true);
@@ -41,12 +42,7 @@ const VirtualCell = (props: any) => {
         setVisible(false);
       }}
     >
-      <Popover
-        overlayClassName='fr-popover-error'
-        content={errorMsg}
-        placement='topRight'
-        {...popoverProps}
-      >
+      <Popover overlayClassName="fr-popover-error" content={errorMsg} placement="topRight" {...popoverProps}>
         {renderCore({ ...otherProps, schema })}
       </Popover>
     </div>

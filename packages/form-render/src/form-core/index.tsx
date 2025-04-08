@@ -1,3 +1,4 @@
+'use client';
 import '@ant-design/v5-patch-for-react-19';
 import { useEffect, useContext, FC } from 'react';
 import { Form, Row, Col, Button, Space, ConfigProvider } from 'antd';
@@ -56,20 +57,25 @@ const FormCore: FC<FRProps> = (props) => {
     antdVersion,
   } = transformProps({ ...props, ...schemProps });
 
+  console.log('✅ form-render.form-core before __initStore');
   useEffect(() => {
     form.__initStore(store);
     setTimeout(initial, 0);
     (window as any).antdVersion = antdVersion;
   }, []);
+  console.log('✅ form-render.form-core after __initStore');
 
+  console.log('✅ form-render.form-core before setSchema');
   useEffect(() => {
     form.setSchema(props.schema, true);
   }, [JSON.stringify(props.schema || {})]);
+  console.log('✅ form-render.form-core before after');
 
   useEffect(() => {
     store.setState({ removeHiddenData });
   }, [removeHiddenData]);
 
+  console.log('✅ form-render.form-core before setContext');
   useEffect(() => {
     const context = {
       column,
@@ -84,6 +90,7 @@ const FormCore: FC<FRProps> = (props) => {
     };
     setContext(context);
   }, [column, labelCol, fieldCol, displayType, labelWidth, maxWidth, readOnly, disabled, validateTrigger]);
+  console.log('✅ form-render.form-core after setContext');
 
   const initial = async () => {
     onMount && (await onMount());

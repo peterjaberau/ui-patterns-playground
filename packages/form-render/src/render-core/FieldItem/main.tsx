@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useRef, useEffect } from 'react';
+'use client';
+import { createContext, useContext, useRef, useEffect } from 'react';
 import { Form, Col, Row } from 'antd';
 import { useStore } from 'zustand';
 import classnames from 'classnames';
@@ -9,27 +10,16 @@ import { getFormItemLayout } from '../../models/layout';
 import getRuleList from '../../models/validates';
 
 const UpperContext: any = createContext(() => {});
-const valuePropNameMap = {
+const valuePropNameMap: any = {
   checkbox: 'checked',
   switch: 'checked',
   Checkbox: 'checked',
-  Switch: 'checked'
+  Switch: 'checked',
 };
 
-import {
-  FieldWrapper,
-  FieldWrapperStatus
-} from './field';
+import { FieldWrapper, FieldWrapperStatus } from './field';
 
-import {
-  getParamValue,
-  getFieldProps,
-  getPath,
-  getLabel,
-  getColSpan,
-  getExtraView,
-  getTooltip
-} from './module';
+import { getParamValue, getFieldProps, getPath, getLabel, getColSpan, getExtraView, getTooltip } from './module';
 
 export default (props: any) => {
   const { configCtx, store, schema, path, children, dependValues, rootPath } = props;
@@ -64,7 +54,7 @@ export default (props: any) => {
     globalProps,
     path: getPath(path),
     rootPath,
-    fieldRef
+    fieldRef,
   });
 
   useEffect(() => {
@@ -84,7 +74,7 @@ export default (props: any) => {
   if (schema.type === 'void') {
     return (
       <Col span={24}>
-        <Widget {...fieldProps } />
+        <Widget {...fieldProps} />
       </Col>
     );
   }
@@ -101,23 +91,17 @@ export default (props: any) => {
 
   // Render Container Components
   if (children) {
-    let childElement = (
-      <div className='fr-inline-container'>
-        {children}
-      </div>
-    );
+    let childElement = <div className="fr-inline-container">{children}</div>;
 
     if (!inlineChild) {
-      const gutter = { row: 16, column: 24 }[displayType];
-      childElement = (
-        <Row gutter={gutter}>
-          {children}
-        </Row>
-      );
+      const gutter = ({ row: 16, column: 24 } as any)[displayType];
+      childElement = <Row gutter={gutter}>{children}</Row>;
     }
 
     fieldProps.children = childElement;
-    const content = <Widget labelWidth={labelWidth} displayType={schema.displayType} {...fieldProps} {...otherSchema} />;
+    const content = (
+      <Widget labelWidth={labelWidth} displayType={schema.displayType} {...fieldProps} {...otherSchema} />
+    );
 
     return (
       <UpperContext.Provider
@@ -131,7 +115,13 @@ export default (props: any) => {
           exist: true,
         }}
       >
-        {inlineSelf ? content : <Col span={24} className={classnames('fr-obj-col', { [schema.className] : !!schema.className })}>{content}</Col>}
+        {inlineSelf ? (
+          content
+        ) : (
+          <Col span={24} className={classnames('fr-obj-col', { [schema.className]: !!schema.className })}>
+            {content}
+          </Col>
+        )}
       </UpperContext.Provider>
     );
   }
@@ -154,7 +144,12 @@ export default (props: any) => {
   const _labelCol = getValueFromKey('labelCol');
   const _fieldCol = getValueFromKey('fieldCol');
   const maxWidth = getValueFromKey('maxWidth');
-  const { labelCol, fieldCol } = getFormItemLayout(Math.floor(24 / span * 1), schema, { displayType, labelWidth, _labelCol, _fieldCol });
+  const { labelCol, fieldCol } = getFormItemLayout(Math.floor((24 / span) * 1), schema, {
+    displayType,
+    labelWidth,
+    _labelCol,
+    _fieldCol,
+  });
   const valuePropName = schema.valuePropName || valuePropNameMap[widgetName] || undefined;
 
   if (readOnly) {
@@ -184,7 +179,12 @@ export default (props: any) => {
   }
 
   const initialValue = schema.default ?? schema.defaultValue;
-  const classRest = { 'fr-hide-label': label === 'fr-hide-label', 'fr-inline-field': inlineSelf, 'fr-field-visibility': !visible, [schema.className] : !! schema.className };
+  const classRest = {
+    'fr-hide-label': label === 'fr-hide-label',
+    'fr-inline-field': inlineSelf,
+    'fr-field-visibility': !visible,
+    [schema.className]: !!schema.className,
+  };
 
   const formItem = (
     <Form.Item
@@ -202,7 +202,7 @@ export default (props: any) => {
       wrapperCol={fieldCol}
       noStyle={noStyle}
       dependencies={dependencies}
-      validateTrigger={ validateTrigger ?? (fieldRef?.current?.validator ? 'onSubmit' : 'onChange') }
+      validateTrigger={validateTrigger ?? (fieldRef?.current?.validator ? 'onSubmit' : 'onChange')}
     >
       {fieldProps.onStatusChange ? (
         <FieldWrapperStatus
@@ -228,7 +228,10 @@ export default (props: any) => {
     if (noStyle) {
       return (
         <div
-          className={classnames('fr-inline-field', { 'fr-field-visibility': !visible, [schema.className] : !! schema.className })}
+          className={classnames('fr-inline-field', {
+            'fr-field-visibility': !visible,
+            [schema.className]: !!schema.className,
+          })}
         >
           {formItem}
         </div>
@@ -238,11 +241,8 @@ export default (props: any) => {
   }
 
   return (
-    <Col
-      span={span}
-      className={classnames(null, { 'fr-field-visibility': !visible })}
-    >
+    <Col span={span} className={classnames(null, { 'fr-field-visibility': !visible })}>
       {formItem}
     </Col>
   );
-}
+};

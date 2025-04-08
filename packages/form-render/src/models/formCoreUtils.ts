@@ -18,15 +18,14 @@ const executeCallBack = (watchItem: any, value: any, path: string, index?: any) 
   }
 };
 
-const traverseValues = ({ changedValues, allValues, flatValues }) => {
-
+const traverseValues = ({ changedValues, allValues, flatValues }: any) => {
   const traverseArray = (list: any[], fullList: any, path: string, index: number[]) => {
     if (!list.length) {
-      return
+      return;
     }
 
-    const _path = path += '[]';
-    const filterLength = list.filter(item => (item || item === undefined)).length;
+    const _path = (path += '[]');
+    const filterLength = list.filter((item) => item || item === undefined).length;
 
     let flag = filterLength !== fullList.length || list.length === 1;
     let isRemove = false;
@@ -37,7 +36,7 @@ const traverseValues = ({ changedValues, allValues, flatValues }) => {
 
     list.forEach((item: any, idx: number) => {
       if (!isRemove) {
-        flatValues[_path] =  { value: fullList[idx], index };
+        flatValues[_path] = { value: fullList[idx], index };
       }
       if (isObject(item)) {
         traverseObj(item, fullList[idx], _path, [...index, idx], !flag);
@@ -54,7 +53,7 @@ const traverseValues = ({ changedValues, allValues, flatValues }) => {
       const fullItem = fullObj?.[key];
       let value = item;
 
-      const _path = path ? (path + '.' + key) : key;
+      const _path = path ? path + '.' + key : key;
 
       let last = true;
 
@@ -70,12 +69,12 @@ const traverseValues = ({ changedValues, allValues, flatValues }) => {
       }
 
       if (!last || !flag) {
-        flatValues[_path] =  { value, index };
+        flatValues[_path] = { value, index };
       }
     });
   };
 
-  traverseObj(changedValues, allValues, null, []);
+  traverseObj(changedValues, allValues, null as any, []);
 };
 
 export const valuesWatch = (changedValues: any, allValues: any, watch: any) => {
@@ -84,18 +83,18 @@ export const valuesWatch = (changedValues: any, allValues: any, watch: any) => {
   }
 
   const flatValues = {
-    '#': { value: allValues, index: changedValues }
+    '#': { value: allValues, index: changedValues },
   };
 
   traverseValues({ changedValues, allValues, flatValues });
 
-  Object.keys(watch).forEach(path => {
+  Object.keys(watch).forEach((path) => {
     if (!_has(flatValues, path)) {
       return;
     }
-    const { value, index } = _get(flatValues, path) as { value: any; index: any; };
+    const { value, index } = _get(flatValues, path) as { value: any; index: any };
     const item = watch[path];
-    executeCallBack(item, value, path, index)
+    executeCallBack(item, value, path, index);
   });
 };
 
@@ -117,8 +116,8 @@ export const immediateWatch = (watch: any, values: any) => {
     return;
   }
 
-  const watchObj = {};
-  Object.keys(watch).forEach(key => {
+  const watchObj: any = {};
+  Object.keys(watch).forEach((key) => {
     const watchItem = watch[key];
     if (watchItem?.immediate && isFunction(watchItem?.handler)) {
       watchObj[key] = watchItem;
@@ -134,7 +133,7 @@ export const getSchemaFullPath = (path: string, schema: any) => {
   }
 
   //Complete list type path path
-  while(path.includes('[]')) {
+  while (path.includes('[]')) {
     const index = path.indexOf('[]');
     path = path.substring(0, index) + '.items' + path.substring(index + 2);
   }
@@ -145,9 +144,9 @@ export const getSchemaFullPath = (path: string, schema: any) => {
   pathList.forEach((item, index) => {
     const key = result + '.' + item;
     const itemSchema = _get(schema, key, {});
-    if (isObjType(itemSchema) && index !== pathList.length-1) {
+    if (isObjType(itemSchema) && index !== pathList.length - 1) {
       result = key + '.properties';
-      return ;
+      return;
     }
     result = key;
   });
@@ -155,9 +154,9 @@ export const getSchemaFullPath = (path: string, schema: any) => {
   return result;
 };
 
-export function yymmdd(timeStamp) {
+export function yymmdd(timeStamp: any) {
   const date_ob = new Date(Number(timeStamp));
-  const adjustZero = num => ('0' + num).slice(-2);
+  const adjustZero = (num: any) => ('0' + num).slice(-2);
   let day = adjustZero(date_ob.getDate());
   let month = adjustZero(date_ob.getMonth());
   let year = date_ob.getFullYear();
@@ -167,7 +166,7 @@ export function yymmdd(timeStamp) {
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
-export function msToTime(duration) {
+export function msToTime(duration: any) {
   let seconds: any = Math.floor((duration / 1000) % 60);
   let minutes: any = Math.floor((duration / (1000 * 60)) % 60);
   let hours: any = Math.floor((duration / (1000 * 60 * 60)) % 24);
@@ -180,8 +179,8 @@ export function msToTime(duration) {
 
 export const getSessionItem = (key: string) => {
   return Number(sessionStorage.getItem(key) || 0);
-}
+};
 
 export const setSessionItem = (key: string, data: any) => {
-  sessionStorage.setItem(key, data +'');
-}
+  sessionStorage.setItem(key, data + '');
+};

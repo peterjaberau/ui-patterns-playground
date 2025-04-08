@@ -1,6 +1,3 @@
-import React from 'react';
-import './index.css';
-
 const HeaderTitle = (props: any) => {
   const { title, description } = props;
 

@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+'use client';
+import { useState, useRef } from 'react';
 import { Space, Table, Form, Button, Popconfirm, Tooltip, Divider, Collapse } from 'antd';
 import {
   ArrowDownOutlined,
@@ -8,7 +9,7 @@ import {
   CloseOutlined,
   CopyOutlined,
 } from '@ant-design/icons';
-import type { FormListFieldData, FormListOperation, TableColumnsType } from 'antd';
+import type { FormListFieldData, FormListOperation } from 'antd';
 import sortProperties from '../../models/sortProperties';
 import FormDrawer from './drawerForm';
 import FButton from '../components/FButton';
@@ -134,7 +135,7 @@ const TableList: React.FC<Props> = (props: any) => {
             )}
           </>
         ),
-        render: (_, field) => {
+        render: (_: any, field: any) => {
           const fieldSchema = {
             type: 'object',
             properties: {
@@ -187,7 +188,7 @@ const TableList: React.FC<Props> = (props: any) => {
       width: '190px',
       fixed: 'right',
       ...otherActionColumnProps,
-      render: (_, field) => (
+      render: (_: any, field: any) => (
         <Form.Item>
           <Space className="fr-list-item-operate" split={operateBtnType !== 'icon' && <Divider type="vertical" />}>
             {!hideMove && (
@@ -235,10 +236,11 @@ const TableList: React.FC<Props> = (props: any) => {
     const path = [...rootPath, drawerIndex]?.join('.');
     form
       .validateFields([path], { recursive: true })
-      .then((res) => {
+      // @ts-ignore
+      .then((res: any) => {
         handleCloseDrawer();
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.log('Form validation error', error);
       });
   };

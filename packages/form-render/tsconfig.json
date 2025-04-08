@@ -6,7 +6,6 @@
     "declaration": true,
     "paths": {
       "@/*": ["./src/*"],
-      "form-render": ["./dist/*"]
     }
   },
   "noImplicitAny": false,
@@ -16,7 +15,6 @@
   "moduleResolution": "node",
   "skipLibCheck": true,
 
-  "types": ["typing.d.ts"],
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,12 +1,7 @@
 import { get, set, unset } from 'lodash-es';
-import {
-  _cloneDeep,
-  isArray,
-  isObject,
-  safeGet
-} from '../utils/index';
+import { _cloneDeep, isArray, isObject, safeGet } from '../utils/index';
 
-const isMultiBind = (array: string[]) => isArray(array) && array.every(item => typeof item === 'string');
+const isMultiBind = (array: string[]) => isArray(array) && array.every((item) => typeof item === 'string');
 
 // Need to consider list nested controls
 const transformPath = (path: string) => {
@@ -19,7 +14,7 @@ const transformPath = (path: string) => {
       return;
     }
     result.push(str.substring(0, index));
-    recursion(str.substring(index+3))
+    recursion(str.substring(index + 3));
   };
 
   recursion(path);
@@ -59,7 +54,7 @@ const transformValueToBind = (data: any, path: any, bind: false | string | strin
       });
     }
   }
-}
+};
 
 const transformBindToValue = (data: any, path: any, bind: any) => {
   if (typeof bind === 'string') {
@@ -75,8 +70,8 @@ const transformBindToValue = (data: any, path: any, bind: any) => {
 
   // The array is converted to multiple fields.
   if (isMultiBind(bind)) {
-    const value = [];
-    bind.forEach(key => {
+    const value: any = [];
+    bind.forEach((key: any) => {
       const bindValue = get(data, key);
       // if (bindValue != undefined) {
       //   value.push(bindValue);
@@ -89,8 +84,7 @@ const transformBindToValue = (data: any, path: any, bind: any) => {
       set(data, path, value);
     }
   }
-}
-
+};
 
 export const parseValuesToBind = (values: any, flatten: any) => {
   // No bind field exists, no processing
@@ -102,7 +96,7 @@ export const parseValuesToBind = (values: any, flatten: any) => {
 
   const dealFieldList = (obj: any, [path, ...rest]: any, bind: any) => {
     if (rest.length === 1) {
-      const list = get(obj, path, [])||[];
+      const list = get(obj, path, []) || [];
       list.forEach((item: any, index: number) => {
         const value = get(item, rest[0]);
         if (bind === 'root') {
@@ -121,7 +115,7 @@ export const parseValuesToBind = (values: any, flatten: any) => {
     }
   };
 
-  Object.keys(flatten).forEach(key => {
+  Object.keys(flatten).forEach((key) => {
     const bind = flatten[key]?.schema?.bind;
     if (bind === undefined) {
       return;
@@ -144,7 +138,7 @@ export const parseBindToValues = (values: any, flatten: any) => {
       const list = safeGet(obj, path, []);
       list.forEach((item: any, index: number) => {
         if (bind === 'root') {
-          list[index] = { [rest[0]] : item };
+          list[index] = { [rest[0]]: item };
           return;
         }
         transformBindToValue(item, rest[0], bind);
@@ -159,7 +153,7 @@ export const parseBindToValues = (values: any, flatten: any) => {
     }
   };
 
-  Object.keys(flatten).forEach(key => {
+  Object.keys(flatten).forEach((key) => {
     const bind = flatten[key]?.schema?.bind;
     if (bind === undefined) {
       return;
@@ -171,4 +165,3 @@ export const parseBindToValues = (values: any, flatten: any) => {
 
   return data;
 };
-

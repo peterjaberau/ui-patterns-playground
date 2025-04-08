@@ -398,7 +398,7 @@ export interface FRProps extends Omit<AntdFormProps, 'form'> {
   footer?: boolean | ((dom: React.JSX.Element[]) => React.ReactNode) | Partial<ActionProps>;
 }
 
-export interface SearchProps<RecordType> extends Omit<FRProps, 'form'> {
+export interface SearchProps extends Omit<FRProps, 'form'> {
   debug?: boolean;
   searchBtnStyle?: React.CSSProperties;
   searchBtnClassName?: string;

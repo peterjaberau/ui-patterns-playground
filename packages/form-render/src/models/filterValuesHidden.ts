@@ -5,11 +5,12 @@ const transformHidden = (str: any, formData = {}, parentData = {}) => {
     return !!str;
   }
 
-  const funcBody = str.replace(/^{\s*{/g, '').replace(/}\s*}$/g, '').trim();
+  const funcBody = str
+    .replace(/^{\s*{/g, '')
+    .replace(/}\s*}$/g, '')
+    .trim();
   const funcStr = `
-    return ${funcBody
-    .replace(/formData/g, JSON.stringify(formData))
-    .replace(/rootValue/g, JSON.stringify(parentData))}
+    return ${funcBody.replace(/formData/g, JSON.stringify(formData)).replace(/rootValue/g, JSON.stringify(parentData))}
   `;
   try {
     const result = Function(funcStr)();
@@ -22,10 +23,9 @@ const transformHidden = (str: any, formData = {}, parentData = {}) => {
 /**
  * Filter the value of field.schema.hidden = true
  */
-export default (_values: any, flattenSchema: object) => {
-
+export default (_values: any, flattenSchema: object | any) => {
   const recursiveArray = (list: any[], _path: string) => {
-    return list.map(item => {
+    return list.map((item) => {
       if (isObject(item)) {
         return recursiveObj(item, _path, item);
       }
@@ -34,7 +34,6 @@ export default (_values: any, flattenSchema: object) => {
   };
 
   const recursiveObj = (obj: any, prePath?: string, parentData?: any) => {
-
     for (let key of Object.keys(obj)) {
       const item = obj[key];
       let path = prePath ? `${prePath}.${key}` : key;
@@ -71,4 +70,4 @@ export default (_values: any, flattenSchema: object) => {
   };
 
   return recursiveObj(_values) || {};
-}
+};

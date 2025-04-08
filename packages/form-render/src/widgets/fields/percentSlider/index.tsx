@@ -36,8 +36,7 @@ const PercentSlider: React.FC<Props> = (p) => {
     hideNumber = true;
   }
 
-  const isPercent = (string: string): boolean =>
-    typeof string === 'string' && string.endsWith('%');
+  const isPercent = (string: string): boolean => typeof string === 'string' && string.endsWith('%');
 
   let numberValue = 100;
   if (isPercent(p.value)) {
@@ -53,9 +52,7 @@ const PercentSlider: React.FC<Props> = (p) => {
   };
 
   const renderNumber = p.readonly ? (
-    <span style={{ width: '80px' }}>
-      {p.value === undefined || '' ? '-' : p.value + '%'}
-    </span>
+    <span style={{ width: '80px' }}>{p.value === undefined || '' ? '-' : p.value + '%'}</span>
   ) : (
     <InputNumber
       {...p.options}
@@ -63,9 +60,10 @@ const PercentSlider: React.FC<Props> = (p) => {
       style={{ width: '80px' }}
       value={numberValue}
       disabled={p.disabled}
+      // @ts-ignore
       onChange={handleChange}
       formatter={(value) => `${value}%`}
-      parser={(value) => Number(value.replace('%', ''))}
+      parser={(value: any) => Number(value.replace('%', ''))}
     />
   );
 
@@ -86,4 +84,3 @@ const PercentSlider: React.FC<Props> = (p) => {
 };
 
 export default PercentSlider;
-

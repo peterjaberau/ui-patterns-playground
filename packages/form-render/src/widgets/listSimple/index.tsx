@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Space, Popconfirm, Divider } from 'antd';
 import { PlusOutlined, CloseOutlined, ArrowUpOutlined, ArrowDownOutlined, CopyOutlined } from '@ant-design/icons';
 import classnames from 'classnames';
@@ -63,7 +62,7 @@ const SimpleList = (props: any) => {
         'fr-list-simple-column': isColumm,
       })}
     >
-      {fields.map(({ key, name }) => {
+      {fields.map(({ key, name }: any) => {
         const length = fields.length;
         return (
           <div key={key} className="fr-list-item">

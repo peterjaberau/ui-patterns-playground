@@ -1,4 +1,6 @@
-import React, { useState, FC } from 'react';
+'use client';
+
+import { useState, FC } from 'react';
 import { Collapse } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import './index.css';
@@ -35,7 +37,7 @@ const BoxCollapse: FC<IProps> = (props) => {
     </>
   );
 
-  const renderExpandIcon = ({ isActive }: any): JSX.Element => {
+  const renderExpandIcon = ({ isActive }: any): any => {
     return (
       <div className="expand-icon-box">
         <DownOutlined rotate={isActive ? 0 : -90} style={{ fontSize: '16px' }} />

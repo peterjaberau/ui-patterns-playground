@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+'use client';
+import { useContext } from 'react';
 import { Form } from 'antd';
 
 import { _get } from '../../utils';
@@ -21,41 +22,38 @@ export default (props: any) => {
   const dependencies = schema?.dependencies;
 
   // No function expressions exist
-  if ((!isHasExpression(schema) && !mustacheDisabled) && (!dependencies || !dependencies?.length)) {
+  if (!isHasExpression(schema) && !mustacheDisabled && (!dependencies || !dependencies?.length)) {
     return <Main {...props} store={store} configCtx={configCtx} />;
   }
 
   const schemaStr = JSON.stringify(schema);
   // Need to listen to form values for dynamic rendering
   return (
-    <Form.Item
-      noStyle
-      shouldUpdate={fieldShouldUpdate(schemaStr, rootPath, dependencies, shouldUpdateOpen)}
-    >
+    <Form.Item noStyle shouldUpdate={fieldShouldUpdate(schemaStr, rootPath, dependencies, shouldUpdateOpen)}>
       {(form: any) => {
         const formData = form.getFieldsValue(true);
         const formDependencies: any[] = [];
         const dependValues = (dependencies || []).map((depPath: string) => {
-          const item:any[] = [];
+          const item: any[] = [];
           formDependencies.push(item);
           return getDependValues(formData, depPath, props, item);
         });
         const newSchema = mustacheDisabled ? schema : parseAllExpression(schema, formData, rootPath, formSchema);
 
         return (
-          <Main 
+          <Main
             schema={{
               ...newSchema,
-              dependencies: formDependencies
-            }} 
-            rootPath={rootPath} 
+              dependencies: formDependencies,
+            }}
+            rootPath={rootPath}
             {...restProps}
-            dependValues={dependValues} 
-            store={store} 
-            configCtx={configCtx} 
+            dependValues={dependValues}
+            store={store}
+            configCtx={configCtx}
           />
         );
       }}
     </Form.Item>
   );
-}
+};

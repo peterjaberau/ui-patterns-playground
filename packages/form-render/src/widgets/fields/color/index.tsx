@@ -1,5 +1,3 @@
-'use client';
-
 import { Input } from 'antd';
 import ColorPicker from '@rc-component/color-picker';
 import alphaHexMap from './alphahexMap';

@@ -1,4 +1,6 @@
-import React, { useContext, useMemo, useRef } from 'react';
+'use client';
+
+import { useContext, useMemo, useRef } from 'react';
 import { Col, ConfigProvider } from 'antd';
 import { useUpdateEffect, useMount, useSetState } from 'ahooks';
 import classnames from 'classnames';
@@ -30,9 +32,8 @@ import {
   PercentSlider,
 } from '../../widgets';
 import './index.css';
-import { SearchProps } from '../../type';
 
-const getIsColumn = (isColumn: boolean, obj: object, column: number) => {
+const getIsColumn = (isColumn: boolean, obj: object | any, column: number) => {
   let count = 0;
   Object.keys(obj || {}).forEach((key) => {
     const item = obj[key];
@@ -43,7 +44,7 @@ const getIsColumn = (isColumn: boolean, obj: object, column: number) => {
   return isColumn && count % column !== 0;
 };
 
-const SearchForm: <RecordType extends object = any>(props: SearchProps<RecordType>) => React.ReactElement = (props) => {
+const SearchForm: any = (props: any) => {
   if (props.hidden) {
     return null;
   }
@@ -84,9 +85,9 @@ const SearchForm: <RecordType extends object = any>(props: SearchProps<RecordTyp
   const containerRef = useRef<any>(null);
 
   const [state, setState] = useSetState({
-    hasCollapse: false, // 是否有折叠
-    isExpand: !defaultCollapsed, // 折叠展开状态
-    column: schema.column || _column, // 一行几列
+    hasCollapse: false, // Is there any fold
+    isExpand: !defaultCollapsed, // Collapsed and expand state
+    column: schema.column || _column, // Several columns in a row
   });
   const { hasCollapse, isExpand, column } = state;
 
@@ -149,7 +150,7 @@ const SearchForm: <RecordType extends object = any>(props: SearchProps<RecordTyp
     if (!collapsed) {
       return schema?.properties;
     }
-    const result = {};
+    const result: any = {};
     Object.keys(schema?.properties || {}).forEach((key, index) => {
       const item = { ...(schema.properties[key] || {}) };
       if (
@@ -197,7 +198,7 @@ const SearchForm: <RecordType extends object = any>(props: SearchProps<RecordTyp
     onSearch?.(values);
   };
 
-  const handleFinishFailed = ({ values }) => {
+  const handleFinishFailed = ({ values }: any) => {
     if (!searchWithError) {
       return;
     }

@@ -11,7 +11,7 @@ export const isExpression = (str: string) => {
   const pattern = /^{\s*{(.+)}\s*}$/s;
   const reg1 = /^{\s*{function\(.+}\s*}$/;
   return str.match(pattern) && !str.match(reg1);
-}
+};
 
 export const isHasExpression = (schema: any) => {
   const result = Object.keys(schema).some((key: string) => {
@@ -23,7 +23,7 @@ export const isHasExpression = (schema: any) => {
     }
 
     const recursionArray = (list: any[]) => {
-      const result = list.some(ite => {
+      const result = list.some((ite) => {
         if (isArray(ite)) {
           return recursionArray(ite);
         }
@@ -65,11 +65,7 @@ const parseFunc = (funcBody: string) => {
   return result;
 };
 
-export const parseExpression = (
-  func: any,
-  formData = {},
-  parentPath: string | []
-) => {
+export const parseExpression = (func: any, formData = {}, parentPath: string | []) => {
   const parentData = get(formData, parentPath) || {};
 
   if (typeof func === 'string') {
@@ -77,15 +73,14 @@ export const parseExpression = (
       .replace(/^{\s*{/g, '')
       .replace(/}\s*}$/g, '')
       .trim();
-    let isHandleData =
-      funcBody?.startsWith('formData') || funcBody?.startsWith('rootValue');
+    let isHandleData = funcBody?.startsWith('formData') || funcBody?.startsWith('rootValue');
 
     let funcBodyStr = isHandleData ? parseFunc(funcBody) : funcBody;
 
     const funcStr = `
       return ${funcBodyStr
-      .replace(/formData/g, JSON.stringify(formData))
-      .replace(/rootValue/g, JSON.stringify(parentData))}
+        .replace(/formData/g, JSON.stringify(formData))
+        .replace(/rootValue/g, JSON.stringify(parentData))}
     `;
     try {
       const result = Function(funcStr)();
@@ -97,9 +92,9 @@ export const parseExpression = (
   }
 
   return func;
-}
+};
 
-export function getRealDataPath(path) {
+export function getRealDataPath(path: any) {
   if (typeof path !== 'string') {
     throw Error(`id ${path} is not a string!!! Something wrong here`);
   }
@@ -111,7 +106,7 @@ export function getRealDataPath(path) {
   return path.replace(/[$]void_[^.]+./g, '');
 }
 
-export function getValueByPath(formData, path) {
+export function getValueByPath(formData: any, path: any) {
   if (path === '#' || !path) {
     return formData || {};
   } else if (typeof path === 'string') {
@@ -129,8 +124,8 @@ export const parseAllExpression = (_schema: any, _formData: any, dataPath: strin
     formData = createDataSkeleton(formSchema, formData);
   }
 
-  const recursionArray = (list: any[]) => {
-    const result = list.map(item => {
+  const recursionArray: any = (list: any[]) => {
+    const result = list.map((item) => {
       if (isArray(item)) {
         return recursionArray(item);
       }
@@ -145,14 +140,15 @@ export const parseAllExpression = (_schema: any, _formData: any, dataPath: strin
     });
 
     return result;
-  }
+  };
 
-  Object.keys(schema).forEach(key => {
+  Object.keys(schema).forEach((key) => {
     const value = schema[key];
 
     if (isArray(value)) {
       schema[key] = recursionArray(value);
-    } if (isObject(value) && (value.mustacheParse ?? true)) {
+    }
+    if (isObject(value) && (value.mustacheParse ?? true)) {
       schema[key] = parseAllExpression(value, formData, dataPath);
     } else if (isExpression(value)) {
       schema[key] = parseExpression(value, formData, dataPath);

@@ -5,10 +5,11 @@ export default defineConfig((options) => ({
   dts: true,
   entry: ['src/**/*.ts*', '!src/**/*.test.ts*'],
   format: ['cjs', 'esm'],
-  minify: !options.watch,
+  // minify: !options.watch,
+  minify: false,
   plugins: [],
   sourcemap: true,
-  splitting: true,
+  splitting: false,
   silent: true,
   external: ['@rc-component/color-picker'],
 

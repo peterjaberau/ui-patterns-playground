@@ -1,8 +1,5 @@
-/**
- * Updated by Tw93 on 2019-12-08.
- * 日历多选组件
- */
-import React, { useMemo } from 'react';
+'use client';
+import { useMemo } from 'react';
 import dayjs from 'dayjs';
 import quarterOfYear from 'dayjs/plugin/quarterOfYear';
 import DatePicker from '../../components/DatePicker';
@@ -12,7 +9,7 @@ import withFieldWrap from '../../utils/withFieldWrap';
 dayjs.extend(quarterOfYear);
 const { RangePicker } = DatePicker;
 
-const DateRange = ({ onChange, format, value, style, ...rest }) => {
+const DateRange = ({ onChange, format, value, style, ...rest }: any) => {
   const dateFormat = getFormat(format);
 
   const valueObj = useMemo(() => {
@@ -22,14 +19,13 @@ const DateRange = ({ onChange, format, value, style, ...rest }) => {
     return value.map((item: any) => transformDateValue(item, format, dateFormat));
   }, [value]);
 
-
   const handleChange = (val: any[], _stringList: any[]) => {
-    let stringList = _stringList;
+    let stringList: any = _stringList;
     if (['week', 'quarter'].includes(format)) {
       stringList = (val || []).map((item: any) => dayjs(item).format(dateFormat));
     }
 
-    const isPass = stringList.every(item => !!item);
+    const isPass = stringList.every((item: any) => !!item);
 
     if (!isPass) {
       stringList = null;
@@ -44,7 +40,7 @@ const DateRange = ({ onChange, format, value, style, ...rest }) => {
     onChange: handleChange,
   };
 
-  // TODO: format是在options里自定义的情况，是否要判断一下要不要showTime
+  // TODO: format is a custom situation in options. Do you need to judge whether to showTime should be performed?
   if (format === 'dateTime') {
     dateParams.showTime = true;
   }
