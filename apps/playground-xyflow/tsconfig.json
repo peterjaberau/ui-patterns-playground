@@ -31,6 +31,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/context/*": ["./src/context/*"],
+      "@/app/*": ["./src/app/*"],
+      "@/service/*": ["./src/service/*"],
       "@/scripts/*": ["./scripts/*"]
     }
   },
