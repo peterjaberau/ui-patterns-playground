@@ -1,6 +1,6 @@
 export const tmp = ({ url, params }: any) => {
   const payload = {
-    name: "fetchAppList",
+    name: "",
     req: {
       base: "https://cloud.dify.ai/console/api",
       method: "GET",
