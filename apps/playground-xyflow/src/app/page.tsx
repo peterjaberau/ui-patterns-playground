@@ -1,42 +1,18 @@
-'use client';
+import Link from 'next/link'
+import Loading from '@/app/components/base/loading'
 
-import { demos } from '@/lib/demos';
-import { GlobalCard } from '@/ui/global-card';
-import { GlobalPage } from '@/ui/global-page';
-import { GlobalPageSection } from '@/ui/global-page-section';
-import Link from 'next/link';
-import { EuiFlexGrid, EuiFlexItem, EuiPanel } from '@elastic/eui';
-import { useRouter } from 'next/navigation';
-
-export default function Page() {
-  const router = useRouter();
-
+const Home = async () => {
   return (
-    <GlobalPage header={{ pageTitle: 'Examples' }}>
-      <GlobalPageSection grow={false} alignment="top" hasShadow={false} paddingSize="none">
-        <EuiFlexGrid columns={2}>
-          {demos.map((section) => {
-            return (
-              <GlobalPageSection title={<h3>{section.name}</h3>} key={section.name}>
-                <EuiFlexGrid columns={2}>
-                  {section.items.map((item) => {
-                    return (
-                      <GlobalCard
-                        key={item.name}
-                        layout="horizontal"
-                        title={item.name}
-                        onClick={() => router.push(`/${item.slug}`)}
-                      >
-                        {item.description}
-                      </GlobalCard>
-                    );
-                  })}
-                </EuiFlexGrid>
-              </GlobalPageSection>
-            );
-          })}
-        </EuiFlexGrid>
-      </GlobalPageSection>
-    </GlobalPage>
-  );
+    <div className="flex min-h-screen flex-col justify-center py-12 sm:px-6 lg:px-8">
+
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <Loading type='area' />
+        <div className="mt-10 text-center">
+          <Link href='/apps'>🚀</Link>
+        </div>
+      </div>
+    </div>
+  )
 }
+
+export default Home
