@@ -123,3 +123,65 @@ export const fetchAppList = ({ url, params }: any) => {
 
   return payload.res;
 };
+
+export const fetchAppDetail = ({ url, params }: any) => {
+  const payload = {
+    name: "fetchAppDetail",
+    req: {
+      base: "https://cloud.dify.ai/console/api",
+      method: "GET",
+      url: "/apps/{id}",
+      urlFull: "/apps/b03a02b4-588a-4109-a1b4-4c52952c429e",
+      params: { id: "b03a02b4-588a-4109-a1b4-4c52952c429e" },
+    },
+    res: {
+      id: "b03a02b4-588a-4109-a1b4-4c52952c429e",
+      name: "GPT-Researcher EN",
+      description: "",
+      mode: "workflow",
+      icon_type: "emoji",
+      icon: "face_with_monocle",
+      icon_background: "#FFE4E8",
+      icon_url: null,
+      enable_site: true,
+      enable_api: true,
+      model_config: null,
+      workflow: null,
+      site: {
+        access_token: "mhCjunTScVPApOXq",
+        code: "mhCjunTScVPApOXq",
+        title: "GPT-Researcher EN",
+        icon_type: "emoji",
+        icon: "face_with_monocle",
+        icon_background: "#FFE4E8",
+        icon_url: null,
+        description: null,
+        default_language: "en-US",
+        chat_color_theme: null,
+        chat_color_theme_inverted: false,
+        customize_domain: null,
+        copyright: null,
+        privacy_policy: null,
+        custom_disclaimer: "",
+        customize_token_strategy: "not_allow",
+        prompt_public: false,
+        app_base_url: "https://udify.app",
+        show_workflow_steps: true,
+        use_icon_as_answer_icon: false,
+        created_by: "ea3db04e-2aec-4c18-a196-6fbb56ffd2a9",
+        created_at: 1743984090,
+        updated_by: "ea3db04e-2aec-4c18-a196-6fbb56ffd2a9",
+        updated_at: 1743984090,
+      },
+      api_base_url: "https://api.dify.ai/v1",
+      use_icon_as_answer_icon: false,
+      created_by: "ea3db04e-2aec-4c18-a196-6fbb56ffd2a9",
+      created_at: 1743984090,
+      updated_by: "ea3db04e-2aec-4c18-a196-6fbb56ffd2a9",
+      updated_at: 1743984090,
+      deleted_tools: [],
+    },
+  };
+
+  return payload.res;
+};
