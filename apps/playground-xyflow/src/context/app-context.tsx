@@ -128,14 +128,22 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) =>
     [currentWorkspace.role]
   );
   const updateUserProfileAndVersion: any = useCallback(async () => {
+    console.log("userProfileResponse", userProfileResponse);
+
     if (userProfileResponse && !userProfileResponse.bodyUsed) {
-      const result = await userProfileResponse.json();
+      // const result = await userProfileResponse.json();
+      const result = await userProfileResponse;
       setUserProfile(result);
-      const current_version: any = userProfileResponse.headers.get("x-version");
-      const current_env =
-        process.env.NODE_ENV === "development" ? "DEVELOPMENT" : userProfileResponse.headers.get("x-env");
-      const versionData = await fetchLanggeniusVersion({ url: "/version", params: { current_version } });
+      const current_version: any = "1.1.3";
+      // const current_env =
+      //   process.env.NODE_ENV === "development" ? "DEVELOPMENT" : userProfileResponse.headers.get("x-env");
+      const current_env = "DEVELOPMENT";
+      const versionData = await fetchLanggeniusVersion({ url: "/version", params: {} });
       setLangeniusVersionInfo({ ...versionData, current_version, latest_version: versionData.version, current_env });
+      //
+      // console.log("versionData", versionData);
+      //
+      // setLangeniusVersionInfo({ ...versionData, current_version, latest_version: versionData.version, current_env });
     }
   }, [userProfileResponse]);
 

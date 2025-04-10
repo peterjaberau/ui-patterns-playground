@@ -15,9 +15,9 @@ import { NEED_REFRESH_APP_LIST_KEY } from "@/config";
 import TabSliderNew from "@/app/components/base/tab-slider-new";
 import { useTabSearchParams } from "@/hooks/use-tab-searchparams";
 import Input from "@/app/components/base/input";
-import { useStore as useTagStore } from "@/app/components/base/tag-management/store";
-import TagManagementModal from "@/app/components/base/tag-management";
-import TagFilter from "@/app/components/base/tag-management/filter";
+// import { useStore as useTagStore } from "@/app/components/base/tag-management/store";
+// import TagManagementModal from "@/app/components/base/tag-management";
+// import TagFilter from "@/app/components/base/tag-management/filter";
 
 const getKey = (
   pageIndex: number,
@@ -47,7 +47,7 @@ const Apps = () => {
   const { t } = useTranslation();
   const router = useRouter();
   const { isCurrentWorkspaceEditor, isCurrentWorkspaceDatasetOperator } = useAppContext();
-  const showTagManagementModal = useTagStore((s) => s.showTagManagementModal);
+  // const showTagManagementModal = useTagStore((s) => s.showTagManagementModal);
   const [activeTab, setActiveTab] = useTabSearchParams({
     defaultTab: "all",
   });
@@ -151,13 +151,7 @@ const Apps = () => {
       <div className="sticky top-0 z-10 flex flex-wrap items-center justify-between gap-y-2 bg-background-body px-12 pb-2 pt-4 leading-[56px]">
         <TabSliderNew value={activeTab} onChange={setActiveTab} options={options} />
         <div className="flex items-center gap-2">
-          <CheckboxWithLabel
-            className="mr-2"
-            label={"SHOW MY CREATED APPS ONLY"}
-            isChecked={isCreatedByMe}
-            onChange={handleCreatedByMeChange}
-          />
-          <TagFilter type="app" value={tagFilterValue} onChange={handleTagsChange} />
+          {/* <TagFilter type="app" value={tagFilterValue} onChange={handleTagsChange} /> */}
           <Input
             showLeftIcon
             showClearIcon
@@ -171,19 +165,19 @@ const Apps = () => {
       {data && data[0].total > 0 ? (
         <div className="relative grid grow grid-cols-1 content-start gap-4 px-12 pt-2 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5 2k:grid-cols-6">
           {/* {isCurrentWorkspaceEditor && <NewAppCard onSuccess={mutate} />} */}
-          {data.map(({ data: apps }) => apps.map((app) => <AppCard key={app.id} app={app} onRefresh={mutate} />))}
+          {data.map(({ data: apps }) =>
+            apps.map((app) => <AppCard key={app.id} app={app as any} onRefresh={mutate} />)
+          )}
         </div>
       ) : (
         <div className="relative grid grow grid-cols-1 content-start gap-4 overflow-hidden px-12 pt-2 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5 2k:grid-cols-6">
-          {isCurrentWorkspaceEditor && <NewAppCard className="z-10" onSuccess={mutate} />}
           <NoAppsFound />
         </div>
       )}
-      <CheckModal />
       <div ref={anchorRef} className="h-0">
         {" "}
       </div>
-      {showTagManagementModal && <TagManagementModal type="app" show={showTagManagementModal} />}
+      {/* {showTagManagementModal && <TagManagementModal type="app" show={showTagManagementModal} />} */}
     </>
   );
 };

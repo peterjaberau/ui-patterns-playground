@@ -11,7 +11,6 @@ import { ModalContextProvider } from "@/context/modal-context";
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <GA gaType={GaType.admin} />
       <SwrInitor>
         <AppContextProvider>
           <EventEmitterContextProvider>

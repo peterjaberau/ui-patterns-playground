@@ -105,6 +105,8 @@ export const fetchUserProfile = ({ url, params }: any) => {
     },
   };
 
+  console.log("fetchUserProfile", payload);
+
   return payload.res;
 };
 

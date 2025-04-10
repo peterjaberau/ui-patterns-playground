@@ -19,8 +19,8 @@ import Divider from "@/app/components/base/divider";
 import { getRedirection } from "@/utils/app-redirection";
 import { useProviderContext } from "@/context/provider-context";
 import { NEED_REFRESH_APP_LIST_KEY } from "@/config";
-import type { Tag } from "@/app/components/base/tag-management/constant";
-import TagSelector from "@/app/components/base/tag-management/selector";
+// import type { Tag } from "@/app/components/base/tag-management/constant";
+// import TagSelector from "@/app/components/base/tag-management/selector";
 import type { EnvironmentVariable } from "@/types/components/workflow/types";
 import { fetchWorkflowDraft } from "@/service/.mock-api/workflow";
 import { fetchInstalledAppList } from "@/service/.mock-api/explore";
@@ -108,10 +108,8 @@ const AppCard = ({ app, onRefresh }: AppCardProps) => {
     );
   };
 
-  const [tags, setTags]: any = useState<Tag[]>(app.tags);
-  useEffect(() => {
-    setTags(app.tags);
-  }, [app.tags]);
+  // const [tags, setTags]: any = useState<Tag[]>(app.tags);
+  const [tags, setTags]: any = useState<any[]>([]);
 
   return (
     <>
@@ -130,11 +128,6 @@ const AppCard = ({ app, onRefresh }: AppCardProps) => {
               icon={app.icon}
               background={app.icon_background}
               imageUrl={app.icon_url}
-            />
-            <AppTypeIcon
-              type={app.mode}
-              wrapperClassName="absolute -bottom-0.5 -right-0.5 w-4 h-4 shadow-sm"
-              className="h-3 w-3"
             />
           </div>
           <div className="w-0 grow py-[1px]">
@@ -172,15 +165,15 @@ const AppCard = ({ app, onRefresh }: AppCardProps) => {
                 }}
               >
                 <div className={"mr-[41px] w-full grow group-hover:!mr-0 group-hover:!block !block"}>
-                  <TagSelector
-                    position="bl"
-                    type="app"
-                    targetID={app.id}
-                    value={tags.map((tag) => tag.id)}
-                    selectedTags={tags}
-                    onCacheUpdate={setTags}
-                    onChange={onRefresh}
-                  />
+                  {/* <TagSelector */}
+                  {/*   position="bl" */}
+                  {/*   type="app" */}
+                  {/*   targetID={app.id} */}
+                  {/*   value={tags.map((tag: any) => tag.id)} */}
+                  {/*   selectedTags={tags} */}
+                  {/*   onCacheUpdate={setTags} */}
+                  {/*   onChange={onRefresh} */}
+                  {/* /> */}
                 </div>
               </div>
               <div className="mx-1 !hidden h-[14px] w-[1px] shrink-0 group-hover:!flex" />
@@ -195,7 +188,8 @@ const AppCard = ({ app, onRefresh }: AppCardProps) => {
                     </div>
                   }
                   btnClassName={
-                    ((open) => (open ? "!bg-black/5 !shadow-none" : "!bg-transparent"),
+                    // @ts-ignore
+                    ((open: any) => (open ? "!bg-black/5 !shadow-none" : "!bg-transparent"),
                     "h-8 w-8 rounded-md border-none !p-2 hover:!bg-black/5")
                   }
                   popupClassName={
@@ -210,21 +204,6 @@ const AppCard = ({ app, onRefresh }: AppCardProps) => {
           )}
         </div>
       </div>
-      {showEditModal && (
-        <EditAppModal
-          isEditModal
-          appName={app.name}
-          appIconType={app.icon_type}
-          appIcon={app.icon}
-          appIconBackground={app.icon_background}
-          appIconUrl={app.icon_url}
-          appDescription={app.description}
-          appMode={app.mode}
-          appUseIconAsAnswerIcon={app.use_icon_as_answer_icon}
-          show={showEditModal}
-          onHide={() => setShowEditModal(false)}
-        />
-      )}
     </>
   );
 };
