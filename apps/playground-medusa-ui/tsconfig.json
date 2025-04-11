@@ -19,6 +19,7 @@
       }
     ],
     "paths": {
+      "@plugins/*": ["./src/components/plugins/*"],
       "@/*": ["./src/*"],
       "@x-flow/*": ["./src/components/x-flow/*"],
       "@workflow/*": ["./src/workflow-engine/components/workflow/*"],

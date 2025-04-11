@@ -1,0 +1,19 @@
+{
+  "languages": [
+    {
+      "value": "en-US",
+      "name": "English (United States)",
+      "prompt_name": "English",
+      "example": "Hello, Easyflow!",
+      "supported": true
+    },
+
+    {
+      "value": "fr-FR",
+      "name": "Français (France)",
+      "prompt_name": "French",
+      "example": "Bonjour, Easyflow!",
+      "supported": true
+    }
+  ]
+}
