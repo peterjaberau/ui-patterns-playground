@@ -45,40 +45,41 @@ export default memo((props: ITrackNodeItemProps) => {
             });
           }
         }}
-      >
-        <Panel
-          header={
-            <div className="track-collapse-header">
-              <span
-                className="track-icon-box"
-                style={{
-                  background: nodeSetting?.icon?.bgColor || '#F79009',
-                }}
-              >
-                {iconSvg ? iconSvg : <Icon style={{ fontSize: 14, color: '#fff' }} type={nodeSetting?.icon?.type} />}
-              </span>
-
-              <TextEllipsis
-                text={node?.data?.title || nodeSetting?.title}
-                style={{ width: '100%', fontSize: '12px' }}
+        items={[
+          {
+            key: node?.id,
+            label: (
+              <div className="track-collapse-header">
+                <span
+                  className="track-icon-box"
+                  style={{
+                    background: nodeSetting?.icon?.bgColor || '#F79009',
+                  }}
+                >
+                  {iconSvg ? iconSvg : <Icon style={{ fontSize: 14, color: '#fff' }} type={nodeSetting?.icon?.type} />}
+                </span>
+                <TextEllipsis
+                  text={node?.data?.title || nodeSetting?.title}
+                  style={{ width: '100%', fontSize: '12px' }}
+                />
+              </div>
+            ),
+            className: 'log-track-collapse-panel',
+            extra: statusData ? (
+              <Badge color={statusData?.color} text={statusData?.name} className="track-extra-badge" />
+            ) : null,
+            children: logTrackList?.length ? (
+              logTrackList.map((item, index) => <CodePanel codeData={item} key={index} isShowFullScreen={false} />)
+            ) : (
+              <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                description="No log information yet"
+                style={{ fontSize: '12px' }}
               />
-            </div>
-          }
-          key={node?.id}
-          className="log-track-collapse-panel"
-          extra={
-            statusData ? <Badge color={statusData?.color} text={statusData?.name} className="track-extra-badge" /> : ''
-          }
-        >
-          {logTrackList?.length ? (
-            (logTrackList || [])?.map((item, index) => (
-              <CodePanel codeData={item} key={index} isShowFullScreen={false} />
-            ))
-          ) : (
-            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无日志信息" style={{ fontSize: '12px' }} />
-          )}
-        </Panel>
-      </Collapse>
+            ),
+          },
+        ]}
+      />
     </div>
   );
 });

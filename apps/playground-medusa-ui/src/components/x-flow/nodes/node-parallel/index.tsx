@@ -25,6 +25,7 @@ export default memo((props: any) => {
       icon={{
         type: nodeSetting?.icon?.type || 'icon-parallel',
         style: { fontSize: 14, color: '#fff' },
+        // bgColor: nodeSetting?.icon?.bgColor || '#06AED4',
         background: nodeSetting?.icon?.bgColor || '#06AED4',
       }}
       onClick={onClick}

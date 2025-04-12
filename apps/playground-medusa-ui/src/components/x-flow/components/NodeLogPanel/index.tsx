@@ -35,22 +35,38 @@ const NodeLogPanel: FC<INodeEditorProps> = (props: any) => {
     return (
       <div className="node-log-container">
         <Spin spinning={Boolean(logPanel?.loading)}>
-          <Tabs size="small" className="log-header-tab">
-            <Tabs.TabPane tab="Details" key="detail">
-              {logData ? (
-                <DetailPanel currentStatus={node?._status} detailData={logData} />
-              ) : (
-                <Empty
-                  image={Empty.PRESENTED_IMAGE_SIMPLE}
-                  description="No log information yet"
-                  style={{ fontSize: '12px' }}
-                />
-              )}
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="Track" key="track">
-              <TrackPanel logList={logPanel?.logList || []} onTrackCollapseChange={onTrackCollapseChange} />
-            </Tabs.TabPane>
-          </Tabs>
+          <Tabs
+            size="small"
+            className="log-header-tab"
+            items={[
+              {
+                label: 'Details',
+                key: 'detail',
+                children: (
+                  <>
+                    {logData ? (
+                      <DetailPanel currentStatus={node?._status} detailData={logData} />
+                    ) : (
+                      <Empty
+                        image={Empty.PRESENTED_IMAGE_SIMPLE}
+                        description="No log information yet"
+                        style={{ fontSize: '12px' }}
+                      />
+                    )}
+                  </>
+                ),
+              },
+              {
+                label: 'Track',
+                key: 'track',
+                children: (
+                  <>
+                    <TrackPanel logList={logPanel?.logList || []} onTrackCollapseChange={onTrackCollapseChange} />
+                  </>
+                ),
+              },
+            ]}
+          />
         </Spin>
       </div>
     );

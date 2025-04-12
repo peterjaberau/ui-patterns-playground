@@ -56,7 +56,7 @@ const PanelStatusLogContainer: FC<IPanelProps> = (props: IPanelProps) => {
       width={width}
       mask={false}
       onClose={onClose}
-      style={{
+      rootStyle={{
         position: 'absolute',
       }}
       styles={{

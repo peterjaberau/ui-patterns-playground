@@ -40,106 +40,141 @@ export const domainSchema = [
     name: 'general',
     schema: [
       {
-        title: 'Start',
-        type: 'Start',
-        hidden: true,
-        targetHandleHidden: true,
-        icon: {
-          type: 'icon-start',
-          bgColor: '#17B26A',
-        },
-        settingSchema: {
-          type: 'object',
-          properties: {
-            input: {
-              title: 'Variable 1',
-              type: 'string',
-              widget: 'input',
+        title: 'Base',
+        type: '_group',
+        items: [
+          {
+            title: 'Start',
+            type: 'Start',
+            hidden: false,
+            targetHandleHidden: true,
+            icon: {
+              type: 'icon-start',
+              bgColor: '#17B26A',
             },
-            select: {
-              title: 'Variable 2',
-              type: 'string',
-              widget: 'select',
-              props: {
-                options: [
-                  { label: 'a', value: 'a' },
-                  { label: 'b', value: 'b' },
-                  { label: 'c', value: 'c' },
-                ],
+            settingSchema: {
+              type: 'object',
+              properties: {
+                input: {
+                  title: 'Variable 1',
+                  type: 'string',
+                  widget: 'input',
+                },
+                select: {
+                  title: 'Variable 2',
+                  type: 'string',
+                  widget: 'select',
+                  props: {
+                    options: [
+                      { label: 'a', value: 'a' },
+                      { label: 'b', value: 'b' },
+                      { label: 'c', value: 'c' },
+                    ],
+                  },
+                },
+                radio1: {
+                  title: 'Choose single choice',
+                  type: 'string',
+                  widget: 'radio',
+                  props: {
+                    options: [
+                      { label: 'morning', value: 'a' },
+                      { label: 'medium', value: 'b' },
+                      { label: 'night', value: 'c' },
+                    ],
+                  },
+                },
+                textarea1: {
+                  title: 'Long text',
+                  type: 'string',
+                  widget: 'textArea',
+                },
+                date1: {
+                  title: 'Date selection',
+                  type: 'string',
+                  widget: 'datePicker',
+                },
+                dateRange1: {
+                  title: 'Date range',
+                  type: 'range',
+                  widget: 'dateRange',
+                },
+                time1: {
+                  title: 'Time selection',
+                  type: 'string',
+                  widget: 'timePicker',
+                },
+                timeRange1: {
+                  title: 'Time range',
+                  type: 'range',
+                  widget: 'timeRange',
+                },
               },
-            },
-            radio1: {
-              title: 'Choose single choice',
-              type: 'string',
-              widget: 'radio',
-              props: {
-                options: [
-                  { label: 'morning', value: 'a' },
-                  { label: 'medium', value: 'b' },
-                  { label: 'night', value: 'c' },
-                ],
-              },
-            },
-            textarea1: {
-              title: 'Long text',
-              type: 'string',
-              widget: 'textArea',
-            },
-            date1: {
-              title: 'Date selection',
-              type: 'string',
-              widget: 'datePicker',
-            },
-            dateRange1: {
-              title: 'Date range',
-              type: 'range',
-              widget: 'dateRange',
-            },
-            time1: {
-              title: 'Time selection',
-              type: 'string',
-              widget: 'timePicker',
-            },
-            timeRange1: {
-              title: 'Time range',
-              type: 'range',
-              widget: 'timeRange',
             },
           },
-        },
+
+          {
+            title: 'End',
+            type: 'End',
+            hidden: false,
+            sourceHandleHidden: true,
+            icon: {
+              type: 'icon-end',
+              bgColor: '#F79009',
+            },
+            settingSchema: {
+              type: 'object',
+              properties: {
+                input: {
+                  title: 'Variable 1',
+                  type: 'string',
+                  widget: 'input',
+                },
+                select: {
+                  title: 'Variable 2',
+                  type: 'string',
+                  widget: 'select',
+                  props: {
+                    options: [
+                      { label: 'a', value: 'a' },
+                      { label: 'b', value: 'b' },
+                      { label: 'c', value: 'c' },
+                    ],
+                  },
+                },
+              },
+            },
+          },
+        ],
       },
       {
-        title: 'End',
-        type: 'End',
-        hidden: true,
-        sourceHandleHidden: true,
-        icon: {
-          type: 'icon-end',
-          bgColor: '#F79009',
-        },
-        settingSchema: {
-          type: 'object',
-          properties: {
-            input: {
-              title: 'Variable 1',
-              type: 'string',
-              widget: 'input',
+        title: 'Custom',
+        type: '_group',
+        items: [
+          {
+            title: 'Setting Custom Simple',
+            type: 'custom',
+            icon: {
+              type: 'icon-start',
+              bgColor: '#17B26A',
             },
-            select: {
-              title: 'Variable 2',
-              type: 'string',
-              widget: 'select',
-              props: {
-                options: [
-                  { label: 'a', value: 'a' },
-                  { label: 'b', value: 'b' },
-                  { label: 'c', value: 'c' },
-                ],
-              },
+            settingWidget: 'SettingWidgetSimple',
+            settingWidgetProps: {
+              params: 'test',
             },
           },
-        },
+          {
+            title: 'Setting Custom Advanced',
+            type: 'custom',
+            icon: {
+              type: 'icon-model',
+              bgColor: '#6172F3',
+            },
+            settingWidget: 'SettingWidgetAdvanced',
+          },
+        ],
       },
+
       {
         title: 'LLM (nodeWidget)',
         type: 'LLM',
@@ -266,20 +301,11 @@ export const domainSchema = [
           type: 'icon-fenzhi',
           bgColor: '#06AED4',
         },
-        settingSchema: {
-          type: 'object',
-          properties: {
-            name: {
-              title: 'Node name',
-              type: 'string',
-              required: true,
-            },
-            template: {
-              title: 'Prompt word template',
-              type: 'string',
-              widget: 'textarea',
-            },
-          },
+        switchExtra: {
+          // Conditional node additional attribute configuration
+          // hideElse: true,
+          valueKey: 'value',
+          titleKey: 'name',
         },
       },
       {
@@ -523,20 +549,21 @@ export const data = [
     content: {
       nodes: [
         {
-          id: '1',
+          id: 'start',
           type: 'Start',
           data: { input: 'starting node' },
           position: { x: 10, y: 270 },
           ports: [{ id: 'right', type: 'output', group: 'right' }],
         },
         {
-          id: '2',
+          id: 'llm',
           type: 'LLM',
           data: {
             model: 'GPT-4',
             temperature: 0.7,
             maxTokens: 200,
             systemPrompt: 'You are a professional AI assistant, please help users solve problems.',
+            _status: 'success',
           },
           position: { x: 300, y: 140 },
           ports: [
@@ -545,13 +572,14 @@ export const data = [
           ],
         },
         {
-          id: '3',
+          id: 'http',
           type: 'HTTP',
           data: {
             method: 'POST',
             url: 'https://api.example.com/process',
             headers: "{ 'Content-Type': 'application/json' }",
             body: "{ 'key': 'value' }",
+            _status: 'warning',
           },
           position: { x: 600, y: 140 },
           ports: [
@@ -560,12 +588,13 @@ export const data = [
           ],
         },
         {
-          id: '4',
+          id: 'classifier',
           type: 'Classifier',
           data: {
             categories: ['Technical issues', 'Business issues', 'Others'],
             rules: 'Classify according to the keywords in the problem description',
             defaultCategory: 'Other',
+            _status: 'success',
           },
           position: { x: 900, y: 140 },
           ports: [
@@ -582,13 +611,116 @@ export const data = [
         },
       ],
       edges: [
-        { source: '1', target: '2', id: 'edge-1-2' },
-        { source: '2', target: '3', id: 'edge-2-3' },
-        { source: '3', target: '4', id: 'edge-3-4' },
-        { source: '4', target: '7', id: 'edge-4-5' },
+        { source: 'start', target: 'llm', id: 'edge-1-2' },
+        { source: 'llm', target: 'http', id: 'edge-2-3' },
+        { source: 'http', target: 'classifier', id: 'edge-3-4' },
+        { source: 'classifier', target: '7', id: 'edge-4-5' },
       ],
     },
+    logs: [
+      {
+        nodeId: 'llm',
+        statusPanel: {
+          status: [
+            { label: 'Success', value: 'success', isBadge: true },
+            { label: 'Time consumed', value: '2.3s' },
+            { label: 'Token', value: '856' },
+          ],
+          extra: `Execution time: ${new Date().toLocaleString()}`,
+        },
+        codePanel: [
+          {
+            title: 'Input',
+            code: JSON.stringify(
+              {
+                model: 'GPT-4',
+                temperature: 0.7,
+                maxTokens: 200,
+                systemPrompt: 'Please generate a product introduction document.',
+              },
+              null,
+              2,
+            ),
+          },
+          {
+            title: 'Ouput',
+            code: `XFlow is a powerful process orchestration component that provides an intuitive visual interface and supports node drag, connection, configuration and other functions. Users can quickly build complex business processes through simple operations. \n\nFeatures:\n1. Visual arrangement\n2. Rich node types\n3. Flexible configuration options\n4. Perfect state management`,
+          },
+        ],
+      },
+      {
+        nodeId: 'http',
+        statusPanel: {
+          status: [
+            { label: 'status', value: 'success', isBadge: true },
+            { label: 'Time', value: '1.5s' },
+            { label: 'Token', value: '1024' },
+          ],
+          extra: `Execution time: ${new Date().toLocaleString()}`,
+        },
+        codePanel: [
+          {
+            title: 'Input',
+            code: JSON.stringify(
+              {
+                method: 'POST',
+                url: 'https://api.example.com/process',
+                headers: "{ 'Content-Type': 'application/json' }",
+                body: "{ 'key': 'value' }",
+                _status: 'warning',
+              },
+              null,
+              2,
+            ),
+          },
+          {
+            title: 'Output',
+            code: `Node Manual review Execution successful \n Processing completion time: ${new Date().toLocaleString()}`,
+          },
+        ],
+      },
+      {
+        nodeId: 'classifier',
+        statusPanel: {
+          status: [
+            { label: 'status', value: 'success', isBadge: true },
+            { label: 'Time', value: '1.5s' },
+            { label: 'Token', value: '1024' },
+          ],
+          extra: `Execution time: ${new Date().toLocaleString()}`,
+        },
+        codePanel: [
+          {
+            title: 'Input',
+            code: JSON.stringify(
+              {
+                categories: ['Technical issues', 'Business issues', 'Others'],
+                rules: 'Classify according to the keywords in the problem description',
+                defaultCategory: 'Other',
+                _status: 'success',
+              },
+              null,
+              2,
+            ),
+          },
+          {
+            title: 'Output',
+            code: `Node Result Format Execution Successfully \n Processing Completion Time: ${new Date().toLocaleString()}`,
+          },
+        ],
+      },
+    ],
     props: {
+      globalConfig: {
+        nodeView: {
+          status: [
+            { value: 'processing', color: '#1890FF', name: 'Processing' },
+            { value: 'success', color: '#52c41a', name: 'Success' },
+            { value: 'error', color: '#ff4d4f', name: 'Failed' },
+            { value: 'warning', color: '#faad14', name: 'warning' },
+          ],
+        },
+      },
       nodeSelector: {
         showSearch: true,
       },
@@ -671,8 +803,289 @@ export const data = [
       ],
     },
     props: {
+      globalConfig: {
+        nodeView: {
+          status: [
+            { value: 'processing', color: '#1890FF', name: 'Processing' },
+            { value: 'success', color: '#52c41a', name: 'Success' },
+            { value: 'error', color: '#ff4d4f', name: 'Failed' },
+            { value: 'warning', color: '#faad14', name: 'warning' },
+          ],
+        },
+      },
       nodeSelector: {
         showSearch: true,
+      },
+    },
+    logs: [
+      {
+        nodeId: 'llm',
+        statusPanel: {
+          status: [
+            { label: 'Success', value: 'success', isBadge: true },
+            { label: 'Time consumed', value: '2.3s' },
+            { label: 'Token', value: '856' },
+          ],
+          extra: `Execution time: ${new Date().toLocaleString()}`,
+        },
+        codePanel: [
+          {
+            title: 'Input',
+            code: JSON.stringify(
+              {
+                name: 'GPT-_4 requests',
+                model: 'gpt-4',
+                temperature: 0.7,
+                prompt: 'Please generate a product introduction document',
+              },
+              null,
+              2,
+            ),
+          },
+          {
+            title: 'Ouput',
+            code: `XFlow is a powerful process orchestration component that provides an intuitive visual interface and supports node drag, connection, configuration and other functions. Users can quickly build complex business processes through simple operations. \n\nFeatures:\n1. Visual arrangement\n2. Rich node types\n3. Flexible configuration options\n4. Perfect state management`,
+          },
+        ],
+      },
+      {
+        nodeId: 'review',
+        statusPanel: {
+          status: [
+            { label: 'status', value: 'success', isBadge: true },
+            { label: 'Time', value: '1.5s' },
+            { label: 'Token', value: '1024' },
+          ],
+          extra: `Execution time: ${new Date().toLocaleString()}`,
+        },
+        codePanel: [
+          {
+            title: 'Input',
+            code: JSON.stringify(
+              {
+                name: 'Manual review',
+                assignee: 'admin',
+                description: 'Please review the content generated by AI',
+                _status: 'warning',
+              },
+              null,
+              2,
+            ),
+          },
+          {
+            title: 'Output',
+            code: `Node Manual review Execution successful \n Processing completion time: ${new Date().toLocaleString()}`,
+          },
+        ],
+      },
+      {
+        nodeId: 'format',
+        statusPanel: {
+          status: [
+            { label: 'status', value: 'success', isBadge: true },
+            { label: 'Time', value: '1.5s' },
+            { label: 'Token', value: '1024' },
+          ],
+          extra: `Execution time: ${new Date().toLocaleString()}`,
+        },
+        codePanel: [
+          {
+            title: 'Input',
+            code: JSON.stringify(
+              {
+                name: 'Format result',
+                format: 'markdown',
+                _status: 'success',
+              },
+              null,
+              2,
+            ),
+          },
+          {
+            title: 'Output',
+            code: `Node Result Format Execution Successfully \n Processing Completion Time: ${new Date().toLocaleString()}`,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'runtime',
+    domain: 'general',
+    content: {
+      nodes: [
+        {
+          id: 'start',
+          type: 'Start',
+          data: {
+            title: 'Start',
+          },
+          position: {
+            x: 10,
+            y: 60,
+          },
+        },
+        {
+          id: 'llm',
+          type: 'LLM',
+          data: {
+            name: 'GPT-4 calls',
+            model: 'gpt-4',
+            temperature: 0.7,
+            _status: 'success', // Change the initial state to success, match the initial log
+          },
+          position: {
+            x: 250,
+            y: 150,
+          },
+        },
+        {
+          id: 'review',
+          type: 'userTask',
+          data: {
+            name: 'Manual review',
+            assignee: 'admin',
+            description: 'Please review the content generated by AI',
+            _status: 'warning',
+          },
+          position: {
+            x: 450,
+            y: 250,
+          },
+        },
+        {
+          id: 'format',
+          type: 'Format',
+          data: {
+            name: 'Format result',
+            format: 'markdown',
+            _status: 'success',
+          },
+          position: {
+            x: 650,
+            y: 150,
+          },
+        },
+        {
+          id: 'end',
+          type: 'End',
+          data: {
+            title: 'End',
+          },
+          position: {
+            x: 850,
+            y: 230,
+          },
+        },
+      ],
+      edges: [
+        { source: 'start', target: 'llm', id: 'e1' },
+        { source: 'llm', target: 'review', id: 'e2' },
+        { source: 'review', target: 'format', id: 'e3' },
+        { source: 'format', target: 'end', id: 'e4' },
+      ],
+    },
+    logs: [
+      {
+        nodeId: 'llm',
+        statusPanel: {
+          status: [
+            { label: 'Success', value: 'success', isBadge: true },
+            { label: 'Time consumed', value: '2.3s' },
+            { label: 'Token', value: '856' },
+          ],
+          extra: `Execution time: ${new Date().toLocaleString()}`,
+        },
+        codePanel: [
+          {
+            title: 'Input',
+            code: JSON.stringify(
+              {
+                name: 'GPT-_4 requests',
+                model: 'gpt-4',
+                temperature: 0.7,
+                prompt: 'Please generate a product introduction document',
+              },
+              null,
+              2,
+            ),
+          },
+          {
+            title: 'Ouput',
+            code: `XFlow is a powerful process orchestration component that provides an intuitive visual interface and supports node drag, connection, configuration and other functions. Users can quickly build complex business processes through simple operations. \n\nFeatures:\n1. Visual arrangement\n2. Rich node types\n3. Flexible configuration options\n4. Perfect state management`,
+          },
+        ],
+      },
+      {
+        nodeId: 'review',
+        statusPanel: {
+          status: [
+            { label: 'status', value: 'success', isBadge: true },
+            { label: 'Time', value: '1.5s' },
+            { label: 'Token', value: '1024' },
+          ],
+          extra: `Execution time: ${new Date().toLocaleString()}`,
+        },
+        codePanel: [
+          {
+            title: 'Input',
+            code: JSON.stringify(
+              {
+                name: 'Manual review',
+                assignee: 'admin',
+                description: 'Please review the content generated by AI',
+                _status: 'warning',
+              },
+              null,
+              2,
+            ),
+          },
+          {
+            title: 'Output',
+            code: `Node Manual review Execution successful \n Processing completion time: ${new Date().toLocaleString()}`,
+          },
+        ],
+      },
+      {
+        nodeId: 'format',
+        statusPanel: {
+          status: [
+            { label: 'status', value: 'success', isBadge: true },
+            { label: 'Time', value: '1.5s' },
+            { label: 'Token', value: '1024' },
+          ],
+          extra: `Execution time: ${new Date().toLocaleString()}`,
+        },
+        codePanel: [
+          {
+            title: 'Input',
+            code: JSON.stringify(
+              {
+                name: 'Format result',
+                format: 'markdown',
+                _status: 'success',
+              },
+              null,
+              2,
+            ),
+          },
+          {
+            title: 'Output',
+            code: `Node Result Format Execution Successfully \n Processing Completion Time: ${new Date().toLocaleString()}`,
+          },
+        ],
+      },
+    ],
+    props: {
+      globalConfig: {
+        nodeView: {
+          status: [
+            { value: 'processing', color: '#1890FF', name: 'Processing' },
+            { value: 'success', color: '#52c41a', name: 'Success' },
+            { value: 'error', color: '#ff4d4f', name: 'Failed' },
+            { value: 'warning', color: '#faad14', name: 'warning' },
+          ],
+        },
       },
     },
   },

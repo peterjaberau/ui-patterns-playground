@@ -12,6 +12,7 @@ export interface TNodeItem {
   icon: {
     type: string;
     bgColor: string;
+    background: string;
   };
   settingSchema?: any; // Node configuration schema (pop-up window) string is a custom component
   settingWidget?: string; // Custom component

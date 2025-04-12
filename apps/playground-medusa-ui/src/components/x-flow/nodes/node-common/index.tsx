@@ -20,7 +20,8 @@ export default memo((props: any) => {
       icon={{
         type: nodeSetting?.icon?.type,
         style: { fontSize: 14, color: '#fff' },
-        bgColor: nodeSetting?.icon?.bgColor || '#F79009',
+        // bgColor: nodeSetting?.icon?.bgColor || '#F79009',
+        background: nodeSetting?.icon?.bgColor || '#F79009',
       }}
       onClick={onClick}
       hideDesc={hideDesc}
