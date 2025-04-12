@@ -94,7 +94,7 @@ const Panel: FC<IPanelProps> = (props: IPanelProps) => {
       mask={false}
       onClose={onClose}
       rootStyle={{
-        // position: 'absolute', // Verify if this is necessary
+        position: 'absolute', // Verify if this is necessary
         right: isShowStatusPanel ? offsetRightStatus : 0,
       }}
       styles={{
