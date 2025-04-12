@@ -11,7 +11,6 @@ import { useStore, useWorkflowStore } from "../store";
 import { getParallelInfo } from "../utils";
 import { PARALLEL_DEPTH_LIMIT, PARALLEL_LIMIT, SUPPORT_OUTPUT_VARS_NODE } from "../constants";
 import { CUSTOM_NOTE_NODE } from "../note-node/constants";
-import { findUsedVarNodes, getNodeOutputVars, updateNodeVars } from "../nodes/_base/components/variable/utils";
 import { useNodesExtraData } from "./use-nodes-data";
 import { useWorkflowTemplate } from "./use-workflow-template";
 import { useStore as useAppStore } from "@/app/components/app/store";
@@ -45,7 +44,7 @@ export const useWorkflow = () => {
   const { locale } = useContext(I18n);
   const store = useStoreApi();
   const workflowStore = useWorkflowStore();
-  const appId = useStore((s) => s.appId);
+  const appId = useStore((s: any) => s.appId);
   const nodesExtraData = useNodesExtraData();
   const { data: workflowConfig } = useWorkflowConfig(appId);
   const setPanelWidth = useCallback(
@@ -257,17 +256,6 @@ export const useWorkflow = () => {
     (nodeId: string, oldValeSelector: ValueSelector, newVarSelector: ValueSelector) => {
       const { getNodes, setNodes } = store.getState();
       const afterNodes = getAfterNodesInSameBranch(nodeId);
-      const effectNodes = findUsedVarNodes(oldValeSelector, afterNodes);
-      if (effectNodes.length > 0) {
-        const newNodes = getNodes().map((node) => {
-          if (effectNodes.find((n) => n.id === node.id)) return updateNodeVars(node, oldValeSelector, newVarSelector);
-
-          return node;
-        });
-        setNodes(newNodes);
-      }
-
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [store]
   );
@@ -276,8 +264,6 @@ export const useWorkflow = () => {
     (varSelector: ValueSelector) => {
       const nodeId = varSelector[0];
       const afterNodes = getAfterNodesInSameBranch(nodeId);
-      const effectNodes = findUsedVarNodes(varSelector, afterNodes);
-      return effectNodes.length > 0;
     },
     [getAfterNodesInSameBranch]
   );
@@ -287,29 +273,11 @@ export const useWorkflow = () => {
       const nodeId = varSelector[0];
       const { getNodes, setNodes } = store.getState();
       const afterNodes = getAfterNodesInSameBranch(nodeId);
-      const effectNodes = findUsedVarNodes(varSelector, afterNodes);
-      if (effectNodes.length > 0) {
-        const newNodes = getNodes().map((node) => {
-          if (effectNodes.find((n) => n.id === node.id)) return updateNodeVars(node, varSelector, []);
-
-          return node;
-        });
-        setNodes(newNodes);
-      }
     },
-    [getAfterNodesInSameBranch, store]
+    [store]
   );
 
-  const isNodeVarsUsedInNodes = useCallback(
-    (node: Node, isChatMode: boolean) => {
-      const outputVars = getNodeOutputVars(node, isChatMode);
-      const isUsed = outputVars.some((varSelector) => {
-        return isVarUsedInNodes(varSelector);
-      });
-      return isUsed;
-    },
-    [isVarUsedInNodes]
-  );
+  const isNodeVarsUsedInNodes = useCallback((node: Node, isChatMode: boolean) => {}, [isVarUsedInNodes]);
 
   const checkParallelLimit = useCallback(
     (nodeId: string, nodeHandle = "source") => {
@@ -479,7 +447,7 @@ export const useWorkflowInit = () => {
   const { nodes: nodesTemplate, edges: edgesTemplate } = useWorkflowTemplate();
   const { handleFetchAllTools } = useFetchToolsData();
   const appDetail = useAppStore((state) => state.appDetail)!;
-  const setSyncWorkflowDraftHash = useStore((s) => s.setSyncWorkflowDraftHash);
+  const setSyncWorkflowDraftHash = useStore((s: any) => s.setSyncWorkflowDraftHash);
   const [data, setData] = useState<FetchWorkflowDraftResponse>();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -503,7 +471,7 @@ export const useWorkflowInit = () => {
           ) || [],
         conversationVariables: res.conversation_variables || [],
       });
-      setSyncWorkflowDraftHash(res.hash);
+      // setSyncWorkflowDraftHash(res.hash);
       setIsLoading(false);
     } catch (error: any) {
       if (error && error.json && !error.bodyUsed && appDetail) {
@@ -578,54 +546,34 @@ export const useWorkflowInit = () => {
 
 export const useWorkflowReadOnly = () => {
   const workflowStore = useWorkflowStore();
-  const workflowRunningData = useStore((s) => s.workflowRunningData);
+  const workflowRunningData = useStore((s: any) => s.workflowRunningData);
 
   const getWorkflowReadOnly = useCallback(() => {
     return workflowStore.getState().workflowRunningData?.result.status === WorkflowRunningStatus.Running;
   }, [workflowStore]);
 
   return {
-    workflowReadOnly: workflowRunningData?.result.status === WorkflowRunningStatus.Running,
+    workflowReadOnly: false,
     getWorkflowReadOnly,
   };
 };
 export const useNodesReadOnly = () => {
   const workflowStore = useWorkflowStore();
-  const workflowRunningData = useStore((s) => s.workflowRunningData);
-  const historyWorkflowData = useStore((s) => s.historyWorkflowData);
-  const isRestoring = useStore((s) => s.isRestoring);
+  const workflowRunningData = useStore((s: any) => s.workflowRunningData);
+  const historyWorkflowData = useStore((s: any) => s.historyWorkflowData);
+  const isRestoring = useStore((s: any) => s.isRestoring);
 
   const getNodesReadOnly = useCallback(() => {
     const { workflowRunningData, historyWorkflowData, isRestoring } = workflowStore.getState();
 
     return workflowRunningData?.result.status === WorkflowRunningStatus.Running || historyWorkflowData || isRestoring;
   }, [workflowStore]);
-
-  return {
-    nodesReadOnly: !!(
-      workflowRunningData?.result.status === WorkflowRunningStatus.Running ||
-      historyWorkflowData ||
-      isRestoring
-    ),
-    getNodesReadOnly,
-  };
 };
 
 export const useToolIcon = (data: Node["data"]) => {
-  const buildInTools = useStore((s) => s.buildInTools);
-  const customTools = useStore((s) => s.customTools);
-  const workflowTools = useStore((s) => s.workflowTools);
-  const toolIcon = useMemo(() => {
-    if (data.type === BlockEnum.Tool) {
-      let targetTools = buildInTools;
-      if (data.provider_type === CollectionType.builtIn) targetTools = buildInTools;
-      else if (data.provider_type === CollectionType.custom) targetTools = customTools;
-      else targetTools = workflowTools;
-      return targetTools.find((toolWithProvider) => canFindTool(toolWithProvider.id, data.provider_id))?.icon;
-    }
-  }, [data, buildInTools, customTools, workflowTools]);
-
-  return toolIcon;
+  const buildInTools = useStore((s: any) => s.buildInTools);
+  const customTools = useStore((s: any) => s.customTools);
+  const workflowTools = useStore((s: any) => s.workflowTools);
 };
 
 export const useIsNodeInIteration = (iterationId: string) => {

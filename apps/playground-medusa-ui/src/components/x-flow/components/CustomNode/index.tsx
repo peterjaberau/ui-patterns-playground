@@ -17,7 +17,6 @@ import { useFlow } from '../../hooks/useFlow';
 export default memo((props: any) => {
   const { id, type, data, layout, isConnectable, selected, onClick, status } = props;
   const { widgets, settingMap, globalConfig, onMenuItemClick, antdVersion, readOnly }: any = useContext(ConfigContext);
-
   const deletable = globalConfig?.edge?.deletable ?? true;
   const disabledCopy = settingMap[type]?.disabledCopy ?? false;
   const disabledDelete = settingMap[type]?.disabledDelete ?? false;
@@ -41,10 +40,10 @@ export default memo((props: any) => {
   const { addNodes, pasteNode, copyNode, deleteNode } = useFlow();
   const isNote = type === 'Note';
   const isEnd = type === 'End';
-  const isSwitchNode = type === 'Switch' || type === 'Parallel' || isNote; // Determine whether it is a conditional node/parallel node/note node
+  const isSwitchNode = type === 'Switch' || type === 'Parallel' || isNote; // Determine whether it is a conditional node/parallel node/comment node
   const connectable = readOnly ? false : isConnectable;
 
-  // Add nodes and make connections
+  // Add nodes and make contact
   const handleAddNode = (data: any, sourceHandle?: string) => {
     const { screenToFlowPosition } = reactflow;
     const { x, y } = screenToFlowPosition({
@@ -82,7 +81,7 @@ export default memo((props: any) => {
 
   const handleCopyNode = useCallback(() => {
     copyNode(id);
-    message.success('Copy successful');
+    message.success('Copy successfully');
   }, [copyNode, id]);
 
   const handlePasteNode = useCallback(
@@ -139,10 +138,11 @@ export default memo((props: any) => {
     if (type === 'Switch') {
       let list = [];
       if (Array.isArray(data.list)) {
+        const len = data.list.length;
         list = data.list.map((r: any, i: any) => {
           if (i === 0) {
             return {
-              label: `Paste to the ${i + 1}th exit`,
+              label: `Paste to the first${i + 1}exit`,
               key: 'paste-' + i,
               index: i,
               id: id,
@@ -150,7 +150,7 @@ export default memo((props: any) => {
             };
           } else {
             return {
-              label: `Paste to the ${i + 1}th exit`,
+              label: `Paste to the first${i + 1}exit`,
               key: 'paste-' + i,
               id: id,
               index: i,
@@ -163,7 +163,7 @@ export default memo((props: any) => {
         ? []
         : [
             {
-              label: `Paste to the ${list.length + 1}th exit`,
+              label: `Paste to the first${list.length + 1}exit`,
               key: 'paste-' + (list.length + 1),
               id: id,
               index: list.length + 1,
@@ -182,12 +182,12 @@ export default memo((props: any) => {
 
   // Node status processing
   const statusObj: any = transformNodeStatus(globalConfig?.nodeView?.status || []);
-  const nodeBorderColor: any = statusObj[status]?.color;
+  const nodeBorderColor = statusObj[status]?.color;
 
   const menu = (
     <Menu onClick={itemClick}>
       <Menu.Item key={'copy'} disabled={disabledCopy}>
-        copy
+        Copy
       </Menu.Item>
       {!isEnd
         ? menuItem.map((r: any) => {
@@ -199,7 +199,7 @@ export default memo((props: any) => {
           })
         : null}
       <Menu.Item key={'delete'} danger={true} disabled={disabledDelete}>
-        delete
+        Delete
       </Menu.Item>
     </Menu>
   );

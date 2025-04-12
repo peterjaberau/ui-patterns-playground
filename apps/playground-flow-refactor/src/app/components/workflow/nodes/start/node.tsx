@@ -1,7 +1,6 @@
 import type { FC } from "react";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import InputVarTypeIcon from "../_base/components/input-var-type-icon";
 import type { StartNodeType } from "./types";
 import { Variable02 } from "@/app/components/base/icons/src/vender/solid/development";
 import type { NodeProps } from "@/app/components/workflow/types";
@@ -30,7 +29,6 @@ const Node: FC<NodeProps<StartNodeType>> = ({ data }) => {
               {variable.required && (
                 <span className="text-xs font-normal uppercase text-gray-500">{t(`${i18nPrefix}.required`)}</span>
               )}
-              <InputVarTypeIcon type={variable.type} className="h-3 w-3 text-gray-500" />
             </div>
           </div>
         ))}

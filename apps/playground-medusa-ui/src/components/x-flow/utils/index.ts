@@ -17,44 +17,44 @@ import {
   some,
 } from 'lodash-es';
 
-const _set = set;
-const _get = get;
-const _cloneDeep = cloneDeep;
+export const _set = set;
+export const _get = get;
+export const _cloneDeep = cloneDeep;
 // export const _has = has;
-const _merge = merge;
-const _mergeWith = mergeWith;
-const _isUndefined = isUndefined;
-const _omitBy = omitBy;
-const _some = some;
-const _isMatch = isMatch;
+export const _merge = merge;
+export const _mergeWith = mergeWith;
+export const _isUndefined = isUndefined;
+export const _omitBy = omitBy;
+export const _some = some;
+export const _isMatch = isMatch;
 
-const isObject = (data: any) => {
+export const isObject = (data: any) => {
   const str = Object.prototype.toString.call(data);
   return str.indexOf('Object') > -1;
 };
 
-const isArray = (data: any) => {
+export const isArray = (data: any) => {
   const str = Object.prototype.toString.call(data);
   return str.indexOf('Array') > -1;
 };
 
-const isFunction = (data: any) => typeof data === 'function';
+export const isFunction = (data: any) => typeof data === 'function';
 
-function isUrl(string: string) {
+export function isUrl(string: string) {
   const protocolRE = /^(?:\w+:)?\/\/(\S+)$/;
   // const domainRE = /^[^\s\.]+\.\S{2,}$/;
   if (typeof string !== 'string') return false;
   return protocolRE.test(string);
 }
 
-const isNumber = (str: string | number) => !isNaN(Number(str));
+export const isNumber = (str: string | number) => !isNaN(Number(str));
 
-const getArray = (arr: any, defaultValue = []) => {
+export const getArray = (arr: any, defaultValue = []) => {
   if (Array.isArray(arr)) return arr;
   return defaultValue;
 };
 
-function getFormat(format: any) {
+export function getFormat(format: any) {
   let dateFormat;
   switch (format) {
     case 'date':
@@ -90,16 +90,16 @@ function getFormat(format: any) {
 }
 
 // TODO: to support case that item is not an object
-function isObjType(schema: any) {
+export function isObjType(schema: any) {
   //return schema?.type === 'object' && schema.properties && !schema.widget;
   return schema?.type === 'object' && schema?.properties && schema?.widgetType !== 'field';
 }
 
-function isListType(schema: any) {
+export function isListType(schema: any) {
   return schema?.type === 'array' && isObjType(schema?.items) && schema?.enum === undefined;
 }
 
-function isCheckBoxType(schema: any, readOnly: boolean) {
+export function isCheckBoxType(schema: any, readOnly: boolean) {
   if (readOnly) return false;
   if (schema.widget === 'checkbox') return true;
   if (schema && schema.type === 'boolean') {
@@ -109,12 +109,12 @@ function isCheckBoxType(schema: any, readOnly: boolean) {
   }
 }
 
-const translation = (configCtx: any) => (key: string) => {
+export const translation = (configCtx: any) => (key: string) => {
   const locale: any = configCtx?.locale.FormRender;
   return locale[key];
 };
 
-const hasFuncProperty: any = (obj: any) => {
+export const hasFuncProperty: any = (obj: any) => {
   return _some(obj, (value: any) => {
     if (isFunction(value)) {
       return true;
@@ -134,33 +134,33 @@ const hasFuncProperty: any = (obj: any) => {
  * @param {*} [defaultValue] - If value is null or undefined, returns defaultValue.
  * @returns {*} - Returns the retrieved value, or a default value.
  */
-const safeGet = (object: any, path: string, defaultValue: any) => {
+export const safeGet = (object: any, path: string, defaultValue: any) => {
   return get(object, path, defaultValue) ?? defaultValue;
 };
 
-const isMac = () => {
+export const isMac = () => {
   return navigator.userAgent.toUpperCase().includes('MAC');
 };
 
-const specialKeysNameMap: Record<string, string | undefined> = {
+export const specialKeysNameMap: Record<string, string | undefined> = {
   ctrl: '⌘',
   alt: '⌥',
 };
 
-const getKeyboardKeyNameBySystem = (key: string) => {
+export const getKeyboardKeyNameBySystem = (key: string) => {
   if (isMac()) return specialKeysNameMap[key] || key;
 
   return key;
 };
 
-const capitalize = (string: string) => {
+export const capitalize = (string: string) => {
   if (typeof string !== 'string' || string.length === 0) {
     return string;
   }
   return `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
 };
 
-const transformNodes = (nodes: any[]) => {
+export const transformNodes = (nodes: any[]) => {
   return nodes?.map((item) => {
     const { type, data, ...rest } = item;
     if (type === 'custom') {
@@ -198,7 +198,7 @@ const transformNodes = (nodes: any[]) => {
   });
 };
 
-const transformSwitchNodes = (nodes: any[]) => {
+export const transformSwitchNodes = (nodes: any[]) => {
   return (nodes || [])?.map((item) => {
     if (item?.type === 'Switch' || item?.type === 'Parallel') {
       const { list, ...rest } = item?.data;
@@ -328,34 +328,3 @@ export function isTruthy(value: any) {
   }
   return Boolean(value);
 }
-
-export {
-  isObject,
-  isArray,
-  isFunction,
-  isUrl,
-  isNumber,
-  getArray,
-  getFormat,
-  isObjType,
-  isListType,
-  isCheckBoxType,
-  translation,
-  hasFuncProperty,
-  safeGet,
-  isMac,
-  getKeyboardKeyNameBySystem,
-  capitalize,
-  transformNodes,
-  transformSwitchNodes,
-  _set,
-  _get,
-  _cloneDeep,
-  _has,
-  _merge,
-  _mergeWith,
-  _isUndefined,
-  _omitBy,
-  _some,
-  _isMatch,
-};

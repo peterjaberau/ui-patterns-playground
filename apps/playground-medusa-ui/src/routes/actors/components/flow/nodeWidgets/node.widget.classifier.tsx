@@ -1,6 +1,6 @@
 import { Card, Space, Tag, Typography } from 'antd';
 
-export const NodeWidgetClassifier = ({ data }) => {
+export const NodeWidgetClassifier = ({ data }: any) => {
   const { categories, rules, defaultCategory } = data;
   return (
     <Card size="small" className="p-3">
@@ -11,7 +11,7 @@ export const NodeWidgetClassifier = ({ data }) => {
           </Typography.Text>
           <div style={{ marginTop: 4 }}>
             <Space wrap>
-              {categories.map((cat) => (
+              {categories.map((cat: any) => (
                 <Tag key={cat} color={cat === defaultCategory ? 'purple' : 'default'} style={{ margin: 0 }}>
                   {cat}
                 </Tag>

@@ -42,7 +42,7 @@ export const MenuTooltip = ({ icon, title, description, iconFontUrl, iconSvg }: 
 
   return (
     <div className="xflow-node-menu-tooltip">
-      <div className="icon-box-max" style={{ background: icon?.backgroundColor || '#F79009', marginRight: '8px' }}>
+      <div className="icon-box-max" style={{ background: icon?.bgColor || '#F79009', marginRight: '8px' }}>
         {iconSvg ? iconSvg : <IconBox type={icon?.type} style={{ color: '#fff', fontSize: 13, ...icon?.style }} />}
       </div>
       <div className="title">{title}</div>
@@ -65,7 +65,7 @@ const MenuItem = (props: any) => {
       getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
     >
       <div className="menu-item" onClick={onClick(type)}>
-        <span className="icon-box" style={{ background: icon?.backgroundColor || '#F79009', marginRight: '8px' }}>
+        <span className="icon-box" style={{ background: icon?.bgColor || '#F79009', marginRight: '8px' }}>
           {iconSvg ? iconSvg : <IconBox type={icon?.type} style={{ color: '#fff', fontSize: 13 }} />}
         </span>
         <span>{title}</span>

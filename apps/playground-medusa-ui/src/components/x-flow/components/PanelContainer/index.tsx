@@ -79,16 +79,9 @@ const Panel: FC<IPanelProps> = (props: IPanelProps) => {
   const Icon = useMemo(() => createIconFont(iconFontUrl), [iconFontUrl]);
 
   const drawerVersionProps = useMemo(() => {
-    if (antdVersion === 'V5') {
-      return {
-        rootClassName: 'custom-node-panel',
-        open: true,
-      };
-    }
-    // V4
     return {
-      className: 'custom-node-panel',
-      visible: true,
+      rootClassName: 'custom-node-panel',
+      open: true,
     };
   }, []);
 
@@ -113,7 +106,7 @@ const Panel: FC<IPanelProps> = (props: IPanelProps) => {
         <>
           <div className="title-box">
             <div style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
-              <span className="icon-box" style={{ background: nodeSetting?.icon?.backgroundColor || '#F79009' }}>
+              <span className="icon-box" style={{ background: nodeSetting?.icon?.bgColor || '#F79009' }}>
                 {iconSvg ? iconSvg : <Icon style={{ fontSize: 14, color: '#fff' }} type={nodeSetting?.icon?.type} />}
               </span>
               {isDisabled || readOnly ? (

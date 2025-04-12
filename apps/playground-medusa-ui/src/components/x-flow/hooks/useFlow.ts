@@ -95,8 +95,7 @@ export const useFlow = () => {
   });
 
   const copyNode = useMemoizedFn((nodeId) => {
-    // @ts-ignore
-    const copyNodes: any = generateCopyNodes(storeApi.getState().nodes.find((node: any) => node.id === nodeId));
+    const copyNodes = generateCopyNodes(storeApi.getState().nodes?.find((node) => node.id === nodeId));
     storeApi.setState({
       copyNodes,
     });
@@ -118,21 +117,19 @@ export const useFlow = () => {
         copyNodes: [],
       });
     } else {
-      message.warning('Please copy the node first!');
+      message.warning('Please copy the node first！');
     }
   });
 
   const deleteNode = useMemoizedFn((nodeId) => {
     record(() => {
       storeApi.setState({
-        // @ts-ignore
-        edges: storeApi.getState().edges.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
+        edges: storeApi.getState().edges?.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
       });
     });
     record(() => {
       storeApi.setState({
-        // @ts-ignore
-        nodes: storeApi.getState().nodes.filter((node) => node.id !== nodeId),
+        nodes: storeApi.getState().nodes?.filter((node) => node.id !== nodeId),
       });
     });
   });

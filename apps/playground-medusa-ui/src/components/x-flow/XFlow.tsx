@@ -1,13 +1,10 @@
-'use client';
 import { Background, BackgroundVariant, MarkerType, ReactFlow, useReactFlow } from '@xyflow/react';
-
 import '@xyflow/react/dist/style.css';
-
 import { useEventListener, useMemoizedFn } from 'ahooks';
 import { produce, setAutoFreeze } from 'immer';
 import { debounce, isFunction } from 'lodash';
 import type { FC } from 'react';
-import { memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import CandidateNode from './components/CandidateNode';
 import CustomEdge from './components/CustomEdge';
 import PanelContainer from './components/PanelContainer';
@@ -35,13 +32,12 @@ const edgeTypes = { buttonedge: memo(CustomEdge) };
 
 /***
  *
- * XFlow Entry
+ * XFlow 入口
  *
  */
 const XFlow: FC<FlowProps> = memo((props) => {
   const workflowContainerRef = useRef<HTMLDivElement>(null);
   const storeApi = useStoreApi();
-
   const { zoomTo } = useReactFlow();
   const {
     layout,
@@ -89,7 +85,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
     };
   }, []);
 
-  useEventListener('keydown', (e: any) => {
+  useEventListener('keydown', (e) => {
     if ((e.key === 'd' || e.key === 'D') && (e.ctrlKey || e.metaKey)) e.preventDefault();
     if ((e.key === 'z' || e.key === 'Z') && (e.ctrlKey || e.metaKey)) e.preventDefault();
     if ((e.key === 'y' || e.key === 'Y') && (e.ctrlKey || e.metaKey)) e.preventDefault();
@@ -98,7 +94,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
 
   useEventListener(
     'mousemove',
-    (e: any) => {
+    (e) => {
       const containerClientRect = workflowContainerRef.current?.getBoundingClientRect();
       if (containerClientRect) {
         setMousePosition({
@@ -112,12 +108,12 @@ const XFlow: FC<FlowProps> = memo((props) => {
     {
       target: workflowContainerRef.current,
       enable: isAddingNode,
-    } as any,
+    },
   );
 
   const { eventEmitter } = useEventEmitterContextContext();
   eventEmitter?.useSubscription((v: any) => {
-    // Arrange the canvas
+    // tidy canvas
     if (v.type === 'auto-layout-nodes') {
       const newNodes: any = autoLayoutNodes(storeApi.getState().nodes, edges, layout);
       setNodes(newNodes, false);
@@ -128,7 +124,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
     }
   });
 
-  // Add new node
+  // 新增节点
   const handleAddNode = (data: any) => {
     const title = settingMap[data?._nodeType]?.title || data?._nodeType;
     const newNode = {
@@ -140,37 +136,14 @@ const XFlow: FC<FlowProps> = memo((props) => {
       },
       position: {
         x: 0,
-        and: 0,
+        y: 0,
       },
     };
     setCandidateNode(newNode);
   };
 
-  // Insert node
-  // const handleInsertNode = () => {
-  //   const newNode = {
-  //     id: uuid(),
-  //     data: { label: 'new node' },
-  //     position: {
-  //       x: 0,
-  // and: 0,
-  //     },
-  //   };
-  //   addNodes(newNode);
-  //   addEdges({
-  //     id: uuid(),
-  //     source: '2',
-  //     target: newNode.id,
-  //   });
-  //   const targetEdge = edges.find(edge => edge.source === '2');
-  //   updateEdge(targetEdge?.id as string, {
-  //     source: newNode.id,
-  //   });
-  // };
-
-  // edge move in/out effect
   const getUpdateEdgeConfig = useMemoizedFn((edge: any, color: string) => {
-    const newEdges = produce(edges, (draft: any) => {
+    const newEdges: any = produce(edges, (draft: any) => {
       const currEdge: any = draft.find((e: any) => e.id === edge.id);
       currEdge.style = {
         ...edge.style,
@@ -181,7 +154,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
         color,
       };
     });
-    setEdges(newEdges as any);
+    setEdges(newEdges);
   });
 
   const handleNodeValueChange = debounce((data: any) => {
@@ -202,7 +175,6 @@ const XFlow: FC<FlowProps> = memo((props) => {
       custom: (props: any) => {
         const { data, id, ...rest } = props;
         const { _nodeType, _status, ...restData } = data || {};
-
         return (
           <CustomNode
             {...rest}
@@ -211,12 +183,13 @@ const XFlow: FC<FlowProps> = memo((props) => {
             type={_nodeType}
             layout={layout}
             status={_status}
-            //@ts-ignore
             onClick={async (e: any) => {
-              if ((nodeEditorRef?.current as any)?.validateForm) {
-                const result = await (nodeEditorRef?.current as any)?.validateForm();
+              // @ts-ignore
+              if (nodeEditorRef?.current?.validateForm) {
+                // @ts-ignore
+                const result = await nodeEditorRef?.current?.validateForm();
                 if (!result) {
-                  message.error('Please check the required items!');
+                  message.error('Please check the required items！');
                   return;
                 }
               }
@@ -268,7 +241,6 @@ const XFlow: FC<FlowProps> = memo((props) => {
   const deletable = globalConfig?.edge?.deletable ?? true;
   const panelonClose = globalConfig?.nodePanel?.onClose;
 
-  // @ts-ignore
   const getNodesJ = (nodes: any) => {
     const result = nodes.map((item: any) => {
       const { data, ...rest } = item;
@@ -294,12 +266,12 @@ const XFlow: FC<FlowProps> = memo((props) => {
         defaultEdgeOptions={{
           type: 'buttonedge',
           style: {
-            strokeWidth: 1.5, // line thickness
+            strokeWidth: 1.5, // 线粗细
           },
           markerEnd: {
-            type: MarkerType.ArrowClosed, //
+            type: MarkerType.ArrowClosed, // 箭头
           },
-          deletable: deletable, //Default connection properties are controlled by this item
+          deletable: deletable, //默认连线属性受此项控制
         }}
         onBeforeDelete={async () => {
           if (readOnly) {
@@ -343,8 +315,6 @@ const XFlow: FC<FlowProps> = memo((props) => {
           onNodeClick && onNodeClick(event, node);
         }}
         deleteKeyCode={globalConfig?.deleteKeyCode}
-        connectionMode={'loose' as any}
-        snapToGrid={false}
       >
         <CandidateNode />
         <Operator addNode={handleAddNode} xflowRef={workflowContainerRef} />
@@ -354,8 +324,8 @@ const XFlow: FC<FlowProps> = memo((props) => {
             id={activeNode?.id}
             nodeType={activeNode?._nodeType}
             onClose={async () => {
-              //Panel close verification form
-              const result = await (nodeEditorRef?.current as any)?.validateForm();
+              // @ts-ignore
+              const result = await nodeEditorRef?.current?.validateForm();
               if (!result) {
                 return;
               }

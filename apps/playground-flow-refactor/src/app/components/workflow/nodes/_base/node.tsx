@@ -12,9 +12,6 @@ import type { IterationNodeType } from "../iteration/types";
 import { NodeSourceHandle, NodeTargetHandle } from "./components/node-handle";
 import NodeResizer from "./components/node-resizer";
 import NodeControl from "./components/node-control";
-import ErrorHandleOnNode from "./components/error-handle/error-handle-on-node";
-import RetryOnNode from "./components/retry/retry-on-node";
-import AddVariablePopupWithPosition from "./components/add-variable-popup-with-position";
 import cn from "@/utils/classnames";
 import BlockIcon from "@/app/components/workflow/block-icon";
 import Tooltip from "@/app/components/base/tooltip";
@@ -128,7 +125,6 @@ const BaseNode: FC<BaseNodeProps> = ({ id, data, children }) => {
             {t("workflow.common.parallelRun")}
           </div>
         )}
-        {data._showAddVariablePopup && <AddVariablePopupWithPosition nodeId={id} nodeData={data} />}
         {data.type === BlockEnum.Iteration && <NodeResizer nodeId={id} nodeData={data} />}
         {data.type === BlockEnum.Loop && <NodeResizer nodeId={id} nodeData={data} />}
         {!data._isCandidate && (
@@ -200,8 +196,6 @@ const BaseNode: FC<BaseNodeProps> = ({ id, data, children }) => {
         {(data.type === BlockEnum.Iteration || data.type === BlockEnum.Loop) && (
           <div className="grow pb-1 pl-1 pr-1">{cloneElement(children, { id, data })}</div>
         )}
-        {hasRetryNode(data.type) && <RetryOnNode id={id} data={data} />}
-        {hasErrorHandleNode(data.type) && <ErrorHandleOnNode id={id} data={data} />}
         {data.desc && data.type !== BlockEnum.Iteration && data.type !== BlockEnum.Loop && (
           <div className="system-xs-regular whitespace-pre-line break-words px-3 pb-2 pt-1 text-text-tertiary">
             {data.desc}

@@ -1,8 +1,8 @@
 'use client';
+import createIconFont from '../../utils/createIconFont';
 import { Popover } from 'antd';
 import classNames from 'classnames';
-import { memo } from 'react';
-// import createIconFont from '../../utils/createIconFont';
+import { memo, useMemo } from 'react';
 import TextEllipsis from '../TextEllipsis';
 import './index.css';
 import TitleMenuTooltip from './TitleMenuTooltip';
@@ -17,13 +17,13 @@ export default memo((props: any) => {
     desc,
     hideDesc,
     NodeWidget,
-    // iconFontUrl,
+    iconFontUrl,
     iconSvg,
     hideTitleTips,
     isSwitchBottom,
-    // nodeSettingTitle,
+    nodeSettingTitle,
   } = props;
-  // const IconBox = useMemo(() => createIconFont(iconFontUrl), [iconFontUrl]);
+  const IconBox = useMemo(() => createIconFont(iconFontUrl), [iconFontUrl]);
 
   const renderDesc = () => (
     <>{!hideDesc && !!desc && <TextEllipsis text={desc} rows={2} type="paragraph" className="node-desc" />}</>
@@ -31,7 +31,7 @@ export default memo((props: any) => {
 
   const renderDescAndNodeWidget = () => {
     if (isSwitchBottom) {
-      // 条件节点且为TB布局
+      // Conditional node and is a TB layout
       return (
         <>
           {renderDesc()}
@@ -66,14 +66,14 @@ export default memo((props: any) => {
             style={{ padding: '12px 16px' }}
           >
             <span className="icon-box" style={{ background: icon?.bgColor }}>
-              {/* {iconSvg ? iconSvg : <IconBox {...icon} />} */}
-              {iconSvg ? iconSvg : <div style={{ width: '20px', height: '20px' }}>I</div>}
+              {iconSvg ? iconSvg : <IconBox {...icon} />}
+              {/* {iconSvg ? iconSvg : <div style={{ width: '20px', height: '20px' }}>I</div>} */}
             </span>
           </Popover>
         ) : (
           <span className="icon-box" style={{ background: icon?.bgColor }}>
-            {/* {iconSvg ? iconSvg : <IconBox {...icon} />} */}
-            {iconSvg ? iconSvg : <div style={{ width: '20px', height: '20px' }}>I</div>}
+            {iconSvg ? iconSvg : <IconBox {...icon} />}
+            {/* {iconSvg ? iconSvg : <div style={{ width: '20px', height: '20px' }}>I</div>} */}
           </span>
         )}
         <TextEllipsis text={title} style={{ width: 188, marginLeft: '8px' }} />

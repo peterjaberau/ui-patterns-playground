@@ -3,12 +3,9 @@ import { cloneElement, memo, useCallback } from "react";
 import { RiCloseLine, RiPlayLargeLine } from "@remixicon/react";
 import { useShallow } from "zustand/react/shallow";
 import { useTranslation } from "react-i18next";
-import NextStep from "./components/next-step";
 import PanelOperator from "./components/panel-operator";
 import HelpLink from "./components/help-link";
 import { DescriptionInput, TitleInput } from "./components/title-description-input";
-import ErrorHandleOnPanel from "./components/error-handle/error-handle-on-panel";
-import RetryOnPanel from "./components/retry/retry-on-panel";
 import { useResizePanel } from "./hooks/use-resize-panel";
 import cn from "@/utils/classnames";
 import BlockIcon from "@/app/components/workflow/block-icon";
@@ -48,7 +45,7 @@ const BasePanel: FC<BasePanelProps> = ({ id, data, children }) => {
   const { setPanelWidth } = useWorkflow();
   const { handleNodeSelect } = useNodesInteractions();
   const { handleSyncWorkflowDraft } = useNodesSyncDraft();
-  const { nodesReadOnly } = useNodesReadOnly();
+  const { nodesReadOnly }: any = useNodesReadOnly();
   const { availableNextBlocks } = useAvailableBlocks(data.type, data.isInIteration, data.isInLoop);
   const toolIcon = useToolIcon(data);
 
@@ -109,7 +106,7 @@ const BasePanel: FC<BasePanelProps> = ({ id, data, children }) => {
       >
         <div className="sticky top-0 z-10 border-b-[0.5px] border-black/5 bg-components-panel-bg">
           <div className="flex items-center px-4 pb-1 pt-4">
-            <BlockIcon className="mr-1 shrink-0" type={data.type} toolIcon={toolIcon} size="md" />
+            {/* <BlockIcon className="mr-1 shrink-0" type={data.type} toolIcon={toolIcon} size="md" /> */}
             <TitleInput value={data.title || ""} onBlur={handleTitleBlur} />
             <div className="flex shrink-0 items-center text-gray-500">
               {canRunBySingle(data.type) && !nodesReadOnly && (
@@ -142,15 +139,12 @@ const BasePanel: FC<BasePanelProps> = ({ id, data, children }) => {
         </div>
         <div>{cloneElement(children as any, { id, data })}</div>
         <Split />
-        {hasRetryNode(data.type) && <RetryOnPanel id={id} data={data} />}
-        {hasErrorHandleNode(data.type) && <ErrorHandleOnPanel id={id} data={data} />}
         {!!availableNextBlocks.length && (
           <div className="border-t-[0.5px] border-t-black/5 p-4">
             <div className="system-sm-semibold-uppercase mb-1 flex items-center text-text-secondary">
               {t("workflow.panel.nextStep").toLocaleUpperCase()}
             </div>
             <div className="system-xs-regular mb-2 text-text-tertiary">{t("workflow.panel.addNextStep")}</div>
-            <NextStep selectedNode={{ id, data } as Node} />
           </div>
         )}
       </div>

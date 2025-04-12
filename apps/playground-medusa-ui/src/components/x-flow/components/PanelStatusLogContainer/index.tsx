@@ -79,7 +79,7 @@ const PanelStatusLogContainer: FC<IPanelProps> = (props: IPanelProps) => {
                 <span
                   className="icon-box"
                   style={{
-                    background: nodeSetting?.icon?.backgroundColor || '#F79009',
+                    background: nodeSetting?.icon?.bgColor || '#F79009',
                   }}
                 >
                   {iconSvg ? iconSvg : <Icon style={{ fontSize: 14, color: '#fff' }} type={nodeSetting?.icon?.type} />}

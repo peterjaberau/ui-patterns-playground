@@ -1,13 +1,13 @@
-import { memo } from 'react'
-import { MiniMap } from 'reactflow'
-import UndoRedo from '../header/undo-redo'
-import ZoomInOut from './zoom-in-out'
-import Control from './control'
+import { memo } from "react";
+import { MiniMap } from "reactflow";
+import UndoRedo from "./undo-redo";
+import ZoomInOut from "./zoom-in-out";
+import Control from "./control";
 
 export type OperatorProps = {
-  handleUndo: () => void
-  handleRedo: () => void
-}
+  handleUndo: () => void;
+  handleRedo: () => void;
+};
 
 const Operator = ({ handleUndo, handleRedo }: OperatorProps) => {
   return (
@@ -19,17 +19,17 @@ const Operator = ({ handleUndo, handleRedo }: OperatorProps) => {
           width: 102,
           height: 72,
         }}
-        maskColor='var(--color-workflow-minimap-bg)'
-        className='!absolute !bottom-14 !left-4 z-[9] !m-0 !h-[72px] !w-[102px] !rounded-lg !border-[0.5px]
-        !border-divider-subtle !bg-background-default-subtle !shadow-md !shadow-shadow-shadow-5'
+        maskColor="var(--color-workflow-minimap-bg)"
+        className="!absolute !bottom-14 !left-4 z-[9] !m-0 !h-[72px] !w-[102px] !rounded-lg !border-[0.5px]
+        !border-divider-subtle !bg-background-default-subtle !shadow-md !shadow-shadow-shadow-5"
       />
-      <div className='absolute bottom-4 left-4 z-[9] mt-1 flex items-center gap-2'>
+      <div className="absolute bottom-4 left-4 z-[9] mt-1 flex items-center gap-2">
         <ZoomInOut />
         <UndoRedo handleUndo={handleUndo} handleRedo={handleRedo} />
         <Control />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default memo(Operator)
+export default memo(Operator);

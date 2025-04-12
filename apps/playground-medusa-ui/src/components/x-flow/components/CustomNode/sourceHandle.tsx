@@ -1,8 +1,7 @@
-'use client';
 import { PlusOutlined } from '@ant-design/icons';
 import { Handle } from '@xyflow/react';
 import { Tooltip } from 'antd';
-import { memo, useContext, useMemo, useRef, useState } from 'react';
+import React, { memo, useContext, useMemo, useRef, useState } from 'react';
 import NodeSelectPopover from '../NodesPopover';
 import { ConfigContext } from '../../models/context';
 
@@ -33,7 +32,7 @@ export default memo((props: any) => {
       isConnectable={isConnectable}
       onMouseEnter={() => setIsShowTooltip(true)}
       onMouseLeave={() => setIsShowTooltip(false)}
-      onClick={(e: any) => {
+      onClick={(e) => {
         e.stopPropagation();
         // @ts-ignore
         popoverRef?.current?.changeOpen(true);
@@ -52,19 +51,17 @@ export default memo((props: any) => {
                 placement="right"
                 addNode={handleAddNode}
                 ref={popoverRef}
-                onNodeSelectPopoverChange={(val: any) => {
-                  setOpenNodeSelectPopover(val);
-                }}
+                onNodeSelectPopoverChange={(val: any) => setOpenNodeSelectPopover(val)}
               >
                 <Tooltip
-                  title="Click to add a node"
+                  title="Click Add Node"
                   arrow={false}
                   style={{
-                    backgroundColor: '#fff',
+                    background: '#fff',
                     color: '#354052',
                     fontSize: '12px',
                   }}
-                  // color="#fff"
+                  color="#fff"
                   {...toolTipVersionProps}
                   getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
                 >

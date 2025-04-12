@@ -64,16 +64,9 @@ export default forwardRef((props: any, popoverRef) => {
   };
 
   const popoverVersionProps = useMemo(() => {
-    if (antdVersion === 'V5') {
-      return {
-        open,
-        onOpenChange: openChange,
-      };
-    }
-    // V4
     return {
-      visible: open,
-      onVisibleChange: openChange,
+      open,
+      onOpenChange: openChange,
     };
   }, [open]);
 

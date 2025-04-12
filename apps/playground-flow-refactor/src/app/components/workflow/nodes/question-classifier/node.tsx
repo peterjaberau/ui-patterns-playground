@@ -9,7 +9,6 @@ import type { QuestionClassifierNodeType } from "./types";
 //   useTextGenerationCurrentProviderAndModelAndModelList,
 // } from '@/app/components/header/account-setting/model-provider-page/hooks'
 // import ModelSelector from '@/app/components/header/account-setting/model-provider-page/model-selector'
-import ReadonlyInputWithSelectVar from "../_base/components/readonly-input-with-select-var";
 
 const i18nPrefix = "workflow.nodes.questionClassifiers";
 
@@ -42,10 +41,7 @@ const Node: FC<NodeProps<QuestionClassifierNodeType>> = (props) => {
         <div className="mt-2 space-y-0.5">
           {topics.map((topic, index) => (
             <div key={index} className="relative">
-              <InfoPanel
-                title={`${t(`${i18nPrefix}.class`)} ${index + 1}`}
-                content={<ReadonlyInputWithSelectVar value={topic.name} nodeId={id} />}
-              />
+              <InfoPanel title={`${t(`${i18nPrefix}.class`)} ${index + 1}`} content={<div> read only content</div>} />
               <NodeSourceHandle
                 {...props}
                 handleId={topic.id}

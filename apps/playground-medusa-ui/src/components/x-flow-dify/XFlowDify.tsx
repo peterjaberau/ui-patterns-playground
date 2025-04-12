@@ -140,7 +140,7 @@ const XFlowDify: FC<FlowProps> = memo((props) => {
       },
       position: {
         x: 0,
-        and: 0,
+        y: 0,
       },
     };
     setCandidateNode(newNode);

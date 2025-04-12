@@ -12,10 +12,8 @@ const nodesSelector = (state: FlowState) => state.edges;
  * @public
  * @returns An array of edges
  */
-function useEdges<EdgeType extends Edge = Edge>(): Edge[] {
+export function useEdges<EdgeType extends Edge = Edge>(): Edge[] {
   const nodes = useStore(nodesSelector, shallow) as EdgeType[];
 
   return nodes;
 }
-
-export { useEdges };

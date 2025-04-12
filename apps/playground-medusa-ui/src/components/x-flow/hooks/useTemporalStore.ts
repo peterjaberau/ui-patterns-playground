@@ -1,7 +1,7 @@
 import StoreContext from '../models/context';
 import { useContext } from 'react';
 
-const useTemporalStore = () => {
+export const useTemporalStore = () => {
   const store = useContext(StoreContext);
 
   if (store === null) {
@@ -20,5 +20,3 @@ const useTemporalStore = () => {
     },
   };
 };
-
-export { useTemporalStore };

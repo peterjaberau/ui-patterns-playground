@@ -1,8 +1,7 @@
 "use client";
 
 import type { FC } from "react";
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import useSWR from "swr";
+import { memo, useEffect, useMemo, useRef } from "react";
 import { setAutoFreeze } from "immer";
 import { useEventListener } from "ahooks";
 import ReactFlow, {
@@ -18,8 +17,8 @@ import ReactFlow, {
 import type { Viewport } from "reactflow";
 import "reactflow/dist/style.css";
 import "./style.css";
-import type { Edge, EnvironmentVariable, Node } from "./types";
-import { ControlMode, SupportUploadFileTypes } from "./types";
+import type { Edge, Node } from "./types";
+import { ControlMode } from "./types";
 import { WorkflowContextProvider } from "./context";
 import {
   useDSL,
@@ -33,9 +32,7 @@ import {
   useWorkflow,
   useWorkflowInit,
   useWorkflowReadOnly,
-  useWorkflowUpdate,
 } from "./hooks";
-import Header from "./header";
 import CustomNode from "./nodes";
 import CustomNoteNode from "./note-node";
 import { CUSTOM_NOTE_NODE } from "./note-node/constants";
@@ -48,35 +45,15 @@ import { CUSTOM_SIMPLE_NODE } from "./simple-node/constants";
 import Operator from "./operator";
 import CustomEdge from "./custom-edge";
 import CustomConnectionLine from "./custom-connection-line";
-import Panel from "./panel";
-import Features from "./features";
 import HelpLine from "./help-line";
 import CandidateNode from "./candidate-node";
-import PanelContextmenu from "./panel-contextmenu";
 import NodeContextmenu from "./node-contextmenu";
-import SyncingDataModal from "./syncing-data-modal";
-import DSLExportConfirmModal from "./dsl-export-confirm-modal";
-import LimitTips from "./limit-tips";
-import PluginDependency from "./plugin-dependency";
 import { useStore, useWorkflowStore } from "./store";
 import { initialEdges, initialNodes } from "./utils";
-import {
-  CUSTOM_EDGE,
-  CUSTOM_NODE,
-  DSL_EXPORT_CHECK,
-  ITERATION_CHILDREN_Z_INDEX,
-  WORKFLOW_DATA_UPDATE,
-} from "./constants";
+import { CUSTOM_EDGE, CUSTOM_NODE, ITERATION_CHILDREN_Z_INDEX, WORKFLOW_DATA_UPDATE } from "./constants";
 import { WorkflowHistoryProvider } from "./workflow-history-store";
 import Loading from "@/app/components/base/loading";
-import { FeaturesProvider } from "@/app/components/base/features";
-import type { Features as FeaturesData } from "@/types/components/base/features/types";
-import { useFeaturesStore } from "@/app/components/base/features/hooks";
 import { useEventEmitterContextContext } from "@/context/event-emitter";
-import Confirm from "@/app/components/base/confirm";
-import { FILE_EXTS } from "./constants";
-import { fetchFileUploadConfig } from "@/service/common";
-import DatasetsDetailProvider from "./datasets-detail-store/provider";
 
 const nodeTypes = {
   [CUSTOM_NODE]: CustomNode,
@@ -98,22 +75,15 @@ const Workflow: FC<WorkflowProps> = memo(({ nodes: originalNodes, edges: origina
   const workflowContainerRef = useRef<HTMLDivElement>(null);
   const workflowStore = useWorkflowStore();
   const reactflow = useReactFlow();
-  const featuresStore = useFeaturesStore();
   const [nodes, setNodes] = useNodesState(originalNodes);
   const [edges, setEdges] = useEdgesState(originalEdges);
-  const showFeaturesPanel = useStore((state) => state.showFeaturesPanel);
-  const controlMode = useStore((s) => s.controlMode);
-  const nodeAnimation = useStore((s) => s.nodeAnimation);
-  const showConfirm = useStore((s) => s.showConfirm);
-  const showImportDSLModal = useStore((s) => s.showImportDSLModal);
+  const controlMode = useStore((s: any) => s.controlMode);
+  const nodeAnimation = useStore((s: any) => s.nodeAnimation);
 
-  const { setShowConfirm, setControlPromptEditorRerenderKey, setShowImportDSLModal, setSyncWorkflowDraftHash } =
-    workflowStore.getState();
+  const { setSyncWorkflowDraftHash } = workflowStore.getState();
   const { handleSyncWorkflowDraft, syncWorkflowDraftWhenPageClose } = useNodesSyncDraft();
   const { workflowReadOnly } = useWorkflowReadOnly();
   const { nodesReadOnly } = useNodesReadOnly();
-
-  const [secretEnvList, setSecretEnvList] = useState<EnvironmentVariable[]>([]);
 
   const { eventEmitter } = useEventEmitterContextContext();
 
@@ -124,17 +94,8 @@ const Workflow: FC<WorkflowProps> = memo(({ nodes: originalNodes, edges: origina
 
       if (v.payload.viewport) reactflow.setViewport(v.payload.viewport);
 
-      if (v.payload.features && featuresStore) {
-        const { setFeatures } = featuresStore.getState();
-
-        setFeatures(v.payload.features);
-      }
-
       if (v.payload.hash) setSyncWorkflowDraftHash(v.payload.hash);
-
-      setTimeout(() => setControlPromptEditorRerenderKey(Date.now()));
     }
-    if (v.type === DSL_EXPORT_CHECK) setSecretEnvList(v.payload.data as EnvironmentVariable[]);
   });
 
   useEffect(() => {
@@ -149,22 +110,7 @@ const Workflow: FC<WorkflowProps> = memo(({ nodes: originalNodes, edges: origina
     return () => {
       handleSyncWorkflowDraft(true, true);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // const { handleRefreshWorkflowDraft } = useWorkflowUpdate();
-  // const handleSyncWorkflowDraftWhenPageClose = useCallback(() => {
-  //   if (document.visibilityState === "hidden") syncWorkflowDraftWhenPageClose();
-  //   else if (document.visibilityState === "visible") setTimeout(() => handleRefreshWorkflowDraft(), 500);
-  // }, [syncWorkflowDraftWhenPageClose, handleRefreshWorkflowDraft]);
-
-  // useEffect(() => {
-  //   document.addEventListener("visibilitychange", handleSyncWorkflowDraftWhenPageClose);
-  //
-  //   return () => {
-  //     document.removeEventListener("visibilitychange", handleSyncWorkflowDraftWhenPageClose);
-  //   };
-  // }, [handleSyncWorkflowDraftWhenPageClose]);
 
   useEventListener("keydown", (e) => {
     if ((e.key === "d" || e.key === "D") && (e.ctrlKey || e.metaKey)) e.preventDefault();
@@ -205,7 +151,6 @@ const Workflow: FC<WorkflowProps> = memo(({ nodes: originalNodes, edges: origina
   const { handleSelectionStart, handleSelectionChange, handleSelectionDrag } = useSelectionInteractions();
   const { handlePaneContextMenu, handlePaneContextmenuCancel } = usePanelInteractions();
   const { isValidConnection } = useWorkflow();
-  const { exportCheck, handleExportDSL } = useDSL();
 
   useOnViewportChange({
     onEnd: () => {
@@ -233,33 +178,10 @@ const Workflow: FC<WorkflowProps> = memo(({ nodes: originalNodes, edges: origina
       `}
       ref={workflowContainerRef}
     >
-      <SyncingDataModal />
       <CandidateNode />
-      <Header />
-      <Panel />
       <Operator handleRedo={handleHistoryForward} handleUndo={handleHistoryBack} />
-      {showFeaturesPanel && <Features />}
-      <PanelContextmenu />
       <NodeContextmenu />
       <HelpLine />
-      {!!showConfirm && (
-        <Confirm
-          isShow
-          onCancel={() => setShowConfirm(undefined)}
-          onConfirm={showConfirm.onConfirm}
-          title={showConfirm.title}
-          content={showConfirm.desc}
-        />
-      )}
-      {secretEnvList.length > 0 && (
-        <DSLExportConfirmModal
-          envList={secretEnvList}
-          onConfirm={handleExportDSL}
-          onClose={() => setSecretEnvList([])}
-        />
-      )}
-      <LimitTips />
-      <PluginDependency />
       <ReactFlow
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
@@ -316,7 +238,6 @@ Workflow.displayName = "Workflow";
 
 const WorkflowWrap = memo(() => {
   const { data, isLoading } = useWorkflowInit();
-  const { data: fileUploadConfigResponse } = useSWR({ url: "/files/upload" }, fetchFileUploadConfig);
 
   const nodesData = useMemo(() => {
     if (data) return initialNodes(data.graph.nodes, data.graph.edges);
@@ -337,50 +258,10 @@ const WorkflowWrap = memo(() => {
     );
   }
 
-  const features = data.features || {};
-  const initialFeatures: FeaturesData = {
-    file: {
-      image: {
-        enabled: !!features.file_upload?.image?.enabled,
-        number_limits: features.file_upload?.image?.number_limits || 3,
-        transfer_methods: features.file_upload?.image?.transfer_methods || ["local_file", "remote_url"],
-      },
-      enabled: !!(features.file_upload?.enabled || features.file_upload?.image?.enabled),
-      allowed_file_types: features.file_upload?.allowed_file_types || [SupportUploadFileTypes.image],
-      allowed_file_extensions:
-        features.file_upload?.allowed_file_extensions ||
-        FILE_EXTS[SupportUploadFileTypes.image].map((ext) => `.${ext}`),
-      allowed_file_upload_methods: features.file_upload?.allowed_file_upload_methods ||
-        features.file_upload?.image?.transfer_methods || ["local_file", "remote_url"],
-      number_limits: features.file_upload?.number_limits || features.file_upload?.image?.number_limits || 3,
-      fileUploadConfig: fileUploadConfigResponse,
-    },
-    opening: {
-      enabled: !!features.opening_statement,
-      opening_statement: features.opening_statement,
-      suggested_questions: features.suggested_questions,
-    },
-    suggested: features.suggested_questions_after_answer || { enabled: false },
-    speech2text: features.speech_to_text || { enabled: false },
-    text2speech: features.text_to_speech || { enabled: false },
-    citation: features.retriever_resource || { enabled: false },
-    moderation: features.sensitive_word_avoidance || { enabled: false },
-  };
-
-  console.log("features", features);
-  console.log("initialFeatures", initialFeatures);
-  console.log("nodesData", nodesData);
-  console.log("edgesData", edgesData);
-  console.log("data", data);
-
   return (
     <ReactFlowProvider>
       <WorkflowHistoryProvider nodes={nodesData} edges={edgesData}>
-        <FeaturesProvider features={initialFeatures}>
-          <DatasetsDetailProvider nodes={nodesData}>
-            <Workflow nodes={nodesData} edges={edgesData} viewport={data?.graph.viewport} />
-          </DatasetsDetailProvider>
-        </FeaturesProvider>
+        <Workflow nodes={nodesData} edges={edgesData} viewport={data?.graph.viewport} />
       </WorkflowHistoryProvider>
     </ReactFlowProvider>
   );

@@ -8,7 +8,7 @@ import StoreContext, { Provider } from '../../models/context';
 import { createStore } from '../../models/store';
 import { transformNodes, transformSwitchNodes } from '../../utils';
 
-const FlowProvider = memo<{
+export const FlowProvider = memo<{
   initialNodes?: any[];
   initialEdges?: any[];
   children: ReactNode;
@@ -46,7 +46,7 @@ const InitialProvider = ({ nodes, edges, layout, children }: any) => {
   return <>{children}</>;
 };
 
-const FlowProviderWrapper = ({
+export const FlowProviderWrapper = ({
   children,
   nodes,
   edges,
@@ -73,5 +73,3 @@ const FlowProviderWrapper = ({
     </FlowProvider>
   );
 };
-
-export { FlowProvider, FlowProviderWrapper };

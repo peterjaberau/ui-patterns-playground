@@ -31,7 +31,7 @@ export default memo((props: any) => {
   } = globalConfig;
   const statusObj: any = transformNodeStatus(status || []);
   const statusColor = statusObj[currentStatus]?.color;
-  const bgColor = getTransparentColor(statusColor, 0.1);
+  const backgroundColor = getTransparentColor(statusColor, 0.1);
   const boxShadowColor = getTransparentColor(statusColor, 0.2);
 
   return (
@@ -40,7 +40,7 @@ export default memo((props: any) => {
       style={
         {
           '--status-color': statusColor,
-          '--status-bg-color': bgColor,
+          '--status-bg-color': backgroundColor,
           '--status-box-shadow': boxShadowColor,
         } as React.CSSProperties
       }

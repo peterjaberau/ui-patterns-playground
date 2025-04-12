@@ -607,7 +607,7 @@ export const data = [
           },
           position: {
             x: 10,
-            and: 60,
+            y: 60,
           },
         },
         {
@@ -621,7 +621,7 @@ export const data = [
           },
           position: {
             x: 250,
-            and: 150,
+            y: 150,
           },
         },
         {
@@ -635,7 +635,7 @@ export const data = [
           },
           position: {
             x: 450,
-            and: 250,
+            y: 250,
           },
         },
         {
@@ -648,7 +648,7 @@ export const data = [
           },
           position: {
             x: 650,
-            and: 150,
+            y: 150,
           },
         },
         {
@@ -659,7 +659,7 @@ export const data = [
           },
           position: {
             x: 850,
-            and: 230,
+            y: 230,
           },
         },
       ],

@@ -34,35 +34,14 @@ const PanelOperatorPopup = ({ id, data, onClosePopup, showHelpLink }: PanelOpera
   const { handleSyncWorkflowDraft } = useNodesSyncDraft();
   const { nodesReadOnly } = useNodesReadOnly();
   const nodesExtraData = useNodesExtraData();
-  const buildInTools = useStore((s) => s.buildInTools);
-  const customTools = useStore((s) => s.customTools);
-  const workflowTools = useStore((s) => s.workflowTools);
+  const buildInTools = useStore((s: any) => s.buildInTools);
+  const customTools = useStore((s: any) => s.customTools);
+  const workflowTools = useStore((s: any) => s.workflowTools);
   const edge = edges.find((edge) => edge.target === id);
-  const author = useMemo(() => {
-    if (data.type !== BlockEnum.Tool) return nodesExtraData[data.type].author;
-
-    if (data.provider_type === CollectionType.builtIn)
-      return buildInTools.find((toolWithProvider) => canFindTool(toolWithProvider.id, data.provider_id))?.author;
-
-    if (data.provider_type === CollectionType.workflow)
-      return workflowTools.find((toolWithProvider) => toolWithProvider.id === data.provider_id)?.author;
-
-    return customTools.find((toolWithProvider) => toolWithProvider.id === data.provider_id)?.author;
-  }, [data, nodesExtraData, buildInTools, customTools, workflowTools]);
 
   const about = useMemo(() => {
     if (data.type !== BlockEnum.Tool) return nodesExtraData[data.type].about;
-
-    if (data.provider_type === CollectionType.builtIn)
-      return buildInTools.find((toolWithProvider) => canFindTool(toolWithProvider.id, data.provider_id))?.description[
-        language
-      ];
-
-    if (data.provider_type === CollectionType.workflow)
-      return workflowTools.find((toolWithProvider) => toolWithProvider.id === data.provider_id)?.description[language];
-
-    return customTools.find((toolWithProvider) => toolWithProvider.id === data.provider_id)?.description[language];
-  }, [data, nodesExtraData, language, buildInTools, customTools, workflowTools]);
+  }, [data, nodesExtraData, language]);
 
   const showChangeBlock =
     data.type !== BlockEnum.Start &&
@@ -160,9 +139,6 @@ const PanelOperatorPopup = ({ id, data, onClosePopup, showHelpLink }: PanelOpera
             {t("workflow.panel.about").toLocaleUpperCase()}
           </div>
           <div className="mb-1 leading-[18px] text-gray-700">{about}</div>
-          <div className="leading-[18px]">
-            {t("workflow.panel.createdBy")} {author}
-          </div>
         </div>
       </div>
     </div>

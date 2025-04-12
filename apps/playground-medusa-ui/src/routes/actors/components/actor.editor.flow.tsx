@@ -22,8 +22,8 @@ import { Tools } from './flow/tools';
 export const ActorEditorFlow = () => {
   const handleCreateActorInstance = () => {};
 
-  const [flowSettings, setFlowSettings] = React.useState(getDomainSchema({ name: 'general' }));
-  const [flowConfig, setFlowConfig] = React.useState(getFlowConfig({ name: 'basic' }));
+  // const [flowSettings, setFlowSettings] = React.useState(getDomainSchema({ name: 'general' }));
+  // const [flowConfig, setFlowConfig] = React.useState(getFlowConfig({ name: 'basic' }));
 
   return (
     <>
@@ -45,19 +45,33 @@ export const ActorEditorFlow = () => {
         </div>
 
         <div className="flex p-4">
-          <FlowProvider>
-            <div style={{ height: '800px', width: '100%', position: 'relative' }}>
-              <XFlow
-                {...flowConfig.props}
-                initialValues={flowConfig.content}
-                settings={flowSettings?.schema}
-                widgets={{ NodeWidgetHTTP, NodeWidgetLLM, NodeWidgetClassifier }}
-              />
-              <Tools />
-            </div>
-          </FlowProvider>
+          <FlowProviderWrapper />
         </div>
       </Container>
     </>
+  );
+};
+
+const FlowWrapper = () => {
+  const [flowSettings, setFlowSettings] = React.useState(getDomainSchema({ name: 'general' }));
+  const [flowConfig, setFlowConfig] = React.useState(getFlowConfig({ name: 'basic' }));
+
+  return (
+    <XFlow
+      {...flowConfig.props}
+      initialValues={flowConfig.content}
+      settings={flowSettings?.schema}
+      widgets={{ NodeWidgetHTTP, NodeWidgetLLM, NodeWidgetClassifier }}
+    />
+  );
+};
+
+const FlowProviderWrapper = () => {
+  return (
+    <FlowProvider>
+      <div style={{ height: '800px', width: '100%', position: 'relative' }}>
+        <FlowWrapper />
+      </div>
+    </FlowProvider>
   );
 };

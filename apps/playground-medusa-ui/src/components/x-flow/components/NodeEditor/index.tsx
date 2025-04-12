@@ -17,8 +17,8 @@ interface INodeEditorProps {
   ref?: React.Ref<any>; // Add ref attribute
 }
 
-const NodeEditor: FC<INodeEditorProps> = forwardRef((props, ref: any) => {
-  const { data, nodeType, id } = props;
+const NodeEditor: FC<INodeEditorProps | any> = forwardRef((props, ref: any) => {
+  const { data, onChange, nodeType, id } = props;
   const form: any = useForm();
   // // 1. Get node configuration information
   const { settingMap, widgets, readOnly }: any = useContext(ConfigContext);

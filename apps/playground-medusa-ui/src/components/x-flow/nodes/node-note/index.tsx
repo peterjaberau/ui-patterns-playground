@@ -55,7 +55,7 @@ export default memo((props: any) => {
         style={{
           width: '240px',
           height: '160px',
-          backgroundColor: 'rgb(239, 248, 255)',
+          background: 'rgb(239, 248, 255)',
           border: '1px solid rgb(132, 202, 255)',
           borderRadius: '8px',
           cursor: 'text',
