@@ -45,7 +45,6 @@ const FlowWrapper = () => {
   const [flowConfig, setFlowConfig] = React.useState(getFlowConfig({ name: 'basic' }));
 
   const [loading, setLoading] = useState(false);
-
   const [logList, setLogList] = useState<any[]>(flowConfig.logs || []);
 
   return (
@@ -56,7 +55,11 @@ const FlowWrapper = () => {
       onTesting={(node: any, nodes: any) => {
         // node: the node currently being debugged
         // nodes: all node data
-        console.log('single point debugging', node, nodes);
+        // console.log('single point debugging', node, nodes);
+      }}
+      logPanel={{
+        logList,
+        loading,
       }}
       widgets={{ NodeWidgetHTTP, NodeWidgetLLM, NodeWidgetClassifier, SettingWidgetSimple, SettingWidgetAdvanced }}
     />

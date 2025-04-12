@@ -76,14 +76,14 @@ const PanelStatusLogContainer: FC<IPanelProps> = (props: IPanelProps) => {
                 getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
                 style={{ padding: '12px 16px' }}
               >
-                <span
-                  className="icon-box"
-                  style={{
-                    background: nodeSetting?.icon?.bgColor || '#F79009',
-                  }}
-                >
-                  {iconSvg ? iconSvg : <Icon style={{ fontSize: 14, color: '#fff' }} type={nodeSetting?.icon?.type} />}
-                </span>
+                {/* <span */}
+                {/*   className="icon-box" */}
+                {/*   style={{ */}
+                {/*     background: nodeSetting?.icon?.bgColor || '#F79009', */}
+                {/*   }} */}
+                {/* > */}
+                {/*   {iconSvg ? iconSvg : <Icon style={{ fontSize: 14, color: '#fff' }} type={nodeSetting?.icon?.type} />} */}
+                {/* </span> */}
               </Popover>
               <span className="title-content">Execution Log</span>
             </div>

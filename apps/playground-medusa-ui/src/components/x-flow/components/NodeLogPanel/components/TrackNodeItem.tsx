@@ -50,14 +50,14 @@ export default memo((props: ITrackNodeItemProps) => {
             key: node?.id,
             label: (
               <div className="track-collapse-header">
-                <span
-                  className="track-icon-box"
-                  style={{
-                    background: nodeSetting?.icon?.bgColor || '#F79009',
-                  }}
-                >
-                  {iconSvg ? iconSvg : <Icon style={{ fontSize: 14, color: '#fff' }} type={nodeSetting?.icon?.type} />}
-                </span>
+                {/* <span */}
+                {/*   className="track-icon-box" */}
+                {/*   style={{ */}
+                {/*     background: nodeSetting?.icon?.bgColor || '#F79009', */}
+                {/*   }} */}
+                {/* > */}
+                {/*   {iconSvg ? iconSvg : <Icon style={{ fontSize: 14, color: '#fff' }} type={nodeSetting?.icon?.type} />} */}
+                {/* </span> */}
                 <TextEllipsis
                   text={node?.data?.title || nodeSetting?.title}
                   style={{ width: '100%', fontSize: '12px' }}

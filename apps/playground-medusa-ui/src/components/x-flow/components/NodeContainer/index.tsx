@@ -65,10 +65,10 @@ export default memo((props: any) => {
             getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
             style={{ padding: '12px 16px' }}
           >
-            <span className="icon-box" style={{ background: icon?.bgColor }}>
-              {iconSvg ? iconSvg : <IconBox {...icon} />}
-              {/* {iconSvg ? iconSvg : <div style={{ width: '20px', height: '20px' }}>I</div>} */}
-            </span>
+            {/* <span className="icon-box" style={{ background: icon?.bgColor }}> */}
+            {/*   {iconSvg ? iconSvg : <IconBox {...icon} />} */}
+            {/*   {iconSvg ? iconSvg : <div style={{ width: '20px', height: '20px' }}>I</div>} */}
+            {/* </span> */}
           </Popover>
         ) : (
           <span className="icon-box" style={{ background: icon?.bgColor }}>
