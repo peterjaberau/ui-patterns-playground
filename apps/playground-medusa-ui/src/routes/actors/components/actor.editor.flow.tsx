@@ -53,6 +53,11 @@ const FlowWrapper = () => {
       {...flowConfig.props}
       initialValues={flowConfig.content}
       settings={flowSettings?.schema}
+      onTesting={(node: any, nodes: any) => {
+        // node: the node currently being debugged
+        // nodes: all node data
+        console.log('single point debugging', node, nodes);
+      }}
       widgets={{ NodeWidgetHTTP, NodeWidgetLLM, NodeWidgetClassifier, SettingWidgetSimple, SettingWidgetAdvanced }}
     />
   );

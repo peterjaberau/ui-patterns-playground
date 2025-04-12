@@ -178,6 +178,7 @@ export const domainSchema = [
       {
         title: 'LLM (nodeWidget)',
         type: 'LLM',
+        showTestingBtn: true,
         nodeWidget: 'NodeWidgetLLM',
         description: 'Call large language models to answer questions or process natural language',
         icon: {
@@ -224,6 +225,7 @@ export const domainSchema = [
       {
         type: 'Classifier',
         title: 'Problem Classification',
+        showTestingBtn: true,
         icon: {
           type: 'icon-gongju',
           bgColor: '#2E90FA',
@@ -257,6 +259,7 @@ export const domainSchema = [
       {
         title: 'Prompt',
         type: 'Prompt',
+        showTestingBtn: true,
         description: 'Improve the answering effect of large language models by carefully designing prompt words',
         icon: {
           type: 'icon-prompt',
@@ -310,6 +313,7 @@ export const domainSchema = [
       },
       {
         title: 'HSF',
+        showTestingBtn: true,
         type: 'hsf',
         description: 'Allow server requests to be sent through the HSF protocol',
         icon: {
@@ -329,6 +333,7 @@ export const domainSchema = [
       },
       {
         title: 'HTTP',
+        showTestingBtn: true,
         type: 'HTTP',
         description: 'Allows sending server requests over HTTP protocol',
         icon: {
