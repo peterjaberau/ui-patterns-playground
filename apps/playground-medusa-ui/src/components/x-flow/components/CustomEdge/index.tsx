@@ -117,7 +117,7 @@ export default memo((edge: any) => {
                         onEdgesChange([{ id, type: 'remove' }]);
                       }}
                     >
-                      <CloseOutlined style={{ color: '#ffffff', fontSize: 10 }} />
+                      <CloseOutlined style={{ color: '#fff', fontSize: 10 }} />
                     </div>
                   )}
                   {!hideEdgeAddBtn && !readOnly && (

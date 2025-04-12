@@ -1,29 +1,16 @@
 'use client';
 
-import { ActionMenu } from '@/components/common/action-menu';
-import { PencilSquare, Trash } from '@medusajs/icons';
 import { Button } from '@medusajs/ui';
 import { Container, Heading, Text } from '@medusajs/ui';
-import { useSelector } from '@xstate/react';
 import Link from 'next/link';
 import XFlow, { FlowProvider } from '@/components/x-flow';
-// import XFlow from '@/components/x-flow';
 import React from 'react';
 import { getFlowConfig, getDomainSchema } from './flow/config';
 import { NodeWidgetHTTP, NodeWidgetLLM, NodeWidgetClassifier } from './flow/nodeWidgets';
-
-import showSwitchNode from './flow/components/showSwitchNode';
-// import { XFlow } from '@/components/x-flow';
-import { settings } from './flow/setting';
-import { nodes, edges } from './flow/const';
 import './flow/index.css';
-import { Tools } from './flow/tools';
 
 export const ActorEditorFlow = () => {
   const handleCreateActorInstance = () => {};
-
-  // const [flowSettings, setFlowSettings] = React.useState(getDomainSchema({ name: 'general' }));
-  // const [flowConfig, setFlowConfig] = React.useState(getFlowConfig({ name: 'basic' }));
 
   return (
     <>

@@ -630,7 +630,7 @@ export const data = [
           data: {
             name: 'Manual review',
             assignee: 'admin',
-            description: 'Please review the AI ​​generated content',
+            description: 'Please review the AI generated content',
             _status: 'warning',
           },
           position: {
