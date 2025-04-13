@@ -1,6 +1,6 @@
 'use client';
 
-import FormRender, { useForm } from '@/components/form-render';
+import FormRender, { Schema, useForm } from '@/components/form-render';
 import { produce } from 'immer';
 import { debounce, isFunction } from 'lodash';
 import { FC, forwardRef, useContext, useEffect, useImperativeHandle, useRef, useState } from 'react';
@@ -17,18 +17,18 @@ interface INodeEditorProps {
   ref?: React.Ref<any>; // Add ref attribute
 }
 
-const NodeEditor: FC<INodeEditorProps | any> = forwardRef((props, ref: any) => {
+const NodeEditor: FC<INodeEditorProps | any> = forwardRef((props, ref: any): any => {
   const { data, onChange, nodeType, id } = props;
-  const form: any = useForm();
-  // // 1. Get node configuration information
+  const form = useForm();
+  // // 1.Get node configuration information
   const { settingMap, widgets, readOnly }: any = useContext(ConfigContext);
-  const nodeSetting: any = settingMap[nodeType] || {};
+  const nodeSetting = settingMap[nodeType] || {};
   const [customVal, setCustomVal] = useState(data);
   const CustomSettingWidget = widgets[`${nodeType}NodeSettingWidget`]; // Built-in setting component
   const NodeWidget = widgets[nodeSetting?.settingWidget]; // Custom panel configuration component
   const getSettingSchema = nodeSetting['getSettingSchema'];
-  const [asyncSchema, setAsyncSchema] = useState({});
-  const nodeWidgetRef = useRef(null);
+  const [asyncSchema, setAsyncSchema] = useState<Schema>({});
+  const nodeWidgetRef: any = useRef(null);
 
   useImperativeHandle(ref, () => ({
     validateForm: async () => {
@@ -39,11 +39,11 @@ const NodeEditor: FC<INodeEditorProps | any> = forwardRef((props, ref: any) => {
           .then(() => {
             return true;
           })
-          .catch((err: any) => {
+          .catch((err) => {
             return false;
           });
-      } else if (nodeSetting?.settingWidget && (nodeWidgetRef.current as any)?.validateForm) {
-        result = await (nodeWidgetRef.current as any).validateForm();
+      } else if (nodeSetting?.settingWidget && nodeWidgetRef.current?.validateForm) {
+        result = await nodeWidgetRef.current.validateForm();
       }
       return result;
     },
@@ -53,7 +53,6 @@ const NodeEditor: FC<INodeEditorProps | any> = forwardRef((props, ref: any) => {
     const shema = await getSettingSchema(id, nodeType, nodeSetting, data, form).catch(() => ({}));
     setAsyncSchema(shema);
   }
-
   useEffect(() => {
     if (isFunction(getSettingSchema)) {
       getSchema();
@@ -110,7 +109,7 @@ const NodeEditor: FC<INodeEditorProps | any> = forwardRef((props, ref: any) => {
           });
         }
         const { _nodeType, _status, _isCandidate, title, desc } = node?.data;
-        node.data = { _nodeType, _status, _isCandidate, title, desc, ...data }; // If the list of form-render is empty, the corresponding fields of the list will not be returned, and all data can only be replaced
+        node.data = { _nodeType, _status, _isCandidate, title, desc, ...data }; // form-render的list如果为空，不会返回list相应的字段，只能全部替换data
       }
     });
     setNodes(newNodes, false);

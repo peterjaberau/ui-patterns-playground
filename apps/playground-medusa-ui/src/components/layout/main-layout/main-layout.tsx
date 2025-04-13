@@ -1,4 +1,5 @@
 'use client';
+
 import {
   BuildingStorefront,
   Buildings,
@@ -17,7 +18,7 @@ import {
 } from '@medusajs/icons';
 import { Avatar, Divider, DropdownMenu, Text, clx } from '@medusajs/ui';
 import { Collapsible as RadixCollapsible } from 'radix-ui';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { Skeleton } from '../../common/skeleton';
 import { INavItem, NavItem } from '../../layout/nav-item';
@@ -53,6 +54,12 @@ const useCoreRoutes = (): Omit<INavItem, 'pathname'>[] => {
       icon: <ShoppingCart />,
       label: 'Actors',
       to: '/actors',
+    },
+
+    {
+      icon: <ShoppingCart />,
+      label: 'Actor Flow',
+      to: '/actor-flow',
     },
 
     {

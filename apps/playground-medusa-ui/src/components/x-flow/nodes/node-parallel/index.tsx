@@ -25,8 +25,7 @@ export default memo((props: any) => {
       icon={{
         type: nodeSetting?.icon?.type || 'icon-parallel',
         style: { fontSize: 14, color: '#fff' },
-        // bgColor: nodeSetting?.icon?.bgColor || '#06AED4',
-        background: nodeSetting?.icon?.bgColor || '#06AED4',
+        bgColor: nodeSetting?.icon?.bgColor || '#06AED4',
       }}
       onClick={onClick}
       hideDesc={hideDesc}
@@ -45,7 +44,7 @@ export default memo((props: any) => {
           nodeSetting={nodeSetting}
         />
       }
-      description={nodeDescription} // 不允许用户更改的节点描述
+      description={nodeDescription} // Node description that does not allow users to change
       iconSvg={nodeSetting?.iconSvg}
       hideTitleTips={hideTitleTips}
       isSwitchBottom={isSwitchBottom}

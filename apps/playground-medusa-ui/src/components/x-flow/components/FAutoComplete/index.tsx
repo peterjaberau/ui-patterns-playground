@@ -21,7 +21,7 @@ const FAutoComplete: React.FC<any> = (props) => {
   let customDisabled = false;
   const dependValues = props.addons.dependValues;
   if (dependValues) {
-    // 知识库组件的特殊处理
+    // Special handling of knowledge base components
     if (dependValues.length > 1) {
       customDisabled = dependValues[1] === 'vector_weight' && dependValues[0];
     }

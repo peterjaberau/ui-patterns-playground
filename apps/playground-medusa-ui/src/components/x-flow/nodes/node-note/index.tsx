@@ -8,7 +8,7 @@ import './index.css';
 
 export default memo((props: any) => {
   const { onClick, type, data, id } = props;
-  const { nodes, setNodes } = useStore(
+  const { nodes, setNodes }: any = useStore(
     (s) => ({
       nodes: s.nodes,
       setNodes: s.setNodes,
@@ -20,13 +20,13 @@ export default memo((props: any) => {
   const [editorState, setEditorState] = useState(BraftEditor.createEditorState(data?.value));
 
   // Triggered when the editor content changes
-  const handleEditorChange = (newEditorState) => {
+  const handleEditorChange = (newEditorState: any) => {
     setEditorState(newEditorState);
     handleNodeValueChange({ value: newEditorState.toHTML() });
   };
 
   const handleNodeValueChange = debounce((data: any) => {
-    for (let node of nodes) {
+    for (let node of nodes as any) {
       if (node.id === id) {
         node.data = {
           ...node?.data,

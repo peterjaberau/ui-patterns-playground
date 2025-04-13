@@ -1,0 +1,991 @@
+export const dataResources = [
+  {
+    name: 'button',
+    icon: 'fa fa-square',
+    description: 'Used to display a button, you can configure different display styles and different click behaviors.',
+    previewSchema: {
+      type: 'button',
+      label: 'Button',
+    },
+    variants: {
+      default: {
+        text: 'Button',
+        variant: 'primary',
+        size: 'base',
+      },
+      primary: {
+        text: 'Primary Button',
+        variant: 'primary',
+        size: 'base',
+      },
+      seconday: {
+        text: 'Secondary Button',
+        variant: 'secondary',
+        size: 'base',
+      },
+      small: {
+        text: 'Small Button',
+        variant: 'primary',
+        size: 'small',
+      },
+    },
+    schema: {
+      text: {
+        type: 'string',
+        title: 'Text',
+        defaultValue: 'Button',
+      },
+      variant: {
+        type: 'object',
+        title: 'Variant',
+        defaultValue: 'primary',
+        enum: ['primary', 'secondary', 'danger', 'transparent'],
+      },
+      isLoading: {
+        type: 'boolean',
+        title: 'Loading',
+        defaultValue: false,
+      },
+      disabled: {
+        type: 'boolean',
+        title: 'Disabled',
+        defaultValue: false,
+      },
+      size: {
+        type: 'string',
+        title: 'Size',
+        enum: ['small', 'base', 'large', 'xlarge'],
+        defaultValue: 'base',
+      },
+    },
+    tags: ['button'],
+    docLink: '/amis/zh-CN/components/button',
+    scaffold: {
+      type: 'button',
+      label: 'button',
+      onEvent: {
+        click: {
+          actions: [],
+        },
+      },
+    },
+    isBaseComponent: true,
+    pluginIcon: 'button-plugin',
+    rendererName: 'button',
+    id: '8b1a898d4837',
+    plugin: {
+      rendererName: 'button',
+      $schema: '/schemas/ActionSchema.json',
+      order: -400,
+      name: 'button',
+      isBaseComponent: true,
+      description:
+        'Used to display a button, you can configure different display styles and different click behaviors.',
+      docLink: '/amis/zh-CN/components/button',
+      icon: 'fa fa-square',
+      pluginIcon: 'button-plugin',
+      panelTitle: 'Button',
+      events: [
+        {
+          eventName: 'click',
+          eventLabel: 'click',
+          description: 'Fire on click',
+          defaultShow: true,
+          dataSchema: [
+            {
+              type: 'object',
+              properties: {
+                context: {
+                  type: 'object',
+                  title: 'Context',
+                  properties: {
+                    nativeEvent: {
+                      type: 'object',
+                      title: 'mouse event',
+                    },
+                  },
+                },
+              },
+            },
+          ],
+        },
+        {
+          eventName: 'mouseenter',
+          eventLabel: 'mouseenter',
+          description: 'Fires when mouse moves in',
+          dataSchema: [
+            {
+              type: 'object',
+              properties: {
+                context: {
+                  type: 'object',
+                  title: 'Context',
+                  properties: {
+                    nativeEvent: {
+                      type: 'object',
+                      title: 'mouse event',
+                    },
+                  },
+                },
+              },
+            },
+          ],
+        },
+        {
+          eventName: 'mouseleave',
+          eventLabel: 'mouseleave',
+          description: 'mouseleave',
+          dataSchema: [
+            {
+              type: 'object',
+              properties: {
+                context: {
+                  type: 'object',
+                  title: 'Context',
+                  properties: {
+                    nativeEvent: {
+                      type: 'object',
+                      title: 'Event object',
+                    },
+                  },
+                },
+              },
+            },
+          ],
+        },
+      ],
+      actions: [],
+      panelJustify: true,
+    },
+    order: 0,
+  },
+  {
+    name: 'alert',
+    icon: 'fa fa-exclamation-circle',
+    description:
+      'Used to make special text prompts, divided into four categories: prompt, success, warning and danger. Can be combined with <code>visibleOn</code> to provide error message prompts. ',
+    previewSchema: {
+      type: 'alert',
+      body: {
+        type: 'tpl',
+        tpl: 'Prompt content',
+        wrapperComponent: '',
+        inline: false,
+      },
+      level: 'info',
+      className: 'text-left',
+      showCloseButton: true,
+    },
+    variants: {
+      default: {
+        text: 'You are viewing Alert component',
+        variant: 'info',
+        dismissible: false,
+      },
+      dismissibleError: {
+        text: 'Error with dismissible alert',
+        variant: 'error',
+        dismissible: true,
+      },
+    },
+    schema: {
+      text: {
+        type: 'string',
+        title: 'Text',
+        defaultValue: 'You are viewing Alert component',
+      },
+      variant: {
+        type: 'object',
+        title: 'Variant',
+        defaultValue: 'info',
+        enum: ['error', 'success', 'warning', 'info'],
+      },
+      dismissible: {
+        type: 'boolean',
+        title: 'Dismissible',
+        defaultValue: false,
+      },
+    },
+    tags: ['alert'],
+    docLink: '/amis/zh-CN/components/alert',
+    scaffold: {
+      type: 'alert',
+      level: 'info',
+    },
+    isBaseComponent: true,
+    pluginIcon: 'tooltip-plugin',
+    rendererName: 'alert',
+    id: 'b77a77f39083',
+    plugin: {
+      rendererName: 'alert',
+      $schema: '/schemas/AlertSchema.json',
+      name: 'alert',
+      isBaseComponent: true,
+      description:
+        'Used to make special text prompts, divided into four categories: prompt, success, warning and danger. Can be combined with <code>visibleOn</code> to provide error message prompts. ',
+      docLink: '/amis/zh-CN/components/alert',
+      icon: 'fa fa-exclamation-circle',
+      pluginIcon: 'tooltip-plugin',
+      regions: [
+        {
+          key: 'body',
+          label: 'Content',
+          placeholder: 'Alert content',
+        },
+      ],
+      notRenderFormZone: true,
+      panelTitle: 'Alert',
+      panelJustify: true,
+      order: 0,
+    },
+    order: 0,
+  },
+];
+
+export const dataImages = [
+  {
+    id: 'ff21133c-c65c-4261-89c7-5cc11a068c10',
+    cursor: 270,
+    tags: ['bags', 'no-arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Shopping Bag' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset137-na_bAHLww.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:21:30.928078 +00:00'),
+    updatedAt: new Date('2024-06-08 11:21:30.928078 +00:00'),
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset137-na_bAHLww.svg?v=1717077352',
+      },
+    },
+    resourceNamespace: 'library',
+  },
+  {
+    id: 'b5634ac2-772a-4373-841e-8d67537993cd',
+    cursor: 271,
+    tags: ['bags', 'arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Shopping Bag' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset137_bAHLww.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:21:30.928078 +00:00'),
+    updatedAt: new Date('2024-06-08 11:21:30.928078 +00:00'),
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset137_bAHLww.svg?v=1717077352',
+      },
+    },
+    resourceNamespace: 'library',
+  },
+  {
+    id: 'db745256-9dfc-4212-b85a-82574c6e4915',
+    cursor: 272,
+    tags: ['bags', 'no-arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Messenger Bag' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset138-na_VuTFud.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:23:11.742576 +00:00'),
+    updatedAt: new Date('2024-06-08 11:23:11.742576 +00:00'),
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset138-na_VuTFud.svg?v=1717077352',
+      },
+    },
+    resourceNamespace: 'library',
+  },
+  {
+    id: 'ad7cd813-52ea-4850-9725-af96dae2707d',
+    cursor: 273,
+    tags: ['bags', 'arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Messenger Bag' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset138_VuTFud.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:23:11.742576 +00:00'),
+    updatedAt: new Date('2024-06-08 11:23:11.742576 +00:00'),
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset138_VuTFud.svg?v=1717077352',
+      },
+    },
+    resourceNamespace: 'library',
+  },
+  {
+    id: '84ef61fd-5d32-4b41-a641-0e15fec736e8',
+    cursor: 274,
+    tags: ['bags', 'no-arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Crescent Bag' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset139-na_GUFoVs.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:23:45.936915 +00:00'),
+    updatedAt: new Date('2024-06-08 11:23:45.936915 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset139-na_GUFoVs.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: 'f0877977-8ae3-424a-a750-518317d86337',
+    cursor: 275,
+    tags: ['bags', 'arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Crescent Bag' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset139_GUFoVs.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:23:45.936915 +00:00'),
+    updatedAt: new Date('2024-06-08 11:23:45.936915 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset139_GUFoVs.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: 'b089f006-21c3-4363-ad6b-89af726b3c17',
+    cursor: 276,
+    tags: ['bags', 'no-arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Tote Bag' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset140-na_qMvFUh.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:25:48.677097 +00:00'),
+    updatedAt: new Date('2024-06-08 11:25:48.677097 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset140-na_qMvFUh.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: '28de1041-4233-409b-9416-1d4f7d87c99b',
+    cursor: 278,
+    tags: ['bags', 'no-arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Satchel Bag' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset141-na_fnidiJ.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:26:32.911841 +00:00'),
+    updatedAt: new Date('2024-06-08 11:26:32.911841 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset141-na_fnidiJ.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: '9591b0a9-4e60-4ab0-9c5e-7ca118ccc553',
+    cursor: 279,
+    tags: ['bags', 'arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Satchel Bag' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset141_fnidiJ.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:26:32.911841 +00:00'),
+    updatedAt: new Date('2024-06-08 11:26:32.911841 +00:00'),
+
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset141_fnidiJ.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: '0cff4d2a-bbbf-4430-9cf5-6acb97395262',
+    cursor: 280,
+    tags: ['bags', 'no-arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Bucket Bag' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset142-na_czLUAk.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:26:58.580202 +00:00'),
+    updatedAt: new Date('2024-06-08 11:26:58.580202 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset142-na_czLUAk.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: '9d885eba-3199-4529-bf77-d1dd87b5fb83',
+    cursor: 281,
+    tags: ['bags', 'arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Bucket Bag' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset142_czLUAk.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:26:58.580202 +00:00'),
+    updatedAt: new Date('2024-06-08 11:26:58.580202 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset142_czLUAk.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: '40d58f96-53c7-4039-9584-e8d9b0fe18b8',
+    cursor: 282,
+    tags: ['bags', 'no-arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Foldover Clutch' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset143-na_xmWFgi.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:27:30.257002 +00:00'),
+    updatedAt: new Date('2024-06-08 11:27:30.257002 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset143-na_xmWFgi.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: '57fb20f5-1637-4b96-9e31-0465158b21cb',
+    cursor: 283,
+    tags: ['bags', 'arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Foldover Clutch' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset143_xmWFgi.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:27:30.257002 +00:00'),
+    updatedAt: new Date('2024-06-08 11:27:30.257002 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset143_xmWFgi.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: 'f61435af-3443-46a9-9347-3a72bceef608',
+    cursor: 284,
+    tags: ['tops', 'no-arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Baseball Jersey' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset145-na_NtKRJi.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:28:07.073194 +00:00'),
+    updatedAt: new Date('2024-06-08 11:28:07.073194 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset145-na_NtKRJi.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: 'f2aff9ac-cf31-427d-b4a2-75a015f64459',
+    cursor: 285,
+    tags: ['tops', 'arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Baseball Jersey' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset145_NtKRJi.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:28:07.073194 +00:00'),
+    updatedAt: new Date('2024-06-08 11:28:07.073194 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset145_NtKRJi.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: 'b2425b54-202f-4b29-b4f6-e37e20044ca7',
+    cursor: 286,
+    tags: ['tops', 'no-arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Baseball Tee Female' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset146-na_PEbOTf.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:28:30.829326 +00:00'),
+    updatedAt: new Date('2024-06-08 11:28:30.829326 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset146-na_PEbOTf.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: '841ef24f-9458-4c66-8072-2e475181f50f',
+    cursor: 287,
+    tags: ['tops', 'arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Baseball Tee Female' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset146_PEbOTf.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:28:30.829326 +00:00'),
+    updatedAt: new Date('2024-06-08 11:28:30.829326 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset146_PEbOTf.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: '9b05e0bf-ec8e-4ff5-a86d-f076f7c6b559',
+    cursor: 288,
+    tags: ['tops', 'no-arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Baseball Tee Male' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset147-na_aDsSav.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:28:54.898317 +00:00'),
+    updatedAt: new Date('2024-06-08 11:28:54.898317 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset147-na_aDsSav.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: '81ffe268-e233-4c32-820e-aaf9fb69dd31',
+    cursor: 289,
+    tags: ['tops', 'arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Baseball Tee Male' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset147_aDsSav.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:28:54.898317 +00:00'),
+    updatedAt: new Date('2024-06-08 11:28:54.898317 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset147_aDsSav.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: '71c6d04b-46c0-47da-9ba7-27abf525d6cc',
+    cursor: 290,
+    tags: ['tops', 'no-arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Football Jersey' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset148-na_PjHNeD.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:29:30.498990 +00:00'),
+    updatedAt: new Date('2024-06-08 11:29:30.498990 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset148-na_PjHNeD.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: '47fda7d8-406a-4379-9100-c56998d27294',
+    cursor: 291,
+    tags: ['tops', 'arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Football Jersey' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset148_PjHNeD.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:29:30.498990 +00:00'),
+    updatedAt: new Date('2024-06-08 11:29:30.498990 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset148_PjHNeD.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: 'efba58c2-11e1-43de-83a3-4bc8f23aa003',
+    cursor: 277,
+    tags: ['bags', 'arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Tote Bag' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset140_qMvFUh.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-06-08 11:25:48.677097 +00:00'),
+    updatedAt: new Date('2024-06-08 11:25:48.677097 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset140_qMvFUh.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: '3ef3ec86-96b7-4197-a97c-bdedd0f6118b',
+    cursor: 294,
+    tags: ['accessories', 'no-arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Diamond Ring' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset164-na.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-08-20 13:42:36.020377 +00:00'),
+    updatedAt: new Date('2024-08-20 13:42:36.020377 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset164-na.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: 'b0b4f528-d4ab-4082-8a24-e3b60aacac11',
+    cursor: 295,
+    tags: ['accessories', 'arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Diamond Ring' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset164.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-08-20 13:42:36.020377 +00:00'),
+    updatedAt: new Date('2024-08-20 13:42:36.020377 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset164.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: 'd2564ae3-9380-4d07-bb1c-0887388f76cd',
+    cursor: 296,
+    tags: ['accessories', 'no-arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Ring' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset178-na.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-08-20 13:42:47.812374 +00:00'),
+    updatedAt: new Date('2024-08-20 13:42:47.812374 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset178-na.svg?v=1717077352',
+      },
+    },
+  },
+  {
+    id: '4b42b5cc-4d7c-42f6-8796-4beda8d82815',
+    cursor: 297,
+    tags: ['accessories', 'arrows'],
+    allowedPlanSlugs: ['all'],
+    title: { 'en-US': 'Ring' },
+    description: null,
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset178.svg?v=1717077352',
+    status: 'active',
+    createdAt: new Date('2024-08-20 13:42:47.812374 +00:00'),
+    updatedAt: new Date('2024-08-20 13:42:47.812374 +00:00'),
+    resourceNamespace: 'library',
+    resource: {
+      resourceType: 'libraryStaticImage',
+      data: {
+        src: 'https://cdn.shopify.com/s/files/1/0873/5948/8306/files/Asset178.svg?v=1717077352',
+      },
+    },
+  },
+] satisfies any[];
+
+//getShopifyProducts
+export const dataProducts = [
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Product/7983594962966',
+    resourceNamespace: 'library',
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0688/1755/1382/products/GreenWorkoutShirt.jpg?v=1675455464',
+    resource: {
+      resourceType: 'libraryStaticProduct',
+      title: 'Workout Shirt',
+    },
+    title: 'Workout Shirt',
+  },
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Product/7983595290646',
+    resourceNamespace: 'library',
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0688/1755/1382/products/Blacksunnies.jpg?v=1675447388',
+    resource: {
+      resourceType: 'libraryStaticProduct',
+      title: 'Black Sunnies',
+    },
+    title: 'Black Sunnies',
+  },
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Product/7983595323414',
+    resourceNamespace: 'library',
+    mainImageSrc:
+      'https://cdn.shopify.com/s/files/1/0688/1755/1382/products/Differentwhiteleathersneakers01.jpg?v=1675447428',
+    resource: {
+      resourceType: 'libraryStaticProduct',
+      title: 'White Leather Sneakers',
+    },
+    title: 'White Leather Sneakers',
+  },
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Product/7983595356182',
+    resourceNamespace: 'library',
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0688/1755/1382/products/Greyleathersneakers.jpg?v=1675447462',
+    resource: {
+      resourceType: 'libraryStaticProduct',
+      title: 'Gray Leather Sneakers',
+    },
+    title: 'Gray Leather Sneakers',
+  },
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Product/7983595388950',
+    resourceNamespace: 'library',
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0688/1755/1382/products/Greyrunners.jpg?v=1675447483',
+    resource: {
+      resourceType: 'libraryStaticProduct',
+      title: 'Gray Runners',
+    },
+    title: 'Gray Runners',
+  },
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Product/7983595454486',
+    resourceNamespace: 'library',
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0688/1755/1382/products/Seethroughsunnies.jpg?v=1675447537',
+    resource: {
+      resourceType: 'libraryStaticProduct',
+      title: 'Clear Sunnies',
+    },
+    title: 'Clear Sunnies',
+  },
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Product/7983595487254',
+    resourceNamespace: 'library',
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0688/1755/1382/products/Whiteleathersneakers01.jpg?v=1675447604',
+    resource: {
+      resourceType: 'libraryStaticProduct',
+      title: 'High Top Sneakers',
+    },
+    title: 'High Top Sneakers',
+  },
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Product/7983602040854',
+    resourceNamespace: 'library',
+    mainImageSrc:
+      'https://cdn.shopify.com/s/files/1/0688/1755/1382/products/GreenHat01_e925fadd-05dc-4185-b7fe-482f9c0e49b2.jpg?v=1675454374',
+    resource: {
+      resourceType: 'libraryStaticProduct',
+      title: 'Beanie',
+    },
+    title: 'Beanie',
+  },
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Product/10489561382934',
+    resourceNamespace: 'library',
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0688/1755/1382/products/ClayHoodie01.jpg?v=1739548707',
+    resource: {
+      resourceType: 'libraryStaticProduct',
+      title: 'Hoodie',
+    },
+    title: 'Hoodie',
+  },
+];
+
+//getShopifyCollections
+export const dataCollections = [
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Collection/429493780502',
+    resourceNamespace: 'library',
+    mainImageSrc:
+      'https://cdn.shopify.com/s/files/1/0688/1755/1382/collections/cd_a_neatly_arranged_photo_of_mens_clothes_t-shirt_gray_hoodie__c5a4ebe4-ccb1-4d94-ae56-a1b33b4e71d9_1.png?v=1675456349',
+    resource: {
+      resourceType: 'libraryStaticCollection',
+      title: 'Men',
+    },
+    title: 'Men',
+  },
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Collection/429493813270',
+    resourceNamespace: 'library',
+    mainImageSrc:
+      'https://cdn.shopify.com/s/files/1/0688/1755/1382/collections/cd_a_neatly_arranged_photo_of_womens_clothes_t-shirt_yoga_pants_1f41a422-4293-4b40-b986-8d514fb2041c_1.png?v=1675456116',
+    resource: {
+      resourceType: 'libraryStaticCollection',
+      title: 'Women',
+    },
+    title: 'Women',
+  },
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Collection/429493846038',
+    resourceNamespace: 'library',
+    mainImageSrc:
+      'https://cdn.shopify.com/s/files/1/0688/1755/1382/collections/cd_three_pairs_of_neatly_arranged_men_and_womens_running_shoes._f4121e54-2c8a-4ad2-b366-355c0cc4348d_7.png?v=1675467965',
+    resource: {
+      resourceType: 'libraryStaticCollection',
+      title: 'Unisex',
+    },
+    title: 'Unisex',
+  },
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Collection/429493911574',
+    resourceNamespace: 'library',
+    mainImageSrc:
+      'https://cdn.shopify.com/s/files/1/0688/1755/1382/collections/cd_three_pairs_of_neatly_arranged_men_and_womens_running_shoes._f4121e54-2c8a-4ad2-b366-355c0cc4348d_6.png?v=1675467128',
+    resource: {
+      resourceType: 'libraryStaticCollection',
+      title: 'Tops',
+    },
+    title: 'Tops',
+  },
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Collection/429493944342',
+    resourceNamespace: 'library',
+    mainImageSrc:
+      'https://cdn.shopify.com/s/files/1/0688/1755/1382/collections/cd_three_pairs_of_neatly_arranged_men_and_womens_running_shoes._f4121e54-2c8a-4ad2-b366-355c0cc4348d_4.png?v=1675465297',
+    resource: {
+      resourceType: 'libraryStaticCollection',
+      title: 'Bottoms',
+    },
+    title: 'Bottoms',
+  },
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Collection/429493977110',
+    resourceNamespace: 'library',
+    mainImageSrc:
+      'https://cdn.shopify.com/s/files/1/0688/1755/1382/collections/cd_black_sport_bag_containing_sport_accessories_one_towel_one_w_ef3e1828-4bde-4d7f-a6bf-e7abae4961e8.png?v=1675462987',
+    resource: {
+      resourceType: 'libraryStaticCollection',
+      title: 'Accessories',
+    },
+    title: 'Accessories',
+  },
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Collection/429512622102',
+    resourceNamespace: 'library',
+    mainImageSrc: 'https://cdn.shopify.com/s/files/1/0688/1755/1382/collections/banner-2.png?v=1675462488',
+    resource: {
+      resourceType: 'libraryStaticCollection',
+      title: 'Featured',
+    },
+    title: 'Featured',
+  },
+  {
+    allowedPlanSlugs: ['all'],
+    id: 'gid://shopify/Collection/429531037718',
+    resourceNamespace: 'library',
+    mainImageSrc:
+      'https://cdn.shopify.com/s/files/1/0688/1755/1382/collections/cd_three_pairs_of_neatly_arranged_men_and_womens_running_shoes._f4121e54-2c8a-4ad2-b366-355c0cc4348d_1.png?v=1675461870',
+    resource: {
+      resourceType: 'libraryStaticCollection',
+      title: 'Shoes',
+    },
+    title: 'Shoes',
+  },
+];
+
+export const formOptions = {
+  uiMode: [
+    {
+      label: 'Card',
+      value: 'card',
+    },
+    {
+      label: 'Resource Item',
+      value: 'resource-item',
+    },
+  ],
+  itemTypes: [
+    { label: 'Static Product', id: 'libraryStaticProduct' },
+    { label: 'Static Collection', id: 'libraryStaticCollection' },
+    { label: 'Static Image', id: 'libraryStaticImage' },
+  ],
+  modalSize: [
+    {
+      label: 'Small',
+      id: 'small',
+    },
+    {
+      label: 'Medium',
+      id: 'medium',
+    },
+    {
+      label: 'Large',
+      id: 'large',
+    },
+    {
+      label: 'Full Screen',
+      id: 'fullScreen',
+    },
+  ],
+  selectionType: [
+    {
+      label: 'Single',
+      id: 'single',
+    },
+    {
+      label: 'Multiple',
+      id: 'multiple',
+    },
+  ],
+};

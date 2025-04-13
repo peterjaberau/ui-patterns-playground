@@ -69,7 +69,7 @@ const Control = (props: any) => {
             />
           }
           onClick={() => panOnDrag && handleInteractionModeChange(false)}
-          style={{ background: !panOnDrag ? 'rgb(239,244,255)' : '' }}
+          style={{ backgroundColor: !panOnDrag ? 'rgb(239,244,255)' : '' }}
         />
       </Tooltip>
       <Tooltip title="Hand Mode" getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}>
@@ -86,7 +86,7 @@ const Control = (props: any) => {
           }
           onClick={() => !panOnDrag && handleInteractionModeChange(true)}
           style={{
-            background: panOnDrag ? 'rgb(239,244,255)' : '',
+            backgroundColor: panOnDrag ? 'rgb(239,244,255)' : '',
             marginLeft: '1px',
           }}
         />

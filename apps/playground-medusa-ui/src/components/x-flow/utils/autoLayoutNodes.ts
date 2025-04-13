@@ -34,7 +34,7 @@ export const getLayoutByDagre = (originNodes: any[], originEdges: any[], rankdir
   return dagreGraph;
 };
 
-export default (nodes: any, edges: any, rankdir: 'LR' | 'TB' | any) => {
+export default (nodes: any, edges: any, rankdir: 'LR' | 'TB') => {
   const layout = getLayoutByDagre(nodes, edges, rankdir);
   const rankMap: any = {} as Record<string, Node>;
   nodes.forEach((node: any) => {

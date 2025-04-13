@@ -68,17 +68,20 @@ const createStore = (initProps?: Partial<FlowProps>) => {
         mousePosition: { pageX: 0, pageY: 0, elementX: 0, elementY: 0 },
         onNodesChange: (changes) => {
           set({
-            nodes: applyNodeChanges(changes, get().nodes as any[]),
+            // @ts-ignore
+            nodes: applyNodeChanges(changes, get().nodes),
           });
         },
         onEdgesChange: (changes) => {
           set({
-            edges: applyEdgeChanges(changes, get().edges as any[]),
+            // @ts-ignore
+            edges: applyEdgeChanges(changes, get().edges),
           });
         },
         onConnect: (connection) => {
           set({
-            edges: addEdge(connection, get().edges as any[]),
+            // @ts-ignore
+            edges: addEdge(connection, get().edges),
           });
         },
         setNodes: (nodes) => {
@@ -88,7 +91,6 @@ const createStore = (initProps?: Partial<FlowProps>) => {
           set({ edges });
         },
         addNodes: (payload, isTransform = true) => {
-          // @ts-ignore
           const newNodes = get().nodes.concat(transformNodes(Array.isArray(payload) ? payload : [payload]));
           set({ nodes: newNodes });
         },

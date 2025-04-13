@@ -21,6 +21,7 @@ export const _set = set;
 export const _get = get;
 export const _cloneDeep = cloneDeep;
 // export const _has = has;
+export { _has };
 export const _merge = merge;
 export const _mergeWith = mergeWith;
 export const _isUndefined = isUndefined;
@@ -110,12 +111,12 @@ export function isCheckBoxType(schema: any, readOnly: boolean) {
 }
 
 export const translation = (configCtx: any) => (key: string) => {
-  const locale: any = configCtx?.locale.FormRender;
+  const locale = configCtx?.locale.FormRender;
   return locale[key];
 };
 
 export const hasFuncProperty: any = (obj: any) => {
-  return _some(obj, (value: any) => {
+  return _some(obj, (value) => {
     if (isFunction(value)) {
       return true;
     }
@@ -142,7 +143,7 @@ export const isMac = () => {
   return navigator.userAgent.toUpperCase().includes('MAC');
 };
 
-export const specialKeysNameMap: Record<string, string | undefined> = {
+const specialKeysNameMap: Record<string, string | undefined> = {
   ctrl: '⌘',
   alt: '⌥',
 };

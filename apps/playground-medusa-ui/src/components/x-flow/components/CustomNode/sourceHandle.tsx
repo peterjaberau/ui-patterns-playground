@@ -1,41 +1,45 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Handle } from '@xyflow/react';
 import { Tooltip } from 'antd';
-import React, { memo, useContext, useMemo, useRef, useState } from 'react';
+import React, { memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import NodeSelectPopover from '../NodesPopover';
 import { ConfigContext } from '../../models/context';
 
 export default memo((props: any) => {
-  const { position, isConnectable, selected, isHovered, handleAddNode, switchTitle, ...rest } = props;
+  const { position, isConnectable, selected, dragging, isHovered, handleAddNode, switchTitle, ...rest } = props;
   const [isShowTooltip, setIsShowTooltip] = useState(false);
+  // const isShowTooltipRef = useRef(false);
+
   const [openNodeSelectPopover, setOpenNodeSelectPopover] = useState(false);
   const popoverRef = useRef(null);
-  const { antdVersion, globalConfig }: any = useContext(ConfigContext);
+  const { globalConfig }: any = useContext(ConfigContext);
   const handleProps = globalConfig?.handle || {};
 
-  const toolTipVersionProps = useMemo(() => {
-    if (antdVersion === 'V5') {
-      return {
-        open: isShowTooltip,
-      };
+  const handleMouseEnter = () => {
+    if (!dragging) {
+      setIsShowTooltip(true);
     }
-    // V4
-    return {
-      visible: isShowTooltip,
-    };
-  }, [isShowTooltip]);
+    // isShowTooltipRef.current = true;
+  };
+
+  const handleMouseLeave = () => {
+    if (!dragging) {
+      setIsShowTooltip(false);
+    }
+  };
 
   return (
     <Handle
       type="source"
       position={position}
       isConnectable={isConnectable}
-      onMouseEnter={() => setIsShowTooltip(true)}
-      onMouseLeave={() => setIsShowTooltip(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onClick={(e) => {
         e.stopPropagation();
         // @ts-ignore
         popoverRef?.current?.changeOpen(true);
+        // isShowTooltipRef.current = false;
         setIsShowTooltip(false);
         setOpenNodeSelectPopover(true);
       }}
@@ -53,20 +57,22 @@ export default memo((props: any) => {
                 ref={popoverRef}
                 onNodeSelectPopoverChange={(val: any) => setOpenNodeSelectPopover(val)}
               >
-                <Tooltip
-                  title="Click Add Node"
-                  arrow={false}
-                  style={{
-                    background: '#fff',
-                    color: '#354052',
-                    fontSize: '12px',
-                  }}
-                  color="#fff"
-                  {...toolTipVersionProps}
-                  getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
-                >
-                  <PlusOutlined style={{ color: '#fff', fontSize: 10 }} />
-                </Tooltip>
+                {!dragging && (
+                  <Tooltip
+                    title="Click add node"
+                    arrow={false}
+                    style={{
+                      background: '#fff',
+                      color: '#354052',
+                      fontSize: '12px',
+                    }}
+                    open={isShowTooltip}
+                    color="#fff"
+                    getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
+                  >
+                    <PlusOutlined style={{ color: '#fff', fontSize: 10 }} />
+                  </Tooltip>
+                )}
               </NodeSelectPopover>
             </div>
           )}

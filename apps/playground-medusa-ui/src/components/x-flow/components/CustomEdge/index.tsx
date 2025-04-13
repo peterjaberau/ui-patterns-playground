@@ -26,7 +26,7 @@ export default memo((edge: any) => {
   const hideEdgeDelBtn = globalConfig?.edge?.hideEdgeDelBtn ?? false;
   const deletable = globalConfig?.edge?.deletable ?? true;
 
-  const { nodes, edges, addEdges, mousePosition, onEdgesChange, layout }: any = useStore(
+  const { nodes, edges, addEdges, mousePosition, onEdgesChange, layout } = useStore(
     (state: any) => ({
       layout: state.layout,
       nodes: state.nodes,

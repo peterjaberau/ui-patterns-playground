@@ -5,7 +5,7 @@ import { Dropdown, Menu, message } from 'antd';
 import { ItemType } from 'antd/es/menu/interface';
 import classNames from 'classnames';
 import { isFunction } from 'lodash';
-import React, { memo, useCallback, useContext, useMemo, useState } from 'react';
+import React, { memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { shallow } from 'zustand/shallow';
 import { useStore } from '../../hooks/useStore';
 import { ConfigContext } from '../../models/context';
@@ -15,7 +15,7 @@ import SourceHandle from './sourceHandle';
 import { useFlow } from '../../hooks/useFlow';
 
 export default memo((props: any) => {
-  const { id, type, data, layout, isConnectable, selected, onClick, status } = props;
+  const { id, type, data, layout, isConnectable, dragging, selected, onClick, status } = props;
   const { widgets, settingMap, globalConfig, onMenuItemClick, antdVersion, readOnly }: any = useContext(ConfigContext);
   const deletable = globalConfig?.edge?.deletable ?? true;
   const disabledCopy = settingMap[type]?.disabledCopy ?? false;
@@ -25,7 +25,9 @@ export default memo((props: any) => {
   // const isConnectableEnd = globalConfig?.handle?.isConnectableEnd ?? true;
 
   const NodeWidget = widgets[`${capitalize(type)}Node`] || widgets['CommonNode'];
-  const [isHovered, setIsHovered] = useState(false);
+  // const [isHovered, setIsHovered] = useState(false);
+  const isHoveredRef = useRef(false);
+
   const reactflow = useReactFlow();
   const { addEdges, mousePosition } = useStore(
     (state: any) => ({
@@ -204,33 +206,14 @@ export default memo((props: any) => {
     </Menu>
   );
 
-  const dropdownVersionProps = useMemo(() => {
-    if (antdVersion === 'V5') {
-      return {
-        menu: {
-          items: [
-            {
-              label: 'Copy',
-              key: 'copy',
-              disabled: disabledCopy,
-            },
-            ...(isEnd ? [] : menuItem),
-            {
-              label: 'Delete',
-              key: 'delete',
-              danger: true,
-              disabled: disabledDelete,
-            },
-          ],
-          onClick: itemClick,
-        },
-      };
-    }
-    // V4
-    return {
-      overlay: menu,
-    };
-  }, [menuItem, isEnd]);
+  const handleMouseEnter = () => {
+    isHoveredRef.current = true;
+  };
+
+  const handleMouseLeave = () => {
+    isHoveredRef.current = false;
+  };
+
   return (
     <div
       className={classNames('xflow-node-container', {
@@ -239,8 +222,8 @@ export default memo((props: any) => {
         ['xflow-node-container-note']: isNote,
         [`xflow-node-container-status-${status}`]: isTruthy(status),
       })}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       style={{ '--nodeBorderColor': nodeBorderColor } as React.CSSProperties}
     >
       {!settingMap?.[type]?.targetHandleHidden && !isNote && (
@@ -252,10 +235,27 @@ export default memo((props: any) => {
           // isConnectableEnd={isConnectableEnd}
         />
       )}
-      {!readOnly && (
+      {!readOnly && !dragging && (
         <Dropdown
           disabled={readOnly}
-          {...dropdownVersionProps}
+          menu={{
+            items: [
+              {
+                label: 'Copy',
+                key: 'copy',
+                disabled: disabledCopy,
+              },
+              ...(isEnd ? [] : menuItem),
+              {
+                label: 'Delete',
+                key: 'delete',
+                danger: true,
+                disabled: disabledDelete,
+              },
+            ],
+            onClick: itemClick,
+          }}
+
           //trigger={['click', 'contextMenu']}
         >
           <div className="xflow-node-actions-container">
@@ -271,16 +271,16 @@ export default memo((props: any) => {
         position={sourcePosition}
         isConnectable={connectable}
         selected={selected}
-        isHovered={isHovered}
+        isHovered={isHoveredRef.current}
         handleAddNode={handleAddNode}
       />
-      {!settingMap?.[type]?.sourceHandleHidden && !isSwitchNode && (
+      {!settingMap?.[type]?.sourceHandleHidden && !isSwitchNode && !dragging && (
         <>
           <SourceHandle
             position={sourcePosition}
             isConnectable={connectable}
             selected={selected}
-            isHovered={isHovered}
+            isHovered={isHoveredRef.current}
             handleAddNode={handleAddNode}
             // isConnectableStart={isConnectableStart}
             // isConnectableEnd={isConnectableEnd}

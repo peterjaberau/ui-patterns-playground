@@ -56,26 +56,28 @@ export default memo((props: any) => {
       onClick={onClick}
     >
       <div className="node-title">
-        {!hideTitleTips ? (
-          <Popover
-            className="nodes-popover"
-            content={<TitleMenuTooltip {...props} />}
-            placement="bottomLeft"
-            trigger="hover"
-            getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
-            style={{ padding: '12px 16px' }}
-          >
-            {/* <span className="icon-box" style={{ background: icon?.bgColor }}> */}
-            {/*   {iconSvg ? iconSvg : <IconBox {...icon} />} */}
-            {/*   {iconSvg ? iconSvg : <div style={{ width: '20px', height: '20px' }}>I</div>} */}
-            {/* </span> */}
-          </Popover>
-        ) : (
-          <span className="icon-box" style={{ background: icon?.bgColor }}>
-            {iconSvg ? iconSvg : <IconBox {...icon} />}
-            {/* {iconSvg ? iconSvg : <div style={{ width: '20px', height: '20px' }}>I</div>} */}
-          </span>
-        )}
+        {/* {!hideTitleTips ? ( */}
+        {/*   <Popover */}
+        {/*     className="nodes-popover" */}
+        {/*     content={<TitleMenuTooltip {...props} />} */}
+        {/*     placement="bottomLeft" */}
+        {/*     trigger="hover" */}
+        {/*     getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement} */}
+        {/*     style={{ padding: '12px 16px' }} */}
+        {/*   > */}
+        {/*     <span className="icon-box" style={{ background: icon?.bgColor }}> */}
+        {/*       {iconSvg ? iconSvg : <IconBox type={icon.type} style={{ background: icon.bgColor }} />} */}
+        {/*     </span> */}
+        {/*   </Popover> */}
+        {/* ) : ( */}
+        {/*   <span className="icon-box" style={{ background: icon?.bgColor }}> */}
+        {/*     {iconSvg ? iconSvg : <IconBox type={icon.type} style={{ background: icon.bgColor }} />} */}
+        {/*   </span> */}
+        {/* )} */}
+
+        <span className="icon-box" style={{ background: icon?.bgColor }}>
+          {iconSvg ? iconSvg : <IconBox type={icon.type} style={{ background: icon.bgColor }} />}
+        </span>
         <TextEllipsis text={title} style={{ width: 188, marginLeft: '8px' }} />
       </div>
 

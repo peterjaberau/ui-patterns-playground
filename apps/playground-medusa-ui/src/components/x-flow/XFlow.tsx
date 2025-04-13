@@ -32,7 +32,7 @@ const edgeTypes = { buttonedge: memo(CustomEdge) };
 
 /***
  *
- * XFlow 入口
+ * XFlow
  *
  */
 const XFlow: FC<FlowProps> = memo((props) => {
@@ -113,9 +113,9 @@ const XFlow: FC<FlowProps> = memo((props) => {
 
   const { eventEmitter } = useEventEmitterContextContext();
   eventEmitter?.useSubscription((v: any) => {
-    // tidy canvas
+    // canvas
     if (v.type === 'auto-layout-nodes') {
-      const newNodes: any = autoLayoutNodes(storeApi.getState().nodes, edges, layout);
+      const newNodes: any = autoLayoutNodes(storeApi.getState().nodes, edges, layout as any);
       setNodes(newNodes, false);
     }
 
@@ -124,7 +124,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
     }
   });
 
-  // 新增节点
+  // Add new node
   const handleAddNode = (data: any) => {
     const title = settingMap[data?._nodeType]?.title || data?._nodeType;
     const newNode = {
@@ -142,6 +142,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
     setCandidateNode(newNode);
   };
 
+  // edge Move in/out effect
   const getUpdateEdgeConfig = useMemoizedFn((edge: any, color: string) => {
     const newEdges: any = produce(edges, (draft: any) => {
       const currEdge: any = draft.find((e: any) => e.id === edge.id);
@@ -269,9 +270,9 @@ const XFlow: FC<FlowProps> = memo((props) => {
             strokeWidth: 1.5, // 线粗细
           },
           markerEnd: {
-            type: MarkerType.ArrowClosed, // 箭头
+            type: MarkerType.ArrowClosed, // Arrowhead
           },
-          deletable: deletable, //默认连线属性受此项控制
+          deletable: deletable, //The default connection attribute is controlled by this
         }}
         onBeforeDelete={async () => {
           if (readOnly) {
@@ -324,6 +325,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
             id={activeNode?.id}
             nodeType={activeNode?._nodeType}
             onClose={async () => {
+              // Panel close the verification form
               // @ts-ignore
               const result = await nodeEditorRef?.current?.validateForm();
               if (!result) {

@@ -7,17 +7,17 @@ import { FlowProviderWrapper } from './components/FlowProvider';
 import { ConfigContext } from './models/context';
 import { TNodeGroup, TNodeItem } from './types';
 
-interface ProviderProps {
+interface ProviderProps<T> {
   configProvider?: any;
   widgets?: any;
   methods?: any;
   nodeSelector?: any;
-  settings?: (TNodeGroup | TNodeItem | any)[];
+  settings?: (TNodeGroup | TNodeItem)[];
   [key: string]: any;
 }
 
-export default function withProvider<T>(Element: any, defaultWidgets?: any): React.ComponentType<any> {
-  return (props: ProviderProps) => {
+export default function withProvider<T>(Element: any, defaultWidgets?: any): any {
+  return (props: ProviderProps<T>) => {
     const {
       configProvider,
       widgets,

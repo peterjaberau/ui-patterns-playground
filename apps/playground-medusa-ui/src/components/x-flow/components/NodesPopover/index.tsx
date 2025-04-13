@@ -11,7 +11,6 @@ import './index.css';
 
 export default forwardRef((props: any, popoverRef) => {
   const { addNode, children, onNodeSelectPopoverChange } = props;
-
   const { setIsAddingNode } = useStore((s) => ({
     setIsAddingNode: s.setIsAddingNode,
   }));
@@ -80,7 +79,6 @@ export default forwardRef((props: any, popoverRef) => {
       {...popoverProps}
       trigger="click"
       {...popoverVersionProps}
-      // @ts-ignore
       content={<NodesMenu ref={ref} items={settings} showSearch={showSearch} onClick={handCreateNode} />}
     >
       {children}

@@ -37,7 +37,7 @@ const schema: any = {
 };
 
 export default memo((props: INodeSwitchSettingPorps) => {
-  const form: any = useForm();
+  const form = useForm();
   const { onChange, value } = props;
 
   const watch = {

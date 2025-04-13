@@ -21,7 +21,6 @@ export default memo(({ handleUndo, handleRedo, pastStates, futureStates }: UndoR
 
   return (
     <div className="fai-reactflow-undoredo">
-      {' '}
       <Tooltip title="Undo" getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}>
         <Button
           type="text"

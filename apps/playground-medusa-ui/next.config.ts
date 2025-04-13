@@ -26,6 +26,7 @@ const nextConfig: NextConfig = {
   webpack(config, { isServer }) {
     if (!isServer) {
       // Deduplicate specific Lezer packages
+
       config.resolve.alias = {
         ...config.resolve.alias,
         '@lezer/common': require.resolve('@lezer/common'),

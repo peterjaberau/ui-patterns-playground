@@ -1,27 +1,26 @@
 import { NodeMouseHandler, Handle } from '@xyflow/react';
-import { useForm } from '@/components/form-render';
-import { ReactNode, ComponentProps } from 'react';
+import { Schema, useForm } from '@/components/form-render';
+import React, { ReactNode, ComponentProps } from 'react';
 
-export type HandleProps = ComponentProps<typeof Handle>;
+type HandleProps = ComponentProps<typeof Handle>;
 
 export interface TNodeItem {
-  title: string; // node title
-  type: string; // Node type_group comparison
+  title: string; // Node title
+  type: string; // Node type _group comparison te
   description?: string; // Node description
-  hidden?: boolean; // Is it visible?
+  hidden?: boolean; // Is it visible
   icon: {
     type: string;
     bgColor: string;
-    background: string;
   };
-  settingSchema?: any; // Node configuration schema (pop-up window) string is a custom component
+  settingSchema?: Schema; // The node's configuration schema (pop-up window) string is a custom component
   settingWidget?: string; // Custom component
   settingWidgetProps?: object; // Custom component parameters
   hideDesc?: boolean; // Hide business description
   nodePanel?: {
-    //Configure panel property settings
-    width?: string | number; //Configure panel width
-    hideDesc?: boolean; //Configure panel description
+    //Configure panel properties settings
+    width?: string | number; // Configure panel width
+    hideDesc?: boolean; // Configuration panel description
   };
   getSettingSchema?: (
     nodeId: string,
@@ -29,16 +28,15 @@ export interface TNodeItem {
     nodeItem: TNodeItem,
     nodeData: any,
     form: ReturnType<typeof useForm>,
-  ) => Promise<any>;
-
+  ) => Promise<Schema>;
   switchExtra: {
-    // Conditional node extra attribute configuration
+    // Condition node additional attribute configuration
     hideElse: boolean;
     valueKey: string;
     titleKey: string;
   };
   parallelExtra: {
-    // Additional configuration for parallel nodes
+    // Additional configuration of parallel nodes
     valueKey: string;
     titleKey: string;
   };
@@ -48,34 +46,34 @@ export interface TNodeItem {
 }
 
 export interface TNodeGroup {
-  title: string; // node title
+  title: string; // 节点 title
   type: '_group';
   items: TNodeItem[];
 }
 
 export interface TNodeMenu {
-  ref: React.RefObject<any>; // optional ref attribute
-  showSearch: boolean; // Whether the configuration is searchable
-  items: (TNodeGroup | TNodeItem | any)[];
+  ref: React.RefObject<any>; // Optional ref attribute
+  showSearch: boolean; // Configure whether it is searchable
+  items: (TNodeGroup | TNodeItem)[];
   onClick: ({}: { type: string }) => void;
 }
 
 export interface TNodePanel {
-  //Configure panel property settings
-  width?: string | number; //Configure panel width
-  hideDesc?: boolean; //Configure panel description
+  //Configure panel properties settings
+  width?: string | number; // Configure panel width
+  hideDesc?: boolean; // Configuration panel description
   onClose?: (activeNodeId: string) => void;
 }
 
 export interface TNodeSelector {
-  showSearch: boolean; // Whether the configuration is searchable
+  showSearch: boolean; // Configure whether it is searchable
   items?: (TNodeGroup | TNodeItem)[];
 }
 
 export interface TLogListItem {
   // Log data format:
   statusPanel?: {
-    status?: Array<{ label: string; value?: string; isBadge?: boolean }>; // isBadge indicates whether the status is displayed in badge form
+    status?: Array<{ label: string; value?: string; isBadge?: boolean }>; // Is isBadge displayed in badge form?
     extra?: string | ReactNode;
   };
   codePanel?: Array<{ title: string; code: string }>;
@@ -84,9 +82,9 @@ export interface TLogListItem {
 
 export interface TLogPanel {
   // Log panel
-  // logData: any; // Data received by the log panel
-  logList: Array<TLogListItem>; // All data in the log panel ===》By default, you can get the log data of all nodes on the page
-  loading?: boolean; // Log panel loading
+  // logData: any; // data accepted by the log panel
+  logList: Array<TLogListItem>; // All data in the log panel ===》 By default, you can get the log data of all nodes on the page.
+  loading?: boolean; // log panel loading
   logWidget?: string; // Custom log panel component
   width?: number; // Log panel width
 }
@@ -94,16 +92,16 @@ export interface TLogPanel {
 export interface TNodeView {
   hideTitleTips?: boolean;
   status?: Array<{
-    name: string; // state name
-    color: string; // status color
+    name: string; // Status name
+    color: string; // Status color
   }>;
 }
 
 export interface TEdge {
-  // Edge configuration
-  hideEdgeAddBtn?: boolean; // Whether to hide the add node button on the line between two nodes
-  hideEdgeDelBtn?: boolean; // Whether to hide the delete node button on the line between two nodes
-  deletable?: boolean; // Is it allowed to delete the edges initialized by the line without being affected by this item?
+  //Edge configuration
+  hideEdgeAddBtn?: boolean; // Whether to hide the add node button on the connection between two nodes
+  hideEdgeDelBtn?: boolean; // Whether to hide the delete node button on the connection between two nodes
+  deletable?: boolean; // Is it allowed to delete lines? The initialized edges are not affected by this item
 }
 
 export interface TControl {
@@ -140,7 +138,7 @@ export interface FlowProps {
     handle?: THandle;
     deleteKeyCode?: string | string[] | null;
   };
-  logPanel?: TLogPanel; // Log panel configuration
+  logPanel?: TLogPanel; // Log Panel Configuration
   readOnly?: boolean; //Read-only mode
   onNodeClick?: NodeMouseHandler;
   onMenuItemClick?: (itemInfo: ItemInfo, defaultAction: () => void) => void;

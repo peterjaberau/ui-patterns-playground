@@ -95,7 +95,8 @@ export const useFlow = () => {
   });
 
   const copyNode = useMemoizedFn((nodeId) => {
-    const copyNodes = generateCopyNodes(storeApi.getState().nodes?.find((node) => node.id === nodeId));
+    // @ts-ignore
+    const copyNodes = generateCopyNodes(storeApi.getState().nodes.find((node) => node.id === nodeId));
     storeApi.setState({
       copyNodes,
     });
@@ -124,12 +125,14 @@ export const useFlow = () => {
   const deleteNode = useMemoizedFn((nodeId) => {
     record(() => {
       storeApi.setState({
-        edges: storeApi.getState().edges?.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
+        // @ts-ignore
+        edges: storeApi.getState().edges.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
       });
     });
     record(() => {
       storeApi.setState({
-        nodes: storeApi.getState().nodes?.filter((node) => node.id !== nodeId),
+        // @ts-ignore
+        nodes: storeApi.getState().nodes.filter((node) => node.id !== nodeId),
       });
     });
   });
@@ -138,6 +141,7 @@ export const useFlow = () => {
     const newNodes: any = autoLayoutNodes(
       storeApi.getState().nodes,
       storeApi.getState().edges,
+      // @ts-ignore
       storeApi.getState().layout,
     );
     setNodes(newNodes);

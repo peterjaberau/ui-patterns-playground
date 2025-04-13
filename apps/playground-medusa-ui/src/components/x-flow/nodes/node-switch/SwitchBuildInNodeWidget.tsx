@@ -80,7 +80,7 @@ export default memo((props: any) => {
       })}
       size={5}
     >
-      {(data?.list || [{ _id: `id_${uuid()}` }])?.map((item: any, index: any): any => (
+      {(data?.list || [{ _id: `id_${uuid()}` }])?.map((item: any, index: any) => (
         <div
           className={classNames('node-switch-widget-item', {
             'node-switch-bottom-item': isSwitchBottom,
@@ -107,7 +107,7 @@ export default memo((props: any) => {
           })}
         >
           <div className="item-header">
-            <div className="item-title">Default</div>
+            <div className="item-title">默认</div>
             <SourceHandle
               position={position}
               isConnectable={(edges || [])?.filter((flow: any) => flow?.sourceHandle === 'id_else')?.length === 0}

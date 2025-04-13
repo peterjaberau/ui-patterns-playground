@@ -42,9 +42,9 @@ export const MenuTooltip = ({ icon, title, description, iconFontUrl, iconSvg }: 
 
   return (
     <div className="xflow-node-menu-tooltip">
-      {/* <div className="icon-box-max" style={{ background: icon?.bgColor || '#F79009', marginRight: '8px' }}> */}
-      {/*   {iconSvg ? iconSvg : <IconBox type={icon?.type} style={{ color: '#fff', fontSize: 13, ...icon?.style }} />} */}
-      {/* </div> */}
+      <div className="icon-box-max" style={{ background: icon?.bgColor || '#F79009', marginRight: '8px' }}>
+        {iconSvg ? iconSvg : <IconBox type={icon?.type} style={{ color: '#fff', fontSize: 13, ...icon?.style }} />}
+      </div>
       <div className="title">{title}</div>
       <div className="description">{description}</div>
     </div>
@@ -59,7 +59,7 @@ const MenuItem = (props: any) => {
   return (
     <Popover
       key={type}
-      content={<MenuTooltip {...props} />}
+      // content={<MenuTooltip {...props} />}
       placement="right"
       arrow={false}
       getPopupContainer={() => document.getElementById('xflow-container') as HTMLElement}
@@ -134,4 +134,4 @@ const NodesMenu = (props: TNodeMenu, ref: Ref<HTMLDivElement>) => {
   );
 };
 
-export default forwardRef(NodesMenu as any);
+export default forwardRef(NodesMenu);
