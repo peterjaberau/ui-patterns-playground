@@ -1,202 +1,10 @@
-import {
-  createMachine,
-  assign,
-  ActorRefFrom,
-  StateMachine,
-  raise,
-  AnyStateMachine,
-  sendTo,
-  setup,
-  spawnChild,
-} from 'xstate';
-import { createTaskNodeMachine, TaskNodeOptions, TaskNodeContext, TaskNodeEvent, TASK_TYPE } from './taskNodeMachine';
-import { NodeOptions, XYCoords } from './node';
-import { Edge, OnConnectStartParams, ReactFlowInstance } from 'reactflow';
+import { assign, enqueueActions, raise, sendTo, setup, spawnChild } from 'xstate';
+import { TASK_TYPE } from './types/nodeTaskType';
+import { createTaskNodeMachine } from './taskNodeMachine';
 import { ethers } from 'ethers';
-// import { fromDot, NodeRef, attribute as _ } from 'ts-graphviz';
 import { toast } from 'react-hot-toast';
 import { workspaceMachineOptions as defaultWorkspaceMachineOptions } from './workspaceMachineOptions';
-import { AiNodeContext, AiNodeEvent, createAiNodeMachine } from './aiNodeMachine';
-
-export type CustomEdge = Edge & { sourceCustomId: string; targetCustomId: string };
-export type NEW_NODE_TYPE = 'source' | 'target';
-
-export type Edges = Array<CustomEdge>;
-
-export type WorkspaceEvent =
-  | {
-      type: 'SET_REACT_FLOW_INSTANCE';
-      value: ReactFlowInstance;
-    }
-  | {
-      type: 'ADD_TASK_NODE';
-      options: TaskNodeOptions;
-      edgeDetails: {
-        newNodeType: NEW_NODE_TYPE;
-        fromHandleId: string;
-        fromNodeId: string;
-      };
-    }
-  | { type: 'DELETE_NODE'; nodeId: string }
-  | {
-      type: 'REPLACE_TASK_NODE';
-      nodeId: string;
-      newType: TASK_TYPE;
-      existing: {
-        coords: XYCoords;
-        customId: string;
-        incomingNodes: Array<string>;
-        outgoingNodes: Array<string>;
-      };
-    }
-  | { type: 'UPDATE_EDGES_WITH_NODE_ID'; nodeId: string; prevNodeId: string }
-  | { type: 'SET_JOB_TYPE'; value: JOB_TYPE }
-  | { type: 'SET_NAME'; value: string }
-  | { type: 'SET_EXTERNAL_JOB_ID'; value: string }
-  | { type: 'SET_GAS_LIMIT'; value: string }
-  | { type: 'SET_MAX_TASK_DURATION'; value: string }
-  | { type: 'SET_FORWARDING_ALLOWED'; value: string }
-  | {
-      type: 'SET_JOB_TYPE_SPECIFIC_PROPS';
-      jobType: JOB_TYPE;
-      prop: string;
-      value?: string;
-      valid?: boolean;
-    }
-  | {
-      type: 'SET_JOB_TYPE_SPECIFIC_VARIABLES';
-      jobType: JOB_TYPE;
-      variable: string;
-      value?: string;
-      values?: Array<string>;
-      valid?: boolean;
-    }
-  | { type: 'CONNECTION_START'; params: OnConnectStartParams }
-  | { type: 'CONNECTION_END' }
-  | { type: 'CONNECTION_SUCCESS'; initialCoords: XYCoords }
-  | { type: 'TOGGLE_TEST_MODE' }
-  | { type: 'STORE_TASK_RUN_RESULT'; nodeId: string; value: any }
-  | { type: 'ADD_NEW_EDGE'; newEdge: Omit<CustomEdge, 'id'> }
-  | { type: 'REGENERATE_TOML' }
-  | { type: 'SIMULATOR_PREV_TASK' }
-  | { type: 'TRY_RUN_CURRENT_TASK' }
-  | { type: 'SIMULATOR_NEXT_TASK' }
-  | { type: 'SIMULATOR_PROMPT_SIDE_EFFECT' }
-  | { type: 'PERSIST_STATE' }
-  | { type: 'RESTORE_STATE'; savedContext: WorkspaceContext }
-  | { type: 'TRY_RUN_CURRENT_SIDE_EFFECT' }
-  | { type: 'SKIP_CURRENT_SIDE_EFFECT' }
-  | { type: 'SAVE_JOB_SPEC_VERSION' }
-  | { type: 'OPEN_MODAL'; name: ModalName }
-  | { type: 'CLOSE_MODAL'; data: { name: ModalName } }
-  | { type: 'IMPORT_SPEC'; content: string }
-  | { type: 'TOGGLE_AI_WAND' }
-  | {
-      type: 'ADD_AI_PROMPT_NODE';
-      options: NodeOptions;
-      edgeDetails: {
-        newNodeType: NEW_NODE_TYPE;
-        fromHandleId: string;
-        fromNodeId: string;
-      };
-    }
-  | {
-      type: 'HANDLE_AI_PROMPT_COMPLETION';
-      value: string;
-      parentNodes: Array<string>;
-      childNodes: Array<string>;
-      aiNodeId: string;
-    };
-
-export interface WorkspaceContext {
-  reactFlowInstance: ReactFlowInstance | null;
-  type: JOB_TYPE;
-  name: string;
-  externalJobId: string;
-  gasLimit: string;
-  maxTaskDuration: string;
-  forwardingAllowed: boolean;
-  edges: Edges;
-  nodes: Nodes;
-  jobTypeSpecific: JobTypeFieldMap;
-  jobTypeVariables: JobTypeVarFieldMap;
-  totalNodesAdded: number;
-  totalEdgesAdded: number;
-  isConnecting: boolean;
-  connectionParams: OnConnectStartParams;
-  taskRunResults: TaskRunResult[];
-  toml: Array<TomlLine>;
-  parsedTaskOrder: Array<TaskInstructions>;
-  parsingError: string;
-  currentTaskIndex: number;
-  jobLevelVars64?: string;
-  provider: ReturnType<typeof getProvider>;
-  // Would use a Set for openModals but changes aren't detected in consumers
-  openModals: Array<ModalName>;
-}
-
-type ModalName = 'import';
-
-type JobTypeFieldMap = { [key in JOB_TYPE]: { [key: string]: Field } };
-
-type Field = {
-  value: string;
-  valid: boolean;
-};
-
-type JobTypeVarFieldMap = {
-  [key in JOB_TYPE]: { [key: string]: JobLevelVarField };
-};
-
-type JobLevelVarField = {
-  value?: string;
-  values?: Array<string>;
-  valid: boolean;
-  type: DATA_TYPES;
-  fromType?: 'hex' | 'string';
-};
-
-const dataTypes = ['string', 'bytes', 'bytes32', 'int', 'float', 'decimal', 'bool', 'address', 'null'];
-type DATA_TYPES = (typeof dataTypes)[number];
-
-export type TaskInstructions = {
-  id: string;
-  inputs: Array<{
-    id: string;
-    propagateResult: boolean;
-  }>;
-};
-
-type TaskRunResult = {
-  id: string;
-  result: Result;
-};
-
-type Result = {
-  value: string;
-  error: string;
-  val64: string;
-  vars64: string;
-  vars: { [key: string]: any };
-};
-
-export type Nodes = {
-  tasks: Array<{
-    ref: ActorRefFrom<AnyStateMachine>;
-  }>;
-  ai: Array<{
-    ref: ActorRefFrom<AnyStateMachine>;
-  }>;
-};
-
-export type TomlLine = {
-  value: string;
-  valid?: boolean;
-  isObservationSrc?: boolean;
-};
-
-export const JOB_TYPES = ['cron', 'directrequest', 'fluxmonitor', 'keeper', 'offchainreporting', 'webhook'] as const;
-export type JOB_TYPE = (typeof JOB_TYPES)[number];
+import { createAiNodeMachine } from './aiNodeMachine';
 
 const getNextUniqueTaskId = (tasks: Array<any>) => {
   const tasksCustomIdsWithDefaultFormat = tasks
@@ -241,275 +49,19 @@ const getProvider = (network = '') => {
   const networkToUse = 'homestead';
 
   return ethers.getDefaultProvider(networkToUse, {
-    // TODO: Add more services
     alchemy: process.env.NEXT_PUBLIC_ALCHEMY_ID,
   });
 };
 
 export const workspaceMachine = setup({
   types: {
-    context: {} as WorkspaceContext,
-    events: {} as WorkspaceEvent,
+    context: {} as any,
+    events: {} as any,
   } as any,
-  defaultWorkspaceMachineOptions,
+  ...defaultWorkspaceMachineOptions,
 }).createMachine({
   id: 'workspace',
   initial: 'idle',
-  states: {
-    idle: {
-      initial: 'defaultMode',
-      states: {
-        defaultMode: {
-          on: {
-            TOGGLE_AI_WAND: {
-              target: 'aiWandMode',
-            },
-            CONNECTION_SUCCESS: {
-              actions: ['handleConnectionSuccessTaskNodeAddition', 'regenerateToml'],
-            },
-          },
-        },
-        aiWandMode: {
-          on: {
-            TOGGLE_AI_WAND: {
-              target: 'defaultMode',
-            },
-            CONNECTION_SUCCESS: {
-              actions: ['handleConnectionSuccessAiPromptNodeAddition'],
-            },
-          },
-        },
-      },
-      on: {
-        TOGGLE_TEST_MODE: {
-          target: 'testModeLoading',
-        },
-        SAVE_JOB_SPEC_VERSION: {
-          target: 'savingJobSpecVersion',
-        },
-        IMPORT_SPEC: {
-          target: 'importing',
-        },
-        CONNECTION_START: {
-          actions: assign({
-            isConnecting: ({ _context, _event }: any) => true,
-            connectionParams: ({ _context, event }: any) => event.params,
-          }),
-        },
-        CONNECTION_END: {
-          actions: [
-            assign({
-              isConnecting: (_context, _event) => false,
-            }),
-          ],
-        },
-        HANDLE_AI_PROMPT_COMPLETION: {
-          actions: ['handleAiPromptCompletion'],
-        },
-      },
-    },
-    importing: {
-      invoke: {
-        src: 'importJobSpec',
-        onDone: {
-          target: 'idle',
-          actions: [
-            assign(({ context, event }: any) => {
-              const newPartialContext: Partial<WorkspaceContext> = event.data.constructedMachineContext;
-
-              let newContext = {
-                ...context,
-                ...newPartialContext,
-              };
-
-              if ('nodes' in newPartialContext && newPartialContext.nodes) {
-                newContext = {
-                  ...newContext,
-                  nodes: {
-                    ...newContext.nodes,
-                    tasks: newPartialContext.nodes.tasks.map((entry: any) => ({
-                      ...entry,
-                      // @ts-ignore
-                      ref: spawnChild(createTaskNodeMachine(entry.ref.state.context || {}), entry.ref.id),
-                    })),
-                  },
-                };
-              }
-
-              return newContext;
-            }),
-            raise({ type: 'CLOSE_MODAL', data: { name: 'import' } } as any),
-            'createImportToast',
-            'regenerateToml',
-          ],
-        },
-        onError: {
-          target: 'idle',
-          actions: ['createImportToast'],
-        },
-      },
-    },
-    savingJobSpecVersion: {
-      invoke: {
-        src: 'saveJobSpecVersion',
-        onDone: {
-          target: 'idle',
-          actions: [({ context, event }: any) => toast.success('Job Spec saved successful')],
-        },
-        onError: {
-          target: 'idle',
-          actions: [({ context, event }: any) => toast.error(event.data.message)],
-        },
-      },
-    },
-    testModeLoading: {
-      initial: 'parsingDag',
-      states: {
-        parsingDag: {
-          invoke: {
-            src: 'parseSpec',
-            id: 'parseSpec',
-            onDone: {
-              target: 'inspectingParseResult',
-              actions: assign(({ _, event }: any) => {
-                return {
-                  parsedTaskOrder: event.data.tasks || [],
-                  parsingError: event.data.error || '',
-                };
-              }),
-            },
-            onError: {
-              target: '#workspace.idle',
-            },
-          },
-        },
-        inspectingParseResult: {
-          always: [{ target: '#workspace.idle', guard: 'hasParsingError' }, { target: 'processingJobLevelVariables' }],
-        },
-        processingJobLevelVariables: {
-          invoke: {
-            src: 'processJobLevelVariables',
-            id: 'processJobLevelVariables',
-            onDone: {
-              target: '#workspace.testMode',
-              actions: [
-                assign(({ _, event }: any) => ({
-                  jobLevelVars64: event.data.vars64,
-                })),
-              ],
-            },
-            onError: { target: '#workspace.idle' },
-          },
-        },
-      },
-    },
-    testMode: {
-      initial: 'revalidating',
-      states: {
-        revalidating: {
-          entry: ['setCurrentTaskPendingRun', 'resetNextTask'],
-          always: [{ target: 'idle' }],
-        },
-        idle: {
-          on: {
-            TRY_RUN_CURRENT_TASK: { target: 'processingCurrentTask' },
-          },
-        },
-        processingCurrentTask: {
-          entry: ['processCurrentTask'],
-          always: [{ target: 'idle' }],
-        },
-        error: {},
-        sideEffectPrompt: {
-          on: {
-            TRY_RUN_CURRENT_SIDE_EFFECT: { target: 'processingCurrentSideEffect' },
-            SKIP_CURRENT_SIDE_EFFECT: { target: 'skippingCurrentSideEffect' },
-          },
-        },
-        processingCurrentSideEffect: {
-          entry: ['executeCurrentSideEffect'],
-          always: [{ target: 'idle' }],
-        },
-        skippingCurrentSideEffect: {
-          entry: ['skipCurrentSideEffect'],
-          always: [{ target: 'idle' }],
-        },
-      },
-      on: {
-        TOGGLE_TEST_MODE: {
-          target: 'idle',
-          // @ts-ignore
-          actions: actions.pure((context: WorkspaceContext, event) => {
-            return [
-              ...context.nodes.tasks.map((task) => sendTo(task.ref.id, { type: 'RESET' }) as any),
-              assign({
-                parsedTaskOrder: [],
-                parsingError: '',
-                currentTaskIndex: 0,
-                taskRunResults: [],
-                jobLevelVars64: undefined,
-              }),
-            ];
-          }),
-        },
-        SIMULATOR_PREV_TASK: {
-          target: '.revalidating',
-          // @ts-ignore
-          actions: actions.pure((context: WorkspaceContext, event) => {
-            if (context.currentTaskIndex === 0) return;
-
-            const newIndex = context.currentTaskIndex - 1;
-
-            const newTaskCustomId = context.parsedTaskOrder[newIndex].id;
-
-            return [
-              assign({
-                currentTaskIndex: newIndex,
-                taskRunResults: context.taskRunResults.filter((trr) => trr.id !== newTaskCustomId),
-              }),
-            ];
-          }),
-        },
-        // TRY_RUN_CURRENT_TASK: {
-        //   // @ts-ignore
-        //   actions: actions.pure((context: WorkspaceContext, event) => {
-
-        //     if (context.currentTaskIndex >= context.parsedTaskOrder.length) return
-
-        //     // Try to execute the current task and then proceed if successful
-        //     const currentTask = context.parsedTaskOrder[context.currentTaskIndex]
-        //     const currentTaskCustomId = currentTask.id
-
-        //     const currentTaskId = getTaskNodeByCustomId(context, currentTaskCustomId)?.ref.id
-
-        //     const input64s = currentTask.inputs
-        //       .filter(input => input.propagateResult === true)
-        //       .map(input => context.taskRunResults.find(trr => trr.id === input.id)?.result.val64)
-
-        //     const vars64 = context.taskRunResults.length > 0 ? context.taskRunResults[context.taskRunResults.length - 1].result.vars64 : ""
-
-        //     return [
-        //       send({ type: "TRY_RUN_TASK", input64s, vars64 }, { to: currentTaskId })
-        //     ]
-        //   })
-        // },
-        SIMULATOR_NEXT_TASK: {
-          target: '.revalidating',
-          actions: assign(({ context, event }: any) => {
-            const newIndex = context.currentTaskIndex + 1;
-            return {
-              currentTaskIndex:
-                newIndex <= context.parsedTaskOrder.length ? context.currentTaskIndex + 1 : context.currentTaskIndex,
-            };
-          }),
-        },
-        SIMULATOR_PROMPT_SIDE_EFFECT: {
-          target: '.sideEffectPrompt',
-        },
-      },
-    },
-    error: {},
-  },
   context: {
     reactFlowInstance: null,
     type: 'cron',
@@ -591,7 +143,7 @@ export const workspaceMachine = setup({
     },
     ADD_TASK_NODE: {
       // @ts-ignore
-      actions: actions.pure(({ context, event }: any) => {
+      actions: enqueueActions(({ context, enqueue, event }: any) => {
         const { fromHandleId, fromNodeId, newNodeType } = event.edgeDetails;
 
         const fromNodeCustomId =
@@ -609,51 +161,51 @@ export const workspaceMachine = setup({
         const fromPresentationId = isForwardConnection ? fromNodeCustomId : newNodePresentationId;
         const toPresentationId = isForwardConnection ? newNodePresentationId : fromNodeCustomId;
 
-        return [
-          assign({
-            totalNodesAdded: context.totalNodesAdded + 1,
-            totalEdgesAdded: context.totalEdgesAdded + 1,
-            nodes: {
-              ...context.nodes,
-              tasks: [
-                ...context.nodes.tasks,
-                {
-                  // add a new taskNodeMachine actor with a unique name
-                  ref: spawnChild(
-                    createTaskNodeMachine({
-                      coords: event.options.initialCoords,
-                      taskType: event.options.taskType,
-                      customId: newNodePresentationId,
-                      ...(!isFirstNode &&
-                        (isForwardConnection
-                          ? { incomingNodes: [fromNodeCustomId] }
-                          : { outgoingNodes: [fromNodeCustomId] })),
-                    }),
-                    newNodeId as any,
-                  ),
-                },
-              ],
-            },
-            edges:
-              fromNodeId && fromHandleId
-                ? [
-                    ...context.edges,
-                    {
-                      id: `edge_${context.totalEdgesAdded}`,
-                      source: fromId,
-                      sourceCustomId: fromPresentationId,
-                      target: toId,
-                      targetCustomId: toPresentationId,
-                    },
-                  ]
-                : context.edges,
-          }),
-          sendTo(fromNodeId, {
-            type: isForwardConnection ? 'ADD_OUTGOING_NODE' : 'ADD_INCOMING_NODE',
-            nodeId: newNodePresentationId as any,
-          } as any),
-          'regenerateToml',
-        ];
+        enqueue.assign({
+          totalNodesAdded: context.totalNodesAdded + 1,
+          totalEdgesAdded: context.totalEdgesAdded + 1,
+          nodes: {
+            ...context.nodes,
+            tasks: [
+              ...context.nodes.tasks,
+              {
+                // add a new taskNodeMachine actor with a unique name
+                ref: spawnChild(
+                  createTaskNodeMachine({
+                    coords: event.options.initialCoords,
+                    taskType: event.options.taskType,
+                    customId: newNodePresentationId,
+                    ...(!isFirstNode &&
+                      (isForwardConnection
+                        ? { incomingNodes: [fromNodeCustomId] }
+                        : { outgoingNodes: [fromNodeCustomId] })),
+                  }),
+                  newNodeId as any,
+                ),
+              },
+            ],
+          },
+          edges:
+            fromNodeId && fromHandleId
+              ? [
+                  ...context.edges,
+                  {
+                    id: `edge_${context.totalEdgesAdded}`,
+                    source: fromId,
+                    sourceCustomId: fromPresentationId,
+                    target: toId,
+                    targetCustomId: toPresentationId,
+                  },
+                ]
+              : context.edges,
+        });
+
+        enqueue.sendTo(fromNodeId, {
+          type: isForwardConnection ? 'ADD_OUTGOING_NODE' : 'ADD_INCOMING_NODE',
+          nodeId: newNodePresentationId as any,
+        } as any);
+
+        enqueue('regenerateToml');
       }),
     },
     ADD_AI_PROMPT_NODE: {
@@ -990,9 +542,264 @@ export const workspaceMachine = setup({
     //   ]
     // }
   },
+  states: {
+    idle: {
+      initial: 'defaultMode',
+      states: {
+        defaultMode: {
+          on: {
+            TOGGLE_AI_WAND: {
+              target: 'aiWandMode',
+            },
+            CONNECTION_SUCCESS: {
+              actions: ['handleConnectionSuccessTaskNodeAddition', 'regenerateToml'],
+            },
+          },
+        },
+        aiWandMode: {
+          on: {
+            TOGGLE_AI_WAND: {
+              target: 'defaultMode',
+            },
+            CONNECTION_SUCCESS: {
+              actions: ['handleConnectionSuccessAiPromptNodeAddition'],
+            },
+          },
+        },
+      },
+      on: {
+        TOGGLE_TEST_MODE: {
+          target: 'testModeLoading',
+        },
+        SAVE_JOB_SPEC_VERSION: {
+          target: 'savingJobSpecVersion',
+        },
+        IMPORT_SPEC: {
+          target: 'importing',
+        },
+        CONNECTION_START: {
+          actions: assign({
+            isConnecting: ({ _context, _event }: any) => true,
+            connectionParams: ({ _context, event }: any) => event.params,
+          }),
+        },
+        CONNECTION_END: {
+          actions: [
+            assign({
+              isConnecting: (_context, _event) => false,
+            }),
+          ],
+        },
+        HANDLE_AI_PROMPT_COMPLETION: {
+          actions: ['handleAiPromptCompletion'],
+        },
+      },
+    },
+    importing: {
+      invoke: {
+        src: 'importJobSpec',
+        onDone: {
+          target: 'idle',
+          actions: [
+            assign(({ context, event }: any) => {
+              const newPartialContext: Partial<WorkspaceContext> = event.data.constructedMachineContext;
+
+              let newContext = {
+                ...context,
+                ...newPartialContext,
+              };
+
+              if ('nodes' in newPartialContext && newPartialContext.nodes) {
+                newContext = {
+                  ...newContext,
+                  nodes: {
+                    ...newContext.nodes,
+                    tasks: newPartialContext.nodes.tasks.map((entry: any) => ({
+                      ...entry,
+                      // @ts-ignore
+                      ref: spawnChild(createTaskNodeMachine(entry.ref.state.context || {}), entry.ref.id),
+                    })),
+                  },
+                };
+              }
+
+              return newContext;
+            }),
+            raise({ type: 'CLOSE_MODAL', data: { name: 'import' } } as any),
+            'createImportToast',
+            'regenerateToml',
+          ],
+        },
+        onError: {
+          target: 'idle',
+          actions: ['createImportToast'],
+        },
+      },
+    },
+    savingJobSpecVersion: {
+      invoke: {
+        src: 'saveJobSpecVersion',
+        onDone: {
+          target: 'idle',
+          actions: [({ context, event }: any) => toast.success('Job Spec saved successful')],
+        },
+        onError: {
+          target: 'idle',
+          actions: [({ context, event }: any) => toast.error(event.data.message)],
+        },
+      },
+    },
+    testModeLoading: {
+      initial: 'parsingDag',
+      states: {
+        parsingDag: {
+          invoke: {
+            src: 'parseSpec',
+            id: 'parseSpec',
+            onDone: {
+              target: 'inspectingParseResult',
+              actions: assign(({ _, event }: any) => {
+                return {
+                  parsedTaskOrder: event.data.tasks || [],
+                  parsingError: event.data.error || '',
+                };
+              }),
+            },
+            onError: {
+              target: '#workspace.idle',
+            },
+          },
+        },
+        inspectingParseResult: {
+          always: [{ target: '#workspace.idle', guard: 'hasParsingError' }, { target: 'processingJobLevelVariables' }],
+        },
+        processingJobLevelVariables: {
+          invoke: {
+            src: 'processJobLevelVariables',
+            id: 'processJobLevelVariables',
+            onDone: {
+              target: '#workspace.testMode',
+              actions: [
+                assign(({ _, event }: any) => ({
+                  jobLevelVars64: event.data.vars64,
+                })),
+              ],
+            },
+            onError: { target: '#workspace.idle' },
+          },
+        },
+      },
+    },
+    testMode: {
+      initial: 'revalidating',
+      states: {
+        revalidating: {
+          entry: ['setCurrentTaskPendingRun', 'resetNextTask'],
+          always: [{ target: 'idle' }],
+        },
+        idle: {
+          on: {
+            TRY_RUN_CURRENT_TASK: { target: 'processingCurrentTask' },
+          },
+        },
+        processingCurrentTask: {
+          entry: ['processCurrentTask'],
+          always: [{ target: 'idle' }],
+        },
+        error: {},
+        sideEffectPrompt: {
+          on: {
+            TRY_RUN_CURRENT_SIDE_EFFECT: { target: 'processingCurrentSideEffect' },
+            SKIP_CURRENT_SIDE_EFFECT: { target: 'skippingCurrentSideEffect' },
+          },
+        },
+        processingCurrentSideEffect: {
+          entry: ['executeCurrentSideEffect'],
+          always: [{ target: 'idle' }],
+        },
+        skippingCurrentSideEffect: {
+          entry: ['skipCurrentSideEffect'],
+          always: [{ target: 'idle' }],
+        },
+      },
+      on: {
+        TOGGLE_TEST_MODE: {
+          target: 'idle',
+          // @ts-ignore
+          actions: actions.pure((context: WorkspaceContext, event) => {
+            return [
+              ...context.nodes.tasks.map((task) => sendTo(task.ref.id, { type: 'RESET' }) as any),
+              assign({
+                parsedTaskOrder: [],
+                parsingError: '',
+                currentTaskIndex: 0,
+                taskRunResults: [],
+                jobLevelVars64: undefined,
+              }),
+            ];
+          }),
+        },
+        SIMULATOR_PREV_TASK: {
+          target: '.revalidating',
+          // @ts-ignore
+          actions: actions.pure((context: WorkspaceContext, event) => {
+            if (context.currentTaskIndex === 0) return;
+
+            const newIndex = context.currentTaskIndex - 1;
+
+            const newTaskCustomId = context.parsedTaskOrder[newIndex].id;
+
+            return [
+              assign({
+                currentTaskIndex: newIndex,
+                taskRunResults: context.taskRunResults.filter((trr) => trr.id !== newTaskCustomId),
+              }),
+            ];
+          }),
+        },
+        // TRY_RUN_CURRENT_TASK: {
+        //   // @ts-ignore
+        //   actions: actions.pure((context: WorkspaceContext, event) => {
+
+        //     if (context.currentTaskIndex >= context.parsedTaskOrder.length) return
+
+        //     // Try to execute the current task and then proceed if successful
+        //     const currentTask = context.parsedTaskOrder[context.currentTaskIndex]
+        //     const currentTaskCustomId = currentTask.id
+
+        //     const currentTaskId = getTaskNodeByCustomId(context, currentTaskCustomId)?.ref.id
+
+        //     const input64s = currentTask.inputs
+        //       .filter(input => input.propagateResult === true)
+        //       .map(input => context.taskRunResults.find(trr => trr.id === input.id)?.result.val64)
+
+        //     const vars64 = context.taskRunResults.length > 0 ? context.taskRunResults[context.taskRunResults.length - 1].result.vars64 : ""
+
+        //     return [
+        //       send({ type: "TRY_RUN_TASK", input64s, vars64 }, { to: currentTaskId })
+        //     ]
+        //   })
+        // },
+        SIMULATOR_NEXT_TASK: {
+          target: '.revalidating',
+          actions: assign(({ context, event }: any) => {
+            const newIndex = context.currentTaskIndex + 1;
+            return {
+              currentTaskIndex:
+                newIndex <= context.parsedTaskOrder.length ? context.currentTaskIndex + 1 : context.currentTaskIndex,
+            };
+          }),
+        },
+        SIMULATOR_PROMPT_SIDE_EFFECT: {
+          target: '.sideEffectPrompt',
+        },
+      },
+    },
+    error: {},
+  },
 });
 
-const getTaskNodeByCustomId = (context: WorkspaceContext, nodeId: string) =>
+const getTaskNodeByCustomId = (context: any, nodeId: string) =>
   context.nodes.tasks.find((taskNode: any) => taskNode.ref.state.context.customId === nodeId);
 
 const wrapVariable = (input: string) => `$(${input})`;

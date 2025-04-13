@@ -1,206 +1,17 @@
-import { assign, fromPromise, sendTo, spawnChild } from 'xstate';
-import {
-  WorkspaceContext,
-  WorkspaceEvent,
-  JOB_TYPES,
-  TomlLine,
-  TaskInstructions,
-  Nodes,
-  Edges,
-  CustomEdge,
-} from './workspaceMachine';
-import { createTaskNodeMachine, TASK_TYPE } from './taskNodeMachine';
+import { assign, enqueueActions, fromPromise, raise, sendTo, spawnChild } from 'xstate';
+import { JOB_TYPES } from './constants';
+import { TaskInstructions, TASK_TYPE } from './types/nodeTaskType';
+
+import { Nodes, TomlLine, WorkspaceContext, WorkspaceEvent, Edges, CustomEdge } from './types/workspaceType';
+import { createTaskNodeMachine } from './taskNodeMachine';
 import { fromDot, NodeRef, attribute as _ } from 'ts-graphviz';
 import { toast } from 'react-hot-toast';
 import { ethers } from 'ethers';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 
 export const workspaceMachineOptions: any = {
-  guards: {
-    hasParsingError: ({ context, event }: any) => {
-      return context.parsingError.length > 0;
-    },
-  },
-  actors: {
-    parseSpec: fromPromise(async ({ context, event, input }: any) => {
-      return fetch('/api/graph', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: JSON.stringify({
-          spec: `${context.toml
-            .filter((line: any) => line.isObservationSrc)
-            .map((line: any) => line.value)
-            .join('\n')}`,
-        }),
-      }).then((res) => res.json());
-    }),
-
-    processJobLevelVariables: fromPromise(async ({ context, event, input }: any) => {
-      return fetch('/api/var-helper', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          // TODO: Need to prepend with jobSpec instead of jobRun for non job-specific variables
-          jobRun: Object.fromEntries(
-            Object.entries(context.jobTypeVariables[context.type]).map(([k, v]: any) => {
-              return [
-                k,
-                {
-                  ...(v.values !== undefined && { values: v.values }),
-                  ...(v.values === undefined && v.value !== undefined && { value: v.value }),
-                  type: v.type || 'string',
-                  fromType: v.fromType || 'string',
-                },
-              ];
-            }),
-          ),
-        }),
-      }).then((res) =>
-        res.json().then((json) => {
-          return res.ok ? json : Promise.reject(json);
-        }),
-      );
-    }),
-
-    saveJobSpecVersion: fromPromise(async ({ context, event, input }: any) => {
-      // Extract any context props we don't want to persist
-      const {
-        reactFlowInstance,
-        nodes,
-        isConnecting,
-        connectionParams,
-        taskRunResults,
-        parsedTaskOrder,
-        parsingError,
-        currentTaskIndex,
-        jobLevelVars64,
-        provider,
-        openModals,
-        ...toPersist
-      } = context;
-
-      // Instead of saving the full context as-is, we'll expand the context of each spawned machine
-      const parsedContext = {
-        ...toPersist,
-        nodes: {
-          tasks: context.nodes.tasks.map((entry: any) => {
-            const { runResult, ...nodeContextToPersist } = entry.ref.getSnapshot()?.context || {};
-
-            return {
-              ...entry,
-              context: nodeContextToPersist,
-            };
-          }),
-          ai: context.nodes.ai.map((entry) => {
-            const { ...nodeContextToPersist } = entry.ref.getSnapshot()?.context || {};
-
-            return {
-              ...entry,
-              context: nodeContextToPersist,
-            };
-          }),
-        },
-      };
-
-      return fetch('/api/job-spec-versions', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: JSON.stringify({
-          content: parsedContext,
-        }),
-      }).then((res) =>
-        res.json().then((json) => {
-          return res.ok ? json : Promise.reject(json);
-        }),
-      );
-    }),
-    // @ts-ignore
-    importJobSpec: ({ context, event }: any) => {
-      const warnings = [];
-      try {
-        if (!('content' in event)) {
-          throw new Error("'content' prop required on import_spec event");
-        }
-
-        const parsed = toml.parse(event.content);
-
-        if (!('type' in parsed)) {
-          // throw new Error("'type' required in imported spec")
-          warnings.push("'type' property missing");
-        }
-
-        if (!JOB_TYPES.includes(parsed.type)) {
-          throw new Error("Invalid 'type' property in imported spec");
-        }
-
-        switch (parsed.type) {
-          case 'cron': {
-            if (!('schedule' in parsed)) {
-              warnings.push("'schedule' property missing");
-            } else {
-              // TODO - Validate cron expression
-              // if invalid throw new Error("'schedule' property required for 'cron' jobs")
-            }
-          }
-        }
-
-        let constructedMachineContext: Partial<WorkspaceContext> = {
-          type: parsed.type,
-          name: parsed.name ?? '',
-          externalJobId: parsed.externalJobId ?? '',
-          // jobTypeSpecific: {
-          //   cron: {
-
-          //   }, // TODO
-          //   directrequest: {} // TODO
-          // },
-          // jobTypeVariables: TODO
-        };
-
-        if (!('observationSource' in parsed)) {
-          // throw new Error("'observationSource' required in imported spec")
-          warnings.push("'observationSource' property missing");
-        } else {
-          const { nodes, edges } = constructTaskNodesAndEdgesFromObsSrc(
-            context.nodes,
-            context.edges,
-            parsed.observationSource,
-          );
-
-          constructedMachineContext.nodes = { tasks: nodes, ai: [] };
-          constructedMachineContext.edges = edges;
-          constructedMachineContext.totalNodesAdded = nodes.length;
-          constructedMachineContext.totalEdgesAdded = edges.length;
-
-          // Shifted position along by the index of the node
-          nodes.forEach(
-            (node, index) =>
-              (node.ref.state.context.coords = {
-                x: node.ref.state.context.coords.x + index * 320,
-                y: node.ref.state.context.coords.y,
-              }),
-          );
-        }
-
-        return Promise.resolve({ constructedMachineContext, warnings });
-      } catch (err) {
-        console.error(err);
-        return Promise.reject({ error: err, warnings });
-      }
-    },
-  },
   actions: {
     createImportToast: ({ context, event }: any) => {
-      // @ts-ignore
       const { warnings, error } = event.data;
 
       if (error) {
@@ -244,8 +55,7 @@ export const workspaceMachineOptions: any = {
         ));
       }
     },
-    // @ts-ignore
-    setCurrentTaskPendingRun: actions.pure((context, _) => {
+    setCurrentTaskPendingRun: enqueueActions(({ context, enqueue }: any) => {
       if (context.currentTaskIndex >= context.parsedTaskOrder.length) return;
 
       const currentTask: TaskInstructions = context.parsedTaskOrder[context.currentTaskIndex];
@@ -253,10 +63,9 @@ export const workspaceMachineOptions: any = {
 
       const currentTaskId = getTaskNodeByCustomId(context, currentTaskCustomId)?.ref.id;
 
-      return [send({ type: 'SET_PENDING_RUN' }, { to: currentTaskId })];
+      return [sendTo(currentTaskId, { type: 'SET_PENDING_RUN' })];
     }),
-    // @ts-ignore
-    resetNextTask: actions.pure((context, _) => {
+    resetNextTask: enqueueActions(({ context, enqueue }: any) => {
       const nextTaskIndex = context.currentTaskIndex + 1;
 
       if (nextTaskIndex >= context.parsedTaskOrder.length) return;
@@ -266,12 +75,12 @@ export const workspaceMachineOptions: any = {
 
       const nextTaskId = getTaskNodeByCustomId(context, nextTaskCustomId)?.ref.id;
 
-      return [send({ type: 'RESET' }, { to: nextTaskId })];
+      return [sendTo(nextTaskId, { type: 'RESET' })];
     }),
     validateJobTypeSpecificProps: assign({
       jobTypeSpecific: ({ context, event }: any) => validateJobTypeSpecifics(context.jobTypeSpecific, event),
     }),
-    handleConnectionSuccessTaskNodeAddition: send((context: WorkspaceContext, event: WorkspaceEvent) => {
+    handleConnectionSuccessTaskNodeAddition: raise(({ context, event }: any) => {
       const isForwardConnection = context.connectionParams?.handleType === 'source';
       const newNodeType = isForwardConnection ? 'target' : 'source';
       const fromHandleId = context.connectionParams?.handleId || '';
@@ -296,7 +105,8 @@ export const workspaceMachineOptions: any = {
         },
       };
     }),
-    handleConnectionSuccessAiPromptNodeAddition: send((context: WorkspaceContext, event: WorkspaceEvent) => {
+
+    handleConnectionSuccessAiPromptNodeAddition: raise(({ context, event }: any) => {
       const isForwardConnection = context.connectionParams?.handleType === 'source';
       const newNodeType = isForwardConnection ? 'target' : 'source';
       const fromHandleId = context.connectionParams?.handleId || '';
@@ -322,6 +132,7 @@ export const workspaceMachineOptions: any = {
         },
       };
     }),
+
     handleAiPromptCompletion: assign(({ context, event }: any) => {
       if (!('value' in event)) {
         console.error("'value' required on event");
@@ -338,14 +149,16 @@ export const workspaceMachineOptions: any = {
       const { nodes, edges } = constructTaskNodesAndEdgesFromObsSrc(context.nodes, context.edges, event.value);
 
       // Take position, incomingNodes, outgoingNodes info from AI node to be replaced
-      const aiNodeToReplace = context.nodes.ai.find((aiNode) => aiNode.ref.id === event.aiNodeId);
+      const aiNodeToReplace = context.nodes.ai.find((aiNode: any) => aiNode.ref.id === event.aiNodeId);
 
-      let newNodes = nodes;
+      let newNodes: any = nodes;
       if (aiNodeToReplace && newNodes.length > 0) {
         const { coords, incomingNodes, outgoingNodes } = aiNodeToReplace.ref.state.context;
 
         // Replace position of new nodes with old AI node position (shifted along by the index of the node)
-        newNodes.forEach((node, index) => (node.ref.state.context.coords = { x: coords.x + index * 320, y: coords.y }));
+        newNodes.forEach(
+          (node: any, index: any) => (node.ref.state.context.coords = { x: coords.x + index * 320, y: coords.y }),
+        );
 
         // Replace incomingNodes of first generated node with those from AI node
         newNodes[0].ref.state.context.incomingNodes = incomingNodes;
@@ -396,7 +209,7 @@ export const workspaceMachineOptions: any = {
       });
 
       // Remove AI node
-      const newAiNodes = [...context.nodes.ai.filter((aiNode) => aiNode.ref.id !== aiNodeToReplace?.ref.id)];
+      const newAiNodes = [...context.nodes.ai.filter((aiNode: any) => aiNode.ref.id !== aiNodeToReplace?.ref.id)];
 
       constructedMachineContext.nodes = { ...context.nodes, ai: newAiNodes, tasks: totalTaskNodes };
       constructedMachineContext.edges = totalEdges;
@@ -405,7 +218,8 @@ export const workspaceMachineOptions: any = {
 
       return { ...constructedMachineContext };
     }),
-    processCurrentTask: actions.pure((context: WorkspaceContext, _) => {
+
+    processCurrentTask: enqueueActions(({ context, enqueue }: any) => {
       if (context.currentTaskIndex >= context.parsedTaskOrder.length) return;
 
       // Try to execute the current task and then proceed if successful
@@ -416,17 +230,17 @@ export const workspaceMachineOptions: any = {
 
       const input64s = currentTask.inputs
         .filter((input) => input.propagateResult === true)
-        .map((input) => context.taskRunResults.find((trr) => trr.id === input.id)?.result.val64);
+        .map((input) => context.taskRunResults.find((trr: any) => trr.id === input.id)?.result.val64);
 
       const vars64 =
         context.taskRunResults.length > 0
           ? context.taskRunResults[context.taskRunResults.length - 1].result.vars64
           : context.jobLevelVars64;
 
-      return [send({ type: 'TRY_RUN_TASK', input64s, vars64 }, { to: currentTaskId })];
+      enqueue.sendTo(currentTaskId, { type: 'TRY_RUN_TASK', input64s, vars64 });
     }),
-    // @ts-ignore
-    executeCurrentSideEffect: actions.pure(({ context, event }: any) => {
+
+    executeCurrentSideEffect: enqueueActions(({ context, enqueue }: any) => {
       if (context.currentTaskIndex >= context.parsedTaskOrder.length) return;
 
       // Try to execute the current task and then proceed if successful
@@ -435,10 +249,10 @@ export const workspaceMachineOptions: any = {
 
       const currentTaskId = getTaskNodeByCustomId(context, currentTaskCustomId)?.ref.id;
 
-      return [send({ type: 'TRY_RUN_SIDE_EFFECT', provider: context.provider }, { to: currentTaskId })];
+      enqueue.sendTo(currentTaskId, { type: 'TRY_RUN_SIDE_EFFECT', provider: context.provider });
     }),
-    // @ts-ignore
-    skipCurrentSideEffect: actions.pure(({ context, event }: any) => {
+
+    skipCurrentSideEffect: enqueueActions(({ context, enqueue, event }: any) => {
       if (context.currentTaskIndex >= context.parsedTaskOrder.length) return;
 
       // Skip the current task
@@ -447,7 +261,7 @@ export const workspaceMachineOptions: any = {
 
       const currentTaskId = getTaskNodeByCustomId(context, currentTaskCustomId)?.ref.id;
 
-      return [send({ type: 'SKIP_SIDE_EFFECT' }, { to: currentTaskId })];
+      enqueue.sendTo(currentTaskId, { type: 'SKIP_SIDE_EFFECT' });
     }),
     regenerateToml: assign(({ context, event }: any) => {
       const { type: jobType, name, externalJobId, gasLimit, maxTaskDuration, forwardingAllowed } = context;
@@ -503,7 +317,7 @@ export const workspaceMachineOptions: any = {
 
       const observationSrcLines: Array<TomlLine> = [];
 
-      context.nodes.tasks.forEach((task) => {
+      context.nodes.tasks.forEach((task: any) => {
         const { customId, taskType, taskSpecific, incomingNodes, isValid } = task.ref.state.context;
 
         const spacer = new Array(customId ? customId.length + 1 : 0).join(' ');
@@ -773,7 +587,7 @@ export const workspaceMachineOptions: any = {
 
       context.edges.length > 0 && observationSrcLines.push({ value: `` });
 
-      context.edges.map((edge) => {
+      context.edges.map((edge: any) => {
         observationSrcLines.push({
           value: `${edge.sourceCustomId} -> ${edge.targetCustomId}`,
         });
@@ -792,6 +606,189 @@ export const workspaceMachineOptions: any = {
         toml: lines,
       };
     }),
+  },
+  actors: {
+    parseSpec: fromPromise(async ({ context, event, input }: any) => {
+      return fetch('/api/graph', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify({
+          spec: `${context.toml
+            .filter((line: any) => line.isObservationSrc)
+            .map((line: any) => line.value)
+            .join('\n')}`,
+        }),
+      }).then((res) => res.json());
+    }),
+
+    processJobLevelVariables: fromPromise(async ({ context, event, input }: any) => {
+      return fetch('/api/var-helper', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          // TODO: Need to prepend with jobSpec instead of jobRun for non job-specific variables
+          jobRun: Object.fromEntries(
+            Object.entries(context.jobTypeVariables[context.type]).map(([k, v]: any) => {
+              return [
+                k,
+                {
+                  ...(v.values !== undefined && { values: v.values }),
+                  ...(v.values === undefined && v.value !== undefined && { value: v.value }),
+                  type: v.type || 'string',
+                  fromType: v.fromType || 'string',
+                },
+              ];
+            }),
+          ),
+        }),
+      }).then((res) =>
+        res.json().then((json) => {
+          return res.ok ? json : Promise.reject(json);
+        }),
+      );
+    }),
+
+    saveJobSpecVersion: fromPromise(async ({ context, event, input }: any) => {
+      // Extract any context props we don't want to persist
+      const {
+        reactFlowInstance,
+        nodes,
+        isConnecting,
+        connectionParams,
+        taskRunResults,
+        parsedTaskOrder,
+        parsingError,
+        currentTaskIndex,
+        jobLevelVars64,
+        provider,
+        openModals,
+        ...toPersist
+      } = context;
+
+      // Instead of saving the full context as-is, we'll expand the context of each spawned machine
+      const parsedContext = {
+        ...toPersist,
+        nodes: {
+          tasks: context.nodes.tasks.map((entry: any) => {
+            const { runResult, ...nodeContextToPersist } = entry.ref.getSnapshot()?.context || {};
+
+            return {
+              ...entry,
+              context: nodeContextToPersist,
+            };
+          }),
+          ai: context.nodes.ai.map((entry: any) => {
+            const { ...nodeContextToPersist } = entry.ref.getSnapshot()?.context || {};
+
+            return {
+              ...entry,
+              context: nodeContextToPersist,
+            };
+          }),
+        },
+      };
+
+      return fetch('/api/job-spec-versions', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify({
+          content: parsedContext,
+        }),
+      }).then((res) =>
+        res.json().then((json) => {
+          return res.ok ? json : Promise.reject(json);
+        }),
+      );
+    }),
+
+    importJobSpec: fromPromise(async ({ context, event, input }: any) => {
+      const warnings = [];
+      try {
+        if (!('content' in event)) {
+          throw new Error("'content' prop required on import_spec event");
+        }
+
+        // const parsed = toml.parse(event.content);
+        const parsed = JSON.parse(event.content);
+
+        if (!('type' in parsed)) {
+          // throw new Error("'type' required in imported spec")
+          warnings.push("'type' property missing");
+        }
+
+        if (!JOB_TYPES.includes(parsed.type)) {
+          throw new Error("Invalid 'type' property in imported spec");
+        }
+
+        switch (parsed.type) {
+          case 'cron': {
+            if (!('schedule' in parsed)) {
+              warnings.push("'schedule' property missing");
+            } else {
+              // TODO - Validate cron expression
+              // if invalid throw new Error("'schedule' property required for 'cron' jobs")
+            }
+          }
+        }
+
+        let constructedMachineContext: Partial<WorkspaceContext> = {
+          type: parsed.type,
+          name: parsed.name ?? '',
+          externalJobId: parsed.externalJobId ?? '',
+          // jobTypeSpecific: {
+          //   cron: {
+
+          //   }, // TODO
+          //   directrequest: {} // TODO
+          // },
+          // jobTypeVariables: TODO
+        };
+
+        if (!('observationSource' in parsed)) {
+          // throw new Error("'observationSource' required in imported spec")
+          warnings.push("'observationSource' property missing");
+        } else {
+          const { nodes, edges }: any = constructTaskNodesAndEdgesFromObsSrc(
+            context.nodes,
+            context.edges,
+            parsed.observationSource,
+          );
+
+          constructedMachineContext.nodes = { tasks: nodes, ai: [] };
+          constructedMachineContext.edges = edges;
+          constructedMachineContext.totalNodesAdded = nodes.length;
+          constructedMachineContext.totalEdgesAdded = edges.length;
+
+          // Shifted position along by the index of the node
+          nodes.forEach(
+            (node: any, index: any) =>
+              (node.ref.state.context.coords = {
+                x: node.ref.state.context.coords.x + index * 320,
+                y: node.ref.state.context.coords.y,
+              }),
+          );
+        }
+
+        return Promise.resolve({ constructedMachineContext, warnings });
+      } catch (err) {
+        console.error(err);
+        return Promise.reject({ error: err, warnings });
+      }
+    }),
+  },
+  guards: {
+    hasParsingError: ({ context, event }: any) => {
+      return context.parsingError.length > 0;
+    },
   },
 };
 
@@ -822,7 +819,7 @@ const adjustNewSourceNodeHeight = (
   };
 };
 
-const validateAddress = (input: string) => ethers.utils.isAddress(input);
+const validateAddress = (input: string) => ethers.isAddress(input);
 
 const validateJobTypeSpecifics = (jobTypeSpecifics: any, event: any) => {
   const { jobType, prop, value } = event;
@@ -870,7 +867,7 @@ const constructTaskNodesAndEdgesFromObsSrc = (currNodes: Nodes, currEdges: Edges
   });
 
   const totalNodesMapping = [
-    ...currNodes.tasks.map((node) => ({
+    ...currNodes.tasks.map((node: any) => ({
       computedId: node.ref.id,
       id: node.ref.state.context.customId,
     })),
@@ -907,7 +904,7 @@ const constructTaskNodesAndEdgesFromObsSrc = (currNodes: Nodes, currEdges: Edges
     // @ts-ignore
     const taskSpecificNodeAttrs = node.attributes.values.filter((val) => val[0] !== 'type');
 
-    let nodeContext = {
+    let nodeContext: any = {
       customId: node.id,
       coords: {
         x: 0, // TODO
@@ -931,11 +928,9 @@ const constructTaskNodesAndEdgesFromObsSrc = (currNodes: Nodes, currEdges: Edges
     };
 
     return {
-      ref: spawn(
-        // @ts-ignore
-        createTaskNodeMachine(nodeContext),
-        node.computedId,
-      ),
+      ref: spawnChild(createTaskNodeMachine(nodeContext), {
+        id: node.computedId,
+      }),
     };
   });
 

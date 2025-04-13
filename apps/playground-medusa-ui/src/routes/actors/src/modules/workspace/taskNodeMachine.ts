@@ -1,70 +1,6 @@
 import { ethers } from 'ethers';
-import { createMachine, assign, sendParent } from 'xstate';
-import { NodeContext, NodeOptions, XYCoords } from './node';
-
-export type TaskNodeOptions = NodeOptions & {
-  taskType: TASK_TYPE;
-};
-
-export type TaskNodeEvent =
-  | { type: 'ADD_INCOMING_NODE'; nodeId: string }
-  | { type: 'ADD_OUTGOING_NODE'; nodeId: string }
-  | { type: 'UPDATE_INCOMING_NODE'; nodeId: string; prevNodeId: string }
-  | { type: 'UPDATE_OUTGOING_NODE'; nodeId: string; prevNodeId: string }
-  | { type: 'REMOVE_INCOMING_NODE'; nodeId: string }
-  | { type: 'REMOVE_OUTGOING_NODE'; nodeId: string }
-  | { type: 'SET_CUSTOM_ID'; value: string }
-  | { type: 'SET_TASK_SPECIFIC_PROPS'; value: object }
-  | { type: 'SET_MOCK_RESPONSE'; value: object }
-  | { type: 'UPDATE_COORDS'; value: XYCoords }
-  | { type: 'SET_PENDING_RUN' }
-  | { type: 'TRY_RUN_TASK'; input64s: Array<string>; vars64: string }
-  | { type: 'TRY_RUN_SIDE_EFFECT'; provider: any }
-  | { type: 'SKIP_SIDE_EFFECT' }
-  | { type: 'RESET' };
-
-export const tasks = [
-  'HTTP',
-  'BRIDGE',
-  'JSONPARSE',
-  'CBORPARSE',
-  'ETHCALL',
-  'ETHTX',
-  'SUM',
-  'DIVIDE',
-  'MULTIPLY',
-  'ANY',
-  'MODE',
-  'MEAN',
-  'MEDIAN',
-  'ETHABIENCODE',
-  'ETHABIDECODE',
-  'ETHABIDECODELOG',
-  'LESSTHAN',
-  'LENGTH',
-  'LOOKUP',
-] as const;
-export type TASK_TYPE = (typeof tasks)[number];
-
-type TaskMock = {
-  mockResponseDataInput?: any;
-  mockResponseData?: any;
-  enabled: boolean;
-};
-
-export interface TaskNodeContext extends NodeContext {
-  customId?: string;
-  taskType: TASK_TYPE;
-  taskSpecific: {
-    [key: string]: {
-      raw: string;
-      rich: string;
-    };
-  };
-  mock: TaskMock;
-  isValid: boolean;
-  runResult: any;
-}
+import { createMachine, assign, sendParent, enqueueActions, setup, fromPromise } from 'xstate';
+import { TaskNodeContext } from './types/nodeTaskType';
 
 const defaultContext: TaskNodeContext = {
   customId: undefined,
@@ -81,7 +17,7 @@ const defaultContext: TaskNodeContext = {
   runResult: undefined,
 };
 
-const validateAddress = (input: string) => ethers.utils.isAddress(input);
+const validateAddress: any = (input: string) => ethers.isAddress(input);
 
 const validateTask = (context: TaskNodeContext) => {
   let result = true;
@@ -178,120 +114,161 @@ export const createTaskNodeMachine = (initialContext: Partial<TaskNodeContext>) 
     ...initialContext,
   };
 
-  return createMachine<TaskNodeContext, TaskNodeEvent>(
-    {
-      id: 'taskNode',
-      context: {
-        ...fullInitialContext,
+  return setup({
+    types: {
+      context: {} as any,
+      events: {} as any,
+    } as any,
+    actions: {
+      revalidateTask: assign({
+        isValid: ({ context, event }: any) => validateTask(context),
+      }),
+    },
+    actors: {
+      runTask: fromPromise(async ({ context, event, input }: any) => {
+        console.log(context);
+        console.log(event);
+        return fetch('/api/task', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: context.customId,
+            name: context.taskType.toLowerCase(),
+            inputs64: 'input64s' in event ? [...event.input64s] : [],
+            vars64: 'vars64' in event ? event.vars64 : '',
+            options: Object.fromEntries(Object.entries(context.taskSpecific).map(([k, v]: any) => [k, v.raw])),
+            ...(context.mock.enabled && { mockResponse: context.mock.mockResponseData }),
+          }),
+        }).then((res) =>
+          res.json().then((json) => {
+            return res.ok
+              ? json
+              : {
+                  error: json.error.message,
+                };
+          }),
+        );
+      }),
+      executeSideEffect: fromPromise(async ({ context, event, input }: any) => {
+        const { To: to, Data: base64Data } = JSON.parse(context.runResult.sideEffectData);
+
+        if (!('provider' in event)) {
+          return Promise.reject("No 'provider' prop on the event inside 'executeSideEffect'");
+        }
+
+        const hexEncodedData = '0x' + Buffer.from(base64Data, 'base64').toString('hex');
+
+        const result = event.provider.call({
+          to: to,
+          data: hexEncodedData,
+        });
+
+        return result;
+      }),
+    },
+    guards: {
+      hasNoIncomingNodes: ({ context, event }: any) => {
+        return context.incomingNodes.length === 0;
       },
-      initial: 'idle',
-      states: {
-        idle: {
-          entry: ['revalidateTask'],
-        },
-        pendingRun: {
-          on: {
-            TRY_RUN_TASK: {
-              target: 'running',
-            },
+      resultHasError: ({ context, event }: any) => {
+        return context.runResult.error && context.runResult.error.length > 0;
+      },
+      resultHasPendingSideEffectData: ({ context, event }: any) => {
+        return context.runResult.sideEffectData.length > 0 && context.mock.enabled !== true;
+      },
+    },
+  }).createMachine({
+    id: 'taskNode',
+    context: {
+      ...fullInitialContext,
+    },
+    initial: 'idle',
+    states: {
+      idle: {
+        entry: ['revalidateTask'],
+      },
+      pendingRun: {
+        on: {
+          TRY_RUN_TASK: {
+            target: 'running',
           },
         },
-        running: {
-          invoke: {
-            src: 'runTask',
-            id: 'runTask',
-            onDone: {
-              target: 'inspectingResult',
-              actions: [
-                assign((_, event) => ({
-                  runResult: event.data,
-                })),
-                sendParent((context, event) => ({
-                  value: event.data,
-                  nodeId: context.customId,
-                  type: 'STORE_TASK_RUN_RESULT',
-                })),
-                // sendParent(() => ({
-                //   type: "SIMULATOR_NEXT_TASK"
-                // }))
-              ],
-            },
-            onError: { target: 'error' },
+      },
+      running: {
+        invoke: {
+          src: 'runTask',
+          id: 'runTask',
+          onDone: {
+            target: 'inspectingResult',
+            actions: [
+              assign(({ _, event }: any) => ({
+                runResult: event.data,
+              })),
+              sendParent(({ context, event }: any) => ({
+                value: event.data,
+                nodeId: context.customId,
+                type: 'STORE_TASK_RUN_RESULT',
+              })),
+            ],
+          },
+          onError: { target: 'error' },
+        },
+      },
+      inspectingResult: {
+        always: [
+          { target: 'pendingSideEffect', guard: 'resultHasPendingSideEffectData' },
+          { target: 'error', guard: 'resultHasError' },
+          { target: 'success' },
+        ],
+      },
+      success: {
+        entry: [
+          sendParent(() => ({
+            type: 'SIMULATOR_NEXT_TASK',
+          })),
+        ],
+      },
+      error: {
+        entry: [
+          sendParent(() => ({
+            type: 'SIMULATOR_NEXT_TASK',
+          })),
+        ],
+      },
+      pendingSideEffect: {
+        entry: [
+          sendParent(() => ({
+            type: 'SIMULATOR_PROMPT_SIDE_EFFECT',
+          })),
+        ],
+        on: {
+          TRY_RUN_SIDE_EFFECT: {
+            target: 'executingSideEffect',
+          },
+          SKIP_SIDE_EFFECT: {
+            target: 'skippingSideEffect',
           },
         },
-        inspectingResult: {
-          always: [
-            { target: 'pendingSideEffect', cond: 'resultHasPendingSideEffectData' },
-            { target: 'error', cond: 'resultHasError' },
-            { target: 'success' },
-          ],
-        },
-        success: {
-          entry: [
-            sendParent(() => ({
-              type: 'SIMULATOR_NEXT_TASK',
-            })),
-          ],
-        },
-        error: {
-          entry: [
-            sendParent(() => ({
-              type: 'SIMULATOR_NEXT_TASK',
-            })),
-          ],
-        },
-        pendingSideEffect: {
-          entry: [
-            sendParent(() => ({
-              type: 'SIMULATOR_PROMPT_SIDE_EFFECT',
-            })),
-          ],
-          on: {
-            TRY_RUN_SIDE_EFFECT: {
-              target: 'executingSideEffect',
-            },
-            SKIP_SIDE_EFFECT: {
-              target: 'skippingSideEffect',
-            },
-          },
-        },
-        executingSideEffect: {
-          invoke: {
-            src: 'executeSideEffect',
-            id: 'executeSideEffect',
-            onDone: {
-              target: 'pendingRun',
-              // @ts-ignore
-              actions: actions.pure((context, event) => {
-                return [
-                  assign({
-                    // @ts-ignore
-                    mock: (context, event) => ({
-                      // @ts-ignore
-                      mockResponseDataInput: event.data,
-                      // @ts-ignore
-                      mockResponseData: event.data,
-                      enabled: true,
-                    }),
-                  }),
-                  sendParent(() => ({
-                    type: 'TRY_RUN_CURRENT_TASK',
-                  })),
-                ];
-              }),
-            },
-            onError: { target: 'error' },
-          },
-        },
-        skippingSideEffect: {
-          entry: [
-            actions.pure((context, event) => {
+      },
+      executingSideEffect: {
+        invoke: {
+          src: 'executeSideEffect',
+          id: 'executeSideEffect',
+          onDone: {
+            target: 'pendingRun',
+            // @ts-ignore
+            actions: actions.pure(({ context, event }: any) => {
               return [
                 assign({
                   // @ts-ignore
-                  mock: (context, event) => ({
+                  mock: ({ context, event }: any) => ({
                     // @ts-ignore
-                    ...context.mock,
+                    mockResponseDataInput: event.data,
+                    // @ts-ignore
+                    mockResponseData: event.data,
                     enabled: true,
                   }),
                 }),
@@ -300,185 +277,138 @@ export const createTaskNodeMachine = (initialContext: Partial<TaskNodeContext>) 
                 })),
               ];
             }),
-          ],
-          always: [{ target: 'pendingRun' }],
+          },
+          onError: { target: 'error' },
         },
       },
-      on: {
-        ADD_INCOMING_NODE: {
-          actions: [
-            assign({
-              incomingNodes: (context, event) => [...context.incomingNodes, event.nodeId],
-            }),
-            sendParent('REGENERATE_TOML'),
-            'revalidateTask',
-          ],
-        },
-        ADD_OUTGOING_NODE: {
-          actions: [
-            assign({
-              outgoingNodes: (context, event) => [...context.outgoingNodes, event.nodeId],
-            }),
-            sendParent('REGENERATE_TOML'),
-          ],
-        },
-        REMOVE_INCOMING_NODE: {
-          actions: [
-            assign({
-              incomingNodes: (context, event) =>
-                context.incomingNodes.filter((incomingNode: string) => incomingNode !== event.nodeId),
-            }),
-            sendParent('REGENERATE_TOML'),
-            'revalidateTask',
-          ],
-        },
-        REMOVE_OUTGOING_NODE: {
-          actions: [
-            assign({
-              outgoingNodes: (context, event) =>
-                context.outgoingNodes.filter((outgoingNode: string) => outgoingNode !== event.nodeId),
-            }),
-            sendParent('REGENERATE_TOML'),
-          ],
-        },
-        UPDATE_INCOMING_NODE: {
-          actions: [
-            assign({
-              incomingNodes: (context, event) =>
-                context.incomingNodes.map((incomingNode) =>
-                  incomingNode === event.prevNodeId ? event.nodeId : incomingNode,
-                ),
-            }),
-            sendParent('REGENERATE_TOML'),
-            'revalidateTask',
-          ],
-        },
-        UPDATE_OUTGOING_NODE: {
-          actions: [
-            assign({
-              outgoingNodes: (context, event) =>
-                context.outgoingNodes.map((outgoingNode) =>
-                  outgoingNode === event.prevNodeId ? event.nodeId : outgoingNode,
-                ),
-            }),
-            sendParent('REGENERATE_TOML'),
-            'revalidateTask',
-          ],
-        },
-        SET_CUSTOM_ID: {
-          actions: [
-            assign({
-              customId: (context, event) => event.value,
-            }),
-            sendParent('REGENERATE_TOML'),
-            'revalidateTask',
-          ],
-        },
-        SET_TASK_SPECIFIC_PROPS: {
-          actions: [
-            assign({
-              taskSpecific: (context, event) => {
-                return {
-                  ...context.taskSpecific,
-                  ...event.value,
-                };
-              },
-            }),
-            sendParent('REGENERATE_TOML'),
-            'revalidateTask',
-          ],
-        },
-        SET_MOCK_RESPONSE: {
-          actions: assign({
-            mock: (context, event) => ({
+      skippingSideEffect: {
+        entry: enqueueActions(({ enqueue, check }: any) => {
+          enqueue.assign(({ context, event }: any) => {
+            return {
               ...context.mock,
-              ...event.value,
-            }),
-          }),
-        },
-        UPDATE_COORDS: {
-          actions: [
-            assign({
-              coords: (_, event) => event.value,
-            }),
-          ],
-        },
-        RESET: {
-          target: 'idle',
-          actions: assign((_, event) => ({
-            runResult: undefined,
-          })),
-        },
-        SET_PENDING_RUN: {
-          target: 'pendingRun',
-          actions: assign((_, event) => ({
-            runResult: undefined,
-          })),
-        },
-      },
-    },
-    {
-      actions: {
-        revalidateTask: assign({
-          isValid: (context, event) => validateTask(context),
-        }),
-      },
-      services: {
-        runTask: (context, event) => {
-          console.log(context);
-          console.log(event);
-          return fetch('/api/task', {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              id: context.customId,
-              name: context.taskType.toLowerCase(),
-              inputs64: 'input64s' in event ? [...event.input64s] : [],
-              vars64: 'vars64' in event ? event.vars64 : '',
-              options: Object.fromEntries(Object.entries(context.taskSpecific).map(([k, v]) => [k, v.raw])),
-              ...(context.mock.enabled && { mockResponse: context.mock.mockResponseData }),
-            }),
-          }).then((res) =>
-            res.json().then((json) => {
-              return res.ok
-                ? json
-                : {
-                    error: json.error.message,
-                  };
-            }),
-          );
-        },
-        executeSideEffect: (context, event) => {
-          const { To: to, Data: base64Data } = JSON.parse(context.runResult.sideEffectData);
-
-          if (!('provider' in event)) {
-            return Promise.reject("No 'provider' prop on the event inside 'executeSideEffect'");
-          }
-
-          const hexEncodedData = '0x' + Buffer.from(base64Data, 'base64').toString('hex');
-
-          const result = event.provider.call({
-            to: to,
-            data: hexEncodedData,
+              enabled: true,
+            };
           });
 
-          return result;
-        },
-      },
-      guards: {
-        hasNoIncomingNodes: (context, event) => {
-          return context.incomingNodes.length === 0;
-        },
-        resultHasError: (context, event) => {
-          return context.runResult.error && context.runResult.error.length > 0;
-        },
-        resultHasPendingSideEffectData: (context, event) => {
-          return context.runResult.sideEffectData.length > 0 && context.mock.enabled !== true;
-        },
+          enqueue.sendTo('parentActor', {
+            type: 'SKIP_CURRENT_SIDE_EFFECT',
+          });
+        }),
+
+        always: [{ target: 'pendingRun' }],
       },
     },
-  );
+    on: {
+      ADD_INCOMING_NODE: {
+        actions: [
+          assign({
+            incomingNodes: ({ context, event }: any) => [...context.incomingNodes, event.nodeId],
+          }),
+          sendParent('REGENERATE_TOML' as any),
+          'revalidateTask',
+        ],
+      },
+      ADD_OUTGOING_NODE: {
+        actions: [
+          assign({
+            outgoingNodes: ({ context, event }: any) => [...context.outgoingNodes, event.nodeId],
+          }),
+          sendParent('REGENERATE_TOML' as any),
+        ],
+      },
+      REMOVE_INCOMING_NODE: {
+        actions: [
+          assign({
+            incomingNodes: ({ context, event }: any) =>
+              context.incomingNodes.filter((incomingNode: string) => incomingNode !== event.nodeId),
+          }),
+          sendParent('REGENERATE_TOML' as any),
+          'revalidateTask',
+        ],
+      },
+      REMOVE_OUTGOING_NODE: {
+        actions: [
+          assign({
+            outgoingNodes: ({ context, event }: any) =>
+              context.outgoingNodes.filter((outgoingNode: string) => outgoingNode !== event.nodeId),
+          }),
+          sendParent('REGENERATE_TOML' as any),
+        ],
+      },
+      UPDATE_INCOMING_NODE: {
+        actions: [
+          assign({
+            incomingNodes: ({ context, event }: any) =>
+              context.incomingNodes.map((incomingNode: any) =>
+                incomingNode === event.prevNodeId ? event.nodeId : incomingNode,
+              ),
+          }),
+          sendParent('REGENERATE_TOML' as any),
+          'revalidateTask',
+        ],
+      },
+      UPDATE_OUTGOING_NODE: {
+        actions: [
+          assign({
+            outgoingNodes: ({ context, event }: any) =>
+              context.outgoingNodes.map((outgoingNode: any) =>
+                outgoingNode === event.prevNodeId ? event.nodeId : outgoingNode,
+              ),
+          }),
+          sendParent('REGENERATE_TOML' as any),
+          'revalidateTask',
+        ],
+      },
+      SET_CUSTOM_ID: {
+        actions: [
+          assign({
+            customId: ({ context, event }: any) => event.value,
+          }),
+          sendParent('REGENERATE_TOML' as any),
+          'revalidateTask',
+        ],
+      },
+      SET_TASK_SPECIFIC_PROPS: {
+        actions: [
+          assign({
+            taskSpecific: ({ context, event }: any) => {
+              return {
+                ...context.taskSpecific,
+                ...event.value,
+              };
+            },
+          }),
+          sendParent('REGENERATE_TOML' as any),
+          'revalidateTask',
+        ],
+      },
+      SET_MOCK_RESPONSE: {
+        actions: assign({
+          mock: ({ context, event }: any) => ({
+            ...context.mock,
+            ...event.value,
+          }),
+        }),
+      },
+      UPDATE_COORDS: {
+        actions: [
+          assign({
+            coords: ({ _, event }: any) => event.value,
+          }),
+        ],
+      },
+      RESET: {
+        target: 'idle',
+        actions: assign(({ _, event }: any) => ({
+          runResult: undefined,
+        })),
+      },
+      SET_PENDING_RUN: {
+        target: 'pendingRun',
+        actions: assign(({ _, event }: any) => ({
+          runResult: undefined,
+        })),
+      },
+    },
+  });
 };
