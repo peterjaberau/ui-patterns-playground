@@ -1,3 +1,5 @@
+import { ActorRefFrom, AnyStateMachine } from 'xstate';
+
 export type XYCoords = {
   x: number;
   y: number;
@@ -13,3 +15,12 @@ export interface NodeContext {
   incomingNodes: Array<string>;
   outgoingNodes: Array<string>;
 }
+
+export type Nodes = {
+  tasks: Array<{
+    ref: ActorRefFrom<AnyStateMachine>;
+  }>;
+  ai: Array<{
+    ref: ActorRefFrom<AnyStateMachine>;
+  }>;
+};

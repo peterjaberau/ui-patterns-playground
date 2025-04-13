@@ -1,13 +1,17 @@
-import { assign, enqueueActions, fromPromise, raise, sendTo, spawnChild } from 'xstate';
+import { assign, enqueueActions, fromPromise, raise } from 'xstate';
 import { JOB_TYPES } from './constants';
-import { TaskInstructions, TASK_TYPE } from './types/nodeTaskType';
-
-import { Nodes, TomlLine, WorkspaceContext, WorkspaceEvent, Edges, CustomEdge } from './types/workspaceType';
-import { createTaskNodeMachine } from './taskNodeMachine';
-import { fromDot, NodeRef, attribute as _ } from 'ts-graphviz';
+import { TaskInstructions } from './types/nodeTaskType';
+import { TomlLine, WorkspaceContext, CustomEdge } from './types/workspaceType';
 import { toast } from 'react-hot-toast';
-import { ethers } from 'ethers';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
+import {
+  getTaskNodeByCustomId,
+  validateJobTypeSpecifics,
+  adjustNewSourceNodeHeight,
+  adjustNewSourceNodeHeightByTypeDefault,
+  constructTaskNodesAndEdgesFromObsSrc,
+  wrapVariable,
+} from './utils';
 
 export const workspaceMachineOptions: any = {
   actions: {
@@ -61,9 +65,9 @@ export const workspaceMachineOptions: any = {
       const currentTask: TaskInstructions = context.parsedTaskOrder[context.currentTaskIndex];
       const currentTaskCustomId = currentTask.id;
 
-      const currentTaskId = getTaskNodeByCustomId(context, currentTaskCustomId)?.ref.id;
+      const currentTaskId: any = getTaskNodeByCustomId(context, currentTaskCustomId)?.ref.id;
 
-      return [sendTo(currentTaskId, { type: 'SET_PENDING_RUN' })];
+      enqueue.sendTo(currentTaskId, { type: 'SET_PENDING_RUN' });
     }),
     resetNextTask: enqueueActions(({ context, enqueue }: any) => {
       const nextTaskIndex = context.currentTaskIndex + 1;
@@ -75,7 +79,7 @@ export const workspaceMachineOptions: any = {
 
       const nextTaskId = getTaskNodeByCustomId(context, nextTaskCustomId)?.ref.id;
 
-      return [sendTo(nextTaskId, { type: 'RESET' })];
+      enqueue.sendTo(nextTaskId, { type: 'RESET' });
     }),
     validateJobTypeSpecificProps: assign({
       jobTypeSpecific: ({ context, event }: any) => validateJobTypeSpecifics(context.jobTypeSpecific, event),
@@ -606,7 +610,7 @@ export const workspaceMachineOptions: any = {
         toml: lines,
       };
     }),
-  },
+  } as any,
   actors: {
     parseSpec: fromPromise(async ({ context, event, input }: any) => {
       return fetch('/api/graph', {
@@ -784,155 +788,10 @@ export const workspaceMachineOptions: any = {
         return Promise.reject({ error: err, warnings });
       }
     }),
-  },
+  } as any,
   guards: {
     hasParsingError: ({ context, event }: any) => {
       return context.parsingError.length > 0;
     },
   },
-};
-
-const getTaskNodeByCustomId = (context: WorkspaceContext, nodeId: string) =>
-  context.nodes.tasks.find((taskNode: any) => taskNode.ref.state.context.customId === nodeId);
-
-const wrapVariable = (input: string) => `$(${input})`;
-
-const adjustNewSourceNodeHeightByTypeDefault = (
-  initialCoords: { x: number; y: number },
-  taskType: TASK_TYPE,
-  isForwardConnection: boolean = true,
-) => {
-  // TODO - Take account of task type
-  const taskNodeDefaultHeight = 144;
-
-  return adjustNewSourceNodeHeight(initialCoords, taskNodeDefaultHeight, isForwardConnection);
-};
-
-const adjustNewSourceNodeHeight = (
-  initialCoords: { x: number; y: number },
-  amount: number,
-  isForwardConnection: boolean = true,
-) => {
-  return {
-    x: initialCoords.x,
-    y: isForwardConnection ? initialCoords.y : initialCoords.y - amount,
-  };
-};
-
-const validateAddress = (input: string) => ethers.isAddress(input);
-
-const validateJobTypeSpecifics = (jobTypeSpecifics: any, event: any) => {
-  const { jobType, prop, value } = event;
-
-  let validatedJobTypeSpecifics = { ...jobTypeSpecifics };
-
-  switch (jobType) {
-    case 'cron':
-      break;
-    case 'directrequest':
-      validatedJobTypeSpecifics.directrequest.contractAddress.valid = validateAddress(
-        validatedJobTypeSpecifics.directrequest.contractAddress.value,
-      );
-      validatedJobTypeSpecifics.directrequest.minContractPaymentLinkJuels.valid =
-        validatedJobTypeSpecifics.directrequest.minContractPaymentLinkJuels.value !== '' &&
-        validatedJobTypeSpecifics.directrequest.minContractPaymentLinkJuels.value >= 0;
-      validatedJobTypeSpecifics.directrequest.minIncomingConfirmations.valid =
-        validatedJobTypeSpecifics.directrequest.minIncomingConfirmations.value !== '' &&
-        validatedJobTypeSpecifics.directrequest.minIncomingConfirmations.value >= 1;
-  }
-
-  return validatedJobTypeSpecifics;
-};
-
-const getProvider = (network = '') => {
-  const networkToUse = 'homestead';
-
-  return ethers.getDefaultProvider(networkToUse, {
-    // TODO: Add more services
-    alchemy: process.env.NEXT_PUBLIC_ALCHEMY_ID,
-  });
-};
-
-const constructTaskNodesAndEdgesFromObsSrc = (currNodes: Nodes, currEdges: Edges, obsSrc: string) => {
-  const input = `digraph {\n${obsSrc}\n}`;
-  const parsedObservationSrc = fromDot(input);
-
-  const currNumTaskNodes = currNodes.tasks.length;
-
-  const newNodesWithComputedIds = parsedObservationSrc.nodes.map((node, index) => {
-    return {
-      ...node,
-      computedId: `task_${index + currNumTaskNodes}`,
-    };
-  });
-
-  const totalNodesMapping = [
-    ...currNodes.tasks.map((node: any) => ({
-      computedId: node.ref.id,
-      id: node.ref.state.context.customId,
-    })),
-    ...newNodesWithComputedIds.map((newNode) => ({
-      computedId: newNode.computedId,
-      id: newNode.id,
-    })),
-  ];
-
-  const currEdgesLen = currEdges.length;
-
-  let edgesSplitIntoSingleLengths: Edges = [];
-
-  parsedObservationSrc.edges.forEach((edge) => {
-    const numSplits = edge.targets.length - 1;
-
-    for (let i = 0; i < numSplits; i++) {
-      const sourceCustomId: string = (edge.targets[i] as NodeRef).id;
-      const targetCustomId: string = (edge.targets[i + 1] as NodeRef).id;
-      const sourceWithComputedId = totalNodesMapping.find((entry) => entry.id === sourceCustomId);
-      const targetWithComputedId = totalNodesMapping.find((entry) => entry.id === targetCustomId);
-
-      edgesSplitIntoSingleLengths.push({
-        id: `edge_${edgesSplitIntoSingleLengths.length + currEdgesLen + 1}`,
-        source: sourceWithComputedId ? sourceWithComputedId.computedId : '',
-        sourceCustomId: sourceCustomId,
-        target: targetWithComputedId ? targetWithComputedId.computedId : '',
-        targetCustomId: targetCustomId,
-      });
-    }
-  });
-
-  const nodes = newNodesWithComputedIds.map((node, index) => {
-    // @ts-ignore
-    const taskSpecificNodeAttrs = node.attributes.values.filter((val) => val[0] !== 'type');
-
-    let nodeContext: any = {
-      customId: node.id,
-      coords: {
-        x: 0, // TODO
-        y: 0, // TODO
-      },
-      // @ts-ignore
-      taskType: node.attributes.get('type')?.toString().toUpperCase(),
-      incomingNodes: [], // TODO
-      outgoingNodes: [], // TODO
-      taskSpecific: taskSpecificNodeAttrs.reduce((acc: any, [key, value]) => {
-        // @ts-ignore
-        acc[key] = { raw: value, rich: value }; // TODO - format the 'rich' prop
-        return acc;
-      }, {}),
-      mock: {
-        mockResponseDataInput: '',
-        mockResponseData: '',
-        enabled: false,
-      },
-      isValid: true,
-    };
-
-    return {
-      ref: spawnChild(createTaskNodeMachine(nodeContext), {
-        id: node.computedId,
-      }),
-    };
-  });
-
-  return { nodes, edges: edgesSplitIntoSingleLengths };
 };

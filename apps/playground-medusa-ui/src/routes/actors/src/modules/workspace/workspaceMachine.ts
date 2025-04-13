@@ -5,60 +5,16 @@ import { ethers } from 'ethers';
 import { toast } from 'react-hot-toast';
 import { workspaceMachineOptions as defaultWorkspaceMachineOptions } from './workspaceMachineOptions';
 import { createAiNodeMachine } from './aiNodeMachine';
-
-const getNextUniqueTaskId = (tasks: Array<any>) => {
-  const tasksCustomIdsWithDefaultFormat = tasks
-    .map((task) => task.ref.state.context.customId)
-    .filter((customId) => customId.startsWith('task_'));
-
-  let id = 0;
-
-  while (tasksCustomIdsWithDefaultFormat.includes(`task_${id.toString()}`)) {
-    id++;
-  }
-
-  return id.toString();
-};
-
-const validateAddress = (input: string) => ethers.isAddress(input);
-
-const validateJobTypeSpecifics = (jobTypeSpecifics: any, event: any) => {
-  const { jobType, prop, value } = event;
-
-  let validatedJobTypeSpecifics = { ...jobTypeSpecifics };
-
-  switch (jobType) {
-    case 'cron':
-      break;
-    case 'directrequest':
-      validatedJobTypeSpecifics.directrequest.contractAddress.valid = validateAddress(
-        validatedJobTypeSpecifics.directrequest.contractAddress.value,
-      );
-      validatedJobTypeSpecifics.directrequest.minContractPaymentLinkJuels.valid =
-        validatedJobTypeSpecifics.directrequest.minContractPaymentLinkJuels.value !== '' &&
-        validatedJobTypeSpecifics.directrequest.minContractPaymentLinkJuels.value >= 0;
-      validatedJobTypeSpecifics.directrequest.minIncomingConfirmations.valid =
-        validatedJobTypeSpecifics.directrequest.minIncomingConfirmations.value !== '' &&
-        validatedJobTypeSpecifics.directrequest.minIncomingConfirmations.value >= 1;
-  }
-
-  return validatedJobTypeSpecifics;
-};
-
-const getProvider = (network = '') => {
-  const networkToUse = 'homestead';
-
-  return ethers.getDefaultProvider(networkToUse, {
-    alchemy: process.env.NEXT_PUBLIC_ALCHEMY_ID,
-  });
-};
+import { getProvider, getNextUniqueTaskId } from './workspaceMachineOptions';
 
 export const workspaceMachine = setup({
   types: {
     context: {} as any,
     events: {} as any,
   } as any,
-  ...defaultWorkspaceMachineOptions,
+  actions: defaultWorkspaceMachineOptions.actions as any,
+  actors: defaultWorkspaceMachineOptions.actors as any,
+  guards: defaultWorkspaceMachineOptions.guards as any,
 }).createMachine({
   id: 'workspace',
   initial: 'idle',
@@ -142,7 +98,6 @@ export const workspaceMachine = setup({
       }),
     },
     ADD_TASK_NODE: {
-      // @ts-ignore
       actions: enqueueActions(({ context, enqueue, event }: any) => {
         const { fromHandleId, fromNodeId, newNodeType } = event.edgeDetails;
 
@@ -209,8 +164,7 @@ export const workspaceMachine = setup({
       }),
     },
     ADD_AI_PROMPT_NODE: {
-      // @ts-ignore
-      actions: actions.pure(({ context, event }: any) => {
+      actions: enqueueActions(({ context, enqueue, event }: any) => {
         const { fromHandleId, fromNodeId, newNodeType } = event.edgeDetails;
 
         // from will be a task (or other) node
@@ -229,55 +183,55 @@ export const workspaceMachine = setup({
         const fromPresentationId = isForwardConnection ? fromNodeCustomId : newNodeId;
         const toPresentationId = isForwardConnection ? newNodeId : fromNodeCustomId;
 
-        return [
-          assign({
-            totalNodesAdded: context.totalNodesAdded + 1,
-            totalEdgesAdded: context.totalEdgesAdded + 1,
-            nodes: {
-              ...context.nodes,
-              ai: [
-                ...context.nodes.ai,
-                {
-                  // add a new aiNodeMachine actor with a unique name
-                  ref: spawnChild(
-                    createAiNodeMachine({
-                      id: newNodeId,
-                      coords: event.options.initialCoords,
-                      ...(!isFirstNode &&
-                        (isForwardConnection
-                          ? { incomingNodes: [fromNodeCustomId] }
-                          : { outgoingNodes: [fromNodeCustomId] })),
-                    }),
-                    newNodeId as any,
-                  ),
-                },
-              ],
-            },
-            edges:
-              fromNodeId && fromHandleId
-                ? [
-                    ...context.edges,
-                    {
-                      id: `edge_${context.totalEdgesAdded}`,
-                      source: fromId,
-                      sourceCustomId: fromPresentationId,
-                      target: toId,
-                      targetCustomId: toPresentationId,
-                    },
-                  ]
-                : context.edges,
-          }),
-          sendTo(fromNodeId, {
-            type: isForwardConnection ? 'ADD_OUTGOING_NODE' : 'ADD_INCOMING_NODE',
-            nodeId: newNodeId,
-          } as any),
-          'regenerateToml',
-        ];
+        enqueue.assign({
+          totalNodesAdded: context.totalNodesAdded + 1,
+          totalEdgesAdded: context.totalEdgesAdded + 1,
+          nodes: {
+            ...context.nodes,
+            ai: [
+              ...context.nodes.ai,
+              {
+                // add a new aiNodeMachine actor with a unique name
+                ref: spawnChild(
+                  createAiNodeMachine({
+                    id: newNodeId,
+                    coords: event.options.initialCoords,
+                    ...(!isFirstNode &&
+                      (isForwardConnection
+                        ? { incomingNodes: [fromNodeCustomId] }
+                        : { outgoingNodes: [fromNodeCustomId] })),
+                  }),
+                  newNodeId as any,
+                ),
+              },
+            ],
+          },
+          edges:
+            fromNodeId && fromHandleId
+              ? [
+                  ...context.edges,
+                  {
+                    id: `edge_${context.totalEdgesAdded}`,
+                    source: fromId,
+                    sourceCustomId: fromPresentationId,
+                    target: toId,
+                    targetCustomId: toPresentationId,
+                  },
+                ]
+              : context.edges,
+        });
+
+        enqueue.sendTo(fromNodeId, {
+          type: isForwardConnection ? 'ADD_OUTGOING_NODE' : 'ADD_INCOMING_NODE',
+          nodeId: newNodeId,
+        } as any);
+
+        enqueue('regenerateToml');
       }),
     },
     DELETE_NODE: {
-      actions: [
-        assign({
+      actions: enqueueActions(({ context, enqueue, event }: any) => {
+        enqueue.assign({
           nodes: ({ context, event }: any) => ({
             ...context.nodes,
             tasks: [...context.nodes.tasks.filter(({ node }: any) => node.ref.id !== event.nodeId)],
@@ -285,13 +239,14 @@ export const workspaceMachine = setup({
           }),
           edges: ({ context, event }: any) =>
             context.edges.filter(({ edge }: any) => edge.source !== event.nodeId && edge.target !== event.nodeId),
-        }),
-        'regenerateToml',
-      ],
+        });
+
+        enqueue('regenerateToml');
+      }),
     },
     REPLACE_TASK_NODE: {
-      actions: [
-        assign({
+      actions: enqueueActions(({ context, enqueue, event }: any) => {
+        enqueue.assign({
           nodes: ({ context, event }: any) => {
             return {
               ...context.nodes,
@@ -313,76 +268,76 @@ export const workspaceMachine = setup({
               ],
             };
           },
-        }),
-        'regenerateToml',
-      ],
+        });
+        enqueue('regenerateToml');
+      }),
     },
     UPDATE_EDGES_WITH_NODE_ID: {
-      actions: [
-        assign({
+      actions: enqueueActions(({ context, enqueue, event }: any) => {
+        enqueue.assign({
           edges: ({ context, event }: any) =>
             context.edges.map(({ edge }: any) => ({
               ...edge,
               sourceCustomId: edge.sourceCustomId === event.prevNodeId ? event.nodeId : edge.sourceCustomId,
               targetCustomId: edge.targetCustomId === event.prevNodeId ? event.nodeId : edge.targetCustomId,
             })),
-        }),
-        'regenerateToml',
-      ],
+        });
+        enqueue('regenerateToml');
+      }),
     },
     SET_JOB_TYPE: {
-      actions: [
-        assign({
+      actions: enqueueActions(({ context, enqueue, event }: any) => {
+        enqueue.assign({
           type: ({ context, event }: any) => event.value,
-        }),
-        'regenerateToml',
-      ],
+        });
+        enqueue('regenerateToml');
+      }),
     },
     SET_NAME: {
-      actions: [
-        assign({
+      actions: enqueueActions(({ context, enqueue, event }: any) => {
+        enqueue.assign({
           name: ({ context, event }: any) => {
             return event.value;
           },
-        }),
-        'regenerateToml',
-      ],
+        });
+        enqueue('regenerateToml');
+      }),
     },
     SET_EXTERNAL_JOB_ID: {
-      actions: [
-        assign({
+      actions: enqueueActions(({ context, enqueue, event }: any) => {
+        enqueue.assign({
           externalJobId: ({ context, event }: any) => event.value,
-        }),
-        'regenerateToml',
-      ],
+        });
+        enqueue('regenerateToml');
+      }),
     },
     SET_GAS_LIMIT: {
-      actions: [
-        assign({
+      actions: enqueueActions(({ context, enqueue, event }: any) => {
+        enqueue.assign({
           gasLimit: ({ context, event }: any) => event.value,
-        }),
-        'regenerateToml',
-      ],
+        });
+        enqueue('regenerateToml');
+      }),
     },
     SET_MAX_TASK_DURATION: {
-      actions: [
-        assign({
+      actions: enqueueActions(({ context, enqueue, event }: any) => {
+        enqueue.assign({
           maxTaskDuration: ({ context, event }: any) => event.value,
-        }),
-        'regenerateToml',
-      ],
+        });
+        enqueue('regenerateToml');
+      }),
     },
     SET_FORWARDING_ALLOWED: {
-      actions: [
-        assign({
+      actions: enqueueActions(({ context, enqueue, event }: any) => {
+        enqueue.assign({
           forwardingAllowed: ({ context, event }: any) => event.value === 'true',
         }),
-        'regenerateToml',
-      ],
+          enqueue('regenerateToml');
+      }),
     },
     SET_JOB_TYPE_SPECIFIC_PROPS: {
-      actions: [
-        assign({
+      actions: enqueueActions(({ context, enqueue, event }: any) => {
+        enqueue.assign({
           jobTypeSpecific: ({ context, event }: any) => {
             let current = { ...context.jobTypeSpecific };
 
@@ -392,14 +347,14 @@ export const workspaceMachine = setup({
 
             return current;
           },
-        }),
-        'validateJobTypeSpecificProps',
-        'regenerateToml',
-      ],
+        });
+        enqueue('validateJobTypeSpecificProps');
+        enqueue('regenerateToml');
+      }),
     },
     SET_JOB_TYPE_SPECIFIC_VARIABLES: {
-      actions: [
-        assign({
+      actions: enqueueActions(({ context, enqueue, event }: any) => {
+        enqueue.assign({
           jobTypeVariables: ({ context, event }: any) => {
             let current = context.jobTypeVariables;
 
@@ -413,22 +368,22 @@ export const workspaceMachine = setup({
 
             return current;
           },
-        }),
-        // "validateJobTypeSpecificProps",
-        // "regenerateToml"
-      ],
+        });
+      }),
     },
     STORE_TASK_RUN_RESULT: {
-      actions: assign(({ context, event }: any) => {
-        console.log(event);
-        return {
-          taskRunResults: [...context.taskRunResults, { id: event.nodeId, result: event.value }],
-        };
+      actions: enqueueActions(({ context, enqueue, event }: any) => {
+        enqueue.assign(({ context, event }: any) => {
+          console.log(event);
+          return {
+            taskRunResults: [...context.taskRunResults, { id: event.nodeId, result: event.value }],
+          };
+        });
       }),
     },
     ADD_NEW_EDGE: {
-      actions: [
-        assign(({ context, event }: any) => {
+      actions: enqueueActions(({ context, enqueue, event }: any) => {
+        enqueue.assign(({ context, event }: any) => {
           const toAdd = {
             id: `edge_${context.totalEdgesAdded}`,
             ...event.newEdge,
@@ -438,62 +393,58 @@ export const workspaceMachine = setup({
             edges: [...context.edges, toAdd],
             totalEdgesAdded: context.totalEdgesAdded + 1,
           };
-        }),
-        'regenerateToml',
-      ],
+        });
+        enqueue('regenerateToml');
+      }),
     },
-    REGENERATE_TOML: {
-      actions: 'regenerateToml',
-    },
+    REGENERATE_TOML: { actions: ['regenerateToml'] as any },
     PERSIST_STATE: {
-      actions: [
-        ({ context }: any) => {
-          // Extract any context props we don't want to persist
-          const {
-            reactFlowInstance,
-            nodes,
-            isConnecting,
-            connectionParams,
-            taskRunResults,
-            parsedTaskOrder,
-            parsingError,
-            currentTaskIndex,
-            jobLevelVars64,
-            provider,
-            openModals,
-            ...toPersist
-          }: any = context;
+      actions: assign(({ context }: any) => {
+        // Extract any context props we don't want to persist
+        const {
+          reactFlowInstance,
+          nodes,
+          isConnecting,
+          connectionParams,
+          taskRunResults,
+          parsedTaskOrder,
+          parsingError,
+          currentTaskIndex,
+          jobLevelVars64,
+          provider,
+          openModals,
+          ...toPersist
+        }: any = context;
 
-          // Instead of saving the full context as-is, we'll expand the context of each spawned machine
-          const parsedContext = {
-            ...toPersist,
-            nodes: {
-              tasks: context.nodes.tasks.map(({ entry }: any) => {
-                const { runResult, ...nodeContextToPersist } = entry.ref.getSnapshot()?.context || {};
+        // Instead of saving the full context as-is, we'll expand the context of each spawned machine
+        const parsedContext = {
+          ...toPersist,
+          nodes: {
+            tasks: context.nodes.tasks.map(({ entry }: any) => {
+              const { runResult, ...nodeContextToPersist } = entry.ref.getSnapshot()?.context || {};
 
-                return {
-                  ...entry,
-                  context: nodeContextToPersist,
-                };
-              }),
-              ai: context.nodes.ai.map(({ entry }: any) => {
-                const { ...nodeContextToPersist } = entry.ref.getSnapshot()?.context || {};
+              return {
+                ...entry,
+                context: nodeContextToPersist,
+              };
+            }),
+            ai: context.nodes.ai.map(({ entry }: any) => {
+              const { ...nodeContextToPersist } = entry.ref.getSnapshot()?.context || {};
 
-                return {
-                  ...entry,
-                  context: nodeContextToPersist,
-                };
-              }),
-            },
-          };
+              return {
+                ...entry,
+                context: nodeContextToPersist,
+              };
+            }),
+          },
+        };
 
-          try {
-            localStorage.setItem('persisted-state', JSON.stringify(parsedContext));
-          } catch (e) {
-            // unable to save to localStorage
-          }
-        },
-      ],
+        try {
+          localStorage.setItem('persisted-state', JSON.stringify(parsedContext));
+        } catch (e) {
+          // unable to save to localStorage
+        }
+      }),
     },
     RESTORE_STATE: {
       actions: assign(({ context, event }: any) => {
@@ -532,15 +483,6 @@ export const workspaceMachine = setup({
         };
       }),
     },
-    // SET_NETWORK: {
-    //   actions: [
-    //     assign(({context, event}: any) => {
-    //       return {
-    //         network: event.value
-    //       }
-    //     })
-    //   ]
-    // }
   },
   states: {
     idle: {
@@ -552,7 +494,10 @@ export const workspaceMachine = setup({
               target: 'aiWandMode',
             },
             CONNECTION_SUCCESS: {
-              actions: ['handleConnectionSuccessTaskNodeAddition', 'regenerateToml'],
+              actions: enqueueActions(({ context, enqueue }: any) => {
+                enqueue('handleConnectionSuccessTaskNodeAddition');
+                enqueue('regenerateToml');
+              }),
             },
           },
         },
@@ -562,7 +507,7 @@ export const workspaceMachine = setup({
               target: 'defaultMode',
             },
             CONNECTION_SUCCESS: {
-              actions: ['handleConnectionSuccessAiPromptNodeAddition'],
+              actions: ['handleConnectionSuccessAiPromptNodeAddition'] as any,
             },
           },
         },
@@ -591,18 +536,20 @@ export const workspaceMachine = setup({
           ],
         },
         HANDLE_AI_PROMPT_COMPLETION: {
-          actions: ['handleAiPromptCompletion'],
+          actions: ['handleAiPromptCompletion'] as any,
         },
       },
     },
     importing: {
       invoke: {
+        //@ts-ignore
+        id: 'importJobSpec',
         src: 'importJobSpec',
         onDone: {
           target: 'idle',
-          actions: [
-            assign(({ context, event }: any) => {
-              const newPartialContext: Partial<WorkspaceContext> = event.data.constructedMachineContext;
+          actions: enqueueActions(({ context, enqueue, event }: any) => {
+            enqueue.assign(({ context, event }: any) => {
+              const newPartialContext: Partial<any> = event.data.constructedMachineContext;
 
               let newContext = {
                 ...context,
@@ -616,7 +563,6 @@ export const workspaceMachine = setup({
                     ...newContext.nodes,
                     tasks: newPartialContext.nodes.tasks.map((entry: any) => ({
                       ...entry,
-                      // @ts-ignore
                       ref: spawnChild(createTaskNodeMachine(entry.ref.state.context || {}), entry.ref.id),
                     })),
                   },
@@ -624,11 +570,11 @@ export const workspaceMachine = setup({
               }
 
               return newContext;
-            }),
-            raise({ type: 'CLOSE_MODAL', data: { name: 'import' } } as any),
-            'createImportToast',
-            'regenerateToml',
-          ],
+            });
+            enqueue.raise({ type: 'CLOSE_MODAL', data: { name: 'import' } } as any);
+            enqueue('createImportToast');
+            enqueue('regenerateToml');
+          }),
         },
         onError: {
           target: 'idle',
@@ -638,6 +584,8 @@ export const workspaceMachine = setup({
     },
     savingJobSpecVersion: {
       invoke: {
+        //@ts-ignore
+        id: 'saveJobSpecVersion',
         src: 'saveJobSpecVersion',
         onDone: {
           target: 'idle',
@@ -654,8 +602,9 @@ export const workspaceMachine = setup({
       states: {
         parsingDag: {
           invoke: {
-            src: 'parseSpec',
+            //@ts-ignore
             id: 'parseSpec',
+            src: 'parseSpec',
             onDone: {
               target: 'inspectingParseResult',
               actions: assign(({ _, event }: any) => {
@@ -671,12 +620,19 @@ export const workspaceMachine = setup({
           },
         },
         inspectingParseResult: {
-          always: [{ target: '#workspace.idle', guard: 'hasParsingError' }, { target: 'processingJobLevelVariables' }],
+          always: [
+            {
+              target: '#workspace.idle',
+              guard: 'hasParsingError' as any,
+            },
+            { target: 'processingJobLevelVariables' },
+          ],
         },
         processingJobLevelVariables: {
           invoke: {
-            src: 'processJobLevelVariables',
+            //@ts-ignore
             id: 'processJobLevelVariables',
+            src: 'processJobLevelVariables',
             onDone: {
               target: '#workspace.testMode',
               actions: [
@@ -694,7 +650,10 @@ export const workspaceMachine = setup({
       initial: 'revalidating',
       states: {
         revalidating: {
-          entry: ['setCurrentTaskPendingRun', 'resetNextTask'],
+          entry: enqueueActions(({ context, enqueue }: any) => {
+            enqueue('setCurrentTaskPendingRun');
+            enqueue('resetNextTask');
+          }),
           always: [{ target: 'idle' }],
         },
         idle: {
@@ -703,7 +662,7 @@ export const workspaceMachine = setup({
           },
         },
         processingCurrentTask: {
-          entry: ['processCurrentTask'],
+          entry: ['processCurrentTask' as any],
           always: [{ target: 'idle' }],
         },
         error: {},
@@ -714,72 +673,42 @@ export const workspaceMachine = setup({
           },
         },
         processingCurrentSideEffect: {
-          entry: ['executeCurrentSideEffect'],
+          entry: ['executeCurrentSideEffect'] as any,
           always: [{ target: 'idle' }],
         },
         skippingCurrentSideEffect: {
-          entry: ['skipCurrentSideEffect'],
+          entry: ['skipCurrentSideEffect'] as any,
           always: [{ target: 'idle' }],
         },
       },
       on: {
         TOGGLE_TEST_MODE: {
           target: 'idle',
-          // @ts-ignore
-          actions: actions.pure((context: WorkspaceContext, event) => {
-            return [
-              ...context.nodes.tasks.map((task) => sendTo(task.ref.id, { type: 'RESET' }) as any),
-              assign({
-                parsedTaskOrder: [],
-                parsingError: '',
-                currentTaskIndex: 0,
-                taskRunResults: [],
-                jobLevelVars64: undefined,
-              }),
-            ];
+          actions: enqueueActions(({ context, enqueue }: any) => {
+            context.nodes.tasks.map((task: any) => enqueue.sendTo(task.ref.id, { type: 'RESET' }) as any);
+
+            enqueue.assign({
+              parsedTaskOrder: [],
+              parsingError: '',
+              currentTaskIndex: 0,
+              taskRunResults: [],
+              jobLevelVars64: undefined,
+            });
           }),
         },
         SIMULATOR_PREV_TASK: {
           target: '.revalidating',
-          // @ts-ignore
-          actions: actions.pure((context: WorkspaceContext, event) => {
-            if (context.currentTaskIndex === 0) return;
-
+          actions: enqueueActions(({ context, enqueue }: any) => {
             const newIndex = context.currentTaskIndex - 1;
-
             const newTaskCustomId = context.parsedTaskOrder[newIndex].id;
 
-            return [
-              assign({
-                currentTaskIndex: newIndex,
-                taskRunResults: context.taskRunResults.filter((trr) => trr.id !== newTaskCustomId),
-              }),
-            ];
+            enqueue.assign({
+              currentTaskIndex: newIndex,
+              taskRunResults: context.taskRunResults.filter((trr: any) => trr.id !== newTaskCustomId),
+            });
           }),
         },
-        // TRY_RUN_CURRENT_TASK: {
-        //   // @ts-ignore
-        //   actions: actions.pure((context: WorkspaceContext, event) => {
 
-        //     if (context.currentTaskIndex >= context.parsedTaskOrder.length) return
-
-        //     // Try to execute the current task and then proceed if successful
-        //     const currentTask = context.parsedTaskOrder[context.currentTaskIndex]
-        //     const currentTaskCustomId = currentTask.id
-
-        //     const currentTaskId = getTaskNodeByCustomId(context, currentTaskCustomId)?.ref.id
-
-        //     const input64s = currentTask.inputs
-        //       .filter(input => input.propagateResult === true)
-        //       .map(input => context.taskRunResults.find(trr => trr.id === input.id)?.result.val64)
-
-        //     const vars64 = context.taskRunResults.length > 0 ? context.taskRunResults[context.taskRunResults.length - 1].result.vars64 : ""
-
-        //     return [
-        //       send({ type: "TRY_RUN_TASK", input64s, vars64 }, { to: currentTaskId })
-        //     ]
-        //   })
-        // },
         SIMULATOR_NEXT_TASK: {
           target: '.revalidating',
           actions: assign(({ context, event }: any) => {
@@ -798,21 +727,3 @@ export const workspaceMachine = setup({
     error: {},
   },
 });
-
-const getTaskNodeByCustomId = (context: any, nodeId: string) =>
-  context.nodes.tasks.find((taskNode: any) => taskNode.ref.state.context.customId === nodeId);
-
-const wrapVariable = (input: string) => `$(${input})`;
-
-const adjustNewSourceNodeHeightByTypeDefault = (
-  initialCoords: { x: number; y: number },
-  taskType: TASK_TYPE,
-  isForwardConnection: boolean = true,
-) => {
-  const taskNodeDefaultHeight = 144;
-
-  return {
-    x: initialCoords.x,
-    y: isForwardConnection ? initialCoords.y : initialCoords.y - taskNodeDefaultHeight,
-  };
-};

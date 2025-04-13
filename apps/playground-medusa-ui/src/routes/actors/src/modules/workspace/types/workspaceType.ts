@@ -1,13 +1,9 @@
-import { JOB_TYPES, Nodes, TaskInstructions, TomlLine } from '@/routes/actors/src/modules/workspace/workspaceMachine';
-import { ActorRefFrom, AnyStateMachine } from 'xstate';
+import { TaskInstructions } from './nodeTaskType';
+import { Nodes } from './nodeType';
+import { dataTypes, JOB_TYPES } from '../constants';
 import { NodeOptions, XYCoords } from './nodeType';
-import { TASK_TYPE, TaskNodeOptions } from './nodeTaskType
-import { JOB_TYPE } from '../constants';
-import {
-  CustomEdge,
-  NEW_NODE_TYPE,
-  WorkspaceContext,
-} from './workspaceMachine';
+import { TASK_TYPE, TaskNodeOptions } from './nodeTaskType';
+
 import { Edge, OnConnectStartParams, ReactFlowInstance } from 'reactflow';
 
 export type CustomEdge = Edge & { sourceCustomId: string; targetCustomId: string };
@@ -100,7 +96,6 @@ export type WorkspaceEvent =
       aiNodeId: string;
     };
 
-
 export interface WorkspaceContext {
   reactFlowInstance: ReactFlowInstance | null;
   type: JOB_TYPE;
@@ -123,7 +118,7 @@ export interface WorkspaceContext {
   parsingError: string;
   currentTaskIndex: number;
   jobLevelVars64?: string;
-  provider: ReturnType<typeof getProvider>;
+  provider: ReturnType<any>;
   // Would use a Set for openModals but changes aren't detected in consumers
   openModals: Array<ModalName>;
 }
@@ -160,15 +155,6 @@ type Result = {
   val64: string;
   vars64: string;
   vars: { [key: string]: any };
-};
-
-export type Nodes = {
-  tasks: Array<{
-    ref: ActorRefFrom<AnyStateMachine>;
-  }>;
-  ai: Array<{
-    ref: ActorRefFrom<AnyStateMachine>;
-  }>;
 };
 
 export type TomlLine = {

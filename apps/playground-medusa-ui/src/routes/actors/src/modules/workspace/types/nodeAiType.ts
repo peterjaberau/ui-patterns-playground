@@ -1,5 +1,5 @@
 import { NodeContext, XYCoords } from './nodeType';
-import { TomlLine } from '@/routes/actors/src/modules/workspace/workspaceMachine';
+import { TomlLine } from './workspaceType';
 
 export type AiNodeEvent =
   | { type: 'ADD_INCOMING_NODE'; nodeId: string }
