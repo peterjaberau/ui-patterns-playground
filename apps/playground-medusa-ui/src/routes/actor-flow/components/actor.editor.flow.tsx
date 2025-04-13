@@ -6,16 +6,14 @@ import Link from 'next/link';
 import XFlow, { FlowProvider } from '@/components/x-flow';
 import React, { useState } from 'react';
 import { getFlowConfig, getDomainSchema, getFlowWidgets } from './flow/config';
-import { NodeWidgetHTTP, NodeWidgetLLM, NodeWidgetClassifier } from './flow/nodeWidgets';
-import { SettingWidgetSimple, SettingWidgetAdvanced } from './flow/settingWidgets';
 import './flow/index.css';
 
 export const ActorEditorFlow = () => {
   const handleCreateActorInstance = () => {};
-  const [flowSettings, setFlowSettings] = React.useState(getDomainSchema({ name: 'primitive' })); //general
+  const [flowSettings, setFlowSettings] = React.useState(getDomainSchema({ name: 'general' })); //primitive
 
-  const [flowConfig, setFlowConfig] = React.useState(getFlowConfig({ name: 'primitive' })); //basic
-  const [flowWidgets, setFlowWidgets] = React.useState(getFlowWidgets({ name: 'primitive' })); //general
+  const [flowConfig, setFlowConfig] = React.useState(getFlowConfig({ name: 'basic' })); //primitive
+  const [flowWidgets, setFlowWidgets] = React.useState(getFlowWidgets({ name: 'general' })); //primitive
   const [loading, setLoading] = useState(false);
   const [logList, setLogList] = useState<any[]>(flowConfig.logs || []);
 
@@ -49,12 +47,12 @@ export const ActorEditorFlow = () => {
                   edges: flowConfig.content.edges,
                 }}
                 settings={flowSettings?.schema}
-                // onTesting={(node: any, nodes: any) => {}}
-                // logPanel={{
-                //   logList,
-                //   loading,
-                // }}
-                // widgets={flowWidgets}
+                onTesting={(node: any, nodes: any) => {}}
+                logPanel={{
+                  logList,
+                  loading,
+                }}
+                widgets={flowWidgets}
               />
             </div>
           </FlowProvider>

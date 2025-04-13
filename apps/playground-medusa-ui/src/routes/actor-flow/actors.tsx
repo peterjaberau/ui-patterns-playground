@@ -36,9 +36,9 @@ export const ActorFlow = () => {
           <div className="flex w-full flex-col gap-y-3">
             <div className="flex w-full flex-col items-start gap-x-4 gap-y-3 xl:grid xl:grid-cols-4">
               <div className="col-span-4 flex w-full min-w-0 flex-col gap-y-3">
-                <FlowProvider>
-                  <ActorEditorFlow />
-                </FlowProvider>
+                {/* <FlowProvider> */}
+                <ActorEditorFlow />
+                {/* </FlowProvider> */}
               </div>
 
               <div className="col-span-1 flex w-full min-w-0 flex-col gap-y-3">
