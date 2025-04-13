@@ -1,8 +1,7 @@
-import { TaskInstructions } from './nodeTaskType';
+import { TaskInstructions, TASK_TYPE, TaskNodeOptions } from './nodeTaskType';
 import { Nodes } from './nodeType';
 import { dataTypes, JOB_TYPES } from '../constants';
 import { NodeOptions, XYCoords } from './nodeType';
-import { TASK_TYPE, TaskNodeOptions } from './nodeTaskType';
 
 import { Edge, OnConnectStartParams, ReactFlowInstance } from 'reactflow';
 
@@ -123,20 +122,20 @@ export interface WorkspaceContext {
   openModals: Array<ModalName>;
 }
 
-type ModalName = 'import';
+export type ModalName = 'import';
 
-type JobTypeFieldMap = { [key in JOB_TYPE]: { [key: string]: Field } };
+export type JobTypeFieldMap = { [key in JOB_TYPE]: { [key: string]: Field } };
 
-type Field = {
+export type Field = {
   value: string;
   valid: boolean;
 };
 
-type JobTypeVarFieldMap = {
+export type JobTypeVarFieldMap = {
   [key in JOB_TYPE]: { [key: string]: JobLevelVarField };
 };
 
-type JobLevelVarField = {
+export type JobLevelVarField = {
   value?: string;
   values?: Array<string>;
   valid: boolean;
@@ -144,12 +143,12 @@ type JobLevelVarField = {
   fromType?: 'hex' | 'string';
 };
 
-type TaskRunResult = {
+export type TaskRunResult = {
   id: string;
   result: Result;
 };
 
-type Result = {
+export type Result = {
   value: string;
   error: string;
   val64: string;
@@ -165,4 +164,4 @@ export type TomlLine = {
 
 export type JOB_TYPE = (typeof JOB_TYPES)[number];
 
-type DATA_TYPES = (typeof dataTypes)[number];
+export type DATA_TYPES = (typeof dataTypes)[number];

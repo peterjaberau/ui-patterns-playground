@@ -1,0 +1,43 @@
+import { Textarea } from '../../../../components/ui/textarea';
+import React from 'react';
+import { FieldLabel } from '../../../../components';
+
+export interface TextArrayFieldProps {
+  label: string;
+  value: string;
+  onChange: (newValue: string) => void;
+  onChangeAsArray?: (newArray: Array<string>) => void;
+  placeholder?: string;
+  optional?: boolean;
+}
+
+export const TextArrayField = ({
+  label,
+  value,
+  onChange,
+  onChangeAsArray,
+  placeholder = 'Enter each item on a new line',
+  optional = false,
+}: TextArrayFieldProps) => {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const asArray = event.target.value.split('\n');
+    onChange(event.target.value.length > 0 ? `[${asArray.join(',')}]` : '');
+    onChangeAsArray && onChangeAsArray(asArray);
+  };
+
+  return (
+    <div className="flex w-full flex-col">
+      <FieldLabel name={label} optional />
+      <Textarea
+        onChange={handleChange}
+        placeholder={placeholder}
+        value={convertValueToNewlines(value)}
+        className="textarea textarea-bordered overflow-x-auto whitespace-nowrap"
+      />
+    </div>
+  );
+};
+
+const convertValueToNewlines = (value: string) => {
+  return value ? value.slice(1, -1).split(',').join('\n') : '';
+};

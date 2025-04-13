@@ -13,7 +13,7 @@ export interface GlobalStateContextProps {
 }
 
 export const GlobalStateProvider = (props: GlobalStateContextProps) => {
-  const workspaceService = useInterpret(workspaceMachine);
+  const workspaceService = useActor(workspaceMachine);
 
   return <GlobalStateContext.Provider value={{ workspaceService }}>{props.children}</GlobalStateContext.Provider>;
 };

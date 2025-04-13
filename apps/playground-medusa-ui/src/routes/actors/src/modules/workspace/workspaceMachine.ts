@@ -1,11 +1,9 @@
-import { assign, enqueueActions, raise, sendTo, setup, spawnChild } from 'xstate';
-import { TASK_TYPE } from './types/nodeTaskType';
+import { assign, enqueueActions, setup, spawnChild } from 'xstate';
 import { createTaskNodeMachine } from './taskNodeMachine';
-import { ethers } from 'ethers';
 import { toast } from 'react-hot-toast';
 import { workspaceMachineOptions as defaultWorkspaceMachineOptions } from './workspaceMachineOptions';
 import { createAiNodeMachine } from './aiNodeMachine';
-import { getProvider, getNextUniqueTaskId } from './workspaceMachineOptions';
+import { getProvider, getNextUniqueTaskId } from './utils';
 
 export const workspaceMachine = setup({
   types: {
