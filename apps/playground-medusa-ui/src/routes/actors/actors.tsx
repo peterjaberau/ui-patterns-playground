@@ -27,6 +27,7 @@ import {
 import { ActorRendererPage } from '@/routes/actors/machine/actor.renderer.page';
 import { ActorRendererRoot } from '@/routes/actors/machine/actor.renderer.root';
 import { FlowProvider } from '@/components/x-flow';
+import ActorFlow from './src';
 
 export const Actors = () => {
   return (
@@ -35,6 +36,10 @@ export const Actors = () => {
         <ActorRendererPage>
           <div className="flex w-full flex-col gap-y-3">
             <div className="flex w-full flex-col items-start gap-x-4 gap-y-3 xl:grid xl:grid-cols-4">
+              <div className="col-span-4 flex w-full min-w-0 flex-col gap-y-3">
+                <ActorFlow />
+              </div>
+
               <div className="col-span-4 flex w-full min-w-0 flex-col gap-y-3">
                 <FlowProvider>
                   <ActorEditorFlow />
