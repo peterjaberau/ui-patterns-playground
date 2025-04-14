@@ -446,20 +446,25 @@ export const workspaceMachine = setup({
     },
     RESTORE_STATE: {
       actions: assign(({ context, event }: any) => {
+        console.log('restoring state', {
+          context: context,
+          event: event,
+        });
+
         return {
           ...context,
           ...event.savedContext,
           nodes: {
             ...context.nodes,
-            tasks: event.savedContext.nodes.tasks.map(({ entry }: any) => ({
+            tasks: event.savedContext.nodes.tasks.map((entry: any) => ({
               ...entry,
               // @ts-ignore
-              ref: spawn(createTaskNodeMachine(entry.context || {}), entry.ref.id),
+              ref: spawnChild(createTaskNodeMachine(entry.context || {}), entry.ref.id),
             })),
             ai: event.savedContext.nodes.ai.map(({ entry }: any) => ({
               ...entry,
               // @ts-ignore
-              ref: spawn(createAiNodeMachine(entry.context || {}), entry.ref.id),
+              ref: spawnChild(createAiNodeMachine(entry.context || {}), entry.ref.id),
             })),
           },
         };

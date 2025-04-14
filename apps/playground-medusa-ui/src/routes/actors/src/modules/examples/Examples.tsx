@@ -1,4 +1,17 @@
-import { Tooltip } from '../../components';
+import React, { useState } from 'react';
+import {
+  Icon,
+  Card,
+  Button,
+  TextField,
+  Listbox,
+  AutoSelection,
+  Scrollable,
+  EmptySearchResult,
+  Box,
+  InlineStack,
+} from '@shopify/polaris';
+import { SearchIcon, PlusIcon } from '@shopify/polaris-icons';
 import { GlobalStateContext } from '../../context/GlobalStateContext';
 import { useContext } from 'react';
 import { useSelector } from '@xstate/react';
@@ -7,22 +20,75 @@ import aiPrompt from '../../examples/aiPrompt.json';
 import ethCall from '../../examples/ethcall.json';
 import getUint256 from '../../examples/getUint256.json';
 import median from '../../examples/median.json';
-import { Button } from '../../components/ui/button';
-import { Separator } from '../../components/ui/separator';
-
-export interface ExamplesProps {
-  className?: string;
-}
 
 const reactFlowInstanceSelector = (state: any) => state.context.reactFlowInstance;
 
-export const Examples = ({ className = '' }: ExamplesProps) => {
+const segments = [
+  {
+    label: 'Empty Project',
+    id: 'empty',
+    value: 'empty',
+  },
+  {
+    label: 'AI Prompt',
+    id: 'aiPrompt',
+    value: 'aiPrompt',
+  },
+  {
+    label: 'ETH Call',
+    id: 'ethCall',
+    value: 'ethCall',
+  },
+  {
+    label: 'Get -> Uint256',
+    id: 'getUint256',
+    value: 'getUint256',
+  },
+  {
+    label: 'Median Answer',
+    id: 'median',
+    value: 'median',
+  },
+];
+const segmentsRegister: any = {
+  empty: empty,
+  aiPrompt: aiPrompt,
+  ethCall: ethCall,
+  getUint256: getUint256,
+  median: median,
+};
+export function Examples() {
   const globalServices = useContext(GlobalStateContext);
 
   const reactFlowInstance = useSelector(globalServices.workspaceService, reactFlowInstanceSelector);
 
+  const [query, setQuery] = useState<string>('');
+  const [visibleOptionIndex, setVisibleOptionIndex] = useState(segments.length > 0 ? segments.length : 0);
+  const [activeOptionId, setActiveOptionId] = useState(segments[0].id);
+  const [selectSelectedValue, setSelectSelectedValue]: any = useState(null);
+  const [filteredSegments, setFilteredSegments] = useState<(typeof segments)[number][]>([]);
+
+  const handleFilterSegments = (query: any) => {
+    const nextFilteredSegments = segments.filter((segment) => {
+      return segment.label.toLocaleLowerCase().includes(query.toLocaleLowerCase().trim());
+    });
+
+    setFilteredSegments(nextFilteredSegments);
+  };
+
+  const handleQueryChange = (query: any) => {
+    setQuery(query);
+
+    if (query.length >= 2) handleFilterSegments(query);
+  };
+
+  const handleQueryClear = () => {
+    handleQueryChange('');
+  };
+
   const handleRehydrate = (json: any) => {
-    globalServices.workspaceService.send('RESTORE_STATE', {
+    globalServices.workspaceService.send({
+      type: 'RESTORE_STATE',
       savedContext: json,
     });
     setTimeout(
@@ -36,43 +102,85 @@ export const Examples = ({ className = '' }: ExamplesProps) => {
   };
 
   const handleImportClick = () => {
-    globalServices.workspaceService.send('OPEN_MODAL', { name: 'import' });
+    globalServices.workspaceService.send({
+      type: 'OPEN_MODAL',
+      name: 'import',
+    });
   };
 
-  return (
-    <div className="flex flex-col gap-4">
-      <div className="mb-6 flex items-center justify-start gap-2">
-        <h4 className="text-muted-foreground text-sm font-bold uppercase tracking-wider">Quickstart Templates</h4>
-        <Tooltip className="text-muted-foreground text-sm">
-          <p>Select from a preconfigured template job spec to get you started.</p>
-        </Tooltip>
-      </div>
-      <div className="grid max-w-[500px] grid-cols-2 gap-3">
-        <Button className="basis-1/2" onClick={() => handleRehydrate(empty)}>
-          Empty Project
-        </Button>
-        {/* <Separator orientation="vertical" /> */}
-        <Button className="basis-1/2" onClick={() => handleRehydrate(aiPrompt)}>
-          AI Prompt
-        </Button>
-        {/* <Separator orientation="vertical" /> */}
-        <Button className="basis-1/2" onClick={() => handleRehydrate(ethCall)}>{`ETH Call`}</Button>
-        {/* <Separator orientation="vertical" /> */}
-        <Button className="basis-1/2" onClick={() => handleRehydrate(getUint256)}>{`Get -> Uint256`}</Button>
-        {/* <Separator orientation="vertical" /> */}
-        <Button className="basis-1/2" onClick={() => handleRehydrate(median)}>{`Median Answer`}</Button>
-      </div>
-      <div className="flex w-full items-center gap-2">
-        <Separator orientation="horizontal" className="shrink" />
-        <span>OR</span>
-        <Separator orientation="horizontal" className="shrink" />
-      </div>
-      <button
-        className="hover:text-foreground text-muted-foreground font-bold hover:underline"
-        onClick={handleImportClick}
-      >
-        Import an existing job spec
-      </button>
+  const handleSegmentSelect = (value: string) => {
+    setSelectSelectedValue(value);
+    handleRehydrate(segmentsRegister[value]);
+  };
+
+  const handleActiveOptionChange = (_: string, domId: string) => {
+    setActiveOptionId(domId);
+  };
+
+  const textFieldMarkup = (
+    <div style={{ padding: '12px' }}>
+      <TextField
+        clearButton
+        labelHidden
+        label="Customer segments"
+        placeholder="Search segments"
+        autoComplete="off"
+        value={query}
+        prefix={<Icon source={SearchIcon} />}
+        ariaActiveDescendant={activeOptionId}
+        onChange={handleQueryChange}
+        onClearButtonClick={handleQueryClear}
+      />
     </div>
   );
-};
+
+  const segmentOptions = query ? filteredSegments : segments;
+
+  const segmentList =
+    segmentOptions.length > 0
+      ? segmentOptions.slice(0, visibleOptionIndex).map(({ label, id, value }, index) => {
+          const selected = segments[index].value === selectSelectedValue;
+
+          return (
+            <Listbox.Option key={id} value={value} selected={selected}>
+              <Listbox.TextOption selected={selected}>{label}</Listbox.TextOption>
+            </Listbox.Option>
+          );
+        })
+      : null;
+
+  const noResultsMarkup =
+    segmentOptions.length === 0 ? (
+      <EmptySearchResult title="" description={`No segments found matching "${query}"`} />
+    ) : null;
+
+  return (
+    <div>
+      {textFieldMarkup}
+      <Scrollable
+        shadow
+        style={{
+          position: 'relative',
+          height: '200px',
+          padding: 'var(--p-space-200) 0',
+        }}
+      >
+        <Listbox
+          enableKeyboardControl
+          autoSelection={AutoSelection.FirstSelected}
+          accessibilityLabel="Search for and select a flow segment"
+          onSelect={handleSegmentSelect}
+          onActiveOptionChange={handleActiveOptionChange}
+        >
+          {segmentList}
+          {noResultsMarkup}
+        </Listbox>
+      </Scrollable>
+      <Box paddingBlockEnd="400">
+        <InlineStack align="center">
+          <Button onClick={handleImportClick}>Import an existing job spec</Button>
+        </InlineStack>
+      </Box>
+    </div>
+  );
+}

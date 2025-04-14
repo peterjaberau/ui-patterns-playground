@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import { useActor } from '@xstate/react';
+import { useActorRef } from '@xstate/react';
 import { workspaceMachine } from '../modules/workspace/workspaceMachine';
 
 export interface GlobalStateContextState {
@@ -13,7 +13,7 @@ export interface GlobalStateContextProps {
 }
 
 export const GlobalStateProvider = (props: GlobalStateContextProps) => {
-  const workspaceService = useActor(workspaceMachine);
+  const workspaceService = useActorRef(workspaceMachine);
 
   return <GlobalStateContext.Provider value={{ workspaceService }}>{props.children}</GlobalStateContext.Provider>;
 };

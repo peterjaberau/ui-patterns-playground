@@ -9,14 +9,6 @@ function ActorFlow() {
   return (
     <QueryClientProvider client={queryClient}>
       <GlobalStateProvider>
-        <Toaster
-          toastOptions={{
-            style: {
-              backgroundColor: '#000',
-              color: '#ccc',
-            },
-          }}
-        />
         <App />
       </GlobalStateProvider>
     </QueryClientProvider>

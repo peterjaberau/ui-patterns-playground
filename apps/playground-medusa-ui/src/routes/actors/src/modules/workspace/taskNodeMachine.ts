@@ -114,6 +114,11 @@ export const createTaskNodeMachine = (initialContext: Partial<TaskNodeContext>) 
     ...initialContext,
   };
 
+  console.log('createTaskNodeMachine', {
+    defaultContext: defaultContext,
+    initialContext: initialContext,
+  });
+
   return setup({
     types: {
       context: {} as any,
@@ -260,22 +265,21 @@ export const createTaskNodeMachine = (initialContext: Partial<TaskNodeContext>) 
           onDone: {
             target: 'pendingRun',
             // @ts-ignore
-            actions: actions.pure(({ context, event }: any) => {
-              return [
-                assign({
+            actions: enqueueActions(({ context, enqueue, event }: any) => {
+              enqueue.assign({
+                // @ts-ignore
+                mock: ({ context, event }: any) => ({
                   // @ts-ignore
-                  mock: ({ context, event }: any) => ({
-                    // @ts-ignore
-                    mockResponseDataInput: event.data,
-                    // @ts-ignore
-                    mockResponseData: event.data,
-                    enabled: true,
-                  }),
+                  mockResponseDataInput: event.data,
+                  // @ts-ignore
+                  mockResponseData: event.data,
+                  enabled: true,
                 }),
-                sendParent(() => ({
-                  type: 'TRY_RUN_CURRENT_TASK',
-                })),
-              ];
+              });
+
+              enqueue.sendParent(() => ({
+                type: 'TRY_RUN_CURRENT_TASK',
+              }));
             }),
           },
           onError: { target: 'error' },

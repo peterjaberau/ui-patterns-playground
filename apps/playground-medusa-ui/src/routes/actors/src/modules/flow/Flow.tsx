@@ -237,7 +237,8 @@ export const Flow = ({ className }: FlowProps) => {
     newNodeType?: NEW_NODE_TYPE,
     fromHandleId?: string,
   ) => {
-    globalServices.workspaceService.send('ADD_TASK_NODE', {
+    globalServices.workspaceService.send({
+      type: 'ADD_TASK_NODE',
       options: {
         initialCoords,
         taskType,
@@ -252,13 +253,13 @@ export const Flow = ({ className }: FlowProps) => {
   const handleConnectStart: OnConnectStart = (event, params) => {
     if (testMode) return;
 
-    globalServices.workspaceService.send('CONNECTION_START', { params });
+    globalServices.workspaceService.send({ type: 'CONNECTION_START', params });
   };
 
   const handleConnectEnd: OnConnectEnd = (event) => {
     if (testMode) return;
 
-    globalServices.workspaceService.send('CONNECTION_END');
+    globalServices.workspaceService.send({ type: 'CONNECTION_END' });
 
     // @ts-ignore
     const toExistingNodeId = event?.target?.dataset?.nodeid;
@@ -279,7 +280,8 @@ export const Flow = ({ className }: FlowProps) => {
       y: (clientY - viewport.y) / viewport.zoom,
     });
 
-    globalServices.workspaceService.send('CONNECTION_SUCCESS', {
+    globalServices.workspaceService.send({
+      type: 'CONNECTION_SUCCESS',
       initialCoords: { x: snappedCoords.snappedX, y: snappedCoords.snappedY },
     });
   };
@@ -297,16 +299,16 @@ export const Flow = ({ className }: FlowProps) => {
     const targetTaskCustomId = targetTaskNode.ref.state.context.customId;
 
     if (sourceTaskNode && targetTaskNode) {
-      sourceTaskNode.ref.send('ADD_OUTGOING_NODE', {
+      sourceTaskNode.ref.send({
+        type: 'ADD_OUTGOING_NODE',
         nodeId: targetTaskCustomId,
       });
 
-      targetTaskNode.ref.send('ADD_INCOMING_NODE', {
-        nodeId: sourceTaskCustomId,
-      });
+      targetTaskNode.ref.send({ type: 'ADD_INCOMING_NODE', nodeId: sourceTaskCustomId });
     }
 
-    globalServices.workspaceService.send('ADD_NEW_EDGE', {
+    globalServices.workspaceService.send({
+      type: 'ADD_NEW_EDGE',
       newEdge: {
         source: newConnection.source,
         target: newConnection.target,
@@ -317,13 +319,13 @@ export const Flow = ({ className }: FlowProps) => {
   };
 
   const handleReactFlowInit = (reactFlowInstance: ReactFlowInstance) => {
-    globalServices.workspaceService.send('SET_REACT_FLOW_INSTANCE', { value: reactFlowInstance });
+    globalServices.workspaceService.send({ type: 'SET_REACT_FLOW_INSTANCE', value: reactFlowInstance });
   };
 
   const handleNodeDragStop = (event: React.MouseEvent, node: ReactFlowNode) => {
     const taskNodeMachine = taskNodesFromMachine.filter((taskNode: any) => taskNode.ref.id === node.id)[0]?.ref;
 
-    taskNodeMachine && taskNodeMachine.send('UPDATE_COORDS', { value: node.position });
+    taskNodeMachine && taskNodeMachine.send({ type: 'UPDATE_COORDS', value: node.position });
   };
 
   const nodeTypes = useMemo(
