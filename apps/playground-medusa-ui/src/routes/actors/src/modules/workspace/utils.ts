@@ -1,4 +1,4 @@
-import { createTaskNodeMachine } from './taskNodeMachine';
+// import { createTaskNodeMachine } from './taskNodeMachine';
 import { TASK_TYPE } from './types/nodeTaskType';
 import { Nodes } from './types/nodeType';
 import { Edges, WorkspaceContext } from './types/workspaceType';
@@ -141,11 +141,11 @@ export const constructTaskNodesAndEdgesFromObsSrc = (currNodes: Nodes, currEdges
       isValid: true,
     };
 
-    return {
-      ref: spawnChild(createTaskNodeMachine(nodeContext), {
-        id: node.computedId,
-      }),
-    };
+    // return {
+    //   ref: spawnChild(createTaskNodeMachine(nodeContext), {
+    //     id: node.computedId,
+    //   }),
+    // };
   });
 
   return { nodes, edges: edgesSplitIntoSingleLengths };

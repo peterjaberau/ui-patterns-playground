@@ -1,5 +1,4 @@
 'use client';
-
 import { Button } from '@medusajs/ui';
 import { Container, Heading, Text } from '@medusajs/ui';
 import Link from 'next/link';
@@ -7,8 +6,15 @@ import XFlow, { FlowProvider } from '@/components/x-flow';
 import React, { useState } from 'react';
 import { getFlowConfig, getDomainSchema, getFlowWidgets } from './flow/config';
 import './flow/index.css';
+import { FlowPicker } from './common/flow-picker';
+
+import { useFlowActorRef, useFlowActorSelector } from './flow-machine/context';
+const selectFlowActorState = (snapshot: any) => snapshot.context;
 
 export const ActorEditorFlow = () => {
+  const flowActorState = useFlowActorSelector(selectFlowActorState);
+  console.log('flowActorState', flowActorState);
+
   const handleCreateActorInstance = () => {};
   const [flowSettings, setFlowSettings] = React.useState(getDomainSchema({ name: 'general' })); //primitive
 
@@ -23,6 +29,7 @@ export const ActorEditorFlow = () => {
         <div className="flex items-center justify-between px-6 py-4">
           <Heading>{'Flow Editor'}</Heading>
           <div className="flex items-center gap-x-2">
+            <FlowPicker />
             <Link href={`/actors/open/default-flow-id?mode=modal`}>
               <Button size="small" variant="danger">
                 Default Modal
@@ -41,18 +48,15 @@ export const ActorEditorFlow = () => {
             <div style={{ height: '800px', width: '100%', position: 'relative' }}>
               {/* ...flowConfig.props */}
               <XFlow
-                {...flowConfig.props}
-                initialValues={{
-                  nodes: flowConfig.content.nodes,
-                  edges: flowConfig.content.edges,
-                }}
-                settings={flowSettings?.schema}
+                {...flowActorState.flow?.props}
+                initialValues={flowActorState.flow.initialValues}
+                settings={flowActorState.flow?.settings.settingSchema}
                 onTesting={(node: any, nodes: any) => {}}
                 logPanel={{
                   logList,
                   loading,
                 }}
-                widgets={flowWidgets}
+                widgets={flowActorState.flow?.widgets}
               />
             </div>
           </FlowProvider>

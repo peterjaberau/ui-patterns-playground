@@ -1,6 +1,11 @@
 import { NodeWidgetClassifier, NodeWidgetHTTP, NodeWidgetLLM } from '@/routes/actor-flow/components/flow/nodeWidgets';
 import { SettingWidgetAdvanced, SettingWidgetSimple } from '@/routes/actor-flow/components/flow/settingWidgets';
 
+export const metadata = {
+  domains: ['primitive', 'general'],
+  flows: ['primitive', 'basic', 'best', 'runtime'],
+};
+
 export const referenceSchema = {
   simpleList: {
     properties: {
@@ -903,6 +908,7 @@ export const data = [
         showSearch: true,
       },
     },
+    widgets: {},
   },
   {
     name: 'basic',
@@ -1085,6 +1091,13 @@ export const data = [
       nodeSelector: {
         showSearch: true,
       },
+    },
+    widgets: {
+      NodeWidgetHTTP,
+      NodeWidgetLLM,
+      NodeWidgetClassifier,
+      SettingWidgetSimple,
+      SettingWidgetAdvanced,
     },
   },
   {
@@ -1269,6 +1282,13 @@ export const data = [
         ],
       },
     ],
+    widgets: {
+      NodeWidgetHTTP,
+      NodeWidgetLLM,
+      NodeWidgetClassifier,
+      SettingWidgetSimple,
+      SettingWidgetAdvanced,
+    },
   },
   {
     name: 'runtime',
@@ -1449,6 +1469,13 @@ export const data = [
         },
       },
     },
+    widgets: {
+      NodeWidgetHTTP,
+      NodeWidgetLLM,
+      NodeWidgetClassifier,
+      SettingWidgetSimple,
+      SettingWidgetAdvanced,
+    },
   },
 ];
 
@@ -1474,4 +1501,27 @@ export const getFlowWidgets = ({ name }: any) => {
     return {};
   }
   return flowWidgets.widgets;
+};
+
+export const getFlowDetails = ({ name }: any) => {
+  const flowConfig: any = getFlowConfig({ name });
+
+  const { name: flowName, domain, content, props, widgets } = flowConfig;
+
+  const domainConfig = getDomainSchema({ name: domain });
+
+  if (!flowConfig) {
+    throw new Error(`Flow config for ${name} not found`);
+  }
+  return {
+    name: flowName,
+    domain: domain,
+    initialValues: {
+      nodes: content.nodes,
+      edges: content.edges,
+    },
+    settings: domainConfig?.schema,
+    widgets: flowConfig.widgets,
+    props: flowConfig.props,
+  };
 };

@@ -46,7 +46,9 @@ import { CustomConnectionLine } from './CustomConnectionLine';
 import { CustomEdge } from './CustomEdge';
 import { NEW_NODE_TYPE } from '../workspace/types/workspaceType';
 
-const taskNodesSelector = (state: any) => state.context.nodes.tasks;
+// const taskNodesSelector = (state: any) => state.context.nodes.tasks;
+const taskNodesSelector = (state: any) => state.context.nodes;
+
 const aiNodesSelector = (state: any) => state.context.nodes.ai;
 const edgesSelector = (state: any) => state.context.edges;
 const reactFlowInstanceSelector = (state: any) => state.context.reactFlowInstance;
@@ -77,6 +79,9 @@ export const Flow = ({ className }: FlowProps) => {
   const globalServices = useContext(GlobalStateContext);
 
   const taskNodesFromMachine = useSelector(globalServices.workspaceService, taskNodesSelector);
+
+  console.log('taskNodesFromMachine', taskNodesFromMachine);
+  console.log('globalServices.workspaceService', globalServices.workspaceService);
 
   const aiNodesFromMachine = useSelector(globalServices.workspaceService, aiNodesSelector);
 

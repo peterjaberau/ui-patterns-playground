@@ -1,9 +1,12 @@
-import { assign, enqueueActions, setup, spawnChild } from 'xstate';
-import { createTaskNodeMachine } from './taskNodeMachine';
+import { getRandomString } from '@/routes/actors/machine/helpers';
+import { assertEvent, assign, enqueueActions, setup, spawnChild } from 'xstate';
 import { toast } from 'react-hot-toast';
 import { workspaceMachineOptions as defaultWorkspaceMachineOptions } from './workspaceMachineOptions';
 import { createAiNodeMachine } from './aiNodeMachine';
 import { getProvider, getNextUniqueTaskId } from './utils';
+import { taskNodeMachine } from './taskNodeMachine';
+import set from 'set-value';
+import { create } from 'mutative';
 
 export const workspaceMachine = setup({
   types: {
@@ -11,7 +14,10 @@ export const workspaceMachine = setup({
     events: {} as any,
   } as any,
   actions: defaultWorkspaceMachineOptions.actions as any,
-  actors: defaultWorkspaceMachineOptions.actors as any,
+  actors: {
+    taskNodeMachine,
+    ...(defaultWorkspaceMachineOptions.actors as any),
+  },
   guards: defaultWorkspaceMachineOptions.guards as any,
 }).createMachine({
   id: 'workspace',
@@ -119,24 +125,24 @@ export const workspaceMachine = setup({
           totalEdgesAdded: context.totalEdgesAdded + 1,
           nodes: {
             ...context.nodes,
-            tasks: [
-              ...context.nodes.tasks,
-              {
-                // add a new taskNodeMachine actor with a unique name
-                ref: spawnChild(
-                  createTaskNodeMachine({
-                    coords: event.options.initialCoords,
-                    taskType: event.options.taskType,
-                    customId: newNodePresentationId,
-                    ...(!isFirstNode &&
-                      (isForwardConnection
-                        ? { incomingNodes: [fromNodeCustomId] }
-                        : { outgoingNodes: [fromNodeCustomId] })),
-                  }),
-                  newNodeId as any,
-                ),
-              },
-            ],
+            // tasks: [
+            //   ...context.nodes.tasks,
+            //   {
+            //     // add a new taskNodeMachine actor with a unique name
+            //     ref: spawn(
+            //       createTaskNodeMachine({
+            //         coords: event.options.initialCoords,
+            //         taskType: event.options.taskType,
+            //         customId: newNodePresentationId,
+            //         ...(!isFirstNode &&
+            //           (isForwardConnection
+            //             ? { incomingNodes: [fromNodeCustomId] }
+            //             : { outgoingNodes: [fromNodeCustomId] })),
+            //       }),
+            //       newNodeId as any,
+            //     ),
+            //   },
+            // ],
           },
           edges:
             fromNodeId && fromHandleId
@@ -250,19 +256,19 @@ export const workspaceMachine = setup({
               ...context.nodes,
               tasks: [
                 ...context.nodes.tasks.filter(({ task }: any) => task.ref.id !== event.nodeId),
-                {
-                  // add a new taskNodeMachine actor with a unique name
-                  ref: spawnChild(
-                    createTaskNodeMachine({
-                      coords: event.existing.coords,
-                      taskType: event.newType,
-                      customId: event.existing.customId,
-                      incomingNodes: event.existing.incomingNodes,
-                      outgoingNodes: event.existing.outgoingNodes,
-                    }),
-                    event.nodeId,
-                  ),
-                },
+                // {
+                //   // add a new taskNodeMachine actor with a unique name
+                //   ref: spawnChild(
+                //     createTaskNodeMachine({
+                //       coords: event.existing.coords,
+                //       taskType: event.newType,
+                //       customId: event.existing.customId,
+                //       incomingNodes: event.existing.incomingNodes,
+                //       outgoingNodes: event.existing.outgoingNodes,
+                //     }),
+                //     event.nodeId,
+                //   ),
+                // },
               ],
             };
           },
@@ -445,29 +451,38 @@ export const workspaceMachine = setup({
       }),
     },
     RESTORE_STATE: {
-      actions: assign(({ context, event }: any) => {
-        console.log('restoring state', {
-          context: context,
-          event: event,
-        });
+      actions: assign(({ context, event, spawn }: any) => {
+        assertEvent(event, 'RESTORE_STATE');
 
         return {
-          ...context,
-          ...event.savedContext,
-          nodes: {
-            ...context.nodes,
-            tasks: event.savedContext.nodes.tasks.map((entry: any) => ({
-              ...entry,
-              // @ts-ignore
-              ref: spawnChild(createTaskNodeMachine(entry.context || {}), entry.ref.id),
-            })),
-            ai: event.savedContext.nodes.ai.map(({ entry }: any) => ({
-              ...entry,
-              // @ts-ignore
-              ref: spawnChild(createAiNodeMachine(entry.context || {}), entry.ref.id),
-            })),
-          },
+          nodes: event.savedContext.nodes.tasks.map((entry: any) =>
+            spawn(taskNodeMachine, {
+              input: {
+                context: entry.context,
+                ref: { id: entry.ref.id },
+              },
+              systemId: entry.ref.id,
+            }),
+          ),
         };
+
+        // return {
+        //   ...context,
+        //   ...event.savedContext,
+        //   nodes: {
+        //     ...context.nodes,
+        //     tasks: event.savedContext.nodes.tasks.map((entry: any) => ({
+        //       ...entry,
+        //       // @ts-ignore
+        //       ref: spawn(createTaskNodeMachine({ input: entry.context || {}, id: entry.ref.id })),
+        //     })),
+        //     // ai: event.savedContext.nodes.ai.map(({ entry }: any) => ({
+        //     //   ...entry,
+        //     //   // @ts-ignore
+        //     //   ref: spawn(createAiNodeMachine({ input: entry.context || {}, id: entry.ref.id })),
+        //     // })),
+        //   },
+        // };
       }),
     },
     OPEN_MODAL: {
@@ -562,13 +577,13 @@ export const workspaceMachine = setup({
               if ('nodes' in newPartialContext && newPartialContext.nodes) {
                 newContext = {
                   ...newContext,
-                  nodes: {
-                    ...newContext.nodes,
-                    tasks: newPartialContext.nodes.tasks.map((entry: any) => ({
-                      ...entry,
-                      ref: spawnChild(createTaskNodeMachine(entry.ref.state.context || {}), entry.ref.id),
-                    })),
-                  },
+                  // nodes: {
+                  //   ...newContext.nodes,
+                  //   tasks: newPartialContext.nodes.tasks.map((entry: any) => ({
+                  //     ...entry,
+                  //     ref: spawnChild(createTaskNodeMachine(entry.ref.state.context || {}), entry.ref.id),
+                  //   })),
+                  // },
                 };
               }
 
