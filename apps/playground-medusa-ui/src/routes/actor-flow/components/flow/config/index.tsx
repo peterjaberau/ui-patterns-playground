@@ -2,8 +2,8 @@ import { NodeWidgetClassifier, NodeWidgetHTTP, NodeWidgetLLM } from '@/routes/ac
 import { SettingWidgetAdvanced, SettingWidgetSimple } from '@/routes/actor-flow/components/flow/settingWidgets';
 
 export const metadata = {
-  domains: ['primitive', 'general'],
-  flows: ['primitive', 'basic', 'best', 'runtime'],
+  domains: ['no-schema', 'primitive', 'general'],
+  flows: ['no-schema', 'primitive', 'basic', 'best', 'runtime'],
 };
 
 export const referenceSchema = {
@@ -44,6 +44,199 @@ export const referenceSchema = {
 };
 
 export const domainSchema = [
+  {
+    name: 'no-schema',
+    schema: [
+      {
+        title: 'Base',
+        type: '_group',
+        items: [
+          {
+            title: 'Start',
+            type: 'Start',
+            hidden: false, // hide the node from the picker menu
+            targetHandleHidden: true,
+            icon: {
+              type: 'icon-start',
+              bgColor: '#17B26A',
+            },
+          },
+
+          {
+            title: 'End',
+            type: 'End',
+            hidden: false,
+            sourceHandleHidden: true,
+            icon: {
+              type: 'icon-end',
+              bgColor: '#F79009',
+            },
+          },
+        ],
+      },
+      {
+        title: 'Custom',
+        type: '_group',
+        items: [
+          {
+            title: 'Setting Custom Simple',
+            type: 'custom',
+            icon: {
+              type: 'icon-start',
+              bgColor: '#17B26A',
+            },
+          },
+          {
+            title: 'Setting Custom Advanced',
+            type: 'custom',
+            icon: {
+              type: 'icon-model',
+              bgColor: '#6172F3',
+            },
+          },
+        ],
+      },
+
+      {
+        title: 'LLM (nodeWidget)',
+        type: 'LLM',
+        description: 'Call large language models to answer questions or process natural language',
+        icon: {
+          type: 'icon-model',
+          bgColor: '#6172F3',
+        },
+      },
+      {
+        type: 'Classifier',
+        title: 'Problem Classification',
+        icon: {
+          type: 'icon-gongju',
+          bgColor: '#2E90FA',
+        },
+      },
+      {
+        title: 'Prompt',
+        type: 'Prompt',
+        description: 'Improve the answering effect of large language models by carefully designing prompt words',
+        icon: {
+          type: 'icon-prompt',
+          bgColor: '#17B26A',
+        },
+      },
+      {
+        title: 'knowledge base',
+        type: 'knowledge',
+        description: 'Allows you to query text content related to user issues from the knowledge base',
+        icon: {
+          type: 'icon-knowledge',
+          bgColor: '#6172F3',
+        },
+      },
+      {
+        title: 'Switch',
+        type: 'Switch',
+        description: 'Allows you to split the workflow into two branches based on if/else conditions',
+        icon: {
+          type: 'icon-fenzhi',
+          bgColor: '#06AED4',
+        },
+      },
+      {
+        title: 'HSF',
+        type: 'hsf',
+        description: 'Allow server requests to be sent through the HSF protocol',
+        icon: {
+          type: 'icon-hsf',
+          bgColor: '#875BF7',
+        },
+      },
+      {
+        title: 'HTTP',
+        type: 'HTTP',
+        description: 'Allows sending server requests over HTTP protocol',
+        icon: {
+          type: 'icon-http',
+          bgColor: '#875BF7',
+        },
+      },
+      {
+        title: 'Code execution',
+        type: 'Code',
+        description: 'Execute a piece of Groovy or Python or NodeJS code to implement custom logic',
+        icon: {
+          type: 'icon-code',
+          bgColor: '#2E90FA',
+        },
+      },
+      {
+        title: 'Tool',
+        type: 'tool',
+        description: 'Allow tool capability',
+        icon: {
+          type: 'icon-gongju',
+          bgColor: '#2E90FA',
+        },
+      },
+      {
+        title: 'Tool',
+        type: '_group',
+        items: [
+          {
+            title: 'Code execution',
+            type: 'Code',
+            description: 'Execute a piece of Groovy or Python or NodeJS code to implement custom logic',
+            icon: {
+              type: 'icon-code',
+              bgColor: '#2E90FA',
+            },
+          },
+          {
+            title: 'Tool',
+            type: 'tool',
+            description: 'Allow tool capability',
+            icon: {
+              type: 'icon-gongju',
+              bgColor: '#2E90FA',
+            },
+          },
+        ],
+      },
+      {
+        title: 'User Task',
+        type: 'userTask', // exclusiveGateway
+        description: 'Execute a piece of code to implement custom logic',
+        icon: {
+          type: 'icon-code',
+          bgColor: 'pink',
+        },
+      },
+      {
+        title: 'Merge Nodes',
+        type: 'Merge',
+        icon: {
+          type: 'icon-gongju',
+          bgColor: '#9E6BE6',
+        },
+      },
+      {
+        title: 'Format',
+        type: 'Format',
+        icon: {
+          type: 'icon-code',
+          bgColor: '#F759AB',
+        },
+      },
+      {
+        title: 'Call Activity',
+        type: 'callActivity',
+        description: 'Allow server requests to be sent via HTTP protocol',
+        icon: {
+          type: 'icon-http',
+          bgColor: '#2E90FA',
+        },
+      },
+    ],
+  },
   {
     name: 'primitive',
     schema: [
@@ -877,6 +1070,80 @@ export const widgets = [
 ];
 
 export const data = [
+  {
+    name: 'no-schema',
+    domain: 'no-schema',
+    content: {
+      nodes: [
+        {
+          id: '1',
+          type: 'Start',
+          data: {},
+          position: {
+            x: 40,
+            y: 240,
+          },
+        },
+        {
+          id: '2',
+          type: 'End',
+          data: {},
+          position: {
+            x: 500,
+            y: 240,
+          },
+        },
+      ],
+      edges: [{ source: '1', target: '2', id: '234123' }],
+    },
+    props: {
+      nodeSelector: {
+        showSearch: true,
+      },
+      globalConfig: {
+        nodePanel: {
+          width: 510,
+          hideDesc: true,
+          onClose: (nodeId: any) => {
+            console.log('onClose', nodeId);
+          },
+        },
+        nodeView: {
+          hideTitleTips: true,
+          status: [
+            { value: 'processing', color: '#1890FF', name: 'Processing' },
+            { value: 'success', color: '#52c41a', name: 'Success' },
+            { value: 'error', color: '#ff4d4f', name: 'Failed' },
+            { value: 'warning', color: '#faad14', name: 'warning' },
+          ],
+        },
+        edge: {
+          hideEdgeAddBtn: false,
+          hideEdgeDelBtn: false,
+          deletable: true,
+        },
+        controls: {
+          hideAddNode: false,
+          hideAnnotate: false,
+        },
+        handle: {
+          // isValidConnection: HandleProps['isValidConnection']
+        },
+        deleteKeyCode: null,
+      },
+      logPanel: {
+        logList: [], //  TLogListItem[]: statusPanel, codePanel, nodeId
+        loading: false,
+        logWidget: null, //Custom log panel component
+        width: 250, //Log panel width
+      },
+      readOnly: false, //Read-only mode
+      // onNodeClick
+      // onMenuItemClick
+      // clickAddNode: type, nodeItem, addNode(initData)
+    },
+    widgets: {},
+  },
   {
     name: 'primitive',
     domain: 'general',

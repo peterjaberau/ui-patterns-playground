@@ -63,6 +63,7 @@ export interface TNodePanel {
   width?: string | number; // Configure panel width
   hideDesc?: boolean; // Configuration panel description
   onClose?: (activeNodeId: string) => void;
+  hidden?: boolean; // Is it visible
 }
 
 export interface TNodeSelector {
