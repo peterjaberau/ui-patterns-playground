@@ -243,6 +243,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
 
   const deletable = globalConfig?.edge?.deletable ?? true;
   const panelonClose = globalConfig?.nodePanel?.onClose;
+  const isNodePanelHidden = globalConfig?.nodePanel?.hidden || false;
 
   const getNodesJ = (nodes: any) => {
     const result = nodes.map((item: any) => {
@@ -323,7 +324,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
         <CandidateNode />
         <Operator addNode={handleAddNode} xflowRef={workflowContainerRef} />
         <Background gap={[16, 16]} size={0.6} color="black" variant={BackgroundVariant.Dots} />
-        {activeNode && openPanel && (
+        {activeNode && openPanel && !isNodePanelHidden && (
           <PanelContainer
             id={activeNode?.id}
             nodeType={activeNode?._nodeType}

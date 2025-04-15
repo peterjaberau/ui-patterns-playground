@@ -1102,6 +1102,7 @@ export const data = [
       },
       globalConfig: {
         nodePanel: {
+          hidden: true,
           width: 510,
           hideDesc: true,
           onClose: (nodeId: any) => {
