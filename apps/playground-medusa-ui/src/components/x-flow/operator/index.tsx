@@ -1,9 +1,8 @@
 'use client';
-import { memo } from 'react';
+import { type Dispatch, memo, type SetStateAction, useState } from 'react';
 import ZoomInOut from './ZoomInOut';
 import UndoRedo from './UndoRedo';
 import Control from './Control';
-
 import './index.css';
 import { useTemporalStore } from '../hooks/useTemporalStore';
 

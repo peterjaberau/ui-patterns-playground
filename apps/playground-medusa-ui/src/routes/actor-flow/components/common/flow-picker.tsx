@@ -3,12 +3,16 @@ import { useState, useCallback } from 'react';
 import { useFlowActorRef, useFlowActorSelector } from '../flow-machine/context';
 import { metadata } from '../flow/config';
 
-const selectFlowActorState = (snapshot: any) => snapshot.context;
+const flowContextSelector = (snapshot: any) => snapshot.context;
+const flowStateSelector = (snapshot: any) => snapshot;
+const currentFlowNameSelector = (snapshot: any) => snapshot.context.flow.name;
+const isIdleSelector = (snapshot: any) => snapshot.matches('idle');
 
 export function FlowPicker() {
   const { send } = useFlowActorRef();
-  const flowActorState = useFlowActorSelector(selectFlowActorState);
-  console.log('flowActorState', flowActorState);
+  const flowState = useFlowActorSelector(flowContextSelector);
+  const currentFlowName = useFlowActorSelector(currentFlowNameSelector);
+  const isIdle = useFlowActorSelector(isIdleSelector);
 
   const [popoverActive, setPopoverActive] = useState(false);
   const [selected, setSelected] = useState(null);
@@ -17,14 +21,15 @@ export function FlowPicker() {
 
   const activator = (
     <Button onClick={togglePopoverActive} disclosure>
-      {selected || 'Select a flow'}
+      {currentFlowName || 'Select a flow'}
     </Button>
   );
 
   const handleItemAction = (item: any) => {
-    setSelected(item);
     setPopoverActive(false);
-    send({ type: 'flow.load', payload: { name: item } });
+    if (isIdle) {
+      send({ type: 'flow.load', payload: { name: item } });
+    }
   };
 
   return (

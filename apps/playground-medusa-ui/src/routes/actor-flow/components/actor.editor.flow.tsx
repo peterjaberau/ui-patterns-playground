@@ -7,13 +7,24 @@ import React, { useState } from 'react';
 import { getFlowConfig, getDomainSchema, getFlowWidgets } from './flow/config';
 import './flow/index.css';
 import { FlowPicker } from './common/flow-picker';
-
 import { useFlowActorRef, useFlowActorSelector } from './flow-machine/context';
+import { FlowWidgetDevTools } from '@/routes/actor-flow/components/flow/flowWidgets';
+
 const selectFlowActorState = (snapshot: any) => snapshot.context;
 
 export const ActorEditorFlow = () => {
-  const flowActorState = useFlowActorSelector(selectFlowActorState);
-  console.log('flowActorState', flowActorState);
+  const flowActorRef: any = useFlowActorRef();
+
+  const flowState: any = useFlowActorSelector((snapshot) => snapshot);
+  const flowContext: any = useFlowActorSelector((snapshot) => snapshot.context);
+  // const isBusy: any = useFlowActorSelector((snapshot) => snapshot.matches('busy'));
+  const isIdle: any = useFlowActorSelector((snapshot) => snapshot.matches('idle'));
+  const isBusy: any = useFlowActorSelector((snapshot) => snapshot.matches('busy'));
+
+  console.log('----flowState----', flowState);
+  console.log('----flowContext----', flowContext);
+  console.log('-----isIdle------', isIdle);
+  console.log('-----isBusy------', isBusy);
 
   const handleCreateActorInstance = () => {};
   const [flowSettings, setFlowSettings] = React.useState(getDomainSchema({ name: 'general' })); //primitive
@@ -22,6 +33,13 @@ export const ActorEditorFlow = () => {
   const [flowWidgets, setFlowWidgets] = React.useState(getFlowWidgets({ name: 'general' })); //primitive
   const [loading, setLoading] = useState(false);
   const [logList, setLogList] = useState<any[]>(flowConfig.logs || []);
+
+  // console.log('flowActorState--', {
+  //   'flowActorState.initialValues': flowActorState.flow.initialValues,
+  //   'flowActorState.settings': flowActorState.flow.settings,
+  //   initialValues: flowConfig.content,
+  //   settings: flowSettings?.schema,
+  // });
 
   return (
     <>
@@ -44,22 +62,24 @@ export const ActorEditorFlow = () => {
         </div>
 
         <div className="flex p-4">
-          <FlowProvider>
-            <div style={{ height: '800px', width: '100%', position: 'relative' }}>
-              {/* ...flowConfig.props */}
+          <div style={{ height: '800px', width: '100%', position: 'relative' }}>
+            {/* ...flowConfig.props */}
+
+            {isIdle && (
               <XFlow
-                {...flowActorState.flow?.props}
-                initialValues={flowActorState.flow.initialValues}
-                settings={flowActorState.flow?.settings.settingSchema}
+                key={flowContext.flow.name}
+                {...flowContext.flow.props} //{...flowConfig.props}
+                initialValues={flowContext?.flow?.initialValues}
+                settings={flowContext?.flow?.settings || []}
                 onTesting={(node: any, nodes: any) => {}}
                 logPanel={{
                   logList,
                   loading,
                 }}
-                widgets={flowActorState.flow?.widgets}
+                widgets={flowContext.flow.widgets} //{...flowWidgets}
               />
-            </div>
-          </FlowProvider>
+            )}
+          </div>
         </div>
       </Container>
     </>

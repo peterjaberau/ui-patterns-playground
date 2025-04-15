@@ -40,6 +40,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
   const storeApi = useStoreApi();
   const { zoomTo } = useReactFlow();
   const {
+    key,
     layout,
     nodes,
     edges,
@@ -54,6 +55,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
     setMousePosition,
   } = useStore(
     (s) => ({
+      key: s.key,
       nodes: s.nodes,
       edges: s.edges,
       setNodes: s.setNodes,
@@ -258,6 +260,7 @@ const XFlow: FC<FlowProps> = memo((props) => {
   return (
     <div id="xflow-container" ref={workflowContainerRef}>
       <ReactFlow
+        key={key}
         panOnDrag={panOnDrag}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}

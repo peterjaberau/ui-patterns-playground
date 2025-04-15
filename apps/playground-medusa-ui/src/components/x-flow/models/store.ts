@@ -25,6 +25,7 @@ export type FlowStore = ReturnType<typeof createStore>;
 export type FlowNode = Node;
 
 export type FlowState = {
+  key?: string;
   layout?: 'LR' | 'TB';
   nodes?: FlowNode[];
   edges?: Edge[];
@@ -91,7 +92,9 @@ const createStore = (initProps?: Partial<FlowProps>) => {
           set({ edges });
         },
         addNodes: (payload, isTransform = true) => {
-          const newNodes = get().nodes.concat(transformNodes(Array.isArray(payload) ? payload : [payload]));
+          const newNodes: any = (get().nodes as any).concat(
+            transformNodes(Array.isArray(payload) ? payload : [payload]),
+          );
           set({ nodes: newNodes });
         },
         addEdges: (payload) => {

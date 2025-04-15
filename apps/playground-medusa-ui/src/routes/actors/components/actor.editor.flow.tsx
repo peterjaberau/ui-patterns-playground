@@ -6,8 +6,6 @@ import Link from 'next/link';
 import XFlow, { FlowProvider } from '@/components/x-flow';
 import React, { useState } from 'react';
 import { getFlowConfig, getDomainSchema, getFlowWidgets } from './flow/config';
-import { NodeWidgetHTTP, NodeWidgetLLM, NodeWidgetClassifier } from './flow/nodeWidgets';
-import { SettingWidgetSimple, SettingWidgetAdvanced } from './flow/settingWidgets';
 import './flow/index.css';
 
 export const ActorEditorFlow = () => {

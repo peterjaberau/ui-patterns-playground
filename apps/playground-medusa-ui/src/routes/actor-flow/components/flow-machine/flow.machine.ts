@@ -8,7 +8,13 @@ import set from 'set-value';
 export const flowMachine = setup({
   types: {
     events: {} as {
-      type: 'flow.load' | 'nodeInstance.spawn' | 'nodeInstance.kill' | 'nodeInstance.select' | 'nodeInstance.editNew';
+      type:
+        | 'flow.load'
+        | 'nodeInstance.spawn'
+        | 'nodeInstance.kill'
+        | 'nodeInstance.select'
+        | 'nodeInstance.editNew'
+        | any;
       [k: string]: any;
     } as any,
     context: {} as {
@@ -35,14 +41,14 @@ export const flowMachine = setup({
           latestSelectedNodes: Map<string, any>;
         }
       >;
-    },
+    } as any,
   } as any,
   actions: {
     flowLoad: assign(({ context, event }) => {
-      assertEvent(event, 'flow.load');
-      const { name } = event.payload;
+      // assertEvent(event, 'flow.load');
+      const name = event.payload?.name ?? 'primitive';
+
       const flowDetails = getFlowDetails({ name });
-      console.log('---flowDetails----', flowDetails);
 
       return create(context, (draft) => {
         draft.flow = flowDetails;
@@ -108,7 +114,7 @@ export const flowMachine = setup({
   },
 }).createMachine({
   id: 'flowMachine',
-  initial: 'idle',
+  initial: 'busy',
   context: {
     flow: {
       initialValues: {
@@ -129,9 +135,17 @@ export const flowMachine = setup({
     },
   },
   states: {
+    busy: {
+      always: {
+        target: 'idle',
+        actions: ['flowLoad'],
+      },
+      target: 'idle',
+    },
     idle: {
       on: {
         'flow.load': {
+          target: 'busy',
           actions: ['flowLoad'],
         },
         'nodeInstance.editNew': {

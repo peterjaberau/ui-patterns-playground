@@ -1,6 +1,8 @@
 import '@ant-design/v5-patch-for-react-19';
 
 import '../styles/globals.css';
+import 'react18-json-view/src/style.css';
+
 import { MainLayout } from '@/components/layout/main-layout';
 import { AppInstance } from '@/layers/app-instance';
 import { ProtectedRoute } from '@/layers/protected-route';

@@ -115,6 +115,7 @@ export interface THandle {
   isValidConnection?: HandleProps['isValidConnection'];
 }
 export interface FlowProps {
+  key?: string;
   initialValues?: {
     nodes: any[];
     edges: any;
