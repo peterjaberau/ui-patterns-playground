@@ -21,11 +21,6 @@ export const ActorEditorFlow = () => {
   const isIdle: any = useFlowActorSelector((snapshot) => snapshot.matches('idle'));
   const isBusy: any = useFlowActorSelector((snapshot) => snapshot.matches('busy'));
 
-  console.log('----flowState----', flowState);
-  console.log('----flowContext----', flowContext);
-  console.log('-----isIdle------', isIdle);
-  console.log('-----isBusy------', isBusy);
-
   const handleCreateActorInstance = () => {};
   const [flowSettings, setFlowSettings] = React.useState(getDomainSchema({ name: 'general' })); //primitive
 
@@ -33,13 +28,6 @@ export const ActorEditorFlow = () => {
   const [flowWidgets, setFlowWidgets] = React.useState(getFlowWidgets({ name: 'general' })); //primitive
   const [loading, setLoading] = useState(false);
   const [logList, setLogList] = useState<any[]>(flowConfig.logs || []);
-
-  // console.log('flowActorState--', {
-  //   'flowActorState.initialValues': flowActorState.flow.initialValues,
-  //   'flowActorState.settings': flowActorState.flow.settings,
-  //   initialValues: flowConfig.content,
-  //   settings: flowSettings?.schema,
-  // });
 
   return (
     <>

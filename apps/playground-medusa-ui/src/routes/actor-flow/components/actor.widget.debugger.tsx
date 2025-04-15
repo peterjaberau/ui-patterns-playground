@@ -9,20 +9,16 @@ import JsonView from 'react18-json-view';
 
 const tabs = [
   {
+    id: 'selected-node',
+    content: 'Node',
+  },
+  {
     id: 'dev-tools',
-    content: 'Dev tools',
+    content: 'Dev',
   },
   {
     id: 'dev-xray',
-    content: 'Dev xRay',
-  },
-  {
-    id: 'flow-watch',
-    content: 'Flow watch',
-  },
-  {
-    id: 'flow-state',
-    content: 'Flow state',
+    content: 'x-ray',
   },
   {
     id: 'flow-context',
@@ -40,6 +36,12 @@ const nodesInpector = (nodes: any) => {
   });
 };
 
+const getSelectedNode = ({ nodes, settings }: any) => {
+  const selectedNode = nodes.find((node: any) => node.selected === true);
+  const schema = settings.schema;
+  return nodes.find((node: any) => node.selected === true);
+};
+
 export const ActorWidgetDebugger = () => {
   const [selectedTab, setSelectedTab] = useState('dev-tools');
   const [selectedState, selectSelectedState] = useState(selectedTab);
@@ -49,6 +51,8 @@ export const ActorWidgetDebugger = () => {
 
   const debuggerPayload = useFlowActorSelector((snapshot) => {
     switch (selectedTab) {
+      case 'selected-node':
+        return nodes.find((node) => node.selected === true);
       case 'dev-tools':
         return nodesInpector(nodes);
       case 'dev-xray':
@@ -57,10 +61,6 @@ export const ActorWidgetDebugger = () => {
           edges: edges,
           flow: flow,
         };
-      case 'flow-watch':
-        return snapshot.context.flow;
-      case 'flow-state':
-        return snapshot;
       case 'flow-context':
         return snapshot.context;
       default:

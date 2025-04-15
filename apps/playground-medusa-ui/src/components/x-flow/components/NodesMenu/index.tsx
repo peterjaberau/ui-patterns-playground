@@ -5,6 +5,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { ConfigContext } from '../../models/context';
 import { useSet } from '../../utils/hooks';
 import createIconFont from '../../utils/createIconFont';
+import { searchSettingsNodeList } from '../../utils/nodes';
 import { TNodeMenu } from '../../types';
 import './index.css';
 
@@ -15,25 +16,13 @@ const searchNodeList = (query: string, list: any[]) => {
   }
   const searchTerm = query.toLowerCase();
 
-  function searchList(nodes: any, preResult = []) {
-    if (nodes.length === 0) {
-      return preResult;
-    }
+  return searchSettingsNodeList({
+    nodes: list,
+    searchTerm: searchTerm,
+    predicate: (node: any, term: string) => node.title.toLowerCase().includes(term),
+  });
 
-    const [currentNode, ...restNodes] = nodes;
-    let result: any = [...preResult];
-
-    if (currentNode.title.toLowerCase().includes(searchTerm)) {
-      result.push(currentNode);
-    } else if (currentNode?.type === '_group' && currentNode.items) {
-      const matchingItems = searchList(currentNode.items);
-      if (matchingItems.length > 0) {
-        result.push({ ...currentNode, items: matchingItems });
-      }
-    }
-    return searchList(restNodes, result);
-  }
-  return searchList(list);
+  // return searchNodeFromSettings({ nodes: list, searchTerm: searchTerm });
 };
 
 // Detailed description of the floating menu item
