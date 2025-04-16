@@ -4,28 +4,45 @@ import { Container, Heading, Text } from '@medusajs/ui';
 import Link from 'next/link';
 import XFlow, { FlowProvider } from '@/components/x-flow';
 import React, { useState } from 'react';
-import { getFlowConfig, getDomainSchema, getFlowWidgets } from './flow/config';
+import { getFlowConfig, getDomainSchema } from './flow/config';
 import './flow/index.css';
 import { FlowPicker } from './common/flow-picker';
+import { FlowToolbar } from './common/flow-toolbar';
 import { useFlowActorRef, useFlowActorSelector } from './flow-machine/context';
-import { FlowWidgetDevTools } from '@/routes/actor-flow/components/flow/flowWidgets';
+import { InlineStack } from '@shopify/polaris';
+import { omit } from 'lodash';
 
 const selectFlowActorState = (snapshot: any) => snapshot.context;
+const flowPropsSelector = (snapshot: any) => snapshot.context.flow.props;
+const flowContextSelector = (snapshot: any) => snapshot.context;
+const flowStateSelector = (snapshot: any) => snapshot;
+const isIdleSelector = (snapshot: any) => snapshot.matches('idle');
+const isBusySelector = (snapshot: any) => snapshot.matches('busy');
+const flowKeySelector = (snapshot: any) => snapshot.context.flow.key;
+const currentFlowNameSelector = (snapshot: any) => snapshot.context.flow.name;
 
 export const ActorEditorFlow = () => {
   const flowActorRef: any = useFlowActorRef();
 
-  const flowState: any = useFlowActorSelector((snapshot) => snapshot);
-  const flowContext: any = useFlowActorSelector((snapshot) => snapshot.context);
-  // const isBusy: any = useFlowActorSelector((snapshot) => snapshot.matches('busy'));
-  const isIdle: any = useFlowActorSelector((snapshot) => snapshot.matches('idle'));
-  const isBusy: any = useFlowActorSelector((snapshot) => snapshot.matches('busy'));
+  const flowState = useFlowActorSelector(flowContextSelector);
+  const flowContext = useFlowActorSelector(selectFlowActorState);
+  const isIdle = useFlowActorSelector(isIdleSelector);
+  const isBusy = useFlowActorSelector(isBusySelector);
+  const flowProps = useFlowActorSelector(flowPropsSelector);
+  const flowKey = useFlowActorSelector(flowKeySelector);
+  const currentFlowName = useFlowActorSelector(currentFlowNameSelector);
 
-  const handleCreateActorInstance = () => {};
-  const [flowSettings, setFlowSettings] = React.useState(getDomainSchema({ name: 'general' })); //primitive
+  console.log('flow.....', {
+    flowState,
+    flowContext,
+    isIdle,
+    isBusy,
+    flowProps,
+    flowKey,
+    currentFlowName,
+  });
 
   const [flowConfig, setFlowConfig] = React.useState(getFlowConfig({ name: 'basic' })); //primitive
-  const [flowWidgets, setFlowWidgets] = React.useState(getFlowWidgets({ name: 'general' })); //primitive
   const [loading, setLoading] = useState(false);
   const [logList, setLogList] = useState<any[]>(flowConfig.logs || []);
 
@@ -33,19 +50,14 @@ export const ActorEditorFlow = () => {
     <>
       <Container className="divide-y p-0">
         <div className="flex items-center justify-between px-6 py-4">
-          <Heading>{'Flow Editor'}</Heading>
+          <Heading>
+            <InlineStack gap="400" align="center">
+              {'Flow Editor'}
+              <FlowPicker />
+            </InlineStack>
+          </Heading>
           <div className="flex items-center gap-x-2">
-            <FlowPicker />
-            <Link href={`/actors/open/default-flow-id?mode=modal`}>
-              <Button size="small" variant="danger">
-                Default Modal
-              </Button>
-            </Link>
-            <Link href={`/actors/open/default-flow-id?mode=drawer`}>
-              <Button size="small" variant="secondary">
-                Default Drawer
-              </Button>
-            </Link>
+            <FlowToolbar />
           </div>
         </div>
 
@@ -55,8 +67,9 @@ export const ActorEditorFlow = () => {
 
             {isIdle && (
               <XFlow
-                key={flowContext.flow.name}
-                {...flowContext.flow.props} //{...flowConfig.props}
+                key={flowKey}
+                {...omit(flowProps, ['layout'])}
+                layout={flowProps.layout === 'manual' ? undefined : flowProps.layout}
                 initialValues={flowContext?.flow?.initialValues}
                 settings={flowContext?.flow?.settings || []}
                 onTesting={(node: any, nodes: any) => {}}
@@ -64,7 +77,7 @@ export const ActorEditorFlow = () => {
                   logList,
                   loading,
                 }}
-                widgets={flowContext.flow.widgets} //{...flowWidgets}
+                widgets={{ ...flowContext.flow.widgets }} //{...flowWidgets}
               />
             )}
           </div>

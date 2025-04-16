@@ -8,6 +8,8 @@ export const ActorInstances = () => {
   const actorInstances = useActorRootSelector((state) => state.context.actorInstances);
   const { send } = useActorRootRef();
 
+  console.log('ActorInstances', actorInstances);
+
   return (
     <>
       <Container className="h-full divide-y p-0">

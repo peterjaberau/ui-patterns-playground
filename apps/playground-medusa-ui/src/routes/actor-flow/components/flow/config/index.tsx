@@ -1,9 +1,9 @@
 import { NodeWidgetClassifier, NodeWidgetHTTP, NodeWidgetLLM } from '@/routes/actor-flow/components/flow/nodeWidgets';
 import { SettingWidgetAdvanced, SettingWidgetSimple } from '@/routes/actor-flow/components/flow/settingWidgets';
-
+import { NodeWidgetRenderer } from '../../domains/node.widget.renderer';
 export const metadata = {
-  domains: ['no-schema', 'primitive', 'general'],
-  flows: ['no-schema', 'primitive', 'basic', 'best', 'runtime'],
+  domains: ['ui', 'no-schema', 'primitive', 'general'],
+  flows: ['ui', 'no-schema', 'primitive', 'basic', 'best', 'runtime'],
 };
 
 export const referenceSchema = {
@@ -44,6 +44,210 @@ export const referenceSchema = {
 };
 
 export const domainSchema = [
+  {
+    name: 'ui',
+    schema: [
+      {
+        title: 'Viewer Catalog',
+        description: 'Pick a component to render',
+        type: 'NodeViewerCatalog',
+        icon: {
+          type: 'icon-start',
+          bgColor: '#17B26A',
+        },
+        sourceHandleHidden: false,
+        targetHandleHidden: true,
+        nodeWidget: 'NodeWidgetRenderer',
+        settingSchema: {
+          type: 'object',
+          properties: {
+            ref: {
+              type: 'object',
+              properties: {
+                id: {
+                  title: 'ID',
+                  type: 'string',
+                },
+                component: {
+                  title: 'Component',
+                  type: 'string',
+                  default: 'NodeViewerCatalog',
+                },
+                props: {
+                  title: 'Props',
+                  type: 'object',
+                  default: {},
+                },
+              },
+            },
+            data: {
+              type: 'object',
+              properties: {
+                name: {
+                  type: 'string',
+                  title: 'Name',
+                },
+                description: {
+                  type: 'string',
+                  title: 'Description',
+                },
+                list: {
+                  title: 'List of registered components in the catalog',
+                  type: 'array',
+                  items: {
+                    type: 'string',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      {
+        title: 'Component Preview',
+        description: 'Component Preview',
+        type: 'NodeViewerComponent',
+        sourceHandleHidden: false,
+        targetHandleHidden: false,
+        icon: {
+          type: 'icon-start',
+          bgColor: '#17B26A',
+        },
+        nodeWidget: 'NodeWidgetRenderer',
+        settingSchema: {
+          type: 'object',
+          properties: {
+            ref: {
+              type: 'object',
+              properties: {
+                id: {
+                  title: 'ID',
+                  type: 'string',
+                },
+                component: {
+                  title: 'Component',
+                  type: 'string',
+                  default: 'NodeViewerComponent',
+                },
+                props: {
+                  title: 'Props',
+                  type: 'object',
+                  default: {},
+                },
+              },
+            },
+            data: {
+              type: 'object',
+              properties: {
+                name: {
+                  type: 'string',
+                  title: 'Name',
+                },
+                description: {
+                  type: 'string',
+                  title: 'Description',
+                },
+              },
+            },
+          },
+        },
+      },
+      {
+        title: 'Viewer Specifications',
+        description: 'Component API references',
+        type: 'NodeViewerSpecifications',
+        icon: {
+          type: 'icon-start',
+          bgColor: '#17B26A',
+        },
+        nodeWidget: 'NodeWidgetRenderer',
+        settingSchema: {
+          type: 'object',
+          properties: {
+            ref: {
+              type: 'object',
+              properties: {
+                id: {
+                  title: 'ID',
+                  type: 'string',
+                },
+                component: {
+                  title: 'Component',
+                  type: 'string',
+                  default: 'NodeViewerSpecifications',
+                },
+                props: {
+                  title: 'Props',
+                  type: 'object',
+                  default: {},
+                },
+              },
+            },
+            data: {
+              type: 'object',
+              properties: {
+                name: {
+                  type: 'string',
+                  title: 'Name',
+                },
+                description: {
+                  type: 'string',
+                  title: 'Description',
+                },
+              },
+            },
+          },
+        },
+      },
+      {
+        title: 'Viewer State',
+        description: 'Component state',
+        type: 'NodeViewerState',
+        icon: {
+          type: 'icon-start',
+          bgColor: '#17B26A',
+        },
+        nodeWidget: 'NodeWidgetRenderer',
+        settingSchema: {
+          type: 'object',
+          properties: {
+            ref: {
+              type: 'object',
+              properties: {
+                id: {
+                  title: 'ID',
+                  type: 'string',
+                },
+                component: {
+                  title: 'Component',
+                  type: 'string',
+                  default: 'NodeViewerState',
+                },
+                props: {
+                  title: 'Props',
+                  type: 'object',
+                  default: {},
+                },
+              },
+            },
+            data: {
+              type: 'object',
+              properties: {
+                name: {
+                  type: 'string',
+                  title: 'Name',
+                },
+                description: {
+                  type: 'string',
+                  title: 'Description',
+                },
+              },
+            },
+          },
+        },
+      },
+    ],
+  },
   {
     name: 'no-schema',
     schema: [
@@ -621,6 +825,7 @@ export const domainSchema = [
             type: 'End',
             hidden: false,
             sourceHandleHidden: true,
+
             icon: {
               type: 'icon-end',
               bgColor: '#F79009',
@@ -1052,6 +1257,13 @@ export const domainSchema = [
 
 export const widgets = [
   {
+    name: 'ui',
+    domain: 'ui',
+    widgets: {
+      NodeWidgetRenderer,
+    },
+  },
+  {
     name: 'primitive',
     domain: 'primitive',
     widgets: {},
@@ -1070,6 +1282,71 @@ export const widgets = [
 ];
 
 export const data = [
+  {
+    name: 'ui',
+    domain: 'ui',
+    content: {
+      nodes: [
+        {
+          id: '1',
+          type: 'NodeViewerCatalog',
+          data: {
+            ref: {
+              id: 'actor-1',
+              component: 'NodeViewerCatalog',
+            },
+            data: {
+              title: 'data.title (actor-1)',
+              description: 'data.description (actor-1)',
+              list: ['Button', 'Avatar', 'Tag'],
+            },
+            title: 'Viewer Catalog (Start)',
+          },
+          position: {
+            x: 10,
+            y: 270,
+          },
+        },
+        {
+          id: '2',
+          type: 'NodeViewerComponent',
+          data: {
+            ref: {
+              id: 'actor-2',
+              component: 'NodeViewerComponent',
+            },
+            data: {
+              title: 'data.title (actor-2)',
+              description: 'data.description (actor-2)',
+            },
+            title: 'Component Preview',
+          },
+          position: {
+            x: 500,
+            y: 350,
+          },
+        },
+      ],
+      edges: [
+        {
+          source: '1',
+          target: '2',
+          id: '1-2',
+        },
+      ],
+    },
+    props: {
+      nodeSelector: {
+        showSearch: true,
+      },
+      globalConfig: {
+        nodePanel: {
+          hidden: true,
+        },
+      },
+    },
+    widgets: { NodeWidgetRenderer },
+  },
   {
     name: 'no-schema',
     domain: 'no-schema',
@@ -1142,6 +1419,7 @@ export const data = [
       // onNodeClick
       // onMenuItemClick
       // clickAddNode: type, nodeItem, addNode(initData)
+      layout: 'TB', //TB, LR, RL, BT & M
     },
     widgets: {},
   },
@@ -1761,14 +2039,6 @@ export const getDomainSchema = ({ name }: any) => {
     domainSchema.find((item) => item.name === 'general');
   }
   return domainConfig;
-};
-
-export const getFlowWidgets = ({ name }: any) => {
-  const flowWidgets = widgets.find((item) => item.name === name);
-  if (!flowWidgets) {
-    return {};
-  }
-  return flowWidgets.widgets;
 };
 
 export const getFlowDetails = ({ name }: any) => {

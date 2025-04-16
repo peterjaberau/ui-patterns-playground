@@ -1,9 +1,10 @@
 import { getRandomString } from './utils';
 import { nodeMachine } from './node.machine';
 import { getFlowDetails } from '../flow/config';
-import { ActorRefFrom, assertEvent, assign, enqueueActions, setup, stopChild } from 'xstate';
+import { ActorRefFrom, assertEvent, assign, enqueueActions, fromPromise, setup, stopChild } from 'xstate';
 import { create } from 'mutative';
 import set from 'set-value';
+import { Ok, Result } from 'ts-results';
 
 export const flowMachine = setup({
   types: {
@@ -19,12 +20,45 @@ export const flowMachine = setup({
     } as any,
     context: {} as {
       flow: {
+        key: string | any;
         name: string | any;
         domain: string | any;
         initialValues: { nodes: any[]; edges: any[] };
         settings: { title: string; type: string; icon: any; settingSchema: any; [k: string]: any };
         props: {
           nodeSelector: { showSearch: boolean } | any;
+          globalConfig?: {
+            nodePanel?: {
+              hidden?: boolean;
+              width?: number;
+              hideDesc?: boolean;
+              onClick?: (nodeId: any) => void;
+            };
+            nodeView?: {
+              hideTitleTips?: boolean;
+              status?: {
+                value?: string;
+                color?: string;
+                name?: string;
+              }[];
+            };
+            edges?: {
+              hideEdgeAddBtn?: boolean;
+              hideEdgeDelBtn?: boolean;
+              deletable?: boolean;
+            };
+            controls?: {
+              hideAddNode?: boolean;
+              hideAnnotate?: boolean;
+            };
+          };
+          logPanel?: {
+            logList?: any[];
+            loading?: boolean;
+            logWidget?: any;
+            width?: number;
+          };
+          readOnly?: boolean;
           [k: string]: any;
         };
       };
@@ -46,12 +80,28 @@ export const flowMachine = setup({
   actions: {
     flowLoad: assign(({ context, event }) => {
       // assertEvent(event, 'flow.load');
-      const name = event.payload?.name ?? 'primitive';
+      const name = event.payload?.name ?? 'ui';
 
       const flowDetails = getFlowDetails({ name });
 
       return create(context, (draft) => {
-        draft.flow = flowDetails;
+        draft.flow = {
+          key: name,
+          ...flowDetails,
+        };
+      });
+    }),
+
+    flowUpdateProps: assign(({ context, event }) => {
+      assertEvent(event, 'flow.updateProps');
+      const { flow } = context;
+      const { name, value } = event.payload;
+
+      return create(context, (draft) => {
+        draft.flow.props = {
+          ...context.flow.props,
+          ...event.payload,
+        };
       });
     }),
 
@@ -112,6 +162,24 @@ export const flowMachine = setup({
       console.log({ context });
     },
   },
+  actors: {
+    nodeMachine,
+    getInitialContext: fromPromise(async ({ input }: any) => {
+      await new Promise((res) => setTimeout(res, 1_00));
+
+      const name = input?.name ?? 'primitive';
+      const flowDetails = getFlowDetails({ name });
+
+      return new Ok({
+        name: flowDetails.name,
+        domain: flowDetails.domain,
+        initialValues: flowDetails.initialValues,
+        settings: flowDetails.settings,
+        widgets: flowDetails.widgets,
+        props: flowDetails.props,
+      });
+    }),
+  },
 }).createMachine({
   id: 'flowMachine',
   initial: 'busy',
@@ -121,7 +189,10 @@ export const flowMachine = setup({
         nodes: [],
         edges: [],
       },
-      props: {},
+      key: undefined,
+      props: {
+        layout: false,
+      },
       settings: {
         settingSchema: [],
       },
@@ -147,6 +218,9 @@ export const flowMachine = setup({
         'flow.load': {
           target: 'busy',
           actions: ['flowLoad'],
+        },
+        'flow.updateProps': {
+          actions: ['flowUpdateProps'],
         },
         'nodeInstance.editNew': {
           actions: ['nodeInstanceEditNew', 'logContext'],

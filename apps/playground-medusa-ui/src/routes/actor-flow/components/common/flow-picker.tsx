@@ -20,7 +20,7 @@ export function FlowPicker() {
   const togglePopoverActive = useCallback(() => setPopoverActive((popoverActive) => !popoverActive), []);
 
   const activator = (
-    <Button onClick={togglePopoverActive} disclosure>
+    <Button variant="primary" onClick={togglePopoverActive} disclosure>
       {currentFlowName || 'Select a flow'}
     </Button>
   );
